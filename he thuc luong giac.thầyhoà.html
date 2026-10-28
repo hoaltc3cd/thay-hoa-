@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ai là triệu phú – Hệ thức lượng trong tam giác</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#fff;background:radial-gradient(ellipse at center,#14634a 0%,#0a3427 80%);border:10px solid #8a5a2b;overflow:hidden}
+.screen{display:none;flex-direction:column;height:calc(100dvh - 20px);padding:10px 16px;gap:10px}
+.screen.active{display:flex}
+h1{margin:0;text-align:center;font-size:clamp(26px,4.4vw,62px);color:#ffd84a;text-shadow:2px 2px 0 #000}
+h2{margin:0;font-size:clamp(20px,2.6vw,36px);color:#ffd84a}
+.sub{text-align:center;font-size:clamp(18px,2.4vw,34px)}
+.wrap{display:flex;gap:16px;flex:1;min-height:0}
+.panel{background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.7);border-radius:14px;padding:12px 16px;flex:1;min-width:0;overflow:auto;font-size:clamp(16px,1.9vw,28px);line-height:1.4}
+.panel ul{margin:6px 0 0;padding-left:22px}
+input{width:100%;font-size:clamp(18px,2.2vw,30px);padding:8px 12px;margin:6px 0;border-radius:10px;border:2px solid #fff;background:#fff;color:#111}
+.btn{font-size:clamp(20px,2.6vw,36px);font-weight:700;padding:10px 24px;border-radius:12px;border:3px solid #fff;background:#e0a100;color:#111;cursor:pointer}
+.btn:hover{background:#ffc928}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.err{color:#ff9d9d;min-height:1.3em;font-size:clamp(16px,1.8vw,26px)}
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;font-size:clamp(18px,2.3vw,34px);font-weight:700}
+.chip{background:rgba(0,0,0,.4);border:2px solid #fff;border-radius:10px;padding:2px 14px;white-space:nowrap}
+#timer{min-width:3.2em;text-align:center;color:#7dff9b}
+#timer.warn{color:#ff6b6b;animation:bl .5s infinite alternate}
+@keyframes bl{to{opacity:.35}}
+.progress{height:10px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}
+#bar{height:100%;width:0;background:#ffd84a;transition:width .4s}
+.lbl{text-align:center;font-size:clamp(16px,1.9vw,28px);color:#bfeeff}
+.main{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:14px;overflow:auto}
+#qtext{background:rgba(0,0,0,.4);border:3px solid #fff;border-radius:16px;padding:16px 22px;text-align:center;font-size:clamp(22px,3.3vw,50px);font-weight:600;line-height:1.35}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{font-size:clamp(20px,2.9vw,44px);text-align:left;padding:14px 18px;border-radius:40px;border:3px solid #fff;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-family:inherit}
+.opt:hover{background:rgba(255,216,74,.3)}
+.opt b{color:#ffd84a;margin-right:6px}
+.opt.good{background:#1b9a42;border-color:#b6ffc9}
+.opt.bad{background:#c62828;border-color:#ffc4c4}
+.opt.gone{visibility:hidden}
+.opt.locked{pointer-events:none}
+.opts.tf .opt{text-align:center;font-weight:800;font-size:clamp(26px,4vw,60px);border-radius:20px;padding:22px}
+.opts.tf .opt:first-child{border-color:#8dffa8}
+.opts.tf .opt:last-child{border-color:#ff9d9d}
+.ll{display:flex;gap:12px;justify-content:center}
+.ll .btn{font-size:clamp(16px,2vw,28px);padding:6px 16px;background:#2a7fc9;color:#fff}
+#fb{display:none;border-radius:14px;padding:10px 18px;gap:14px;align-items:center;border:3px solid #fff;background:rgba(0,0,0,.65)}
+#fb.show{display:flex}
+#fb.ok{border-color:#51e57a}
+#fb.no{border-color:#ff6b6b}
+#fbT{font-size:clamp(22px,3vw,44px);font-weight:800}
+#fb.ok #fbT{color:#7dff9b}
+#fb.no #fbT{color:#ff8a8a}
+#fbE{font-size:clamp(17px,2.2vw,32px);line-height:1.35;margin-top:4px}
+table{width:100%;border-collapse:collapse}
+td,th{padding:4px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25)}
+th{color:#ffd84a}
+.big{font-size:clamp(40px,7vw,100px);color:#ffd84a;font-weight:800;text-align:center}
+@media(max-width:760px){.wrap{flex-direction:column}.opts{grid-template-columns:1fr}.opt{border-radius:22px}body{border-width:5px}.screen{height:calc(100dvh - 10px);padding:6px}}
+</style></head><body>
+
+<section id="start" class="screen active">
+  <h1>🎓 AI LÀ TRIỆU PHÚ 🎓</h1>
+  <div class="sub">Chủ đề: <b>HỆ THỨC LƯỢNG TRONG TAM GIÁC</b> · Toán 10</div>
+  <div class="wrap">
+    <div class="panel">
+      <h2>Thông tin người chơi</h2>
+      <input id="inName" placeholder="Họ và tên" maxlength="40" autocomplete="off">
+      <input id="inClass" placeholder="Lớp (ví dụ: 10A1)" maxlength="12" autocomplete="off">
+      <div class="err" id="err"></div>
+      <h2>Luật chơi</h2>
+      <ul>
+        <li><b>50 câu</b>, độ khó tăng dần: 30 câu trắc nghiệm (0,2 điểm/câu) rồi 20 nhận định Đúng/Sai (1,0 điểm/câu). Tối đa <b>26 điểm</b>.</li>
+        <li>Có <b>3 mạng ❤</b>. Trả lời sai hoặc hết giờ mất 1 mạng; hết mạng thì trò chơi kết thúc.</li>
+        <li>Thời gian: 45 giây (trắc nghiệm), 60 giây (Đúng/Sai).</li>
+        <li>Quyền trợ giúp (mỗi loại 1 lần, chỉ phần trắc nghiệm): <b>50:50</b> và <b>Hỏi khán giả</b>.</li>
+        <li>Sau mỗi câu có giải thích. Xếp hạng: điểm cao hơn trước; bằng điểm thì thời gian ngắn hơn.</li>
+      </ul>
+      <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ BẮT ĐẦU</button></p>
+    </div>
+    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div class="top">
+    <span class="chip">Câu <span id="qno"></span></span>
+    <span class="chip">Điểm: <span id="score">0,0</span></span>
+    <span class="chip" id="lives"></span>
+    <span class="chip">⏱ <span id="timer">45</span></span>
+    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff">🔊</button>
+  </div>
+  <div class="progress"><div id="bar"></div></div>
+  <div class="lbl" id="lv"></div>
+  <div class="main">
+    <div id="qtext"></div>
+    <div class="opts" id="opts"></div>
+  </div>
+  <div class="ll"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llAud">👥 Hỏi khán giả</button></div>
+  <div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp theo ▶</button></div>
+</section>
+
+<section id="end" class="screen">
+  <h1 id="endT">HOÀN THÀNH!</h1>
+  <div class="wrap">
+    <div class="panel" style="text-align:center">
+      <div id="endName" class="sub"></div>
+      <div class="big" id="endScore"></div>
+      <div class="sub">Số câu đúng: <b id="endOk"></b> · Thời gian: <b id="endTime"></b></div>
+      <div class="sub" id="endMsg" style="margin-top:8px"></div>
+      <div class="lbl" id="endSave" style="margin-top:8px"></div>
+      <p><button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></p>
+    </div>
+    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+  </div>
+</section>
+
+<script>
+// ===== Cấu hình (ẩn khỏi giao diện): điền URL Web App của Apps Script vào đây =====
+const APPS_SCRIPT_URL = "";
+
+const $ = id => document.getElementById(id);
+const LV = {NB:"Nhận biết",TH:"Thông hiểu",VD:"Vận dụng",VDC:"Vận dụng cao"};
+
+// ===== NGÂN HÀNG CÂU HỎI =====
+// Trắc nghiệm: [mức độ, câu hỏi, đáp án đúng, [3 đáp án sai], giải thích]
+const MC = [
+["NB","Với mọi góc α (0° ≤ α ≤ 180°), sin(180° − α) bằng:","sin α",["−sin α","cos α","−cos α"],"Hai góc bù nhau có sin bằng nhau: sin(180° − α) = sin α."],
+["NB","Với mọi góc α (0° ≤ α ≤ 180°), cos(180° − α) bằng:","−cos α",["cos α","sin α","−sin α"],"Hai góc bù nhau có côsin đối nhau: cos(180° − α) = −cos α."],
+["NB","Định lí côsin trong tam giác ABC (BC = a, CA = b, AB = c):","a² = b² + c² − 2bc·cos A",["a² = b² + c² + 2bc·cos A","a² = b² + c² − 2bc·sin A","a² = b² + c² − bc·cos A"],"Bình phương một cạnh bằng tổng bình phương hai cạnh còn lại trừ hai lần tích hai cạnh đó nhân côsin góc xen giữa."],
+["NB","Gọi R là bán kính đường tròn ngoại tiếp tam giác ABC. Hệ thức nào đúng?","a / sin A = 2R",["a / sin A = R","a / cos A = 2R","a · sin A = 2R"],"Định lí sin: a/sin A = b/sin B = c/sin C = 2R."],
+["NB","Công thức tính diện tích tam giác ABC là:","S = ½·bc·sin A",["S = ½·bc·cos A","S = bc·sin A","S = ½·ab·sin A"],"Diện tích bằng nửa tích hai cạnh nhân sin của góc xen giữa; góc A xen giữa hai cạnh b và c."],
+["NB","Giá trị của sin 30° là:","1/2",["√3/2","√2/2","1"],"Giá trị đặc biệt: sin 30° = 1/2."],
+["NB","Giá trị nào sau đây là số âm?","cos 150°",["sin 150°","cos 30°","tan 45°"],"Góc 150° là góc tù nên cos 150° = −√3/2 < 0; các giá trị còn lại đều dương."],
+["NB","Trong tam giác ABC, cos A bằng:","(b² + c² − a²) / (2bc)",["(a² + b² − c²) / (2bc)","(b² + c² + a²) / (2bc)","(b² + c² − a²) / (2ab)"],"Từ định lí côsin a² = b² + c² − 2bc·cos A suy ra cos A = (b² + c² − a²)/(2bc)."],
+["NB","Công thức Heron tính diện tích tam giác ba cạnh a, b, c:","S = √[p(p−a)(p−b)(p−c)], với p = (a+b+c)/2",["S = p(p−a)(p−b)(p−c), với p = (a+b+c)/2","S = √[p(p−a)(p−b)(p−c)], với p = a+b+c","S = ½·√[(p−a)(p−b)(p−c)]"],"Công thức Heron dùng căn bậc hai của tích p(p−a)(p−b)(p−c), trong đó p là nửa chu vi."],
+["TH","Tam giác ABC có a = 7, b = 8, c = 5. Số đo góc A bằng:","60°",["30°","45°","120°"],"cos A = (8² + 5² − 7²)/(2·8·5) = 40/80 = 1/2 nên A = 60°."],
+["TH","Tam giác ABC có BC = 6 và góc A = 30°. Bán kính đường tròn ngoại tiếp R bằng:","6",["3","12","6√3"],"R = a/(2·sin A) = 6/(2·1/2) = 6."],
+["TH","Tam giác ABC có AB = 6, AC = 8, góc A = 30°. Diện tích tam giác bằng:","12",["24","12√3","6"],"S = ½·6·8·sin 30° = ½·6·8·½ = 12."],
+["TH","Tam giác có độ dài ba cạnh là 6, 8, 10. Diện tích tam giác bằng:","24",["48","30","12"],"Vì 6² + 8² = 10² nên tam giác vuông, S = ½·6·8 = 24 (hoặc Heron với p = 12)."],
+["TH","Giá trị của cos 150° là:","−√3/2",["√3/2","−1/2","1/2"],"cos 150° = −cos 30° = −√3/2 (hai góc bù nhau)."],
+["TH","Tam giác ABC có AB = 3, BC = 5, CA = 6. Giá trị cos B bằng:","−1/15",["1/15","−2/15","2/15"],"cos B = (AB² + BC² − CA²)/(2·AB·BC) = (9 + 25 − 36)/30 = −1/15."],
+["TH","Tam giác ABC có BC = 10, góc A = 30°, góc B = 45°. Độ dài cạnh AC bằng:","10√2",["5√2","10√3","20"],"AC/sin B = BC/sin A nên AC = 10·sin 45°/sin 30° = 10·(√2/2)/(1/2) = 10√2."],
+["TH","Cho sin α = 3/5 với 90° < α < 180°. Giá trị cos α bằng:","−4/5",["4/5","−3/5","3/4"],"cos²α = 1 − 9/25 = 16/25; góc tù nên cos α < 0, vậy cos α = −4/5."],
+["TH","Một mảnh đất hình tam giác có hai cạnh dài 20 m và 30 m, góc xen giữa bằng 60°. Cạnh còn lại dài:","10√7 m (≈ 26,5 m)",["10√19 m (≈ 43,6 m)","10√13 m (≈ 36,1 m)","50 m"],"x² = 20² + 30² − 2·20·30·cos 60° = 700 nên x = 10√7. Các đáp án còn lại ứng với góc xen giữa 120°, 90° và 180°."],
+["TH","Giá trị của P = 2sin 30° + √3·cos 30° − tan 135° bằng:","7/2",["5/2","3/2","1/2"],"2·(1/2) = 1; √3·(√3/2) = 3/2; tan 135° = −1 nên −tan 135° = 1. Tổng: 1 + 3/2 + 1 = 7/2."],
+["TH","Tam giác ABC có a² < b² + c². Khi đó góc A là góc:","nhọn",["tù","vuông","bẹt"],"cos A = (b² + c² − a²)/(2bc) > 0 nên góc A nhọn."],
+["TH","sin 25° bằng:","cos 65°",["cos 25°","−cos 65°","sin 65°"],"Hai góc phụ nhau (25° + 65° = 90°) thì sin góc này bằng côsin góc kia."],
+["VD","Hai xe cùng xuất phát từ A theo hai hướng hợp nhau góc 60°, tốc độ 50 km/h và 40 km/h. Sau 1,5 giờ hai xe cách nhau khoảng:","68,7 km",["117,2 km","135,0 km","15,0 km"],"Quãng đường: 75 km và 60 km. d² = 75² + 60² − 2·75·60·cos 60° = 4725 nên d = 15√21 ≈ 68,7 km."],
+["VD","Từ hai điểm A, B bên một bờ sông (AB = 50 m), nhìn cây C ở bờ đối diện được góc CAB = 45°, góc ABC = 60°. Khoảng cách AC gần bằng:","44,8 m",["36,6 m","61,2 m","50,0 m"],"Góc C = 180° − 45° − 60° = 75°. AC/sin B = AB/sin C nên AC = 50·sin 60°/sin 75° ≈ 44,8 m."],
+["VD","Hình thoi ABCD có cạnh bằng 1 và góc ADC = 120°. Diện tích hình thoi bằng:","√3/2",["√3/4","√3","1/2"],"Diện tích hình thoi = cạnh² · sin(góc) = 1·sin 120° = √3/2."],
+["VD","Tam giác có ba cạnh 6, 8, 10. Bán kính đường tròn nội tiếp r bằng:","2",["3","4","12"],"S = 24, p = 12 nên r = S/p = 2."],
+["VD","Tam giác có ba cạnh 6, 8, 10. Độ dài đường cao ứng với cạnh dài nhất là:","4,8",["2,4","4,0","5,0"],"S = 24 nên h = 2S/10 = 48/10 = 4,8."],
+["VD","Để đo khoảng cách từ A đến gốc cây C trên cù lao giữa sông, người ta chọn B cùng bờ với A sao cho AB = 40 m, góc CAB = 60°, góc CBA = 80°. Khoảng cách AC gần bằng:","61,3 m",["53,9 m","40,0 m","45,3 m"],"Góc C = 40°. AC/sin B = AB/sin C nên AC = 40·sin 80°/sin 40° ≈ 61,3 m."],
+["VD","Máy bay bay từ Chicago (A) đến Louisville (B), AB = 330 dặm, nhưng đi lệch hướng 10°. Với tốc độ 220 dặm/giờ, sau 15 phút phát hiện lỗi tại C. Khoảng cách CB xấp xỉ:","276 dặm",["275 dặm","385 dặm","330 dặm"],"AC = 220·0,25 = 55 dặm. BC² = 330² + 55² − 2·330·55·cos 10° ≈ 76 176 nên BC ≈ 276 dặm."],
+["VD","Giác kế cao 1,3 m đặt tại A và B thẳng hàng với chân tháp, AB = 20 m; góc nâng đỉnh tháp tại A và B lần lượt là 65° và 55°. Chiều cao tháp gần bằng:","86,8 m",["85,5 m","94,3 m","88,1 m"],"Trong tam giác MAB: A = 115°, B = 55°, M = 10°. MA = 20·sin 55°/sin 10° ≈ 94,3; MA·sin 65° ≈ 85,5; cộng 1,3 m được ≈ 86,8 m."],
+["VD","Tam giác ABC có ba cạnh 13, 14, 15. Bán kính đường tròn ngoại tiếp R bằng:","65/8",["13/2","15/2","7"],"p = 21, S = √(21·8·7·6) = 84. R = abc/(4S) = 2730/336 = 65/8."]
+];
+// Đúng/Sai: [mức độ, nhận định, đúng?, giải thích]
+const TF = [
+["NB","sin 150° = sin 30°.",true,"Hai góc 150° và 30° bù nhau nên có sin bằng nhau (cùng bằng 1/2)."],
+["NB","Với 90° < α < 180° thì cos α > 0.",false,"Góc tù có cos α < 0 (điểm trên nửa đường tròn đơn vị có hoành độ âm)."],
+["NB","Trong tam giác ABC bất kì, a/sin A = b/sin B = c/sin C.",true,"Đây là định lí sin; ba tỉ số này cùng bằng 2R."],
+["NB","Khi góc A = 60° thì a² = b² + c² (a = BC, b = CA, c = AB).",false,"Khi A = 60°: a² = b² + c² − bc. Đẳng thức a² = b² + c² chỉ xảy ra khi A = 90°."],
+["TH","Tam giác có ba cạnh 3, 4, 5 thì góc đối diện cạnh 5 bằng 90°.",true,"5² = 3² + 4² nên cos của góc đó bằng 0, góc bằng 90°."],
+["TH","Tam giác ABC có BC = 8 và góc A = 30° thì bán kính đường tròn ngoại tiếp R = 8.",true,"R = a/(2·sin A) = 8/(2·1/2) = 8."],
+["TH","Tam giác có ba cạnh 2, 3, 4 là tam giác nhọn.",false,"4² = 16 > 2² + 3² = 13 nên góc đối diện cạnh 4 có côsin âm: tam giác có một góc tù."],
+["TH","Tam giác ABC có AB = 5, AC = 6, góc A = 30° thì diện tích S = 7,5.",true,"S = ½·5·6·sin 30° = ½·5·6·½ = 7,5."],
+["TH","Tam giác ABC có B = 60°, C = 75° thì sin A = sin 45°.",true,"A = 180° − 60° − 75° = 45°."],
+["TH","cos 100° = cos 80°.",false,"Hai góc bù nhau có côsin đối nhau: cos 100° = −cos 80°."],
+["VD","Hai tàu cùng rời bến A theo hai hướng hợp nhau góc 120°, tốc độ 8 và 10 hải lí/giờ. Sau 1 giờ, khoảng cách hai tàu là √244 hải lí.",true,"d² = 8² + 10² − 2·8·10·cos 120° = 64 + 100 + 80 = 244."],
+["VD","Tam giác có ba cạnh 7, 8, 9 có diện tích bằng 12√5.",true,"p = 12 nên S = √(12·5·4·3) = √720 = 12√5."],
+["VD","Hai vị trí A, B bên bờ sông cách nhau 100 m, cùng nhìn một cây C ở bờ đối diện với góc CAB = CBA = 45°. Khoảng cách từ cây đến bờ AB là 50√2 m.",false,"Tam giác ABC vuông cân tại C; đường cao ứng với cạnh huyền bằng nửa cạnh huyền, tức là 50 m."],
+["VD","Tam giác ABC có AB = 4, AC = 6, BC = 8 thì góc A là góc tù.",true,"cos A = (4² + 6² − 8²)/(2·4·6) = −12/48 = −1/4 < 0."],
+["VD","Một chiếc thang dài 6 m dựa vào tường và tạo với mặt đất góc 60°. Đầu thang cách mặt đất 3 m.",false,"Độ cao = 6·sin 60° = 3√3 ≈ 5,2 m, không phải 3 m."],
+["VD","Tam giác ABC có A = 120° và AB = AC = 1 thì BC = √3.",true,"BC² = 1² + 1² − 2·1·1·cos 120° = 1 + 1 + 1 = 3."],
+["VDC","Tam giác có ba cạnh 13, 14, 15 có đường cao ứng với cạnh 13 bằng 12.",false,"S = 84 nên h = 2S/13 = 168/13 ≈ 12,9, không phải 12."],
+["VDC","Tam giác ABC thỏa a = 2b·cos C thì tam giác ABC cân tại A.",true,"Thay cos C = (a² + b² − c²)/(2ab): a² = a² + b² − c², suy ra b = c, tức AC = AB."],
+["VDC","Tam giác ABC có cạnh BC = a cố định và góc A = 60° không đổi thì bán kính đường tròn ngoại tiếp luôn bằng a/√3.",true,"R = a/(2·sin 60°) = a/√3, không phụ thuộc vị trí của điểm A."],
+["VDC","Tam giác ABC có b² + c² = 2a² thì cos A ≥ 1/2.",true,"cos A = (b² + c² − a²)/(2bc) = a²/(2bc). Vì 2a² = b² + c² ≥ 2bc nên a² ≥ bc, suy ra cos A ≥ 1/2."]
+];
+const QS = MC.map(m=>({k:"mc",lv:m[0],q:m[1],ok:m[2],bad:m[3],ex:m[4]}))
+  .concat(TF.map(t=>({k:"tf",lv:t[0],q:t[1],ok:t[2],ex:t[3]})));
+const PT = {mc:2, tf:10};          // tính theo phần mười điểm: 0,2 và 1,0
+const MAXPT = QS.reduce((s,q)=>s+PT[q.k],0); // 260 = 26,0 điểm
+
+// ===== Tiện ích =====
+const fmt = n => (n/10).toFixed(1).replace(".",",");
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const mmss = s => String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));}
+
+// ===== Âm thanh =====
+let AC=null, muted=false;
+function initAudio(){ if(!AC){ const C=window.AudioContext||window.webkitAudioContext; if(C) AC=new C(); } if(AC&&AC.state==="suspended") AC.resume(); }
+function tone(f,t,d,type,g){ const o=AC.createOscillator(), gn=AC.createGain(); o.type=type; o.frequency.setValueAtTime(f,t);
+  gn.gain.setValueAtTime(0.0001,t); gn.gain.exponentialRampToValueAtTime(g,t+0.03); gn.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  o.connect(gn).connect(AC.destination); o.start(t); o.stop(t+d+0.05); }
+function clap(t,g){ const n=Math.floor(AC.sampleRate*0.06), b=AC.createBuffer(1,n,AC.sampleRate), d=b.getChannelData(0);
+  for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);
+  const s=AC.createBufferSource(); s.buffer=b; const f=AC.createBiquadFilter(); f.type="bandpass"; f.frequency.value=1500+Math.random()*1500; f.Q.value=0.7;
+  const gn=AC.createGain(); gn.gain.value=g; s.connect(f).connect(gn).connect(AC.destination); s.start(t); }
+function applause(){ if(muted||!AC) return; const t0=AC.currentTime, D=4.8;
+  for(let i=0;i<150;i++){ const x=Math.random()*D, env=Math.min(1,x/0.5)*Math.min(1,(D-x)/1.5); clap(t0+x,0.5*env+0.04); }
+  [523,659,784,1047,1319].forEach((f,i)=>tone(f,t0+i*0.13,0.5,"triangle",0.18)); }
+function sad(){ if(muted||!AC) return; const t0=AC.currentTime;
+  [392,349,311,262].forEach((f,i)=>tone(f,t0+i*0.32,0.45,"sawtooth",0.12)); tone(98,t0+1.2,0.8,"sawtooth",0.15); }
+
+// ===== Trạng thái trò chơi =====
+let G=null, tmr=null, left=0;
+function newGame(name,cls){ return {name,cls,i:0,pts:0,ok:0,lives:3,u50:false,uAud:false,locked:false,t0:Date.now(),saved:false}; }
+function stopTimer(){ if(tmr){clearInterval(tmr);tmr=null;} }
+function paintTimer(){ $("timer").textContent=left; $("timer").classList.toggle("warn",left<=10); }
+function startTimer(s){ stopTimer(); left=s; paintTimer();
+  tmr=setInterval(()=>{ left--; paintTimer(); if(left<=0) answer(null); },1000); }
+function updLL(){ const mc=QS[G.i].k==="mc"&&!G.locked; $("ll50").disabled=G.u50||!mc; $("llAud").disabled=G.uAud||!mc; }
+
+function showQ(){
+  const q=QS[G.i]; G.locked=false; $("fb").classList.remove("show");
+  $("qno").textContent=(G.i+1)+"/"+QS.length; $("score").textContent=fmt(G.pts);
+  $("lives").textContent="❤".repeat(G.lives)+"🖤".repeat(3-G.lives);
+  $("lv").textContent=(q.k==="mc"?"Trắc nghiệm · 0,2 điểm":"Nhận định Đúng/Sai · 1,0 điểm")+" · "+LV[q.lv];
+  $("bar").style.width=(G.i/QS.length*100)+"%";
+  $("qtext").textContent=(q.k==="tf"?"Nhận định: ":"")+q.q;
+  const box=$("opts"); box.innerHTML=""; box.className="opts "+q.k;
+  if(q.k==="mc"){
+    q.sh=shuffle([q.ok].concat(q.bad));   // xáo trộn vị trí đáp án mỗi lần hiển thị
+    q.sh.forEach((t,j)=>{ const b=document.createElement("button"); b.className="opt";
+      const l=document.createElement("b"); l.textContent="ABCD"[j]+".";
+      const s=document.createElement("span"); s.textContent=t; b.append(l,s); b.onclick=()=>answer(j); box.appendChild(b); });
+  } else {
+    [["ĐÚNG",true],["SAI",false]].forEach(([t,v])=>{ const b=document.createElement("button"); b.className="opt"; b.textContent=t; b.onclick=()=>answer(v); box.appendChild(b); });
+  }
+  updLL(); startTimer(q.k==="mc"?45:60);
+}
+
+function answer(c){
+  if(!G||G.locked) return; G.locked=true; stopTimer();
+  const q=QS[G.i], timeout=(c===null), btns=[...$("opts").children];
+  let right;
+  if(q.k==="mc"){ right=!timeout&&q.sh[c]===q.ok;
+    btns.forEach((b,j)=>{ b.classList.add("locked"); if(q.sh[j]===q.ok) b.classList.add("good"); else if(j===c) b.classList.add("bad"); }); }
+  else { right=!timeout&&c===q.ok;
+    btns.forEach((b,j)=>{ const v=(j===0); b.classList.add("locked"); if(v===q.ok) b.classList.add("good"); else if(c===v) b.classList.add("bad"); }); }
+  const fb=$("fb"); fb.className="show "+(right?"ok":"no");
+  let corr = q.k==="mc" ? "ABCD"[q.sh.indexOf(q.ok)]+". "+q.ok : (q.ok?"ĐÚNG":"SAI");
+  if(right){ G.pts+=PT[q.k]; G.ok++;
+    $("fbT").textContent="✔ CHÍNH XÁC! +"+fmt(PT[q.k])+" điểm";
+    $("fbE").textContent=q.ex; applause();
+  } else { G.lives--;
+    let mine = timeout ? "Bạn đã hết thời gian." : (q.k==="mc" ? "Lựa chọn của bạn chưa đúng." : "Bạn chọn "+(c?"ĐÚNG":"SAI")+" nhưng nhận định này là "+(q.ok?"ĐÚNG":"SAI")+".");
+    $("fbT").textContent=(timeout?"⏰ HẾT GIỜ!":"✘ CHƯA ĐÚNG!")+" Đáp án: "+corr;
+    $("fbE").textContent=mine+" "+q.ex+" (Bạn mất 1 mạng.)"; sad(); }
+  $("score").textContent=fmt(G.pts); $("lives").textContent="❤".repeat(G.lives)+"🖤".repeat(3-G.lives);
+  const last = G.lives<=0 || G.i>=QS.length-1;
+  $("btnNext").textContent = last ? "Xem kết quả ▶" : "Câu tiếp theo ▶";
+  updLL();
+}
+function next(){
+  if(!G||!G.locked) return;
+  if(G.lives<=0||G.i>=QS.length-1){ endGame(); return; }
+  G.i++; showQ();
+}
+
+// ===== Trợ giúp =====
+function lifeline50(){ if(!G||G.locked||G.u50||QS[G.i].k!=="mc") return; const q=QS[G.i]; G.u50=true;
+  const bad=[...$("opts").children].filter((b,j)=>q.sh[j]!==q.ok);
+  shuffle(bad).slice(0,2).forEach(b=>{b.classList.add("gone");b.onclick=null;}); updLL(); }
+function lifelineAud(){ if(!G||G.locked||G.uAud||QS[G.i].k!=="mc") return; const q=QS[G.i]; G.uAud=true;
+  const btns=[...$("opts").children].filter(b=>!b.classList.contains("gone")); const okIdx=q.sh.indexOf(q.ok);
+  const cp=45+Math.floor(Math.random()*26), others=btns.filter(b=>+[...$("opts").children].indexOf(b)!==okIdx);
+  const w=others.map(()=>Math.random()+0.2), sw=w.reduce((a,b)=>a+b,0); let used=cp;
+  const pct=others.map((_,i)=>{ if(i===others.length-1) return 100-used; const p=Math.floor((100-cp)*w[i]/sw); used+=p; return p; });
+  btns.forEach(b=>{ const j=[...$("opts").children].indexOf(b); const s=document.createElement("span"); s.style.cssText="float:right;color:#ffd84a;font-weight:700";
+    s.textContent=(j===okIdx?cp:pct[others.indexOf(b)])+"%"; b.appendChild(s); });
+  updLL(); }
+
+// ===== Kết thúc & bảng xếp hạng =====
+function endGame(){
+  stopTimer(); const sec=Math.round((Date.now()-G.t0)/1000), tstr=mmss(sec);
+  G.sec=sec; G.tstr=tstr;
+  const full=G.lives>0;
+  $("endT").textContent = full ? "🎉 HOÀN THÀNH TRÒ CHƠI! 🎉" : "💔 HẾT MẠNG – TRÒ CHƠI KẾT THÚC";
+  $("endName").textContent=G.name+" · Lớp "+G.cls;
+  $("endScore").textContent=fmt(G.pts)+" / "+fmt(MAXPT);
+  $("endOk").textContent=G.ok+"/"+QS.length; $("endTime").textContent=tstr;
+  const r=G.pts/MAXPT;
+  $("endMsg").textContent = r>=0.9?"Xuất sắc! Bạn là Triệu phú Hệ thức lượng!":r>=0.7?"Rất tốt! Bạn nắm vững kiến thức.":r>=0.5?"Khá ổn! Hãy xem lại các câu đã sai.":"Cố gắng thêm nhé! Ôn lại định lí sin, côsin và công thức diện tích.";
+  $("endSave").textContent=""; show("end"); sendResult();
+}
+async function sendResult(){
+  if(G.saved) return; G.saved=true;
+  if(!APPS_SCRIPT_URL){ renderLB(); return; }
+  $("endSave").textContent="Đang gửi kết quả…";
+  try{
+    await fetch(APPS_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({"Họ tên":G.name,"Lớp":G.cls,"Điểm số":G.pts/10,"Thời gian làm bài":G.tstr})});
+    $("endSave").textContent="✔ Đã ghi nhận kết quả của bạn.";
+    setTimeout(fetchLB,1500);
+  }catch(e){ $("endSave").textContent="Chưa gửi được kết quả lên bảng xếp hạng."; }
+}
+let LB=[];
+function secOf(t){ const p=String(t||"").split(":").map(Number); return p.length===2&&!p.some(isNaN)?p[0]*60+p[1]:99999; }
+async function fetchLB(){
+  if(!APPS_SCRIPT_URL){ renderLB(); return; }
+  try{
+    const r=await fetch(APPS_SCRIPT_URL+(APPS_SCRIPT_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now());
+    const j=await r.json(); if(j&&j.status==="ok"&&Array.isArray(j.data)) LB=j.data;
+  }catch(e){}
+  renderLB();
+}
+function renderLB(){
+  const rows=LB.slice().sort((a,b)=>(Number(b["Điểm số"])||0)-(Number(a["Điểm số"])||0)||secOf(a["Thời gian làm bài"])-secOf(b["Thời gian làm bài"])).slice(0,10);
+  document.querySelectorAll(".lbBody").forEach(el=>{
+    el.innerHTML="";
+    if(!rows.length){ const p=document.createElement("div"); p.textContent="Chưa có dữ liệu xếp hạng."; el.appendChild(p); return; }
+    const tb=document.createElement("table"), hr=tb.insertRow();
+    ["#","Họ tên","Lớp","Điểm","Thời gian"].forEach(h=>{const th=document.createElement("th"); th.textContent=h; hr.appendChild(th);});
+    rows.forEach((r,i)=>{ const tr=tb.insertRow();
+      [(i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1),r["Họ tên"],r["Lớp"],String(Number(r["Điểm số"])||0).replace(".",","),r["Thời gian làm bài"]]
+        .forEach(v=>{ tr.insertCell().textContent=(v===undefined||v===null)?"":v; }); });
+    el.appendChild(tb);
+  });
+}
+
+// ===== Khởi tạo (mỗi sự kiện chỉ gắn một lần) =====
+$("btnStart").onclick=()=>{
+  const n=$("inName").value.trim(), c=$("inClass").value.trim();
+  if(!n||!c){ $("err").textContent="Vui lòng nhập đầy đủ Họ tên và Lớp."; return; }
+  $("err").textContent=""; initAudio(); stopTimer();
+  G=newGame(n,c); show("game"); showQ();
+};
+$("btnNext").onclick=next;
+$("ll50").onclick=lifeline50;
+$("llAud").onclick=lifelineAud;
+$("btnAgain").onclick=()=>{ stopTimer(); G=null; show("start"); fetchLB(); };
+$("mute").onclick=()=>{ muted=!muted; $("mute").textContent=muted?"🔇":"🔊"; };
+renderLB(); fetchLB();
+setInterval(fetchLB,5000);
+</script>
+</body></html>
