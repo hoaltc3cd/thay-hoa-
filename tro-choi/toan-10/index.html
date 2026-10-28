@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ai là triệu phú – Toán 10</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f3d2b;--bg2:#145238;--ink:#fff;--gold:#ffd84d;--ok:#3ddc84;--bad:#ff6b6b;--line:rgba(255,255,255,.55);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:'Be Vietnam Pro',Arial,sans-serif;color:var(--ink);background:radial-gradient(ellipse at 30% 20%,var(--bg2),var(--bg) 70%);font-size:clamp(18px,2.1vw,26px);line-height:1.45}
+.wrap{max-width:1500px;margin:0 auto;padding:14px;display:grid;grid-template-columns:1fr 340px;gap:16px}
+@media(max-width:1000px){.wrap{grid-template-columns:1fr}}
+.board{border:4px solid var(--line);border-radius:18px;padding:18px;min-height:90vh;background:rgba(0,0,0,.12)}
+.hide{display:none!important}
+h1{font-size:clamp(30px,5vw,60px);margin:.2em 0;color:var(--gold);text-align:center}
+.sub{text-align:center;margin:0 0 14px}
+input{width:100%;font:inherit;padding:12px 16px;margin:6px 0;border-radius:12px;border:3px solid var(--line);background:rgba(255,255,255,.1);color:#fff}
+input::placeholder{color:#cfe}
+.rules{border:2px dashed var(--line);border-radius:14px;padding:10px 20px;margin:14px 0;font-size:.85em}
+.rules li{margin:4px 0}
+button{font:inherit;font-weight:700;cursor:pointer;color:#fff;background:rgba(255,255,255,.1);border:3px solid var(--line);border-radius:999px;padding:12px 22px;min-height:52px}
+button:focus-visible{outline:4px solid var(--gold)}
+button:hover:not(:disabled){background:rgba(255,255,255,.22)}
+button:disabled{opacity:.35;cursor:not-allowed}
+.primary{background:var(--gold);color:#12301f;border-color:var(--gold);display:block;margin:12px auto;font-size:1.1em}
+.primary:hover:not(:disabled){background:#ffe27a}
+.bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:700}
+.chip{border:3px solid var(--line);border-radius:999px;padding:4px 16px}
+.chip b{color:var(--gold)}
+.q{border:4px solid var(--gold);border-radius:22px;padding:22px 26px;font-size:1.25em;font-weight:700;text-align:center;margin:10px 0 16px;min-height:130px;display:flex;align-items:center;justify-content:center}
+.ans{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.ans{grid-template-columns:1fr}}
+.ans button{text-align:left;border-radius:16px;font-size:1em;padding:14px 20px}
+.ans button.tf{text-align:center;font-size:1.3em}
+.ans button.right{background:var(--ok);color:#06301a;border-color:var(--ok)}
+.ans button.wrong{background:var(--bad);color:#3a0505;border-color:var(--bad)}
+.fb{border-radius:14px;padding:14px 18px;margin-top:14px;font-weight:500;border:3px solid var(--line)}
+.fb.good{border-color:var(--ok)}.fb.no{border-color:var(--bad)}
+.fb strong{font-size:1.1em}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+aside{border:4px solid var(--line);border-radius:18px;padding:14px;background:rgba(0,0,0,.12);align-self:start}
+aside h2{margin:.1em 0 .4em;font-size:1.15em;color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:.75em}
+td,th{padding:5px 6px;border-bottom:1px solid var(--line);text-align:left}
+.big{font-size:2.4em;color:var(--gold);text-align:center;font-weight:800;margin:6px 0}
+.note{opacity:.9;font-size:.8em;text-align:center}
+</style></head><body>
+<div class="wrap">
+<main class="board">
+ <section id="s-start">
+  <h1>AI LÀ TRIỆU PHÚ</h1>
+  <p class="sub">Toán 10 · Mệnh đề – Tập hợp · BPT bậc nhất hai ẩn · Hệ thức lượng trong tam giác</p>
+  <input id="name" placeholder="Họ và tên" maxlength="60" autocomplete="off">
+  <input id="cls" placeholder="Lớp (ví dụ: 10A1)" maxlength="20" autocomplete="off">
+  <ul class="rules">
+   <li>Phần 1: câu trắc nghiệm 4 phương án, mỗi câu <b>0,2 điểm</b>. Phần 2: câu Đúng/Sai, mỗi câu <b>1,0 điểm</b>.</li>
+   <li>Câu hỏi khó dần. Bạn có <b>3 mạng</b>; trả lời sai mất 1 mạng, hết mạng là kết thúc.</li>
+   <li>Có <b>2 quyền trợ giúp 50:50</b> (chỉ dùng cho câu 4 phương án).</li>
+   <li>Sau mỗi câu có giải thích. Có thể bấm “Dừng cuộc chơi” để giữ điểm hiện tại.</li>
+   <li>Xếp hạng theo điểm giảm dần, thời gian làm bài tăng dần.</li>
+  </ul>
+  <button class="primary" id="btn-start">Bắt đầu chơi</button>
+  <div class="note" id="warn"></div>
+ </section>
+ <section id="s-play" class="hide">
+  <div class="bar">
+   <span class="chip" id="phase"></span><span class="chip">Điểm: <b id="score">0</b></span>
+   <span class="chip">Mạng: <b id="lives"></b></span><span class="chip">Thời gian: <b id="clock">00:00</b></span>
+  </div>
+  <div class="chip" id="prog" style="display:inline-block"></div>
+  <div class="q" id="qtext"></div>
+  <div class="ans" id="ans"></div>
+  <div class="fb hide" id="fb"></div>
+  <div class="tools">
+   <button id="btn-5050">50:50 (<span id="n5050">2</span>)</button>
+   <button id="btn-next" class="primary hide" style="margin:0 0 0 auto">Câu tiếp theo</button>
+   <button id="btn-stop">Dừng cuộc chơi</button>
+  </div>
+ </section>
+ <section id="s-end" class="hide">
+  <h1 id="endtitle">Kết thúc</h1>
+  <div class="big" id="endscore"></div>
+  <p class="sub" id="endinfo"></p>
+  <p class="note" id="savestat"></p>
+  <button class="primary" id="btn-again">Chơi lại</button>
+ </section>
+</main>
+<aside><h2>Bảng xếp hạng</h2>
+ <table><thead><tr><th>#</th><th>Họ tên</th><th>Lớp</th><th>Điểm</th><th>Giờ</th></tr></thead><tbody id="lb"><tr><td colspan="5">Đang chờ dữ liệu…</td></tr></tbody></table>
+</aside>
+</div>
+<script>
+(function(){
+const APPS_SCRIPT_URL=""; // dán URL Web App vào đây
+// [câu hỏi, đáp án đúng, [3 đáp án sai], giải thích]
+const MC=[
+["Mệnh đề đảo của mệnh đề P ⇒ Q là mệnh đề nào?","Q ⇒ P",["¬Q ⇒ ¬P","¬Q ⇒ P","Q ⇒ ¬P"],"Mệnh đề đảo của P ⇒ Q là Q ⇒ P (đổi chỗ giả thiết và kết luận)."],
+["Trong các câu sau, câu nào là mệnh đề?","Hà Nội là thủ đô của nước Việt Nam.",["Nam ăn cơm chưa?","Chúc các bạn thi đạt kết quả tốt!","Buồn ngủ quá!"],"Chỉ câu khẳng định xác định được đúng hoặc sai mới là mệnh đề; câu hỏi, câu chúc, câu cảm thán thì không."],
+["Mệnh đề nào sau đây đúng?","∀x ∈ ℕ, x ≥ 0",["∀x ∈ ℝ, x ≥ 0","∀x ∈ ℚ, x ≥ 0","∀x ∈ ℤ, x ≥ 0"],"Mọi số tự nhiên đều không âm; số thực, hữu tỉ, nguyên có thể âm (ví dụ −1)."],
+["Viết bằng kí hiệu ∀ hoặc ∃: “Có một số thực bằng bình phương của chính nó”.","∃x ∈ ℝ, x = x²",["∀x ∈ ℝ, x = x²","∀x ∈ ℤ, x = x²","∃x ∈ ℝ, x > x²"],"“Có một” tương ứng ∃ và điều kiện là x = x² (ví dụ x = 0 hoặc x = 1)."],
+["Cho A = {x ∈ ℕ | −2 < x < 2}. Liệt kê các phần tử của A.","{0; 1}",["{−1; 0; 1}","{−2; −1; 0; 1; 2}","{0; 1; 2}"],"x là số tự nhiên và −2 < x < 2 nên x ∈ {0; 1}."],
+["Cho B = {x ∈ ℕ | x < 20 và x chia hết cho 3}. Tập B bằng","{0; 3; 6; 9; 12; 15; 18}",["{3; 6; 9; 12; 15; 18}","{0; 6; 9; 12; 15; 18}","{0; 3; 6; 9; 12; 15}"],"0 là số tự nhiên chia hết cho 3, và các bội của 3 nhỏ hơn 20 là 3, 6, …, 18."],
+["Cho A = {1; 2; 3; 4; 5} và B = {1; 3; 5; 7; 9}. Tập A ∩ B là","{1; 3; 5}",["{1; 2; 3; 4; 5}","{1; 3; 5; 7; 9}","{2; 4; 6; 8}"],"Giao gồm các phần tử thuộc cả A và B."],
+["Cho A = (2; +∞) và B = [−2; 5]. Tập A ∩ B là","(2; 5]",["(2; 5)","[−2; +∞)","(−∞; 2]"],"Lấy các số lớn hơn 2 và không vượt quá 5, nên đầu 2 mở và đầu 5 đóng."],
+["Phần bù của A = (−∞; 3) trong ℝ là","[3; +∞)",["(3; +∞)","(−∞; 3]","(−3; +∞)"],"Phần bù gồm các số thực không thuộc A, tức x ≥ 3, kể cả 3."],
+["Số phần tử của F = {x ∈ ℤ | 6x² − 8x + 2 = 0} là","1",["3","0","2"],"Phương trình có hai nghiệm x = 1 và x = 1/3; chỉ x = 1 là số nguyên."],
+["Bất phương trình nào sau đây KHÔNG là bất phương trình bậc nhất hai ẩn?","x² > y − 6",["3(x + 6) ≥ y − 2","x + y − 3 ≤ 0","2(x − y) ≤ 3(x + 1)"],"x² là bậc hai nên không phải bất phương trình bậc nhất; các bất phương trình còn lại rút gọn đều bậc nhất."],
+["Điểm nào thuộc miền nghiệm của bất phương trình 2x + y − 3 > 0?","M(1; 3/2)",["N(1; 1)","P(−1; 3/2)","Q(−1; −3)"],"Với M: 2 + 1,5 − 3 = 0,5 > 0 đúng; N cho đúng 0 nên không thỏa dấu “>”."],
+["Cặp số nào KHÔNG là nghiệm của hệ x + 2y > 3 và 2x − y ≤ 1?","(1; 1)",["(−1; 3)","(1; 2)","(0; 2)"],"Với (1; 1): 1 + 2 = 3, không lớn hơn 3 nên không thỏa bất phương trình thứ nhất."],
+["Với 0° ≤ α ≤ 180° (α ≠ 90°), đẳng thức nào đúng?","tan(180° − α) = −tan α",["tan(180° − α) = tan α","tan(180° − α) = cot α","tan(180° − α) = −cot α"],"Hai góc bù nhau có tan đối nhau."],
+["Trong tam giác ABC, định lí côsin viết cho góc A là","cos A = (b² + c² − a²)/(2bc)",["cos A = (b² + c² − a²)/(2ab)","cos A = (a² + b² − c²)/(2ab)","cos A = (b² + c² − a²)/(2ac)"],"Góc A nằm giữa hai cạnh b, c và đối diện cạnh a nên mẫu số là 2bc."],
+["Công thức nào đúng cho diện tích S của tam giác ABC (BC = a, CA = b, AB = c)?","S = ½·bc·sin A",["S = ½·bc·sin B","S = ½·ac·sin A","S = ½·ab·sin A"],"Diện tích bằng nửa tích hai cạnh nhân sin góc xen giữa; góc A xen giữa b và c."],
+["Trong tam giác ABC (BC = a, bán kính ngoại tiếp R), hệ thức nào đúng?","a / sin A = 2R",["a / sin A = R","a / cos A = 2R","a·sin A = 2R"],"Định lí sin: a/sin A = b/sin B = c/sin C = 2R."],
+["Câu nào sau đây KHÔNG phải là mệnh đề?","Hôm nay trời nóng quá!",["16 là một số chính phương.","Thủ đô của nước Pháp là Paris.","Tam giác cân có hai cạnh bằng nhau."],"Câu cảm thán không khẳng định được đúng hay sai nên không phải mệnh đề."],
+["Cho P(x): “2x − 4 = 0”. Với giá trị nào của x thì P(x) là mệnh đề đúng?","x = 2",["x = 0","x = −2","x = 4"],"2x − 4 = 0 ⇔ x = 2."],
+["Mệnh đề nào sau đây là mệnh đề đúng?","∀x ∈ ℝ, x² + 2 > 0",["3 + 7 = 11","Số 21 là số nguyên tố","Tam giác có một góc 60° thì đó là tam giác đều"],"x² ≥ 0 nên x² + 2 ≥ 2 > 0 với mọi x; các mệnh đề còn lại đều sai (21 = 3·7)."],
+["Phủ định của mệnh đề “∀x ∈ ℝ, x² − x + 1 > 0” là","∃x ∈ ℝ, x² − x + 1 ≤ 0",["∀x ∈ ℝ, x² − x + 1 ≤ 0","∃x ∈ ℝ, x² − x + 1 < 0","∃x ∈ ℝ, x² − x + 1 = 0"],"Phủ định đổi ∀ thành ∃ và đổi “>” thành “≤”."],
+["Cho P ⇒ Q là mệnh đề đúng. Phát biểu nào sau đây đúng?","P là điều kiện đủ để có Q",["P là điều kiện cần để có Q","Q là điều kiện đủ để có P","P và Q là hai điều kiện tương đương"],"P ⇒ Q đúng thì P là điều kiện đủ của Q và Q là điều kiện cần của P."],
+["Viết tập hợp A = {x ∈ ℝ | x ≥ 3} dưới dạng khoảng, đoạn, nửa khoảng.","[3; +∞)",["(3; +∞)","(−∞; 3]","[−3; 3]"],"x ≥ 3 lấy cả 3 nên đầu 3 là dấu ngoặc vuông; +∞ luôn đi với ngoặc tròn."],
+["Cho X = {a; b; c}. Khẳng định nào sau đây SAI?","{c} ∈ X",["a ∈ X","{a; b} ⊂ X","∅ ⊂ X"],"{c} là một tập hợp nên phải viết {c} ⊂ X; kí hiệu ∈ dùng giữa phần tử và tập hợp."],
+["Cho A = {0; 7; 9; 14; 16}. Số tập hợp con của A là","32",["64","8","6"],"Tập có n phần tử có 2ⁿ tập con; n = 5 nên 2⁵ = 32."],
+["Cho n(M) = 23, n(B) = 21, n(M ∪ B) = 36. Tính n(M ∩ B).","8",["15","44","13"],"n(M ∩ B) = n(M) + n(B) − n(M ∪ B) = 23 + 21 − 36 = 8."],
+["Cho A = {1; 2; 3; 4}, B = {0; 2; 4; 6}. Tập A ∪ B là","{0; 1; 2; 3; 4; 6}",["{2; 4}","{1; 3}","{0; 6}"],"Hợp gồm các phần tử thuộc A hoặc thuộc B, mỗi phần tử ghi một lần."],
+["Cho A = (−2; 1) và B = [−3; 5]. Tập A ∩ B là","(−2; 1)",["[−2; 1]","(−2; 5]","[−3; 5]"],"A nằm hoàn toàn trong B nên giao chính là A."],
+["Cho A = [−1; 5] và B = (2; 7). Tập A \\ B là","[−1; 2]",["[−1; 2)","(5; 7)","(2; 5]"],"A \\ B gồm phần tử thuộc A nhưng không thuộc B; vì 2 ∉ B nên 2 vẫn thuộc A \\ B."],
+["Bất phương trình nào KHÔNG phải là bất phương trình bậc nhất hai ẩn?","x + 2y² − 3 < 0",["2x + 3y > 1","−5y + 2 ≥ 0","3x − y ≤ 4"],"Bất phương trình bậc nhất hai ẩn không chứa y², chỉ chứa x, y bậc một."],
+["Cặp số nào là nghiệm của bất phương trình 3x − y > 2?","(2; 1)",["(0; 0)","(1; 2)","(−1; 1)"],"Thay (2; 1): 6 − 1 = 5 > 2 đúng; các cặp còn lại cho vế trái ≤ 2."],
+["Hệ nào sau đây là hệ bất phương trình bậc nhất hai ẩn?","2x − 3y ≤ 6 và x + y > −1",["x² + y > 0 và x − y < 2","2x + y = 3 và x − y > 1","xy ≥ 2 và x + y ≤ 5"],"Mỗi bất phương trình đều bậc nhất đối với x, y; các hệ khác có x², dấu “=” hoặc tích xy."],
+["Điểm nào thuộc miền nghiệm của hệ x + y ≥ 2 và 2x − y < 4?","(1; 2)",["(0; 0)","(3; 1)","(−1; 2)"],"(1; 2): 3 ≥ 2 và 0 < 4 đều đúng; (3; 1) có 2·3 − 1 = 5 không nhỏ hơn 4."],
+["Với 0° ≤ α ≤ 180°, cos(180° − α) bằng","−cos α",["cos α","sin α","−sin α"],"Hai góc bù nhau có sin bằng nhau, cos đối nhau."],
+["Giá trị của P = 2sin30° + √3·cos30° − tan135° bằng","7/2",["5/2","3/2","1/2"],"P = 1 + 3/2 − (−1) = 7/2."],
+["Cho sin α = 65/97 và 90° < α < 180°. Giá trị cos α là","−72/97",["−73/97","−71/97","−75/97"],"cos²α = 1 − (65/97)² = 5184/9409 nên |cos α| = 72/97; góc tù nên cos α < 0."],
+["Tam giác ABC có AB = 3, BC = 5, CA = 6. Giá trị cos B bằng","−1/15",["1/15","19/15","−2/15"],"cos B = (AB² + BC² − CA²)/(2·AB·BC) = (9 + 25 − 36)/30 = −1/15."],
+["Tam giác ABC có AB = 6, AC = 8, góc A = 30°. Diện tích tam giác là","12",["24","12√3","24√3"],"S = ½·AB·AC·sin A = ½·6·8·½ = 12."],
+["Tam giác ABC có BC = 6 và góc A = 30°. Bán kính đường tròn ngoại tiếp R bằng","6",["3","6√3","12"],"Định lí sin: BC/sin A = 2R nên R = 6/(2·½) = 6."],
+["Tam giác có ba cạnh 6, 8, 10. Diện tích tam giác là","24",["48","30","12"],"6² + 8² = 10² nên tam giác vuông, S = ½·6·8 = 24."],
+["Khu đất hình tam giác có hai cạnh 20 m và 30 m, góc xen giữa 60°. Cạnh còn lại dài khoảng","26,5 m",["25,0 m","36,1 m","43,6 m"],"Định lí côsin: a² = 400 + 900 − 2·20·30·cos60° = 700, a = 10√7 ≈ 26,5 m."],
+["Tam giác ABC có c = 6, C = 46°, A = 43°. Cạnh b bằng (làm tròn đến hàng phần mười)","8,3",["4,8","5,0","3,2"],"B = 180° − 46° − 43° = 91°; b = c·sin B / sin C = 6·sin91°/sin46° ≈ 8,3."],
+["Hai điểm A, B cách nhau 50 m trên một bờ sông; góc BAC = 45°, góc ABC = 60° (C ở bờ đối diện). AC gần bằng","44,8 m",["35,4 m","61,2 m","50,0 m"],"C = 75°; AC = AB·sin B / sin C = 50·sin60°/sin75° ≈ 44,8 m."],
+["Lớp 10A mỗi học sinh đều chơi bóng đá hoặc bóng chuyền: 25 bạn chơi bóng đá, 20 bạn chơi bóng chuyền, 10 bạn chơi cả hai môn. Lớp có bao nhiêu học sinh?","35",["45","30","40"],"Số học sinh = 25 + 20 − 10 = 35 (trừ phần bị đếm hai lần)."],
+["Cho sin α = 1/3 và 90° < α < 180°. Giá trị cos α là","−2√2/3",["2√2/3","−2/3","2/3"],"cos²α = 1 − 1/9 = 8/9; góc tù nên cos α < 0, do đó cos α = −2√2/3."],
+["Cho sin α = 2/3 và 90° < α < 180°. Giá trị cos α là","−√5/3",["√5/3","−1/3","1/3"],"cos²α = 1 − 4/9 = 5/9; góc tù nên cos α = −√5/3."],
+["Cho cos α = 1/5. Giá trị của tan α·cot α + tan²α bằng","25",["24","7","6"],"tan α·cot α = 1 nên biểu thức = 1 + tan²α = 1/cos²α = 25."],
+["Cho α + β = 180°. Giá trị của P = cos α·cos β − sin β·sin α bằng","−1",["0","1","2"],"cos β = −cos α và sin β = sin α nên P = −cos²α − sin²α = −1."],
+["Tam giác ABC có B = 60°, C = 45°, AB = 5. Độ dài AC là","5√6/2",["5√2","5√6/3","5√2/2"],"Định lí sin: AC/sin B = AB/sin C nên AC = 5·sin60°/sin45° = 5√6/2."],
+["Tam giác ABC có BC = a, CA = b, AB = c và a² = b² + c² + √2·bc. Số đo góc A là","135°",["45°","120°","150°"],"cos A = (b² + c² − a²)/(2bc) = −√2/2, suy ra A = 135°."],
+["Nếu tam giác ABC có a² < b² + c² thì góc A là","góc nhọn",["góc vuông","góc tù","góc nhỏ nhất"],"cos A = (b² + c² − a²)/(2bc) > 0 nên A nhọn (không suy ra A là góc nhỏ nhất)."],
+["Tam giác ABC có BC = 4, AB = 5, B = 150°. Diện tích tam giác là","5",["10√3","5√3","10"],"S = ½·BC·AB·sin150° = ½·4·5·½ = 5."],
+["Tam giác ABC có AC = 4, A = 30°, C = 75°. Diện tích tam giác là","4",["8√3","4√3","8"],"B = 75° = C nên AB = AC = 4; S = ½·4·4·sin30° = 4."],
+["Tam giác đều ABC cạnh a có bán kính đường tròn ngoại tiếp bằng","a√3/3",["a√2/2","a√3/4","a√3/2"],"R = a/(2sin60°) = a/√3 = a√3/3."],
+["Cửa hàng lãi 200 000 đồng/tạ gạo loại I và 150 000 đồng/tạ gạo loại II. Bán x tạ loại I, y tạ loại II để lãi ít nhất 10 000 000 đồng thì","4x + 3y ≥ 200",["3x + 4y ≥ 200","4x + 3y ≤ 200","3x + 4y = 200"],"200 000x + 150 000y ≥ 10 000 000; chia hai vế cho 50 000 được 4x + 3y ≥ 200."],
+["Miền nghiệm của một hệ là tam giác có ba đỉnh (0; 2), (1; 4), (2; 3). Giá trị nhỏ nhất của F = x + 3y trên miền đó là","6",["13","2","11"],"Tính F tại các đỉnh được 6, 13, 11; giá trị nhỏ nhất là 6."],
+["Cho A = [−1; 3) và B = (2; 5]. Khẳng định nào SAI?","B \\ A = (3; 5]",["A ∩ B = (2; 3)","A ∪ B = [−1; 5]","A \\ B = [−1; 2]"],"3 ∈ B nhưng 3 ∉ A nên B \\ A = [3; 5], không phải (3; 5]."],
+["Mệnh đề nào sau đây có mệnh đề đảo đúng?","Nếu số nguyên chia hết cho 14 thì chia hết cho cả 7 và 2",["Hai tam giác bằng nhau thì có diện tích bằng nhau","Nếu a và b cùng chia hết cho c thì a + b chia hết cho c","Nếu a > b thì a² > b²"],"Đảo: chia hết cho cả 7 và 2 thì chia hết cho 14 (đúng vì 7 và 2 nguyên tố cùng nhau); các mệnh đề đảo còn lại đều sai."]
+];
+// [mệnh đề, đúng?, giải thích]
+const TF=[
+["Với mọi góc α (0° < α < 180°) ta có sin(180° − α) = sin α.",true,"Hai góc bù nhau có sin bằng nhau."],
+["Cho sin α = 1/3 và 90° < α < 180°. Khi đó cos α = 2√2/3.",false,"Góc tù nên cos α < 0; đúng là cos α = −2√2/3."],
+["Cho A = {0; −1; −5; −4; −3; −2} và B = {−1; −5; −4; −3; −2}. Khi đó A \\ B = {0}.",true,"0 là phần tử duy nhất của A không thuộc B."],
+["Với A và B ở trên: tập A là tập con của tập B.",false,"0 ∈ A nhưng 0 ∉ B nên A không là tập con của B."],
+["Cho D = (−6; −1) và B = [−3; 0]. Khi đó D ∩ B = (−3; −1].",false,"Giao là [−3; −1): lấy cả −3 (thuộc B) và không lấy −1 (không thuộc D)."],
+["Với D = (−6; −1): phần bù của D trong ℝ là (−∞; −6] ∪ [−1; +∞).",true,"D là khoảng mở nên phần bù chứa cả hai đầu mút −6 và −1."],
+["Cho hệ x + 2y ≤ 30, y > 5, −2x + 6y > 4. Cặp (4; 3) là một nghiệm của hệ.",false,"y = 3 không thỏa y > 5."],
+["Với hệ trên, cặp (1; 2) không là nghiệm của hệ.",true,"y = 2 không thỏa y > 5 nên (1; 2) không là nghiệm."],
+["Miền nghiệm của hệ x ≥ 0, y ≥ 0, x + y ≤ 4 là tam giác có diện tích bằng 16.",false,"Tam giác vuông cạnh 4 và 4 có diện tích ½·4·4 = 8."],
+["Giá trị lớn nhất của F(x; y) = 3x + 2y trên miền nghiệm của hệ x ≥ 0, y ≥ 0, x + y ≤ 4 bằng 12.",true,"Tính F tại các đỉnh (0;0), (4;0), (0;4): 0, 12, 8. Lớn nhất là 12 tại (4; 0)."],
+["Xưởng mộc: bàn cần 4 giờ công, ghế cần 2 giờ công; tối đa 60 giờ công và 35 m² gỗ (bàn 2 m², ghế 1 m²). Xưởng có thể làm 10 bàn và 12 ghế.",false,"Giờ công: 4·10 + 2·12 = 64 > 60 nên không thực hiện được."],
+["Với xưởng mộc trên, nếu đã làm 8 bàn thì số ghế làm thêm tối đa là 14 chiếc.",true,"Giờ công: 32 + 2y ≤ 60 ⇒ y ≤ 14; gỗ: 16 + y ≤ 35 ⇒ y ≤ 19. Lấy y ≤ 14."],
+["Tam giác ABC có a = 2, b = 7, C = 20°. Khi đó c ≈ 5,17.",true,"c² = 4 + 49 − 28·cos20° ≈ 26,69 nên c ≈ 5,17."],
+["Với tam giác trên, diện tích S ≈ 9,58.",false,"S = ½·2·7·sin20° ≈ 2,39."],
+["Tam giác ABC có a = 7, A = 76°, B = 43°. Khi đó C = 61° và b ≈ 4,92.",true,"C = 180° − 76° − 43° = 61°; b = 7·sin43°/sin76° ≈ 4,92."],
+["Tam giác ABC có a = 5, b = c = 6. Nửa chu vi p = 17.",false,"p = (5 + 6 + 6)/2 = 17/2."],
+["Với tam giác trên, bán kính đường tròn nội tiếp r = 5√119/68.",false,"S = 5√119/4 (công thức Heron), p = 17/2 nên r = S/p = 5√119/34."],
+["Công ty sản xuất A (lời 800 nghìn; 2 kg, 3 giờ) và B (lời 500 nghìn; 1 kg, 4 giờ) với 100 kg vật liệu, tối đa 180 giờ. Lợi nhuận lớn nhất đạt khi a = 44, b = 12.",true,"Đỉnh (44; 12) là giao của 2a + b = 100 và 3a + 4b = 180: lời 41 200 nghìn, lớn hơn (50; 0) → 40 000 và (0; 45) → 22 500."],
+["Cho A = {x ∈ ℝ | −3 ≤ x < 5} và B = {x ∈ ℝ | 4 ≤ x}. Khi đó A ∩ B = [4; 5].",false,"5 ∉ A nên A ∩ B = [4; 5)."],
+["Cho A = [−12; 21] và B = [0; 17]. Khi đó A ∪ B = B.",false,"B ⊂ A nên A ∪ B = A, không phải B."],
+["Với A, B ở trên: phần bù của B trong A là C_A B = [−12; 0) ∪ (17; 21].",true,"Lấy các phần tử của A không thuộc B; 0 và 17 thuộc B nên bị loại."],
+["Tam giác ABC có a = 7, b = 9, c = 12 thì bán kính đường tròn nội tiếp r = √5/5.",false,"p = 14, S = √(14·7·5·2) = 14√5 nên r = S/p = √5."],
+["Hai xe cùng xuất phát từ A theo hai hướng hợp nhau góc 60°, tốc độ 50 km/h và 40 km/h. Sau 1,5 giờ khoảng cách giữa hai xe là 15√21 km.",true,"Quãng đường 75 km và 60 km; định lí côsin: d² = 75² + 60² − 75·60 = 4725, d = 15√21."],
+["Hai xe cùng xuất phát từ A theo hai hướng hợp nhau góc 120°, tốc độ 30 km/h và 40 km/h. Sau 1,5 giờ khoảng cách giữa hai xe là 15√37 km.",true,"Quãng đường 45 km và 60 km; d² = 45² + 60² + 45·60 = 8325, d = 15√37."],
+["Bạn An có 30 000 đồng, vở 6 000 đồng/quyển, bút 8 000 đồng/chiếc. Nếu phải mua cả hai loại thì An mua được tối đa 3 chiếc bút.",true,"6x + 8y ≤ 30 với x, y ≥ 1: y = 3 thì x = 1 thỏa; y = 4 thì 8·4 = 32 > 30."]
+];
+const $=id=>document.getElementById(id);
+const LIVES=3;let S=null,clock=null,locked=false;
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const fmt=t=>String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0");
+const pts=x=>(x/10).toLocaleString("vi-VN");
+const MAXP=MC.length*2+TF.length*10;
+/* âm thanh */
+let AC=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC;}
+function tone(f,t0,d,type,v){const c=AC,o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,c.currentTime+t0);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+t0+d);o.connect(g);g.connect(c.destination);o.start(c.currentTime+t0);o.stop(c.currentTime+t0+d+.05);}
+function clap(t0,v){const c=AC,n=Math.floor(c.sampleRate*.08),b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=b;f.type="bandpass";f.frequency.value=1800+Math.random()*1500;g.gain.value=v;s.connect(f);f.connect(g);g.connect(c.destination);s.start(c.currentTime+t0);}
+function happy(){if(!ac())return;[523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,i*.16,.35,"triangle",.18));for(let i=0;i<70;i++){const t=.3+i*.05+Math.random()*.03;clap(t,.5*Math.min(1,(i<10?i/10:1))*(i>55?(70-i)/15:1)+.05);}}
+function sad(){if(!ac())return;[392,370,349,294].forEach((f,i)=>tone(f,i*.35,.6,"sawtooth",.12));}
+/* luồng chơi */
+function newState(){return{i:0,score:0,lives:LIVES,t:0,h5:2,cur:null,saved:false,done:false};}
+function show(id){["s-start","s-play","s-end"].forEach(x=>$(x).classList.toggle("hide",x!==id));}
+function start(){
+ const n=$("name").value.trim(),c=$("cls").value.trim();
+ if(!n||!c){$("warn").textContent="Hãy nhập họ tên và lớp trước khi chơi.";return;}
+ $("warn").textContent="";ac();
+ S=newState();S.name=n;S.cls=c;
+ clearInterval(clock);clock=setInterval(()=>{S.t++;$("clock").textContent=fmt(S.t);},1000);
+ $("clock").textContent="00:00";show("s-play");render();
+}
+function total(){return MC.length+TF.length;}
+function render(){
+ locked=false;const i=S.i,isMC=i<MC.length;
+ $("score").textContent=pts(S.score);$("lives").textContent="♥".repeat(S.lives)+"♡".repeat(LIVES-S.lives);
+ $("phase").textContent=isMC?"Phần 1 · Trắc nghiệm (0,2 điểm)":"Phần 2 · Đúng/Sai (1,0 điểm)";
+ $("prog").textContent="Câu "+(i+1)+"/"+total();
+ $("n5050").textContent=S.h5;$("btn-5050").disabled=!isMC||S.h5<1;
+ $("fb").classList.add("hide");$("btn-next").classList.add("hide");$("btn-stop").disabled=false;
+ const box=$("ans");box.textContent="";
+ if(isMC){
+  const q=MC[i];$("qtext").textContent=q[0];
+  const opts=shuffle([{t:q[1],ok:true}].concat(q[2].map(t=>({t,ok:false}))));
+  S.cur={mc:true,opts,q};
+  opts.forEach((o,k)=>{const b=document.createElement("button");b.dataset.k=k;b.textContent="ABCD"[k]+". "+o.t;box.appendChild(b);});
+ }else{
+  const q=TF[i-MC.length];$("qtext").textContent=q[0];S.cur={mc:false,q};
+  [["true","ĐÚNG"],["false","SAI"]].forEach(a=>{const b=document.createElement("button");b.className="tf";b.dataset.v=a[0];b.textContent=a[1];box.appendChild(b);});
+ }
+}
+function answer(btn){
+ if(locked||!S||S.done)return;locked=true;
+ let ok,fb,exp;const c=S.cur;
+ if(c.mc){
+  const o=c.opts[+btn.dataset.k];ok=o.ok;exp=c.q[3];
+  [...$("ans").children].forEach((b,k)=>{if(c.opts[k].ok)b.classList.add("right");});
+  if(!ok)btn.classList.add("wrong");
+  fb=ok?"":"Đáp án đúng: "+c.q[1]+". ";
+ }else{
+  const v=btn.dataset.v==="true",truth=c.q[1];ok=v===truth;exp=c.q[2];
+  [...$("ans").children].forEach(b=>{if((b.dataset.v==="true")===truth)b.classList.add("right");});
+  if(!ok)btn.classList.add("wrong");
+  fb=ok?"":"Mệnh đề này "+(truth?"ĐÚNG":"SAI")+". ";
+ }
+ [...$("ans").children].forEach(b=>b.disabled=true);
+ if(ok){S.score+=c.mc?2:10;$("score").textContent=pts(S.score);}else{S.lives--;$("lives").textContent="♥".repeat(S.lives)+"♡".repeat(LIVES-S.lives);}
+ const f=$("fb");f.className="fb "+(ok?"good":"no");f.textContent="";
+ const st=document.createElement("strong");st.textContent=ok?"Chính xác! ":"Chưa đúng. ";f.appendChild(st);f.appendChild(document.createTextNode(fb+exp));
+ $("btn-5050").disabled=true;$("btn-stop").disabled=true;
+ const last=S.i>=total()-1,over=S.lives<=0;
+ const nx=$("btn-next");nx.classList.remove("hide");nx.textContent=(last||over)?"Xem kết quả":"Câu tiếp theo";
+ ok?happy():sad();
+}
+function next(){
+ if(!S||S.done)return;
+ if(S.lives<=0||S.i>=total()-1){finish();return;}
+ S.i++;render();
+}
+function fifty(){
+ if(!S||locked||!S.cur||!S.cur.mc||S.h5<1)return;
+ S.h5--;$("n5050").textContent=S.h5;$("btn-5050").disabled=S.h5<1;
+ const wr=[...$("ans").children].filter((b,k)=>!S.cur.opts[k].ok);
+ shuffle(wr).slice(0,2).forEach(b=>{b.disabled=true;b.style.visibility="hidden";});
+}
+function finish(){
+ if(!S||S.done)return;S.done=true;clearInterval(clock);clock=null;
+ const all=S.i>=total()-1&&S.lives>0;
+ $("endtitle").textContent=S.lives<=0?"Hết mạng rồi!":(all?"Chúc mừng, bạn đã hoàn thành!":"Bạn đã dừng cuộc chơi");
+ $("endscore").textContent=pts(S.score)+" / "+pts(MAXP)+" điểm";
+ $("endinfo").textContent=S.name+" · Lớp "+S.cls+" · Thời gian "+fmt(S.t);
+ show("s-end");save();
+}
+function save(){
+ if(S.saved)return;S.saved=true;
+ if(!APPS_SCRIPT_URL){$("savestat").textContent="";return;}
+ $("savestat").textContent="Đang gửi kết quả…";
+ fetch(APPS_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({"Họ tên":S.name,"Lớp":S.cls,"Điểm số":S.score/10,"Thời gian làm bài":fmt(S.t)})})
+ .then(()=>{$("savestat").textContent="Đã gửi kết quả lên bảng xếp hạng.";loadLB();})
+ .catch(()=>{$("savestat").textContent="Chưa gửi được kết quả, hãy báo giáo viên.";});
+}
+function again(){clearInterval(clock);clock=null;S=null;locked=false;$("name").value="";$("cls").value="";$("savestat").textContent="";show("s-start");}
+/* bảng xếp hạng */
+const secs=t=>{const p=String(t||"").split(":").map(Number);return p.length===2&&!p.some(isNaN)?p[0]*60+p[1]:1e9;};
+function loadLB(){
+ if(!APPS_SCRIPT_URL)return;
+ fetch(APPS_SCRIPT_URL).then(r=>r.json()).then(j=>{
+  if(!j||j.status!=="ok"||!Array.isArray(j.data))return;
+  const d=j.data.slice().sort((a,b)=>(Number(b["Điểm số"])||0)-(Number(a["Điểm số"])||0)||secs(a["Thời gian làm bài"])-secs(b["Thời gian làm bài"])).slice(0,10);
+  const tb=$("lb");tb.textContent="";
+  if(!d.length){tb.innerHTML="<tr><td colspan='5'>Chưa có kết quả.</td></tr>";return;}
+  d.forEach((r,i)=>{const tr=document.createElement("tr");[i+1,r["Họ tên"],r["Lớp"],r["Điểm số"],r["Thời gian làm bài"]].forEach(v=>{const td=document.createElement("td");td.textContent=v==null?"":v;tr.appendChild(td);});tb.appendChild(tr);});
+ }).catch(()=>{});
+}
+/* gắn sự kiện đúng một lần */
+$("btn-start").addEventListener("click",start);
+$("btn-next").addEventListener("click",next);
+$("btn-5050").addEventListener("click",fifty);
+$("btn-stop").addEventListener("click",()=>{if(S&&!S.done&&!locked)finish();});
+$("btn-again").addEventListener("click",again);
+$("ans").addEventListener("click",e=>{const b=e.target.closest("button");if(b&&!b.disabled)answer(b);});
+loadLB();setInterval(loadLB,5000);
+})();
+</script></body></html>
