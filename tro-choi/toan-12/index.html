@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ai là triệu phú – Toán 12</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#fff;background:radial-gradient(ellipse at center,#14634a,#0a3427 80%);border:10px solid #8a5a2b;overflow:hidden}
+.screen{display:none;flex-direction:column;height:calc(100dvh - 20px);padding:10px 16px;gap:10px}.screen.active{display:flex}
+h1{margin:0;text-align:center;font-size:clamp(26px,4.2vw,58px);color:#ffd84a;text-shadow:2px 2px 0 #000}
+h2{margin:0;font-size:clamp(20px,2.5vw,34px);color:#ffd84a}.sub{text-align:center;font-size:clamp(18px,2.3vw,32px)}
+.wrap{display:flex;gap:16px;flex:1;min-height:0}
+.panel{background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.7);border-radius:14px;padding:12px 16px;flex:1;min-width:0;overflow:auto;font-size:clamp(16px,1.8vw,26px);line-height:1.4}
+.panel ul{margin:6px 0 0;padding-left:22px}
+input{width:100%;font-size:clamp(18px,2.1vw,28px);padding:8px 12px;margin:6px 0;border-radius:10px;border:2px solid #fff;background:#fff;color:#111}
+.btn{font-size:clamp(18px,2.4vw,34px);font-weight:700;padding:10px 24px;border-radius:12px;border:3px solid #fff;background:#e0a100;color:#111;cursor:pointer}
+.btn:hover{background:#ffc928}.btn:disabled{opacity:.35;cursor:not-allowed}
+.err{color:#ff9d9d;min-height:1.3em}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;font-size:clamp(18px,2.2vw,32px);font-weight:700}
+.chip{background:rgba(0,0,0,.4);border:2px solid #fff;border-radius:10px;padding:2px 14px;white-space:nowrap}
+#timer{color:#7dff9b}#timer.warn{color:#ff6b6b}
+.progress{height:10px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}#bar{height:100%;width:0;background:#ffd84a;transition:width .4s}
+.lbl{text-align:center;font-size:clamp(16px,1.8vw,26px);color:#bfeeff}
+.main{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:14px;overflow:auto}
+#qtext{background:rgba(0,0,0,.4);border:3px solid #fff;border-radius:16px;padding:16px 22px;text-align:center;font-size:clamp(22px,3.2vw,48px);font-weight:600;line-height:1.35}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{font-size:clamp(20px,2.8vw,42px);text-align:left;padding:14px 18px;border-radius:40px;border:3px solid #fff;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-family:inherit}
+.opt:hover{background:rgba(255,216,74,.3)}.opt b{color:#ffd84a;margin-right:6px}
+.opt.good{background:#1b9a42}.opt.bad{background:#c62828}.opt.gone{visibility:hidden}.opt.locked{pointer-events:none}
+.opts.tf .opt{text-align:center;font-weight:800;font-size:clamp(26px,4vw,58px);border-radius:20px;padding:22px}
+.ll{display:flex;gap:12px;justify-content:center}.ll .btn{font-size:clamp(16px,2vw,26px);padding:6px 16px;background:#2a7fc9;color:#fff}
+#fb{display:none;border-radius:14px;padding:10px 18px;gap:14px;align-items:center;border:3px solid #fff;background:rgba(0,0,0,.65)}
+#fb.show{display:flex}#fb.ok{border-color:#51e57a}#fb.no{border-color:#ff6b6b}
+#fbT{font-size:clamp(22px,3vw,42px);font-weight:800}#fb.ok #fbT{color:#7dff9b}#fb.no #fbT{color:#ff8a8a}
+#fbE{font-size:clamp(17px,2.1vw,30px);line-height:1.35;margin-top:4px}
+table{width:100%;border-collapse:collapse}td,th{padding:4px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25)}th{color:#ffd84a}
+.big{font-size:clamp(40px,7vw,96px);color:#ffd84a;font-weight:800;text-align:center}
+@media(max-width:760px){.wrap{flex-direction:column}.opts{grid-template-columns:1fr}.opt{border-radius:22px}body{border-width:5px}.screen{height:calc(100dvh - 10px);padding:6px}}
+</style></head><body>
+<section id="start" class="screen active">
+<h1>🎓 AI LÀ TRIỆU PHÚ 🎓</h1>
+<div class="sub">Toán 12 · <b>Ứng dụng đạo hàm khảo sát hàm số &amp; Vectơ trong không gian</b></div>
+<div class="wrap"><div class="panel">
+<h2>Thông tin người chơi</h2>
+<input id="inName" placeholder="Họ và tên" maxlength="40" autocomplete="off">
+<input id="inClass" placeholder="Lớp (ví dụ: 12A1)" maxlength="12" autocomplete="off">
+<div class="err" id="err"></div>
+<h2>Luật chơi</h2>
+<ul>
+<li><b id="nq"></b> câu, độ khó tăng dần: trắc nghiệm 4 phương án (0,2 điểm/câu) rồi nhận định Đúng/Sai (1,0 điểm/câu). Tối đa <b id="mx"></b> điểm.</li>
+<li>Có <b>3 mạng ❤</b>. Trả lời sai hoặc hết giờ mất 1 mạng; hết mạng thì kết thúc.</li>
+<li>Thời gian: 45 giây (trắc nghiệm), 60 giây (Đúng/Sai).</li>
+<li>Trợ giúp (mỗi loại 1 lần, phần trắc nghiệm): <b>50:50</b> và <b>Hỏi khán giả</b>.</li>
+<li>Sau mỗi câu có giải thích. Xếp hạng: điểm cao hơn trước; bằng điểm thì thời gian ngắn hơn.</li></ul>
+<p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ BẮT ĐẦU</button></p>
+</div><div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div></div>
+</section>
+<section id="game" class="screen">
+<div class="top"><span class="chip">Câu <span id="qno"></span></span><span class="chip">Điểm: <span id="score">0,0</span></span><span class="chip" id="lives"></span><span class="chip">⏱ <span id="timer">45</span></span><button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff">🔊</button></div>
+<div class="progress"><div id="bar"></div></div><div class="lbl" id="lv"></div>
+<div class="main"><div id="qtext"></div><div class="opts" id="opts"></div></div>
+<div class="ll"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llAud">👥 Hỏi khán giả</button></div>
+<div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp theo ▶</button></div>
+</section>
+<section id="end" class="screen">
+<h1 id="endT"></h1>
+<div class="wrap"><div class="panel" style="text-align:center">
+<div id="endName" class="sub"></div><div class="big" id="endScore"></div>
+<div class="sub">Số câu đúng: <b id="endOk"></b> · Thời gian: <b id="endTime"></b></div>
+<div class="sub" id="endMsg" style="margin-top:8px"></div><div class="lbl" id="endSave" style="margin-top:8px"></div>
+<p><button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></p></div>
+<div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div></div>
+</section>
+<script>
+const APPS_SCRIPT_URL = ""; // điền URL Web App của Apps Script vào đây
+const $=id=>document.getElementById(id);
+const LV={NB:"Nhận biết",TH:"Thông hiểu",VD:"Vận dụng",VDC:"Vận dụng cao"};
+// [mức, câu hỏi, đáp án đúng, [3 sai], giải thích]
+const MC=[
+["NB","Hàm số y = x³ − 3x đồng biến trên khoảng nào?","(−∞; −1)",["(−1; 1)","(0; 1)","(−1; 0)"],"y′ = 3x² − 3 > 0 khi x < −1 hoặc x > 1, nên hàm số đồng biến trên (−∞; −1)."],
+["NB","Nếu f′(x) > 0 với mọi x ∈ (a; b) thì hàm số f(x):","đồng biến trên (a; b)",["nghịch biến trên (a; b)","không đổi trên (a; b)","có cực đại trên (a; b)"],"Đạo hàm dương trên một khoảng thì hàm số đồng biến trên khoảng đó."],
+["NB","Tiệm cận đứng của đồ thị y = (x − 1)/(x + 2) là:","x = −2",["x = 1","y = 1","x = 2"],"Mẫu bằng 0 tại x = −2 còn tử khác 0, nên x = −2 là tiệm cận đứng."],
+["NB","Tiệm cận ngang của đồ thị y = (2x + 1)/(x − 3) là:","y = 2",["y = 3","x = 2","y = 1/2"],"Khi x → ±∞, y → hệ số x ở tử chia hệ số x ở mẫu = 2."],
+["NB","Tâm đối xứng của đồ thị y = (2x + 1)/(x − 1) là:","I(1; 2)",["I(2; 1)","I(−1; 2)","I(1; −2)"],"Tâm đối xứng là giao hai tiệm cận: x = 1 và y = 2."],
+["NB","Điểm cực tiểu của hàm số y = x³ − 3x + 1 là:","x = 1",["x = −1","x = 0","x = 3"],"y′ = 3x² − 3 = 0 ⇔ x = ±1; y′ đổi dấu từ − sang + tại x = 1."],
+["NB","Cho hình hộp ABCD.A′B′C′D′. Vectơ AB + AD + AA′ bằng:","AC′",["AC","DB′","A′C"],"Theo quy tắc hình hộp: AB + AD + AA′ = AC′."],
+["NB","Cho u = (1; 2; 3), v = (0; −1; 2). Tọa độ u + v là:","(1; 1; 5)",["(1; 3; 5)","(1; −3; 1)","(−1; −1; −5)"],"Cộng từng tọa độ: (1+0; 2−1; 3+2) = (1; 1; 5)."],
+["TH","Giá trị nhỏ nhất của y = x³ − 3x² + 2 trên [0; 3] là:","−2",["2","0","−4"],"y′ = 3x² − 6x = 0 ⇔ x = 0 hoặc 2. y(0) = 2, y(2) = −2, y(3) = 2 nên min = −2."],
+["TH","Giá trị nhỏ nhất của y = x + 4/x trên [1; 3] bằng:","4",["5","13/3","3"],"y′ = 1 − 4/x² = 0 ⇔ x = 2; y(2) = 4, y(1) = 5, y(3) = 13/3 nên min = 4."],
+["TH","Tiệm cận xiên của đồ thị y = (x² + x + 1)/(x − 1) là:","y = x + 2",["y = x − 2","y = x + 1","y = x + 3"],"Chia đa thức: y = x + 2 + 3/(x − 1); phần 3/(x−1) → 0 nên tiệm cận xiên là y = x + 2."],
+["TH","Số đường tiệm cận đứng của đồ thị y = 4x/(x² − 1) là:","2",["1","3","0"],"Mẫu bằng 0 tại x = ±1, tử khác 0 tại cả hai điểm nên có 2 tiệm cận đứng."],
+["TH","Tổng hoành độ hai điểm cực trị của y = (x² − 3x + 6)/(x − 2) bằng:","4",["2","0","6"],"y = x − 1 + 4/(x − 2); y′ = 1 − 4/(x − 2)² = 0 ⇔ x = 0 hoặc x = 4. Tổng = 4."],
+["TH","Cho A(1; 2; 3), B(3; 0; −1). Độ dài AB bằng:","2√6",["2√3","6","√6"],"AB = (2; −2; −4) nên |AB| = √(4 + 4 + 16) = √24 = 2√6."],
+["TH","Trọng tâm tam giác ABC với A(1; 2; 3), B(2; −1; 0), C(0; 5; 3) là:","(1; 2; 2)",["(3; 6; 6)","(1; 2; 3)","(0; 2; 2)"],"Trọng tâm có tọa độ là trung bình cộng: (3/3; 6/3; 6/3) = (1; 2; 2)."],
+["TH","Góc giữa a = (1; 0; 1) và b = (0; 1; 1) bằng:","60°",["30°","45°","90°"],"cos = (a·b)/(|a||b|) = 1/(√2·√2) = 1/2 nên góc bằng 60°."],
+["TH","Hàm số y = x³ − 3x² + mx đồng biến trên ℝ khi:","m ≥ 3",["m ≤ 3","m ≥ 9","m ≥ 1"],"y′ = 3x² − 6x + m ≥ 0 với mọi x ⇔ Δ′ = 9 − 3m ≤ 0 ⇔ m ≥ 3."],
+["VD","Từ tấm bìa vuông cạnh 12 cm, cắt bốn góc bốn hình vuông cạnh x rồi gấp thành hộp không nắp. Thể tích lớn nhất bằng:","128 cm³",["108 cm³","100 cm³","64 cm³"],"V = x(12 − 2x)², V′ = 0 ⇔ x = 2 (0 < x < 6), V = 2·8² = 128."],
+["VD","Chi phí trung bình để sản xuất x sản phẩm là C(x) = (50x + 200)/x (nghìn đồng). Khi x → +∞, C(x) tiến gần:","50 nghìn đồng",["200 nghìn đồng","0 nghìn đồng","250 nghìn đồng"],"C(x) = 50 + 200/x → 50 khi x → +∞ (tiệm cận ngang y = 50)."],
+["VD","Nồng độ thuốc trong máu C(t) = 20t/(t² + 16) (mg/lít). Nồng độ lớn nhất sau:","4 giờ",["2 giờ","8 giờ","16 giờ"],"C′ = 20(16 − t²)/(t² + 16)² = 0 ⇔ t = 4; C′ đổi dấu từ + sang − nên C lớn nhất, bằng 2,5."],
+["VD","Chất điểm có s(t) = −t³/3 + 6t² (t giây, s mét). Vận tốc lớn nhất bằng:","36 m/s",["12 m/s","72 m/s","24 m/s"],"v = s′ = −t² + 12t, lớn nhất tại t = 6: v = −36 + 72 = 36 m/s."],
+["VD","Ba lực F₁, F₂, F₃ tác động vào một điểm, đôi một vuông góc, có độ lớn 3 N, 4 N, 12 N. Độ lớn hợp lực là:","13 N",["19 N","12 N","15 N"],"|F|² = 3² + 4² + 12² = 169 nên |F| = 13 N."],
+["VD","Cho A(2; −1; 3), B(−3; 2; 0), C(−1; 0; 2). Tìm D để ABCD là hình bình hành.","D(4; −3; 5)",["D(−6; 3; −1)","D(4; 3; 5)","D(1; −1; 2)"],"ABCD là hình bình hành ⇔ D = A + C − B = (2 − 1 + 3; −1 + 0 − 2; 3 + 2 − 0) = (4; −3; 5)."],
+["VD","Đồ thị y = x³ − 3x² + 4 cắt trục hoành tại bao nhiêu điểm?","2",["1","3","0"],"y = (x + 1)(x − 2)² = 0 ⇔ x = −1 hoặc x = 2 (nghiệm kép): 2 giao điểm."]
+];
+// [mức, nhận định, đúng?, giải thích]
+const TF=[
+["NB","Hàm số y = x³ − 3x có hai điểm cực trị.",true,"y′ = 3x² − 3 = 0 có hai nghiệm x = ±1 và y′ đổi dấu tại cả hai."],
+["NB","Hàm số y = x³ có điểm cực trị.",false,"y′ = 3x² ≥ 0 và không đổi dấu nên hàm số luôn đồng biến, không có cực trị."],
+["NB","Tâm đối xứng của đồ thị y = (ax + b)/(cx + d) (c ≠ 0, ad − bc ≠ 0) là giao điểm hai đường tiệm cận.",true,"Đây là tính chất của hàm phân thức bậc nhất trên bậc nhất."],
+["NB","Với a = (1; 2; 3) thì |a| = √14.",true,"|a| = √(1 + 4 + 9) = √14."],
+["TH","Hàm số y = (x − 1)/(x + 1) đồng biến trên từng khoảng xác định.",true,"y′ = 2/(x + 1)² > 0 với mọi x ≠ −1."],
+["TH","Hàm số y = x + 1/x đồng biến trên khoảng (0; 1).",false,"y′ = 1 − 1/x² < 0 khi 0 < x < 1 nên hàm số nghịch biến trên (0; 1)."],
+["TH","Hàm số y = −x⁴ + 2x² + 1 có giá trị lớn nhất bằng 2.",true,"y′ = −4x³ + 4x = 0 ⇔ x = 0, ±1; y(±1) = 2 là giá trị lớn nhất, y(0) = 1."],
+["TH","Hai vectơ a = (1; 2; 3) và b = (2; 4; 6) cùng phương.",true,"b = 2a nên hai vectơ cùng phương (cùng hướng)."],
+["TH","Hai vectơ a = (1; −2; 2) và b = (2; 1; 0) vuông góc với nhau.",true,"a·b = 2 − 2 + 0 = 0."],
+["VD","Một vật có s(t) = −t³ + 6t² + 15t. Vận tốc lớn nhất của vật bằng 27 m/s.",true,"v = −3t² + 12t + 15 lớn nhất tại t = 2: v = −12 + 24 + 15 = 27."],
+["VD","Hai lực 6 N và 8 N hợp nhau góc 60° có hợp lực bằng 14 N.",false,"|F|² = 36 + 64 + 2·6·8·cos 60° = 148 nên |F| ≈ 12,2 N (14 N chỉ khi hai lực cùng hướng)."],
+["VD","Ba điểm A(1; 2; 3), B(2; 1; 0), C(3; 0; −3) thẳng hàng.",true,"AB = (1; −1; −3), AC = (2; −2; −6) = 2·AB nên A, B, C thẳng hàng."],
+["VD","Lợi nhuận P(x) = −x³ + 3x² + 72x − 80 (1 ≤ x ≤ 25) đạt lớn nhất bằng 244 tại x = 6.",true,"P′ = −3x² + 6x + 72 = 0 ⇔ x = 6; P(6) = −216 + 108 + 432 − 80 = 244."],
+["VDC","Đồ thị y = (x² + x + 1)/(x + 1) có điểm cực đại là (−2; −3).",true,"y = x + 1/(x + 1); y′ = 0 ⇔ x = 0 hoặc −2. Tại x = −2, y′ đổi dấu + sang −, y = −3."],
+["VDC","Có 2 giá trị nguyên dương m để y = (2x + m)/(x + 1) đồng biến trên từng khoảng xác định.",false,"y′ = (2 − m)/(x + 1)² > 0 ⇔ m < 2; chỉ có m = 1 là số nguyên dương."],
+["VDC","Trang sách có phần in 384 cm², lề trên và dưới 3 cm, lề trái và phải 2 cm. Diện tích trang nhỏ nhất là 600 cm².",true,"Diện tích = 384 + 6x + 4y + 24 với xy = 384; 6x + 4y ≥ 2√(24·384) = 192 nên nhỏ nhất 600 (x = 16, y = 24)."]
+];
+const QS=MC.map(m=>({k:"mc",lv:m[0],q:m[1],ok:m[2],bad:m[3],ex:m[4]})).concat(TF.map(t=>({k:"tf",lv:t[0],q:t[1],ok:t[2],ex:t[3]})));
+const PT={mc:2,tf:10}, MAXPT=QS.reduce((s,q)=>s+PT[q.k],0);
+const fmt=n=>(n/10).toFixed(1).replace(".",",");
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const mmss=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));}
+$("nq").textContent=QS.length;$("mx").textContent=fmt(MAXPT);
+// Âm thanh
+let AC=null,muted=false;
+function initAudio(){if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(C)AC=new
