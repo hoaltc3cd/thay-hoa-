@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ai là triệu phú – Bất phương trình và hệ bất phương trình bậc nhất hai ẩn</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#fff;background:radial-gradient(ellipse at center,#14634a 0%,#0a3427 80%);border:10px solid #8a5a2b;overflow:hidden}
+.screen{display:none;flex-direction:column;height:calc(100dvh - 20px);padding:10px 16px;gap:10px}
+.screen.active{display:flex}
+h1{margin:0;text-align:center;font-size:clamp(26px,4.4vw,62px);color:#ffd84a;text-shadow:2px 2px 0 #000}
+h2{margin:0;font-size:clamp(20px,2.6vw,36px);color:#ffd84a}
+.sub{text-align:center;font-size:clamp(18px,2.4vw,34px)}
+.wrap{display:flex;gap:16px;flex:1;min-height:0}
+.panel{background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.7);border-radius:14px;padding:12px 16px;flex:1;min-width:0;overflow:auto;font-size:clamp(16px,1.9vw,28px);line-height:1.4}
+.panel ul{margin:6px 0 0;padding-left:22px}
+input{width:100%;font-size:clamp(18px,2.2vw,30px);padding:8px 12px;margin:6px 0;border-radius:10px;border:2px solid #fff;background:#fff;color:#111}
+.btn{font-size:clamp(20px,2.6vw,36px);font-weight:700;padding:10px 24px;border-radius:12px;border:3px solid #fff;background:#e0a100;color:#111;cursor:pointer}
+.btn:hover{background:#ffc928}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.err{color:#ff9d9d;min-height:1.3em;font-size:clamp(16px,1.8vw,26px)}
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;font-size:clamp(18px,2.3vw,34px);font-weight:700}
+.chip{background:rgba(0,0,0,.4);border:2px solid #fff;border-radius:10px;padding:2px 14px;white-space:nowrap}
+#timer{min-width:3.2em;text-align:center;color:#7dff9b}
+#timer.warn{color:#ff6b6b;animation:bl .5s infinite alternate}
+@keyframes bl{to{opacity:.35}}
+.progress{height:10px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}
+#bar{height:100%;width:0;background:#ffd84a;transition:width .4s}
+.lbl{text-align:center;font-size:clamp(16px,1.9vw,28px);color:#bfeeff}
+.main{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:14px;overflow:auto}
+#qtext{background:rgba(0,0,0,.4);border:3px solid #fff;border-radius:16px;padding:16px 22px;text-align:center;font-size:clamp(22px,3.3vw,50px);font-weight:600;line-height:1.35}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{font-size:clamp(20px,2.9vw,44px);text-align:left;padding:14px 18px;border-radius:40px;border:3px solid #fff;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-family:inherit}
+.opt:hover{background:rgba(255,216,74,.3)}
+.opt b{color:#ffd84a;margin-right:6px}
+.opt.good{background:#1b9a42;border-color:#b6ffc9}
+.opt.bad{background:#c62828;border-color:#ffc4c4}
+.opt.gone{visibility:hidden}
+.opt.locked{pointer-events:none}
+.opts.tf .opt{text-align:center;font-weight:800;font-size:clamp(26px,4vw,60px);border-radius:20px;padding:22px}
+.opts.tf .opt:first-child{border-color:#8dffa8}
+.opts.tf .opt:last-child{border-color:#ff9d9d}
+.ll{display:flex;gap:12px;justify-content:center}
+.ll .btn{font-size:clamp(16px,2vw,28px);padding:6px 16px;background:#2a7fc9;color:#fff}
+#fb{display:none;border-radius:14px;padding:10px 18px;gap:14px;align-items:center;border:3px solid #fff;background:rgba(0,0,0,.65)}
+#fb.show{display:flex}
+#fb.ok{border-color:#51e57a}
+#fb.no{border-color:#ff6b6b}
+#fbT{font-size:clamp(22px,3vw,44px);font-weight:800}
+#fb.ok #fbT{color:#7dff9b}
+#fb.no #fbT{color:#ff8a8a}
+#fbE{font-size:clamp(17px,2.2vw,32px);line-height:1.35;margin-top:4px}
+table{width:100%;border-collapse:collapse}
+td,th{padding:4px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25)}
+th{color:#ffd84a}
+.big{font-size:clamp(40px,7vw,100px);color:#ffd84a;font-weight:800;text-align:center}
+@media(max-width:760px){.wrap{flex-direction:column}.opts{grid-template-columns:1fr}.opt{border-radius:22px}body{border-width:5px}.screen{height:calc(100dvh - 10px);padding:6px}}
+</style></head><body>
+
+<section id="start" class="screen active">
+  <h1>🎓 AI LÀ TRIỆU PHÚ 🎓</h1>
+  <div class="sub">Chủ đề: <b>BẤT PHƯƠNG TRÌNH VÀ HỆ BẤT PHƯƠNG TRÌNH BẬC NHẤT HAI ẨN</b> · Toán 10</div>
+  <div class="wrap">
+    <div class="panel">
+      <h2>Thông tin người chơi</h2>
+      <input id="inName" placeholder="Họ và tên" maxlength="40" autocomplete="off">
+      <input id="inClass" placeholder="Lớp (ví dụ: 10A1)" maxlength="12" autocomplete="off">
+      <div class="err" id="err"></div>
+      <h2>Luật chơi</h2>
+      <ul>
+        <li><b>60 câu</b>, độ khó tăng dần: 40 câu trắc nghiệm 4 phương án (0,2 điểm/câu) rồi 20 nhận định Đúng/Sai (1,0 điểm/câu). Tối đa <b>28 điểm</b>.</li>
+        <li>Có <b>3 mạng ❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
+        <li><b>Không giới hạn thời gian</b> cho mỗi câu; đồng hồ chỉ ghi tổng thời gian làm bài để xếp hạng.</li>
+        <li>Quyền trợ giúp (mỗi loại 1 lần, chỉ phần trắc nghiệm): <b>50:50</b> và <b>Hỏi khán giả</b>.</li>
+        <li>Sau mỗi câu có giải thích. Xếp hạng: điểm cao hơn trước; bằng điểm thì thời gian ngắn hơn.</li>
+      </ul>
+      <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ BẮT ĐẦU</button></p>
+    </div>
+    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div class="top">
+    <span class="chip">Câu <span id="qno"></span></span>
+    <span class="chip">Điểm: <span id="score">0,0</span></span>
+    <span class="chip" id="lives"></span>
+    <span class="chip">⏱ <span id="timer">00:00</span></span>
+    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff">🔊</button>
+  </div>
+  <div class="progress"><div id="bar"></div></div>
+  <div class="lbl" id="lv"></div>
+  <div class="main">
+    <div id="qtext"></div>
+    <div class="opts" id="opts"></div>
+  </div>
+  <div class="ll"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llAud">👥 Hỏi khán giả</button></div>
+  <div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp theo ▶</button></div>
+</section>
+
+<section id="end" class="screen">
+  <h1 id="endT">HOÀN THÀNH!</h1>
+  <div class="wrap">
+    <div class="panel" style="text-align:center">
+      <div id="endName" class="sub"></div>
+      <div class="big" id="endScore"></div>
+      <div class="sub">Số câu đúng: <b id="endOk"></b> · Thời gian: <b id="endTime"></b></div>
+      <div class="sub" id="endMsg" style="margin-top:8px"></div>
+      <div class="lbl" id="endSave" style="margin-top:8px"></div>
+      <p><button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></p>
+    </div>
+    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+  </div>
+</section>
+
+<script>
+// ===== Cấu hình (ẩn khỏi giao diện): điền URL Web App của Apps Script vào đây =====
+const APPS_SCRIPT_URL = "";
+
+const $ = id => document.getElementById(id);
+const LV = {NB:"Nhận biết",TH:"Thông hiểu",VD:"Vận dụng",VDC:"Vận dụng cao"};
+
+// ===== NGÂN HÀNG CÂU HỎI =====
+// Trắc nghiệm: [mức độ, câu hỏi, đáp án đúng, [3 đáp án sai], giải thích]
+const MC = [
+["NB","Bất phương trình nào sau đây là bất phương trình bậc nhất hai ẩn?","2x + 3y ≤ 6",["x² + y > 1","1/x + y ≥ 2","x + y² < 3"],"Bất phương trình bậc nhất hai ẩn có dạng ax + by ≤ c (hoặc <, ≥, >), trong đó x, y chỉ có số mũ 1."],
+["NB","Bất phương trình nào sau đây KHÔNG là bất phương trình bậc nhất hai ẩn?","x² − y ≤ 0",["2x − y > 1","x + 3y ≥ 0","−x + 4y < 5"],"x² có số mũ 2 nên bất phương trình x² − y ≤ 0 không phải bậc nhất."],
+["NB","Cặp số nào sau đây là nghiệm của bất phương trình x + y > 2?","(2; 1)",["(0; 0)","(1; 1)","(−1; 2)"],"Thay (2; 1): 2 + 1 = 3 > 2 đúng. Các cặp còn lại cho tổng 0; 2; 1 đều không lớn hơn 2."],
+["NB","Hệ nào sau đây là hệ bất phương trình bậc nhất hai ẩn?","2x + y > 1 và x − y ≤ 3",["x² + y > 1 và x − y ≤ 3","xy ≥ 2 và x + y ≤ 5","x + y² < 4 và x − y ≥ 0"],"Hệ bậc nhất hai ẩn gồm các bất phương trình bậc nhất hai ẩn; các hệ còn lại có x², xy hoặc y²."],
+["NB","Đường thẳng biên của miền nghiệm bất phương trình 2x − y ≤ 4 là:","2x − y = 4",["2x − y = 0","x − 2y = 4","2x + y = 4"],"Đường thẳng biên có được bằng cách thay dấu bất đẳng thức bằng dấu bằng: 2x − y = 4."],
+["NB","Miền nghiệm của bất phương trình ax + by ≤ c (a, b không đồng thời bằng 0) là:","nửa mặt phẳng bờ ax + by = c, kể cả bờ",["nửa mặt phẳng bờ ax + by = c, không kể bờ","chỉ đường thẳng ax + by = c","toàn bộ mặt phẳng tọa độ"],"Dấu ≤ (hoặc ≥) lấy cả bờ; dấu < (hoặc >) mới không lấy bờ."],
+["NB","Điểm O(0; 0) thuộc miền nghiệm của bất phương trình nào?","x + y < 1",["x + y > 1","x − y ≥ 2","2x + y ≥ 3"],"Thay O(0; 0): 0 < 1 đúng; các bất phương trình còn lại cho 0 > 1, 0 ≥ 2, 0 ≥ 3 đều sai."],
+["NB","Cặp (x₀; y₀) là nghiệm của bất phương trình ax + by ≤ c khi:","ax₀ + by₀ ≤ c là khẳng định đúng",["ax₀ + by₀ = c","ax₀ + by₀ > c","x₀ ≤ a và y₀ ≤ b"],"Nghiệm là cặp số khi thay vào làm cho bất đẳng thức đúng."],
+["NB","Miền nghiệm của hệ x ≥ 0, y ≥ 0, x + y ≤ 4 là hình gì?","tam giác",["tứ giác","đoạn thẳng","nửa mặt phẳng"],"Miền nghiệm là tam giác OAB với O(0; 0), A(4; 0), B(0; 4)."],
+["NB","Cặp số nào là nghiệm của hệ x + y ≥ 2 và x − y ≤ 0?","(1; 1)",["(3; 0)","(0; 0)","(2; 1)"],"Với (1; 1): 2 ≥ 2 đúng và 0 ≤ 0 đúng. Các cặp còn lại vi phạm ít nhất một bất phương trình."],
+["NB","Nghiệm của một hệ bất phương trình bậc nhất hai ẩn là cặp số (x; y):","thỏa mãn đồng thời tất cả các bất phương trình của hệ",["thỏa mãn ít nhất một bất phương trình của hệ","chỉ thỏa mãn bất phương trình đầu tiên","có tổng x + y bằng 0"],"Nghiệm của hệ phải nghiệm đúng mọi bất phương trình trong hệ."],
+["NB","Điểm nào nằm trên đường thẳng biên của bất phương trình x + 2y ≥ 4?","(2; 1)",["(1; 1)","(0; 0)","(3; 1)"],"Điểm (2; 1) có 2 + 2·1 = 4 nên thuộc đường thẳng x + 2y = 4."],
+["TH","Cặp số nào KHÔNG là nghiệm của bất phương trình 2x + y < 1?","(1; 0)",["(0; 0)","(−1; 2)","(0; −2)"],"Với (1; 0): 2 < 1 sai. Ba cặp còn lại cho giá trị 0; 0; −2, đều nhỏ hơn 1."],
+["TH","Điểm nào thuộc miền nghiệm của bất phương trình x − 2y < −8?","(0; 5)",["(1; 1)","(4; 3)","(0; 4)"],"Với (0; 5): −10 < −8 đúng. Với (0; 4): −8 < −8 sai vì không lấy bờ."],
+["TH","Điểm nào thuộc miền nghiệm của hệ x + y ≥ 2 và 2x − y < 4?","(1; 2)",["(0; 0)","(3; 1)","(−1; 2)"],"(1; 2): 3 ≥ 2 và 0 < 4 đều đúng. (0; 0) sai bất phương trình đầu; (3; 1) có 5 < 4 sai; (−1; 2) có 1 ≥ 2 sai."],
+["TH","Điểm nào KHÔNG thuộc miền nghiệm của hệ x ≥ 0, y ≥ 0, x + 2y ≤ 6?","(3; 2)",["(0; 0)","(2; 1)","(0; 3)"],"Với (3; 2): 3 + 4 = 7 > 6 nên vi phạm x + 2y ≤ 6."],
+["TH","Gian hàng rộng 60 m², mỗi ghế chiếm 0,5 m², mỗi bàn 1,2 m², cần chừa tối thiểu 12 m² lưu thông. Với x ghế, y bàn, ta có:","0,5x + 1,2y ≤ 48",["0,5x + 1,2y ≤ 60","0,5x + 1,2y ≥ 48","1,2x + 0,5y ≤ 48"],"Diện tích kê bàn ghế tối đa là 60 − 12 = 48 m² nên 0,5x + 1,2y ≤ 48."],
+["TH","Đội xe cần chở ít nhất 36 tấn hàng. Xe nhỏ chở 3 tấn/chuyến (x chuyến), xe lớn chở 6 tấn/chuyến (y chuyến). Bất phương trình là:","3x + 6y ≥ 36",["3x + 6y ≤ 36","6x + 3y ≥ 36","x + y ≥ 36"],"Tổng khối lượng chở được 3x + 6y phải ít nhất bằng 36 tấn."],
+["TH","Miền nghiệm của bất phương trình 2x − y ≤ 4 là nửa mặt phẳng bờ d: 2x − y = 4 và:","chứa gốc tọa độ O, kể cả bờ d",["chứa gốc tọa độ O, không kể bờ d","không chứa gốc tọa độ O, kể cả bờ d","không chứa gốc tọa độ O, không kể bờ d"],"Thử O: 0 ≤ 4 đúng nên miền chứa O; dấu ≤ nên kể cả bờ."],
+["TH","Đường thẳng x + 2y = 2 cắt hai trục tọa độ tại:","(2; 0) và (0; 1)",["(1; 0) và (0; 2)","(2; 0) và (0; 2)","(−2; 0) và (0; −1)"],"Cho y = 0 được x = 2; cho x = 0 được y = 1."],
+["TH","Giá trị của biểu thức F(x; y) = 2x + 3y tại điểm (3; 1) là:","9",["11","7","6"],"F(3; 1) = 2·3 + 3·1 = 9."],
+["TH","Điểm nào thuộc miền nghiệm của hệ x ≥ 0, y ≥ 0, x + y ≤ 5?","(2; 3)",["(−1; 2)","(3; 3)","(0; 6)"],"(2; 3) có x, y ≥ 0 và 2 + 3 = 5 ≤ 5. Các điểm còn lại vi phạm một điều kiện."],
+["TH","Miền nghiệm của bất phương trình x > 2 là:","nửa mặt phẳng bên phải đường thẳng x = 2, không kể bờ",["nửa mặt phẳng bên phải đường thẳng x = 2, kể cả bờ","nửa mặt phẳng bên trái đường thẳng x = 2, không kể bờ","nửa mặt phẳng phía trên đường thẳng y = 2, không kể bờ"],"x > 2 gồm các điểm có hoành độ lớn hơn 2, tức bên phải đường thẳng x = 2, và không lấy bờ."],
+["TH","Miền nghiệm của một bất phương trình là nửa mặt phẳng có bờ đi qua (−2; 0) và (0; 2), chứa gốc O và không kể bờ. Bất phương trình đó là:","x − y > −2",["x − y < −2","x − y > 2","x − y < 2"],"Đường thẳng qua (−2; 0), (0; 2) là x − y = −2. Thử O: 0 > −2 đúng nên miền chứa O, không kể bờ."],
+["TH","Cặp (m; 1) là nghiệm của bất phương trình 2x + y ≤ 7 khi và chỉ khi:","m ≤ 3",["m ≥ 3","m ≤ 4","m < 3"],"2m + 1 ≤ 7 suy ra m ≤ 3."],
+["TH","Có bao nhiêu cặp số nguyên dương (x; y) là nghiệm của bất phương trình x + y ≤ 3?","3",["2","4","6"],"Các cặp: (1; 1), (1; 2), (2; 1)."],
+["TH","Bạn An có 30 nghìn đồng mua vở (6 nghìn/quyển) và bút (8 nghìn/chiếc). Với x quyển vở, y chiếc bút, ta có:","6x + 8y ≤ 30",["6x + 8y ≥ 30","8x + 6y ≤ 30","6x + 8y < 30"],"Số tiền tiêu không vượt quá 30 nghìn đồng nên 6x + 8y ≤ 30 (có thể bằng 30)."],
+["TH","Điểm nào KHÔNG thuộc miền nghiệm của hệ x − y ≤ 2 và x + y ≥ 0?","(0; −1)",["(1; 0)","(2; 1)","(0; 0)"],"(0; −1) có x + y = −1 ≥ 0 sai. Ba điểm còn lại thỏa cả hai bất phương trình."],
+["VD","Cho hệ x ≥ 0, y ≥ 0, x + y ≤ 4. Giá trị lớn nhất của F = 3x + 2y trên miền nghiệm là:","12",["8","14","16"],"Tại các đỉnh O(0; 0), A(4; 0), B(0; 4): F = 0; 12; 8. Lớn nhất bằng 12."],
+["VD","Giá trị nhỏ nhất của F = x + y trên miền nghiệm của hệ x ≥ 0, y ≥ 0, x + 2y ≥ 4, 2x + y ≥ 4 là:","8/3",["4","2","3"],"Các đỉnh: (4; 0), (0; 4), (4/3; 4/3) cho F = 4; 4; 8/3. Nhỏ nhất là 8/3."],
+["VD","Một hộ trồng ngô (x ha, lãi 10 triệu/ha, 20 công/ha) và khoai (y ha, lãi 12 triệu/ha, 30 công/ha) trên tối đa 10 ha, tổng không quá 240 công. Lãi lớn nhất là:","108 triệu đồng",["100 triệu đồng","96 triệu đồng","120 triệu đồng"],"Hệ: x + y ≤ 10, 2x + 3y ≤ 24, x, y ≥ 0. Các đỉnh (10; 0), (6; 4), (0; 8) cho 100; 108; 96 triệu. Lớn nhất 108."],
+["VD","Cho hệ x ≥ 0, y ≥ 0, x + y ≤ 6, x ≤ 4. Giá trị lớn nhất của F = 2x + 3y là:","18",["14","12","8"],"Các đỉnh (0; 0), (4; 0), (4; 2), (0; 6) cho F = 0; 8; 14; 18. Lớn nhất là 18."],
+["VD","Diện tích miền nghiệm của hệ x ≥ 0, y ≥ 0, x + y ≤ 4 bằng:","8",["16","4","12"],"Miền là tam giác vuông cân có hai cạnh góc vuông bằng 4: S = ½·4·4 = 8."],
+["VD","Có bao nhiêu cặp số nguyên (x; y) là nghiệm của hệ x ≥ 0, y ≥ 0, x + y ≤ 2?","6",["3","4","9"],"Các cặp: (0; 0), (1; 0), (2; 0), (0; 1), (1; 1), (0; 2)."],
+["VD","Cho hệ x ≥ 0, y ≥ 0, x + y ≤ 5, x ≤ 3. Giá trị nhỏ nhất của F = x − 2y là:","−10",["−1","0","3"],"Các đỉnh (0; 0), (3; 0), (3; 2), (0; 5) cho F = 0; 3; −1; −10. Nhỏ nhất là −10."],
+["VD","Bạn Lan có 20 nghìn đồng mua bút bi (4 nghìn/chiếc) và bút chì (5 nghìn/chiếc), phải mua đủ cả hai loại. Số bút nhiều nhất mua được là:","4",["3","5","6"],"x, y ≥ 1 và 4x + 5y ≤ 20. Chẳng hạn (1; 3) hoặc (3; 1) cho 4 bút; tổng 5 bút luôn vượt 20 nghìn."],
+["VD","Đại lý nhập xe loại A (15 triệu, lãi 3 triệu) và loại B (30 triệu, lãi 5 triệu), vốn tối đa 1,2 tỉ đồng, tối đa 50 xe. Lãi lớn nhất (triệu đồng) là:","210",["200","150","250"],"Hệ: x + 2y ≤ 80, x + y ≤ 50. Các đỉnh (50; 0), (20; 30), (0; 40) cho 150; 210; 200. Lớn nhất 210."],
+["VD","Diện tích miền nghiệm của hệ x + y ≤ 7, x ≥ 1, y ≥ 1 bằng:","12,5",["25","10","6"],"Tam giác có ba đỉnh (1; 1), (6; 1), (1; 6), hai cạnh góc vuông dài 5: S = ½·5·5 = 12,5."],
+["VD","Có bao nhiêu giá trị nguyên của m để cặp (m; −2) là nghiệm của hệ x − 5y ≥ 2 và 3x + y < 21?","16",["15","17","8"],"m + 10 ≥ 2 suy ra m ≥ −8; 3m − 2 < 21 suy ra m < 23/3, tức m ≤ 7. Có 16 số nguyên từ −8 đến 7."],
+["VD","Giá trị lớn nhất của F = x + y trên miền nghiệm của hệ 2x + y ≤ 6, x ≥ 0, y ≥ 0 là:","6",["3","9","12"],"Các đỉnh (0; 0), (3; 0), (0; 6) cho F = 0; 3; 6. Lớn nhất bằng 6."]
+];
+MC.sort((a,b)=>({NB:0,TH:1,VD:2,VDC:3}[a[0]]-{NB:0,TH:1,VD:2,VDC:3}[b[0]]));
+// Đúng/Sai: [mức độ, nhận định, đúng?, giải thích]
+const TF = [
+["NB","Bất phương trình 2x − 3y ≥ 5 là bất phương trình bậc nhất hai ẩn.",true,"Cả x và y đều có số mũ 1 nên đây là bất phương trình bậc nhất hai ẩn."],
+["NB","Cặp (0; 0) là nghiệm của bất phương trình x + y > 1.",false,"Thay vào được 0 > 1, là khẳng định sai."],
+["NB","Miền nghiệm của bất phương trình ax + by ≤ c là một nửa mặt phẳng, kể cả đường thẳng biên.",true,"Với dấu ≤ hoặc ≥, miền nghiệm là nửa mặt phẳng bờ ax + by = c và kể cả bờ."],
+["NB","Bất phương trình x² + y < 3 là bất phương trình bậc nhất hai ẩn.",false,"x² có số mũ 2 nên không phải bất phương trình bậc nhất."],
+["TH","Cặp (2; 1) là nghiệm của bất phương trình 3x − y ≥ 5.",true,"3·2 − 1 = 5 ≥ 5 đúng."],
+["TH","Miền nghiệm của bất phương trình x + y > 3 gồm cả các điểm nằm trên đường thẳng x + y = 3.",false,"Dấu > nên không lấy bờ; các điểm trên đường thẳng có x + y = 3, không lớn hơn 3."],
+["TH","Điểm (1; 1) thuộc miền nghiệm của hệ x + y ≥ 2 và x − y ≤ 0.",true,"2 ≥ 2 đúng và 0 ≤ 0 đúng."],
+["TH","Miền nghiệm của hệ x ≥ 0, y ≥ 0, x + y ≤ 4 là tam giác có ba đỉnh O(0; 0), A(4; 0), B(0; 4).",true,"Giao của ba nửa mặt phẳng là tam giác OAB."],
+["TH","Cặp (−1; 2) là nghiệm của hệ x + y > 1 và 2x − y < 0.",false,"Bất phương trình đầu cho −1 + 2 = 1 > 1, là khẳng định sai."],
+["TH","Vì O(0; 0) thỏa 2x − y ≤ 4 nên miền nghiệm của bất phương trình này là nửa mặt phẳng bờ 2x − y = 4 chứa gốc tọa độ.",true,"0 ≤ 4 đúng nên điểm O thuộc miền nghiệm; vậy miền nghiệm chứa O."],
+["VD","Với hệ x ≥ 0, y ≥ 0, x + y ≤ 4, giá trị lớn nhất của F = 3x + 2y bằng 12.",true,"F tại O, A(4; 0), B(0; 4) lần lượt là 0; 12; 8, lớn nhất là 12."],
+["VD","Diện tích miền nghiệm của hệ x ≥ 0, y ≥ 0, x + y ≤ 4 bằng 16.",false,"Miền là tam giác vuông cân cạnh góc vuông 4 nên S = ½·4·4 = 8, không phải 16."],
+["VD","Xưởng mộc làm x bàn (4 giờ công, 2 m² gỗ mỗi bàn) và y ghế (2 giờ công, 1 m² gỗ mỗi ghế), mỗi tuần tối đa 60 giờ công và 35 m² gỗ. Xưởng có thể làm 10 bàn và 12 ghế trong một tuần.",false,"Giờ công cần 4·10 + 2·12 = 64 > 60 nên vượt giới hạn."],
+["VD","Với xưởng mộc trên (tối đa 60 giờ công, 35 m² gỗ), nếu đã làm 8 bàn thì số ghế tối đa làm thêm được là 14.",true,"Giờ công: 32 + 2y ≤ 60 suy ra y ≤ 14; gỗ: 16 + y ≤ 35 suy ra y ≤ 19. Vậy tối đa 14 ghế."],
+["VD","Bạn Lan có 20 nghìn đồng, mua đủ cả bút bi (4 nghìn/chiếc) và bút chì (5 nghìn/chiếc). Bạn có thể mua tối đa 5 chiếc bút.",false,"Với x, y ≥ 1 và 4x + 5y ≤ 20, tổng x + y lớn nhất là 4; mua 5 chiếc luôn tốn ít nhất 21 nghìn."],
+["VD","Miền nghiệm của hệ x + y ≤ 6, x ≥ 1, y ≥ 1 là tam giác có diện tích bằng 8.",true,"Các đỉnh (1; 1), (5; 1), (1; 5) tạo tam giác vuông có cạnh góc vuông 4: S = ½·4·4 = 8."],
+["VDC","Giá trị nhỏ nhất của F = x + y trên miền nghiệm của hệ x ≥ 0, y ≥ 0, x + 2y ≥ 4, 2x + y ≥ 4 bằng 8/3.",true,"F nhỏ nhất tại đỉnh (4/3; 4/3) với giá trị 8/3; các đỉnh (4; 0), (0; 4) cho F = 4."],
+["VDC","Với hệ x ≥ 0, y ≥ 0, x + y ≤ 50, x + 2y ≤ 80, biểu thức F = 3x + 5y đạt giá trị lớn nhất bằng 210 tại điểm (20; 30).",true,"Các đỉnh (50; 0), (20; 30), (0; 40) cho F = 150; 210; 200."],
+["VDC","Với hệ x ≥ 0, y ≥ 0, x + y ≤ 50, x + 2y ≤ 80, biểu thức F = x + y đạt giá trị lớn nhất tại duy nhất một điểm.",false,"F lớn nhất bằng 50 tại mọi điểm trên cạnh nối (50; 0) và (20; 30), vì đường thẳng x + y = 50 chứa cạnh đó."],
+["VDC","Hệ bất phương trình x + y ≤ 1 và x + y ≥ 3 có nghiệm.",false,"x + y không thể vừa nhỏ hơn hoặc bằng 1 vừa lớn hơn hoặc bằng 3 nên hệ vô nghiệm."]
+];
+const QS = MC.map(m=>({k:"mc",lv:m[0],q:m[1],ok:m[2],bad:m[3],ex:m[4]}))
+  .concat(TF.map(t=>({k:"tf",lv:t[0],q:t[1],ok:t[2],ex:t[3]})));
+const PT = {mc:2, tf:10};          // tính theo phần mười điểm: 0,2 và 1,0
+const MAXPT = QS.reduce((s,q)=>s+PT[q.k],0); // 280 = 28,0 điểm
+
+// ===== Tiện ích =====
+const fmt = n => (n/10).toFixed(1).replace(".",",");
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const mmss = s => String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));}
+
+// ===== Âm thanh =====
+let AC=null, muted=false;
+function initAudio(){ if(!AC){ const C=window.AudioContext||window.webkitAudioContext; if(C) AC=new C(); } if(AC&&AC.state==="suspended") AC.resume(); }
+function tone(f,t,d,type,g){ const o=AC.createOscillator(), gn=AC.createGain(); o.type=type; o.frequency.setValueAtTime(f,t);
+  gn.gain.setValueAtTime(0.0001,t); gn.gain.exponentialRampToValueAtTime(g,t+0.03); gn.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  o.connect(gn).connect(AC.destination); o.start(t); o.stop(t+d+0.05); }
+function clap(t,g){ const n=Math.floor(AC.sampleRate*0.06), b=AC.createBuffer(1,n,AC.sampleRate), d=b.getChannelData(0);
+  for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);
+  const s=AC.createBufferSource(); s.buffer=b; const f=AC.createBiquadFilter(); f.type="bandpass"; f.frequency.value=1500+Math.random()*1500; f.Q.value=0.7;
+  const gn=AC.createGain(); gn.gain.value=g; s.connect(f).connect(gn).connect(AC.destination); s.start(t); }
+function applause(){ if(muted||!AC) return; const t0=AC.currentTime, D=4.8;
+  for(let i=0;i<150;i++){ const x=Math.random()*D, env=Math.min(1,x/0.5)*Math.min(1,(D-x)/1.5); clap(t0+x,0.5*env+0.04); }
+  [523,659,784,1047,1319].forEach((f,i)=>tone(f,t0+i*0.13,0.5,"triangle",0.18)); }
+function sad(){ if(muted||!AC) return; const t0=AC.currentTime;
+  [392,349,311,262].forEach((f,i)=>tone(f,t0+i*0.32,0.45,"sawtooth",0.12)); tone(98,t0+1.2,0.8,"sawtooth",0.15); }
+
+// ===== Trạng thái trò chơi =====
+let G=null, tmr=null, left=0;
+function newGame(name,cls){ return {name,cls,i:0,pts:0,ok:0,lives:3,u50:false,uAud:false,locked:false,t0:Date.now(),saved:false}; }
+// Không giới hạn thời gian mỗi câu: đồng hồ chỉ đo tổng thời gian làm bài (một bộ đếm duy nhất, tạo một lần)
+function stopTimer(){}
+function tick(){ if(G&&!G.fin) $("timer").textContent=mmss(Math.round((Date.now()-G.t0)/1000)); }
+function startTimer(){ tick(); }
+setInterval(tick,1000);
+function updLL(){ const mc=QS[G.i].k==="mc"&&!G.locked; $("ll50").disabled=G.u50||!mc; $("llAud").disabled=G.uAud||!mc; }
+
+function showQ(){
+  const q=QS[G.i]; G.locked=false; $("fb").classList.remove("show");
+  $("qno").textContent=(G.i+1)+"/"+QS.length; $("score").textContent=fmt(G.pts);
+  $("lives").textContent="❤".repeat(G.lives)+"🖤".repeat(3-G.lives);
+  $("lv").textContent=(q.k==="mc"?"Trắc nghiệm · 0,2 điểm":"Nhận định Đúng/Sai · 1,0 điểm")+" · "+LV[q.lv];
+  $("bar").style.width=(G.i/QS.length*100)+"%";
+  $("qtext").textContent=(q.k==="tf"?"Nhận định: ":"")+q.q;
+  const box=$("opts"); box.innerHTML=""; box.className="opts "+q.k;
+  if(q.k==="mc"){
+    q.sh=shuffle([q.ok].concat(q.bad));   // xáo trộn vị trí đáp án mỗi lần hiển thị
+    q.sh.forEach((t,j)=>{ const b=document.createElement("button"); b.className="opt";
+      const l=document.createElement("b"); l.textContent="ABCD"[j]+".";
+      const s=document.createElement("span"); s.textContent=t; b.append(l,s); b.onclick=()=>answer(j); box.appendChild(b); });
+  } else {
+    [["ĐÚNG",true],["SAI",false]].forEach(([t,v])=>{ const b=document.createElement("button"); b.className="opt"; b.textContent=t; b.onclick=()=>answer(v); box.appendChild(b); });
+  }
+  updLL(); startTimer(q.k==="mc"?45:60);
+}
+
+function answer(c){
+  if(!G||G.locked) return; G.locked=true; stopTimer();
+  const q=QS[G.i], timeout=(c===null), btns=[...$("opts").children];
+  let right;
+  if(q.k==="mc"){ right=!timeout&&q.sh[c]===q.ok;
+    btns.forEach((b,j)=>{ b.classList.add("locked"); if(q.sh[j]===q.ok) b.classList.add("good"); else if(j===c) b.classList.add("bad"); }); }
+  else { right=!timeout&&c===q.ok;
+    btns.forEach((b,j)=>{ const v=(j===0); b.classList.add("locked"); if(v===q.ok) b.classList.add("good"); else if(c===v) b.classList.add("bad"); }); }
+  const fb=$("fb"); fb.className="show "+(right?"ok":"no");
+  let corr = q.k==="mc" ? "ABCD"[q.sh.indexOf(q.ok)]+". "+q.ok : (q.ok?"ĐÚNG":"SAI");
+  if(right){ G.pts+=PT[q.k]; G.ok++;
+    $("fbT").textContent="✔ CHÍNH XÁC! +"+fmt(PT[q.k])+" điểm";
+    $("fbE").textContent=q.ex; applause();
+  } else { G.lives--;
+    let mine = timeout ? "Bạn đã hết thời gian." : (q.k==="mc" ? "Lựa chọn của bạn chưa đúng." : "Bạn chọn "+(c?"ĐÚNG":"SAI")+" nhưng nhận định này là "+(q.ok?"ĐÚNG":"SAI")+".");
+    $("fbT").textContent=(timeout?"⏰ HẾT GIỜ!":"✘ CHƯA ĐÚNG!")+" Đáp án: "+corr;
+    $("fbE").textContent=mine+" "+q.ex+" (Bạn mất 1 mạng.)"; sad(); }
+  $("score").textContent=fmt(G.pts); $("lives").textContent="❤".repeat(G.lives)+"🖤".repeat(3-G.lives);
+  const last = G.lives<=0 || G.i>=QS.length-1;
+  $("btnNext").textContent = last ? "Xem kết quả ▶" : "Câu tiếp theo ▶";
+  updLL();
+}
+function next(){
+  if(!G||!G.locked) return;
+  if(G.lives<=0||G.i>=QS.length-1){ endGame(); return; }
+  G.i++; showQ();
+}
+
+// ===== Trợ giúp =====
+function lifeline50(){ if(!G||G.locked||G.u50||QS[G.i].k!=="mc") return; const q=QS[G.i]; G.u50=true;
+  const bad=[...$("opts").children].filter((b,j)=>q.sh[j]!==q.ok);
+  shuffle(bad).slice(0,2).forEach(b=>{b.classList.add("gone");b.onclick=null;}); updLL(); }
+function lifelineAud(){ if(!G||G.locked||G.uAud||QS[G.i].k!=="mc") return; const q=QS[G.i]; G.uAud=true;
+  const btns=[...$("opts").children].filter(b=>!b.classList.contains("gone")); const okIdx=q.sh.indexOf(q.ok);
+  const cp=45+Math.floor(Math.random()*26), others=btns.filter(b=>+[...$("opts").children].indexOf(b)!==okIdx);
+  const w=others.map(()=>Math.random()+0.2), sw=w.reduce((a,b)=>a+b,0); let used=cp;
+  const pct=others.map((_,i)=>{ if(i===others.length-1) return 100-used; const p=Math.floor((100-cp)*w[i]/sw); used+=p; return p; });
+  btns.forEach(b=>{ const j=[...$("opts").children].indexOf(b); const s=document.createElement("span"); s.style.cssText="float:right;color:#ffd84a;font-weight:700";
+    s.textContent=(j===okIdx?cp:pct[others.indexOf(b)])+"%"; b.appendChild(s); });
+  updLL(); }
+
+// ===== Kết thúc & bảng xếp hạng =====
+function endGame(){
+  G.fin=true; const sec=Math.round((Date.now()-G.t0)/1000), tstr=mmss(sec);
+  G.sec=sec; G.tstr=tstr;
+  const full=G.lives>0;
+  $("endT").textContent = full ? "🎉 HOÀN THÀNH TRÒ CHƠI! 🎉" : "💔 HẾT MẠNG – TRÒ CHƠI KẾT THÚC";
+  $("endName").textContent=G.name+" · Lớp "+G.cls;
+  $("endScore").textContent=fmt(G.pts)+" / "+fmt(MAXPT);
+  $("endOk").textContent=G.ok+"/"+QS.length; $("endTime").textContent=tstr;
+  const r=G.pts/MAXPT;
+  $("endMsg").textContent = r>=0.9?"Xuất sắc! Bạn là Triệu phú Bất phương trình!":r>=0.7?"Rất tốt! Bạn nắm vững kiến thức.":r>=0.5?"Khá ổn! Hãy xem lại các câu đã sai.":"Cố gắng thêm nhé! Ôn lại cách xác định miền nghiệm và tìm giá trị lớn nhất, nhỏ nhất trên đỉnh của miền.";
+  $("endSave").textContent=""; show("end"); sendResult();
+}
+async function sendResult(){
+  if(G.saved) return; G.saved=true;
+  if(!APPS_SCRIPT_URL){ renderLB(); return; }
+  $("endSave").textContent="Đang gửi kết quả…";
+  try{
+    await fetch(APPS_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({"Họ tên":G.name,"Lớp":G.cls,"Điểm số":G.pts/10,"Thời gian làm bài":G.tstr})});
+    $("endSave").textContent="✔ Đã ghi nhận kết quả của bạn.";
+    setTimeout(fetchLB,1500);
+  }catch(e){ $("endSave").textContent="Chưa gửi được kết quả lên bảng xếp hạng."; }
+}
+let LB=[];
+function secOf(t){ const p=String(t||"").split(":").map(Number); return p.length===2&&!p.some(isNaN)?p[0]*60+p[1]:99999; }
+async function fetchLB(){
+  if(!APPS_SCRIPT_URL){ renderLB(); return; }
+  try{
+    const r=await fetch(APPS_SCRIPT_URL+(APPS_SCRIPT_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now());
+    const j=await r.json(); if(j&&j.status==="ok"&&Array.isArray(j.data)) LB=j.data;
+  }catch(e){}
+  renderLB();
+}
+function renderLB(){
+  const rows=LB.slice().sort((a,b)=>(Number(b["Điểm số"])||0)-(Number(a["Điểm số"])||0)||secOf(a["Thời gian làm bài"])-secOf(b["Thời gian làm bài"])).slice(0,10);
+  document.querySelectorAll(".lbBody").forEach(el=>{
+    el.innerHTML="";
+    if(!rows.length){ const p=document.createElement("div"); p.textContent="Chưa có dữ liệu xếp hạng."; el.appendChild(p); return; }
+    const tb=document.createElement("table"), hr=tb.insertRow();
+    ["#","Họ tên","Lớp","Điểm","Thời gian"].forEach(h=>{const th=document.createElement("th"); th.textContent=h; hr.appendChild(th);});
+    rows.forEach((r,i)=>{ const tr=tb.insertRow();
+      [(i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1),r["Họ tên"],r["Lớp"],String(Number(r["Điểm số"])||0).replace(".",","),r["Thời gian làm bài"]]
+        .forEach(v=>{ tr.insertCell().textContent=(v===undefined||v===null)?"":v; }); });
+    el.appendChild(tb);
+  });
+}
+
+// ===== Khởi tạo (mỗi sự kiện chỉ gắn một lần) =====
+$("btnStart").onclick=()=>{
+  const n=$("inName").value.trim(), c=$("inClass").value.trim();
+  if(!n||!c){ $("err").textContent="Vui lòng nhập đầy đủ Họ tên và Lớp."; return; }
+  $("err").textContent=""; initAudio(); stopTimer();
+  G=newGame(n,c); show("game"); showQ();
+};
+$("btnNext").onclick=next;
+$("ll50").onclick=lifeline50;
+$("llAud").onclick=lifelineAud;
+$("btnAgain").onclick=()=>{ stopTimer(); G=null; show("start"); fetchLB(); };
+$("mute").onclick=()=>{ muted=!muted; $("mute").textContent=muted?"🔇":"🔊"; };
+renderLB(); fetchLB();
+setInterval(fetchLB,5000);
+</script>
+</body></html>
