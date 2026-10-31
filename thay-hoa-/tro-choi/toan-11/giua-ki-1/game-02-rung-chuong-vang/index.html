@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNG CHUÔNG VÀNG – CHINH PHỤC TOÁN HỌC 11 – THẦY HÒA AI</title>
+    <!-- Tailwind CSS for UI styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- KaTeX for rendering mathematical formulas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #064e3b; /* Deep Chalkboard Green Backdrop */
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .heading-font {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Classroom TV Stage Glow */
+        .stage-backdrop {
+            background: radial-gradient(circle at 50% 20%, #047857 0%, #064e3b 65%, #022c22 100%);
+        }
+
+        .bell-glow {
+            filter: drop-shadow(0 0 18px rgba(250, 204, 21, 0.85));
+            animation: ringPulse 2.2s infinite alternate ease-in-out;
+        }
+
+        @keyframes ringPulse {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.06) rotate(-4deg); }
+            100% { transform: scale(1) rotate(4deg); }
+        }
+
+        /* Option Button styling for high contrast in classroom projection */
+        .option-card {
+            transition: all 0.2s ease-in-out;
+            background: rgba(6, 78, 59, 0.9);
+            border: 2px solid rgba(253, 224, 71, 0.3);
+            color: #ffffff;
+        }
+
+        .option-card:hover:not(:disabled) {
+            border-color: #facc15;
+            background: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+        }
+
+        .option-correct {
+            background: #15803d !important;
+            border-color: #4ade80 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 25px rgba(74, 222, 128, 0.8) !important;
+        }
+
+        .option-wrong {
+            background: #991b1b !important;
+            border-color: #f87171 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 25px rgba(248, 113, 113, 0.8) !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #022c22;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #047857;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="stage-backdrop relative min-h-screen flex flex-col justify-between select-none">
+
+    <!-- HEADER / BRANDING BANNER -->
+    <header class="relative z-10 w-full px-4 py-3 bg-emerald-950/90 border-b-2 border-yellow-400 flex justify-between items-center shadow-xl">
+        <div class="flex items-center space-x-3">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-300 flex items-center justify-center shadow-lg">
+                <i class="fa-solid fa-bell text-slate-950 text-2xl"></i>
+            </div>
+            <div>
+                <h1 class="heading-font font-black text-xl md:text-2xl text-yellow-300 tracking-wider">
+                    THẦY HÒA AI
+                </h1>
+                <p class="text-xs text-emerald-200 font-bold hidden sm:block">RUNG CHUÔNG VÀNG – CHINH PHỤC TOÁN HỌC 11 (KNTTVCS)</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <button id="audioToggleBtn" onclick="toggleAudio()" class="px-3.5 py-1.5 rounded-lg bg-emerald-800 hover:bg-emerald-700 text-yellow-300 border border-yellow-400/50 text-sm font-bold flex items-center gap-2 transition">
+                <i id="audioIcon" class="fa-solid fa-volume-high"></i>
+                <span id="audioText" class="hidden sm:inline">Âm thanh: Bật</span>
+            </button>
+            <button onclick="confirmGoHome()" class="px-3.5 py-1.5 rounded-lg bg-red-800 hover:bg-red-700 text-white border border-red-400/50 text-sm font-bold flex items-center gap-2 transition">
+                <i class="fa-solid fa-house"></i>
+                <span class="hidden sm:inline">Trang chủ</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN INTERACTIVE CONTAINER -->
+    <main class="relative z-10 container mx-auto px-4 py-4 flex-1 flex flex-col justify-center items-center max-w-5xl">
+
+        <!-- 1. WELCOME SCREEN -->
+        <div id="welcomeScreen" class="w-full bg-emerald-950/90 border-2 border-yellow-400 rounded-2xl p-6 md:p-8 text-center backdrop-blur-md shadow-2xl space-y-6">
+            <div class="inline-block relative">
+                <svg class="w-24 h-24 md:w-32 md:h-32 mx-auto bell-glow text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a2 2 0 0 0-2 2v1.07A7.001 7.001 0 0 0 4 12v5l-2 2v1h20v-1l-2-2v-5a7.001 7.001 0 0 0-6-6.93V4a2 2 0 0 0-2-2zm0 20a3 3 0 0 0 2.82-2H9.18A3 3 0 0 0 12 22z"/>
+                </svg>
+            </div>
+
+            <div>
+                <h2 class="heading-font text-3xl md:text-5xl font-black text-yellow-300 tracking-wide uppercase">
+                    RUNG CHUÔNG VÀNG
+                </h2>
+                <p class="text-emerald-100 text-base md:text-lg font-bold mt-2">
+                    CHINH PHỤC TOÁN HỌC LỚP 11 – GDPT 2018 (KẾT NỐI TRI THỨC)
+                </p>
+            </div>
+
+            <!-- Rules & Structure Summary -->
+            <div class="bg-emerald-900/80 border border-yellow-400/40 rounded-xl p-4 text-left text-sm space-y-2 max-w-3xl mx-auto">
+                <h3 class="font-bold text-yellow-300 text-base border-b border-emerald-700 pb-1">
+                    <i class="fa-solid fa-scroll mr-1"></i> Cấu trúc đề thi & Quy tắc (Tổng 60 câu - 28,0 điểm):
+                </h3>
+                <ul class="list-disc pl-5 space-y-1 text-emerald-100">
+                    <li><strong class="text-yellow-200">Phần I: 40 Câu trắc nghiệm (4 lựa chọn)</strong> – 0,2 điểm/câu (Tổng 8,0đ). Vị trí đáp án xáo trộn ngẫu nhiên.</li>
+                    <li><strong class="text-yellow-200">Phần II: 20 Câu trắc nghiệm Đúng/Sai</strong> – 1,0 điểm/câu (Tổng 20,0đ). Gồm bối cảnh thực tế & vận dụng cao.</li>
+                    <li><strong class="text-yellow-200">Thời gian:</strong> Không giới hạn thời gian cho từng câu hỏi. Mỗi câu đúng có lời giải chi tiết & âm thanh vỗ tay cổ vũ.</li>
+                </ul>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="max-w-md mx-auto space-y-4 pt-2">
+                <div class="text-left space-y-1">
+                    <label class="text-xs font-bold text-yellow-300 uppercase tracking-wider">Họ và tên học sinh:</label>
+                    <input type="text" id="playerNameInput" placeholder="Nhập đầy đủ họ và tên..." class="w-full px-4 py-3 rounded-lg bg-emerald-900 border-2 border-emerald-700 text-white font-bold text-lg placeholder-emerald-400 focus:outline-none focus:border-yellow-400">
+                </div>
+                <div class="text-left space-y-1">
+                    <label class="text-xs font-bold text-yellow-300 uppercase tracking-wider">Lớp học:</label>
+                    <input type="text" id="playerClassInput" placeholder="Ví dụ: 11A1..." class="w-full px-4 py-3 rounded-lg bg-emerald-900 border-2 border-emerald-700 text-white font-bold text-lg placeholder-emerald-400 focus:outline-none focus:border-yellow-400">
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button onclick="startGame('individual')" class="flex-1 py-4 rounded-xl font-black text-slate-950 bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 hover:brightness-110 shadow-lg transform active:scale-95 transition text-lg uppercase tracking-wider flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-play"></i> Bắt đầu thi đấu
+                    </button>
+                    <button onclick="showClassDashboard()" class="py-4 px-4 rounded-xl font-bold text-yellow-300 bg-emerald-900 hover:bg-emerald-800 border-2 border-yellow-400 shadow-lg transition text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-trophy"></i> BXH Lớp
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. QUIZ GAMEPLAY SCREEN -->
+        <div id="quizScreen" class="hidden w-full flex-col space-y-4">
+
+            <!-- Status Bar -->
+            <div class="w-full bg-emerald-950/90 border-2 border-emerald-700 rounded-xl p-3 flex flex-wrap justify-between items-center gap-2 text-sm md:text-base">
+                <div class="flex items-center space-x-2">
+                    <span class="px-3 py-1 rounded-md bg-yellow-400 text-slate-950 font-black" id="displayPlayerInfo">Thí sinh: --</span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <span class="px-3 py-1 rounded-md bg-emerald-900 text-yellow-300 font-bold border border-yellow-400/40">
+                        <i class="fa-solid fa-star text-yellow-400 mr-1"></i>Điểm: <span id="currentScoreDisplay">0.0</span> / 28.0
+                    </span>
+                    <span class="px-3 py-1 rounded-md bg-emerald-900 text-emerald-100 font-bold border border-emerald-700">
+                        <i class="fa-regular fa-clock text-yellow-400 mr-1"></i><span id="timerDisplay">00:00</span>
+                    </span>
+                    <span class="px-3 py-1 rounded-md bg-yellow-400 text-slate-950 font-black" id="questionCounter">
+                        Câu 1 / 60
+                    </span>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="w-full bg-emerald-950/95 border-2 border-yellow-400/80 rounded-2xl p-5 md:p-7 backdrop-blur-md shadow-2xl relative overflow-hidden">
+                <div class="flex flex-wrap justify-between items-center mb-3 gap-2">
+                    <span id="difficultyBadge" class="px-3 py-1 rounded-full text-xs md:text-sm font-bold bg-yellow-400/20 text-yellow-300 border border-yellow-400/40">
+                        Mức độ: Nhận biết
+                    </span>
+                    <span id="typeBadge" class="px-3 py-1 rounded-full text-xs md:text-sm font-bold bg-emerald-800 text-emerald-200 border border-emerald-600">
+                        Dạng: Trắc nghiệm (0,2đ)
+                    </span>
+                    <span id="topicBadge" class="text-xs md:text-sm font-semibold text-emerald-200 italic">
+                        Chủ đề: --
+                    </span>
+                </div>
+
+                <!-- Question Text -->
+                <div id="questionText" class="text-lg md:text-2xl font-bold text-white leading-relaxed my-3 min-h-[70px]">
+                    Nội dung câu hỏi đang tải...
+                </div>
+
+                <!-- Multiple Choice Container -->
+                <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mt-6">
+                    <!-- Dynamically injected -->
+                </div>
+
+                <!-- True/False Container -->
+                <div id="tfContainer" class="hidden grid-cols-2 gap-4 mt-6 max-w-md mx-auto">
+                    <button onclick="selectTrueFalse(true)" id="btnTrue" class="option-card py-4 px-6 rounded-xl font-black text-xl text-center bg-emerald-800 hover:bg-emerald-700 border-2 border-yellow-400">
+                        <i class="fa-solid fa-check text-emerald-400 mr-2"></i>ĐÚNG
+                    </button>
+                    <button onclick="selectTrueFalse(false)" id="btnFalse" class="option-card py-4 px-6 rounded-xl font-black text-xl text-center bg-emerald-800 hover:bg-emerald-700 border-2 border-yellow-400">
+                        <i class="fa-solid fa-xmark text-red-400 mr-2"></i>SAI
+                    </button>
+                </div>
+            </div>
+
+            <!-- Solution & Pedagogical Explanation Box -->
+            <div id="explanationModal" class="hidden w-full bg-emerald-950 border-2 border-yellow-400 rounded-2xl p-5 md:p-6 shadow-2xl space-y-4">
+                <div id="resultHeader" class="flex items-center gap-3 text-xl font-black">
+                    <!-- Dynamic Header -->
+                </div>
+
+                <div class="bg-emerald-900/90 p-4 rounded-xl border border-yellow-400/30 space-y-2 text-base">
+                    <div class="text-yellow-300 font-black flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i> Giải thích chi tiết & Bản chất toán học:
+                    </div>
+                    <div id="explanationText" class="text-emerald-100 leading-relaxed overflow-x-auto text-sm md:text-base">
+                        <!-- Solution content -->
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button onclick="nextQuestion()" class="px-6 py-3 rounded-xl font-black bg-yellow-400 hover:bg-yellow-300 text-slate-950 shadow-lg transition flex items-center gap-2 text-base">
+                        <span>Tiếp tục câu kế tiếp</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 3. VICTORY / FINISH SCREEN -->
+        <div id="victoryScreen" class="hidden w-full bg-emerald-950/95 border-2 border-yellow-400 rounded-2xl p-6 md:p-8 text-center backdrop-blur-md shadow-2xl space-y-6 max-w-2xl">
+            <div class="relative">
+                <svg class="w-28 h-28 mx-auto bell-glow text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a2 2 0 0 0-2 2v1.07A7.001 7.001 0 0 0 4 12v5l-2 2v1h20v-1l-2-2v-5a7.001 7.001 0 0 0-6-6.93V4a2 2 0 0 0-2-2zm0 20a3 3 0 0 0 2.82-2H9.18A3 3 0 0 0 12 22z"/>
+                </svg>
+                <i class="fa-solid fa-crown text-4xl text-amber-300 absolute -top-4 left-1/2 transform -translate-x-1/2 animate-bounce"></i>
+            </div>
+            <div>
+                <h2 class="heading-font text-3xl md:text-4xl font-black text-yellow-300 tracking-wide uppercase">
+                    HOÀN THÀNH THỬ THÁCH RUNG CHUÔNG VÀNG!
+                </h2>
+                <p class="text-emerald-100 text-base mt-2">
+                    Chúc mừng bạn đã chinh phục 60 câu hỏi Toán học Lớp 11 (GDPT 2018)!
+                </p>
+            </div>
+
+            <div class="p-4 bg-emerald-900/90 rounded-xl border border-yellow-400/40 text-emerald-100 text-base space-y-2">
+                <p>Thí sinh: <span id="vicName" class="font-black text-yellow-300">--</span> | Lớp: <span id="vicClass" class="font-black text-yellow-300">--</span></p>
+                <p>Tổng điểm đạt được: <span id="vicScore" class="font-black text-yellow-300 text-2xl">0.0</span> / 28.0 điểm</p>
+                <p>Thời gian làm bài: <span id="vicTime" class="font-bold text-white">00:00</span></p>
+            </div>
+
+            <div class="flex gap-4">
+                <button onclick="restartGame()" class="flex-1 py-3.5 rounded-xl font-black text-slate-950 bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 hover:brightness-110 shadow-lg transition text-base">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Chơi lại từ đầu
+                </button>
+                <button onclick="showClassDashboard()" class="py-3.5 px-6 rounded-xl font-bold text-yellow-300 bg-emerald-900 hover:bg-emerald-800 border border-yellow-400 transition text-base">
+                    <i class="fa-solid fa-list-ol mr-1"></i> Bảng xếp hạng
+                </button>
+            </div>
+        </div>
+
+        <!-- 4. LEADERBOARD SCREEN -->
+        <div id="classDashboardScreen" class="hidden w-full bg-emerald-950/95 border-2 border-yellow-400 rounded-2xl p-6 backdrop-blur-md shadow-2xl space-y-6">
+            <div class="flex justify-between items-center border-b border-emerald-800 pb-4">
+                <div>
+                    <h2 class="heading-font text-xl md:text-2xl font-bold text-yellow-300 flex items-center gap-2">
+                        <i class="fa-solid fa-chalkboard-user"></i> BẢNG XẾP HẠNG THI ĐẤU CẢ LỚP
+                    </h2>
+                    <p class="text-xs text-emerald-200">Cập nhật trực tuyến kết quả học sinh toàn trường / toàn lớp</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-emerald-300 block">Số học sinh đã tham gia:</span>
+                    <span id="studentCountBadge" class="text-xl font-black text-yellow-300">0 học sinh</span>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-emerald-800">
+                <table class="w-full text-left text-sm text-emerald-100">
+                    <thead class="bg-emerald-900 text-yellow-300 font-bold uppercase tracking-wider text-xs">
+                        <tr>
+                            <th class="p-3">Hạng</th>
+                            <th class="p-3">Họ và Tên</th>
+                            <th class="p-3">Lớp</th>
+                            <th class="p-3 text-center">Điểm số</th>
+                            <th class="p-3 text-center">Thời Gian làm bài</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody" class="divide-y divide-emerald-900 bg-emerald-950/60">
+                        <tr>
+                            <td colspan="5" class="p-4 text-center text-emerald-400">Chưa có kết quả nào được ghi nhận</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="confirmGoHome()" class="px-5 py-2.5 rounded-lg bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-black text-sm">
+                    <i class="fa-solid fa-house mr-1"></i> Trở về Trang chủ
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 w-full py-3 text-center text-xs text-emerald-300 border-t border-emerald-800 bg-emerald-950/90">
+        © 2026 RUNG CHUÔNG VÀNG TOÁN 11 – THẦY HÒA AI. Chương trình GDPT 2018 - Kết nối tri thức với cuộc sống.
+    </footer>
+
+    <!-- JAVASCRIPT GAME ENGINE -->
+    <script>
+        /* ==========================================================================
+           I. HARDCODED GOOGLE APPS SCRIPT URL & API INTEGRATION
+           ========================================================================== */
+        const APPS_SCRIPT_URL = ""; // Teacher inserts Web App URL here
+
+        async function postGameResultToBackend(dataPayload) {
+            if (!APPS_SCRIPT_URL) return;
+            try {
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataPayload)
+                });
+            } catch (e) {
+                console.log("POST sync notice:", e);
+            }
+        }
+
+        async function fetchLeaderboardFromBackend() {
+            if (!APPS_SCRIPT_URL) return;
+            try {
+                const res = await fetch(APPS_SCRIPT_URL);
+                const json = await res.json();
+                if (json && json.status === "ok" && Array.isArray(json.data)) {
+                    // Sort by Điểm số descending, then Thời gian làm bài ascending
+                    json.data.sort((a, b) => parseFloat(b["Điểm số"]) - parseFloat(a["Điểm số"]));
+                    leaderboardData = json.data;
+                    renderLeaderboard();
+                }
+            } catch (e) {
+                console.log("GET leaderboard notice:", e);
+            }
+        }
+
+        /* ==========================================================================
+           II. QUESTION BANK DATA (40 MULTIPLE CHOICE + 20 TRUE/FALSE = 60 QUESTIONS)
+           ========================================================================== */
+        const questionBankMC = [
+            // 40 MULTIPLE CHOICE (0.2 pts each)
+            { id: 1, topic: "Giá trị lượng giác", level: "Nhận biết", q: "Trên đường tròn lượng giác, hoành độ của điểm M biểu diễn góc \\(\\alpha\\) là giá trị nào?", options: ["\\(\\cos \\alpha\\)", "\\(\\sin \\alpha\\)", "\\(\\tan \\alpha\\)", "\\(\\cot \\alpha\\)"], correct: "\\(\\cos \\alpha\\)", exp: "Theo định nghĩa đường tròn lượng giác đơn vị, hoành độ \\(x_M = \\cos \\alpha\\)." },
+            { id: 2, topic: "Công thức lượng giác", level: "Nhận biết", q: "Công thức biến đổi \\(\\cos 2a\\) nào sau đây là **ĐÚNG**?", options: ["\\(\\cos^2 a - \\sin^2 a\\)", "\\(1 - 2\\cos^2 a\\)", "\\(2\\sin^2 a - 1\\)", "\\(\\cos^2 a + \\sin^2 a\\)"], correct: "\\(\\cos^2 a - \\sin^2 a\\)", exp: "Công thức nhân đôi: \\(\\cos 2a = \\cos^2 a - \\sin^2 a = 2\\cos^2 a - 1 = 1 - 2\\sin^2 a\\)." },
+            { id: 3, topic: "Hàm số lượng giác", level: "Nhận biết", q: "Hàm số \\(y = \\sin x\\) là hàm số có tính chất nào sau đây?", options: ["Hàm số lẻ", "Hàm số chẵn", "Không lẻ không chẵn", "Hàm số vừa chẵn vừa lẻ"], correct: "Hàm số lẻ", exp: "Vì \\(\\sin(-x) = -\\sin x\\) với mọi \\(x \\in \\mathbb{R}\\) nên hàm số \\(y = \\sin x\\) là hàm số lẻ." },
+            { id: 4, topic: "Phương trình lượng giác", level: "Nhận biết", q: "Nghiệm của phương trình \\(\\cos x = 0\\) là:", options: ["\\(x = \\frac{\\pi}{2} + k\\pi\\)", "\\(x = k2\\pi\\)", "\\(x = \\pi + k2\\pi\\)", "\\(x = k\\pi\\)"], correct: "\\(x = \\frac{\\pi}{2} + k\\pi\\)", exp: "Điểm biểu diễn \\(\\cos x = 0\\) trên đường tròn lượng giác là 2 đỉnh của trục tung: \\(x = \\frac{\\pi}{2} + k\\pi\\)." },
+            { id: 5, topic: "Dãy số", level: "Nhận biết", q: "Cho dãy số \\((u_n)\\) với \\(u_n = 3n + 1\\). Số hạng đầu tiên \\(u_1\\) bằng:", options: ["\\(4\\)", "\\(3\\)", "\\(1\\)", "\\(7\\)"], correct: "\\(4\\)", exp: "Thay \\(n = 1\\) ta được \\(u_1 = 3(1) + 1 = 4\\)." },
+            { id: 6, topic: "Cấp số cộng", level: "Nhận biết", q: "Cho cấp số cộng \\((u_n)\\) có \\(u_1 = 5, d = 2\\). Giá trị \\(u_2\\) bằng:", options: ["\\(7\\)", "\\(10\\)", "\\(3\\)", "\\(5\\)"], correct: "\\(7\\)", exp: "Theo định nghĩa CSC: \\(u_2 = u_1 + d = 5 + 2 = 7\\)." },
+            { id: 7, topic: "Cấp số nhân", level: "Nhận biết", q: "Cho cấp số nhân \\((u_n)\\) có \\(u_1 = 3, q = 2\\). Giá trị \\(u_3\\) bằng:", options: ["\\(12\\)", "\\(6\\)", "\\(18\\)", "\\(24\\)"], correct: "\\(12\\)", exp: "Số hạng tổng quát CSN: \\(u_3 = u_1 \\cdot q^2 = 3 \\cdot 2^2 = 12\\)." },
+            { id: 8, topic: "Mẫu số liệu ghép nhóm", level: "Nhận biết", q: "Khoảng biến thiên của mẫu số liệu ghép nhóm được tính bằng:", options: ["Hiệu giữa đầu mút trên nhóm cuối và đầu mút dưới nhóm đầu", "Tổng hai đầu mút nhóm chứa mốt", "Giá trị trung bình nhóm lớn nhất", "Tích của tần số nhóm"], correct: "Hiệu giữa đầu mút trên nhóm cuối và đầu mút dưới nhóm đầu", exp: "Khoảng biến thiên \\(R = x_m - x_1\\) là hiệu giữa đầu mút lớn nhất và nhỏ nhất của các nhóm." },
+            { id: 9, topic: "Giá trị lượng giác", level: "Thông hiểu", q: "Cho góc \\(\\alpha\\) thỏa mãn \\(0 < \\alpha < \\frac{\\pi}{2}\\). Mệnh đề nào sau đây đúng?", options: ["\\(\\sin \\alpha > 0, \\cos \\alpha > 0\\)", "\\(\\sin \\alpha < 0, \\cos \\alpha > 0\\)", "\\(\\sin \\alpha > 0, \\cos \\alpha < 0\\)", "\\(\\sin \\alpha < 0, \\cos \\alpha < 0\\)"], correct: "\\(\\sin \\alpha > 0, \\cos \\alpha > 0\\)", exp: "Góc nằm ở góc phần tư thứ I nên cả sin và cos đều mang dấu dương." },
+            { id: 10, topic: "Công thức lượng giác", level: "Thông hiểu", q: "Rút gọn biểu thức \\(A = \\sin(x + y) - \\sin x \\cos y\\) ta được:", options: ["\\(\\cos x \\sin y\\)", "\\(\\sin x \\sin y\\)", "\\(\\cos x \\cos y\\)", "\\(0\\)"], correct: "\\(\\cos x \\sin y\\)", exp: "Khai triển \\(\\sin(x+y) = \\sin x \\cos y + \\cos x \\sin y\\). Trừ đi \\(\\sin x \\cos y\\) còn lại \\(\\cos x \\sin y\\)." },
+            { id: 11, topic: "Hàm số lượng giác", level: "Thông hiểu", q: "Tập giá trị của hàm số \\(y = 3\\cos x - 1\\) là:", options: ["\\([-4; 2]\\)", "\\([-3; 3]\\)", "\\([-1; 1]\\)", "\\([0; 3]\\)"], correct: "\\([-4; 2]\\)", exp: "Vì \\(-1 \\le \\cos x \\le 1 \\Rightarrow -3 \\le 3\\cos x \\le 3 \\Rightarrow -4 \\le 3\\cos x - 1 \\le 2\\)." },
+            { id: 12, topic: "Phương trình lượng giác", level: "Thông hiểu", q: "Phương trình \\(\\sin x = 1\\) có nghiệm là:", options: ["\\(x = \\frac{\\pi}{2} + k2\\pi\\)", "\\(x = \\frac{\\pi}{2} + k\\pi\\)", "\\(x = k2\\pi\\)", "\\(x = -\\frac{\\pi}{2} + k2\\pi\\)"], correct: "\\(x = \\frac{\\pi}{2} + k2\\pi\\)", exp: "\\(\\sin x = 1\\) đạt giá trị lớn nhất tại đỉnh trên của đường tròn lượng giác \\(x = \\frac{\\pi}{2} + k2\\pi\\)." },
+            { id: 13, topic: "Dãy số", level: "Thông hiểu", q: "Dãy số nào sau đây là dãy số tăng?", options: ["\\(u_n = 2n\\)", "\\(u_n = -3n\\)", "\\(u_n = \\frac{1}{n}\\)", "\\(u_n = (-1)^n\\)"], correct: "\\(u_n = 2n\\)", exp: "Xét \\(u_{n+1} - u_n = 2(n+1) - 2n = 2 > 0\\) với mọi \\(n \\ge 1\\), vậy dãy tăng." },
+            { id: 14, topic: "Cấp số cộng", level: "Thông hiểu", q: "Cho CSC \\((u_n)\\) có \\(u_1 = 3\\) và công sai \\(d = 4\\). Số hạng thứ 5 bằng:", options: ["\\(19\\)", "\\(23\\)", "\\(15\\)", "\\(12\\)"], correct: "\\(19\\)", exp: "\\(u_5 = u_1 + 4d = 3 + 4(4) = 19\\)." },
+            { id: 15, topic: "Cấp số nhân", level: "Thông hiểu", q: "Cho CSN \\((u_n)\\) có \\(u_1 = 2\\) và \\(u_2 = 6\\). Công bội \\(q\\) bằng:", options: ["\\(3\\)", "\\(4\\)", "\\(12\\)", "\\(2\\)"], correct: "\\(3\\)", exp: "\\(q = \\frac{u_2}{u_1} = \\frac{6}{2} = 3\\)." },
+            { id: 16, topic: "Mẫu số liệu ghép nhóm", level: "Thông hiểu", q: "Số đặc trưng nào sau đây đo độ dispersion (độ đo rủi ro/độ phân tán) của mẫu số liệu?", options: ["Phương sai và độ lệch chuẩn", "Số trung bình", "Trung vị", "Mốt"], correct: "Phương sai và độ lệch chuẩn", exp: "Phương sai và độ lệch chuẩn dùng để đo độ phân tán của dữ liệu quanh số trung bình." },
+            { id: 17, topic: "Giá trị lượng giác", level: "Nhận biết", q: "Tính giá trị \\(\\tan \\frac{\\pi}{4}\\):", options: ["\\(1\\)", "\\(0\\)", "\\(\\sqrt{3}\\)", "\\(\\frac{\\sqrt{3}}{3}\\)"], correct: "\\(1\\)", exp: "\\(\\tan \\frac{\\pi}{4} = 1\\)." },
+            { id: 18, topic: "Công thức lượng giác", level: "Nhận biết", q: "\\(\\sin 2a\\) bằng biểu thức nào sau đây?", options: ["\\(2\\sin a \\cos a\\)", "\\(\\sin a \\cos a\\)", "\\(2\\cos^2 a\\)", "\\(\\cos^2 a - \\sin^2 a\\)"], correct: "\\(2\\sin a \\cos a\\)", exp: "Công thức nhân đôi sin: \\(\\sin 2a = 2\\sin a \\cos a\\)." },
+            { id: 19, topic: "Hàm số lượng giác", level: "Nhận biết", q: "Chu kỳ của hàm số \\(y = \\sin x\\) là:", options: ["\\(2\\pi\\)", "\\(\\pi\\)", "\\(\\frac{\\pi}{2}\\)", "\\(4\\pi\\)"], correct: "\\(2\\pi\\)", exp: "Hàm số \\(y = \\sin x\\) có chu kỳ cơ bản \\(T = 2\\pi\\)." },
+            { id: 20, topic: "Phương trình lượng giác", level: "Nhận biết", q: "Nghiệm của phương trình \\(\\tan x = 1\\) là:", options: ["\\(x = \\frac{\\pi}{4} + k\\pi\\)", "\\(x = \\frac{\\pi}{4} + k2\\pi\\)", "\\(x = -\\frac{\\pi}{4} + k\\pi\\)", "\\(x = k\\pi\\)"], correct: "\\(x = \\frac{\\pi}{4} + k\\pi\\)", exp: "\\(\\tan x = 1 \\Leftrightarrow x = \\frac{\\pi}{4} + k\\pi\\)." },
+            { id: 21, topic: "Dãy số", level: "Nhận biết", q: "Dãy số nào sau đây bị chặn trên bởi 1?", options: ["\\(u_n = \\frac{n}{n+1}\\)", "\\(u_n = n^2\\)", "\\(u_n = 2^n\\)", "\\(u_n = 2n + 1\\)"], correct: "\\(u_n = \\frac{n}{n+1}\\)", exp: "Vì \\(n < n+1\\) với mọi \\(n \\ge 1\\) nên \\(\\frac{n}{n+1} < 1\\)." },
+            { id: 22, topic: "Cấp số cộng", level: "Thông hiểu", q: "Tổng 10 số hạng đầu của CSC với \\(u_1 = 1, d = 2\\) là:", options: ["\\(100\\)", "\\(90\\)", "\\(110\\)", "\\(50\\)"], correct: "\\(100\\)", exp: "\\(S_{10} = \\frac{10}{2}[2(1) + 9(2)] = 5 \\times 20 = 100\\)." },
+            { id: 23, topic: "Cấp số nhân", level: "Thông hiểu", q: "Tổng tất cả các số hạng của CSN lùi vô hạn với \\(u_1 = 1, q = \\frac{1}{2}\\) là:", options: ["\\(2\\)", "\\(1\\)", "\\(3\\)", "\\(\\frac{1}{2}\\)"], correct: "\\(2\\)", exp: "\\(S = \\frac{u_1}{1 - q} = \\frac{1}{1 - 1/2} = 2\\)." },
+            { id: 24, topic: "Mẫu số liệu ghép nhóm", level: "Thông hiểu", q: "Nhóm chứa trung vị của mẫu số liệu ghép nhóm kích thước \\(N=40\\) là nhóm chứa giá trị thứ bao nhiêu?", options: ["Thứ 20 và 21", "Thứ 10", "Thứ 30", "Thứ 40"], correct: "Thứ 20 và 21", exp: "Kích thước mẫu chẵn \\(N=40\\) nên trung vị ở vị trí giữa \\(20\\) và \\(21\\)." },
+            { id: 25, topic: "Giá trị lượng giác", level: "Thông hiểu", q: "Biết \\(\\sin x = \\frac{1}{2}\\) và \\(x \\in \\left(0; \\frac{\\pi}{2}\\right)\\). Tính \\(\\cos x\\):", options: ["\\(\\frac{\\sqrt{3}}{2}\\)", "\\(-\\frac{\\sqrt{3}}{2}\\)", "\\(\\frac{1}{2}\\)", "\\(\\frac{\\sqrt{2}}{2}\\)"], correct: "\\(\\frac{\\sqrt{3}}{2}\\)", exp: "\\(\\cos x = +\\sqrt{1 - \\sin^2 x} = \\sqrt{1 - 1/4} = \\frac{\\sqrt{3}}{2}\\)." },
+            { id: 26, topic: "Công thức lượng giác", level: "Thông hiểu", q: "\\(\\cos 60^\\circ \\cos 30^\\circ - \\sin 60^\\circ \\sin 30^\\circ\\) bằng giá trị nào?", options: ["\\(0\\)", "\\(1\\)", "\\(\\frac{1}{2}\\)", "\\(\\frac{\\sqrt{3}}{2}\\)"], correct: "\\(0\\)", exp: "Áp dụng công thức cộng: \\(\\cos(60^\\circ + 30^\\circ) = \\cos 90^\\circ = 0\\)." },
+            { id: 27, topic: "Hàm số lượng giác", level: "Thông hiểu", q: "Hàm số \\(y = \\cos x\\) nghịch biến trên khoảng nào sau đây?", options: ["\\((0; \\pi)\\)", "\\((-\\pi; 0)\\)", "\\(\\left(-\\frac{\\pi}{2}; \\frac{\\pi}{2}\\right)\\)", "\\((\\pi; 2\\pi)\\)"], correct: "\\((0; \\pi)\\)", exp: "Trên khoảng \\((0; \\pi)\\), khi góc tăng thì giá trị cos giảm từ 1 xuống -1." },
+            { id: 28, topic: "Phương trình lượng giác", level: "Thông hiểu", q: "Số nghiệm của phương trình \\(\\sin x = 0.5\\) trên đoạn \\([0; 2\\pi]\\) là:", options: ["\\(2\\)", "\\(1\\)", "\\(3\\)", "\\(4\\)"], correct: "\\(2\\)", exp: "Gồm hai nghiệm \\(x = \\frac{\\pi}{6}\\) và \\(x = \\frac{5\\pi}{6}\\)." },
+            { id: 29, topic: "Dãy số", level: "Nhận biết", q: "Cho dãy số \\(u_n = 2^n\\). Tìm \\(u_4\\):", options: ["\\(16\\)", "\\(8\\)", "\\(32\\)", "\\(12\\)"], correct: "\\(16\\)", exp: "\\(u_4 = 2^4 = 16\\)." },
+            { id: 30, topic: "Cấp số cộng", level: "Thông hiểu", q: "Cho CSC có \\(u_1 = -2, u_2 = 3\\). Công sai \\(d\\) bằng:", options: ["\\(5\\)", "\\(1\\)", "\\(-5\\)", "\\(6\\)"], correct: "\\(5\\)", exp: "\\(d = u_2 - u_1 = 3 - (-2) = 5\\)." },
+            { id: 31, topic: "Cấp số nhân", level: "Thông hiểu", q: "Cho CSN có \\(u_1 = 3, q = -2\\). Giá trị \\(u_4\\) bằng:", options: ["\\(-24\\)", "\\(24\\)", "\\(-18\\)", "\\(12\\)"], correct: "\\(-24\\)", exp: "\\(u_4 = 3 \\cdot (-2)^3 = 3 \\cdot (-8) = -24\\)." },
+            { id: 32, topic: "Mẫu số liệu ghép nhóm", level: "Nhận biết", q: "Giá trị đại diện của nhóm \\([a; b)\\) trong mẫu số liệu ghép nhóm là:", options: ["\\(\\frac{a+b}{2}\\)", "\\(b - a\\)", "\\(a + b\\)", "\\(a \\cdot b\\)"], correct: "\\(\\frac{a+b}{2}\\)", exp: "Giá trị đại diện là trung điểm của hai đầu mút nhóm." },
+            { id: 33, topic: "Giá trị lượng giác", level: "Nhận biết", q: "Công thức đẳng thức lượng giác cơ bản nào luôn **ĐÚNG**?", options: ["\\(\\sin^2 x + \\cos^2 x = 1\\)", "\\(\\sin x + \\cos x = 1\\)", "\\(\\tan x \\cdot \\sin x = 1\\)", "\\(1 + \\tan^2 x = \\frac{1}{\\sin^2 x}\\)"], correct: "\\(\\sin^2 x + \\cos^2 x = 1\\)", exp: "Đẳng thức Pythagore cơ bản trong đường tròn lượng giác." },
+            { id: 34, topic: "Công thức lượng giác", level: "Nhận biết", q: "Công thức biến đổi tích thành tổng: \\(\\cos a \\cos b = \\) ?", options: ["\\(\\frac{1}{2}[\\cos(a-b) + \\cos(a+b)]\\)", "\\(\\frac{1}{2}[\\cos(a-b) - \\cos(a+b)]\\)", "\\(\\frac{1}{2}[\\sin(a+b) + \\sin(a-b)]\\)", "\\(\\cos(a+b)\\)"], correct: "\\(\\frac{1}{2}[\\cos(a-b) + \\cos(a+b)]\\)", exp: "Công thức nhân biến đổi cos x cos." },
+            { id: 35, topic: "Hàm số lượng giác", level: "Nhận biết", q: "Tập xác định của hàm số \\(y = \\cos x\\) là:", options: ["\\(\\mathbb{R}\\)", "\\([-1; 1]\\)", "\\(\\mathbb{R} \\setminus \\{0\\}\\)", "\\((0; +\\infty)\\)"], correct: "\\(\\mathbb{R}\\)", exp: "Hàm số cos xác định với mọi số thực x." },
+            { id: 36, topic: "Phương trình lượng giác", level: "Thông hiểu", q: "Phương trình \\(\\cos x = \\cos \\alpha\\) có họ nghiệm là:", options: ["\\(x = \\pm \\alpha + k2\\pi\\)", "\\(x = \\alpha + k\\pi\\)", "\\(x = \\alpha + k2\\pi\\)", "\\(x = \\pi - \\alpha + k2\\pi\\)"], correct: "\\(x = \\pm \\alpha + k2\\pi\\)", exp: "Phương trình cos đối xứng qua trục hoành nên nghiệm là \\(x = \\pm \\alpha + k2\\pi\\)." },
+            { id: 37, topic: "Dãy số", level: "Thông hiểu", q: "Dãy số nào sau đây là dãy số giảm?", options: ["\\(u_n = \\frac{1}{n}\\)", "\\(u_n = 3n + 1\\)", "\\(u_n = n^2\\)", "\\(u_n = 2^n\\)"], correct: "\\(u_n = \\frac{1}{n}\\)", exp: "Khi n tăng thì phân số \\(1/n\\) giảm dần." },
+            { id: 38, topic: "Cấp số cộng", level: "Nhận biết", q: "Trong một CSC, số hạng thứ n được tính bởi:", options: ["\\(u_n = u_1 + (n-1)d\\)", "\\(u_n = u_1 + nd\\)", "\\(u_n = u_1 \\cdot d^{n-1}\\)", "\\(u_n = u_1 - (n-1)d\\)"], correct: "\\(u_n = u_1 + (n-1)d\\)", exp: "Công thức số hạng tổng quát của cấp số cộng." },
+            { id: 39, topic: "Cấp số nhân", level: "Nhận biết", q: "Trong một CSN, số hạng thứ n được tính bởi:", options: ["\\(u_n = u_1 \\cdot q^{n-1}\\)", "\\(u_n = u_1 + q^{n-1}\\)", "\\(u_n = u_1 \\cdot q^n\\)", "\\(u_n = u_1 \\cdot (n-1)q\\)"], correct: "\\(u_n = u_1 \\cdot q^{n-1}\\)", exp: "Công thức số hạng tổng quát của cấp số nhân." },
+            { id: 40, topic: "Mẫu số liệu ghép nhóm", level: "Thông hiểu", q: "Mốt của mẫu số liệu ghép nhóm dùng để đại diện cho:", options: ["Giá trị xuất hiện với tần số nhiều nhất", "Trung bình cộng các giá trị", "Giá trị chính giữa", "Độ lệch của mẫu"], correct: "Giá trị xuất hiện với tần số nhiều nhất", exp: "Mốt đại diện cho xu hướng xuất hiện phổ biến nhất trong dữ liệu." }
+        ];
+
+        const questionBankTF = [
+            // 20 TRUE / FALSE QUESTIONS (1.0 pt each)
+            { id: 41, topic: "Giá trị lượng giác", level: "Nhận biết", q: "Khẳng định sau ĐÚNG hay SAI: 'Với mọi góc \\(\\alpha\\), ta luôn có \\(-1 \\le \\sin \\alpha \\le 1\\) và \\(-1 \\le \\cos \\alpha \\le 1\\)'?", correct: true, exp: "Tung độ và hoành độ của điểm trên đường tròn đơn vị luôn thuộc đoạn [-1; 1]." },
+            { id: 42, topic: "Công thức lượng giác", level: "Thông hiểu", q: "Khẳng định sau ĐÚNG hay SAI: '\\(\\sin(a + b) = \\sin a + \\sin b\\)'?", correct: false, exp: "Công thức đúng phải là \\(\\sin(a+b) = \\sin a \\cos b + \\cos a \\sin b\\)." },
+            { id: 43, topic: "Hàm số lượng giác", level: "Thông hiểu", q: "Khẳng định sau ĐÚNG hay SAI: 'Đồ thị hàm số \\(y = \\cos x\\) đối xứng qua trục tung Oy'?", correct: true, exp: "Vì \\(y = \\cos x\\) là hàm số chẵn nên đồ thị nhận Oy làm trục đối xứng." },
+            { id: 44, topic: "Phương trình lượng giác", level: "Vận dụng", q: "Khẳng định sau ĐÚNG hay SAI: 'Phương trình \\(\\sin x = m\\) có nghiệm khi và chỉ khi \\(|m| \\le 1\\)'?", correct: true, exp: "Vì tập giá trị của sin x là [-1; 1] nên phương trình có nghiệm khi \\(-1 \\le m \\le 1\\)." },
+            { id: 45, topic: "Dãy số", level: "Thông hiểu", q: "Khẳng định sau ĐÚNG hay SAI: 'Dãy số \\(u_n = (-1)^n\\) là dãy số bị chặn'?", correct: true, exp: "Dãy bị chặn vì \\(-1 \\le u_n \\le 1\\) với mọi n." },
+            { id: 46, topic: "Cấp số cộng", level: "Vận dụng", q: "Khẳng định sau ĐÚNG hay SAI: 'Ba số \\(a, b, c\\) theo thứ tự lập thành CSC khi và chỉ khi \\(a + c = 2b\\)'?", correct: true, exp: "Tính chất 3 số hạng liên tiếp của CSC: \\(b - a = c - b \\Leftrightarrow a + c = 2b\\)." },
+            { id: 47, topic: "Cấp số nhân", level: "Vận dụng", q: "Khẳng định sau ĐÚNG hay SAI: 'Ba số dương \\(a, b, c\\) lập thành CSN khi và chỉ khi \\(b^2 = a \\cdot c\\)'?", correct: true, exp: "Tính chất 3 số hạng liên tiếp của CSN: \\(\\frac{b}{a} = \\frac{c}{b} \\Leftrightarrow b^2 = ac\\)." },
+            { id: 48, topic: "Mẫu số liệu ghép nhóm", level: "Vận dụng", q: "Khẳng định sau ĐÚNG hay SAI: 'Giá trị trung bình của mẫu số liệu ghép nhóm có thể lớn hơn đầu mút trên của nhóm cuối cùng'?", correct: false, exp: "Giá trị trung bình luôn nằm trong khoảng từ giá trị nhỏ nhất đến lớn nhất của dữ liệu." },
+            { id: 49, topic: "Ứng dụng thực tế", level: "Vận dụng cao", q: "[Thực tế] Một guồng nước quay tròn bán kính 3m, tâm ở độ cao 4m so với mặt nước. Độ cao của 1 gáo nước được mô hình bởi \\(h(t) = 4 + 3\\sin\\left(\\frac{\\pi}{5} t\\right)\\). Khẳng định: 'Độ cao lớn nhất của gáo nước là 7m' là ĐÚNG hay SAI?", correct: true, exp: "\\(h_{\\max} = 4 + 3(1) = 7\\text{m}\\)." },
+            { id: 50, topic: "Ứng dụng thực tế", level: "Vận dụng cao", q: "[Thực tế] Thu nhập một công ty tăng trưởng theo CSN với công bội \\(q = 1.1\\) mỗi năm. Sau 5 năm thu nhập gấp \\(1.1^5\\) lần ban đầu. Khẳng định này ĐÚNG hay SAI?", correct: true, exp: "Áp dụng công thức số hạng CSN: \\(u_6 = u_1 \\cdot q^5 = u_1 \\cdot 1.1^5\\)." },
+            { id: 51, topic: "Phương trình lượng giác", level: "Vận dụng cao", q: "Phương trình \\(\\sin x + \\cos x = \\sqrt{2}\\) có nghiệm duy nhất trên \\([0; 2\\pi]\\) tại \\(x = \\frac{\\pi}{4}\\). ĐÚNG hay SAI?", correct: true, exp: "\\(\\sin x + \\cos x = \\sqrt{2}\\sin(x + \\pi/4) = \\sqrt{2} \\Leftrightarrow \\sin(x + \\pi/4) = 1 \\Rightarrow x = \\pi/4\\)." },
+            { id: 52, topic: "Giá trị lượng giác", level: "Vận dụng", q: "Với mọi \\(x\\), \\(\\tan x \\cdot \\cot x = 1\\) (khi biểu thức có nghĩa). ĐÚNG hay SAI?", correct: true, exp: "\\(\\tan x = \\frac{\\sin x}{\\cos x}\\) và \\(\\cot x = \\frac{\\cos x}{\\sin x}\\) nên tích bằng 1." },
+            { id: 53, topic: "Công thức lượng giác", level: "Thông hiểu", q: "\\(\\cos 2x = 2\\cos^2 x - 1\\). ĐÚNG hay SAI?", correct: true, exp: "Công thức nhân đôi chuẩn của cos." },
+            { id: 54, topic: "Hàm số lượng giác", level: "Nhận biết", q: "Hàm số \\(y = \\tan x\\) tuần hoàn với chu kỳ \\(\\pi\\). ĐÚNG hay SAI?", correct: true, exp: "Chu kỳ của hàm tan và cot là \\(\\pi\\)." },
+            { id: 55, topic: "Dãy số", level: "Vận dụng", q: "Cho dãy \\(u_n = \\frac{1}{n(n+1)}\\). Tổng \\(S_n = u_1 + u_2 + ... + u_n = 1 - \\frac{1}{n+1}\\). ĐÚNG hay SAI?", correct: true, exp: "\\(u_k = \\frac{1}{k} - \\frac{1}{k+1}\\). Tổng triệt tiêu sai phân cho kết quả \\(1 - \\frac{1}{n+1}\\)." },
+            { id: 56, topic: "Cấp số cộng", level: "Vận dụng cao", q: "Số hạng thứ 100 của CSC 2, 5, 8, 11... là 299. ĐÚNG hay SAI?", correct: true, exp: "\\(u_{100} = 2 + 99(3) = 299\\)." },
+            { id: 57, topic: "Cấp số nhân", level: "Vận dụng cao", q: "Cho CSN có \\(u_1 = 3, q = 2\\). Số 384 là số hạng thứ 8. ĐÚNG hay SAI?", correct: true, exp: "\\(u_8 = 3 \\cdot 2^7 = 3 \\cdot 128 = 384\\)." },
+            { id: 58, topic: "Mẫu số liệu ghép nhóm", level: "Vận dụng", q: "Độ lệch chuẩn là căn bậc hai của phương sai. ĐÚNG hay SAI?", correct: true, exp: "Theo định nghĩa: \\(s = \\sqrt{s^2}\\)." },
+            { id: 59, topic: "Ứng dụng thực tế", level: "Vận dụng cao", q: "[Thực tế kinh tế] Ông A gửi tiết kiệm 100 triệu với lãi kép 6%/năm. Số tiền nhận được sau n năm tính theo CSN. ĐÚNG hay SAI?", correct: true, exp: "Lãi kép tăng trưởng theo mô hình cấp số nhân: \\(A_n = A_0(1+r)^n\\)." },
+            { id: 60, topic: "Phương trình lượng giác", level: "Vận dụng cao", q: "Phương trình \\(\\sin^2 x - 3\\sin x + 2 = 0\\) có nghiệm \\(x = \\frac{\\pi}{2} + k2\\pi\\). ĐÚNG hay SAI?", correct: true, exp: "Đặt \\(t = \\sin x \\Rightarrow t^2 - 3t + 2 = 0 \\Rightarrow t=1\\) (nhận) hoặc \\(t=2\\) (loại). Với \\(\\sin x = 1 \\Rightarrow x = \\pi/2 + k2\\pi\\)." }
+        ];
+
+        /* ==========================================================================
+           III. AUDIO SYNTHESIZER (WEB AUDIO API - ZERO EXTERNAL FILE ERRORS)
+           ========================================================================== */
+        let audioEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            document.getElementById('audioText').textContent = audioEnabled ? "Âm thanh: Bật" : "Âm thanh: Tắt";
+            document.getElementById('audioIcon').className = audioEnabled ? "fa-solid fa-volume-high" : "fa-solid fa-volume-xmark";
+        }
+
+        function speakCorrectSpeech() {
+            if (!audioEnabled || !('speechSynthesis' in window)) return;
+            try {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance("Chính xác!");
+                utterance.lang = 'vi-VN';
+                utterance.rate = 1.1;
+                window.speechSynthesis.speak(utterance);
+            } catch (e) {}
+        }
+
+        function playSound(type) {
+            if (!audioEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (ctx.state === 'suspended') ctx.resume();
+
+                const now = ctx.currentTime;
+
+                if (type === 'correct') {
+                    // Speech "Chính xác"
+                    speakCorrectSpeech();
+
+                    // Prolonged Crowd Applause sound simulation using noise & chord
+                    const bufferSize = ctx.sampleRate * 1.8; // 1.8 seconds applause
+                    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = Math.random() * 2 - 1;
+                    }
+
+                    const noise = ctx.createBufferSource();
+                    noise.buffer = buffer;
+
+                    const filter = ctx.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.value = 1000;
+
+                    const gain = ctx.createGain();
+                    gain.gain.setValueAtTime(0.01, now);
+                    gain.gain.linearRampToValueAtTime(0.25, now + 0.2);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
+
+                    noise.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(ctx.destination);
+                    noise.start(now);
+
+                } else if (type === 'wrong') {
+                    // Sad / Low Unhappy Tones
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(180, now);
+                    osc.frequency.exponentialRampToValueAtTime(90, now + 0.6);
+
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.6);
+                } else if (type === 'bell') {
+                    // Golden Bell Triumph Ringing
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(987.77, now); // B5 note bell
+                    gain.gain.setValueAtTime(0.5, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 2.5);
+                }
+            } catch (e) {
+                console.log("Audio synthesis notice:", e);
+            }
+        }
+
+        /* ==========================================================================
+           IV. STATE MANAGEMENT & DYNAMIC RANDOMIZATION
+           ========================================================================== */
+        let playerName = "";
+        let playerClass = "";
+        let currentQuestionIndex = 0;
+        let totalScore = 0.0;
+        let timerInterval = null;
+        let totalSeconds = 0;
+        let activeQuestionList = [];
+        let leaderboardData = [];
+
+        // Shuffle Array Helper
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        /* ==========================================================================
+           V. GAME CONTROLLER
+           ========================================================================== */
+        function startGame(mode) {
+            playerName = document.getElementById('playerNameInput').value.trim() || "Học sinh";
+            playerClass = document.getElementById('playerClassInput').value.trim() || "11";
+
+            // Prepare dynamic question order & shuffle MC options
+            const mcShuffled = questionBankMC.map(q => {
+                const shuffledOpts = shuffleArray(q.options);
+                return {
+                    ...q,
+                    options: shuffledOpts,
+                    isTF: false
+                };
+            });
+
+            const tfPrepared = questionBankTF.map(q => ({ ...q, isTF: true }));
+
+            // Total 60 questions: 40 MC then 20 TF
+            activeQuestionList = [...mcShuffled, ...tfPrepared];
+
+            // Reset clean state (Prevent doubled timers / listeners)
+            currentQuestionIndex = 0;
+            totalScore = 0.0;
+            totalSeconds = 0;
+            stopTimer();
+
+            hideAllScreens();
+            document.getElementById('quizScreen').classList.remove('hidden');
+            document.getElementById('quizScreen').classList.add('flex');
+            document.getElementById('displayPlayerInfo').textContent = `${playerName} - Lớp ${playerClass}`;
+            document.getElementById('currentScoreDisplay').textContent = totalScore.toFixed(1);
+
+            startTimer();
+            loadQuestion();
+        }
+
+        function startTimer() {
+            stopTimer(); // Ensure previous interval cleared
+            timerInterval = setInterval(() => {
+                totalSeconds++;
+                const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+                const secs = String(totalSeconds % 60).padStart(2, '0');
+                document.getElementById('timerDisplay').textContent = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function loadQuestion() {
+            // Hide previous explanation modal
+            document.getElementById('explanationModal').classList.add('hidden');
+
+            const q = activeQuestionList[currentQuestionIndex];
+
+            document.getElementById('questionCounter').textContent = `Câu ${currentQuestionIndex + 1} / ${activeQuestionList.length}`;
+            document.getElementById('difficultyBadge').textContent = `Mức độ: ${q.level}`;
+            document.getElementById('topicBadge').textContent = `Chủ đề: ${q.topic}`;
+            document.getElementById('questionText').innerHTML = q.q;
+
+            const mcContainer = document.getElementById('optionsContainer');
+            const tfContainer = document.getElementById('tfContainer');
+
+            if (!q.isTF) {
+                // Multiple Choice Mode (4 options)
+                document.getElementById('typeBadge').textContent = "Dạng: Trắc nghiệm (0,2đ)";
+                mcContainer.classList.remove('hidden');
+                mcContainer.classList.add('grid');
+                tfContainer.classList.add('hidden');
+                tfContainer.classList.remove('grid');
+
+                mcContainer.innerHTML = '';
+                const optionLabels = ['A', 'B', 'C', 'D'];
+
+                q.options.forEach((optText, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = `option-card w-full p-4 rounded-xl text-left font-bold text-base md:text-lg flex items-start gap-3`;
+                    btn.id = `optBtn_${idx}`;
+                    // Use closure binding safely
+                    btn.onclick = function() { selectMCOption(optText, idx); };
+
+                    btn.innerHTML = `
+                        <span class="w-8 h-8 rounded-lg bg-yellow-400 text-slate-950 font-black flex items-center justify-center shrink-0 border border-yellow-300">
+                            ${optionLabels[idx]}
+                        </span>
+                        <span class="pt-0.5 text-white">${optText}</span>
+                    `;
+                    mcContainer.appendChild(btn);
+                });
+            } else {
+                // True/False Mode (1.0 pt)
+                document.getElementById('typeBadge').textContent = "Dạng: Đúng / Sai (1,0đ)";
+                mcContainer.classList.add('hidden');
+                mcContainer.classList.remove('grid');
+                tfContainer.classList.remove('hidden');
+                tfContainer.classList.add('grid');
+
+                document.getElementById('btnTrue').disabled = false;
+                document.getElementById('btnFalse').disabled = false;
+                document.getElementById('btnTrue').className = "option-card py-4 px-6 rounded-xl font-black text-xl text-center bg-emerald-800 hover:bg-emerald-700 border-2 border-yellow-400";
+                document.getElementById('btnFalse').className = "option-card py-4 px-6 rounded-xl font-black text-xl text-center bg-emerald-800 hover:bg-emerald-700 border-2 border-yellow-400";
+            }
+
+            // Render LaTeX formulas dynamically
+            renderMathInElement(document.getElementById('quizScreen'), {
+                delimiters: [
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError : false
+            });
+        }
+
+        function selectMCOption(selectedText, selectedIdx) {
+            const q = activeQuestionList[currentQuestionIndex];
+            const isCorrect = (selectedText === q.correct);
+
+            // Disable all option buttons
+            const buttons = document.querySelectorAll('.option-card');
+            buttons.forEach(b => b.disabled = true);
+
+            const selectedBtn = document.getElementById(`optBtn_${selectedIdx}`);
+
+            if (isCorrect) {
+                totalScore += 0.2;
+                selectedBtn.classList.add('option-correct');
+                playSound('correct');
+            } else {
+                selectedBtn.classList.add('option-wrong');
+                // Highlight correct one
+                q.options.forEach((opt, idx) => {
+                    if (opt === q.correct) {
+                        document.getElementById(`optBtn_${idx}`).classList.add('option-correct');
+                    }
+                });
+                playSound('wrong');
+            }
+
+            document.getElementById('currentScoreDisplay').textContent = totalScore.toFixed(1);
+            showExplanationModal(isCorrect, q);
+        }
+
+        function selectTrueFalse(userChoice) {
+            const q = activeQuestionList[currentQuestionIndex];
+            const isCorrect = (userChoice === q.correct);
+
+            document.getElementById('btnTrue').disabled = true;
+            document.getElementById('btnFalse').disabled = true;
+
+            const chosenBtn = userChoice ? document.getElementById('btnTrue') : document.getElementById('btnFalse');
+
+            if (isCorrect) {
+                totalScore += 1.0;
+                chosenBtn.classList.add('option-correct');
+                playSound('correct');
+            } else {
+                chosenBtn.classList.add('option-wrong');
+                const correctBtn = q.correct ? document.getElementById('btnTrue') : document.getElementById('btnFalse');
+                correctBtn.classList.add('option-correct');
+                playSound('wrong');
+            }
+
+            document.getElementById('currentScoreDisplay').textContent = totalScore.toFixed(1);
+            showExplanationModal(isCorrect, q);
+        }
+
+        function showExplanationModal(isCorrect, q) {
+            const modal = document.getElementById('explanationModal');
+            const header = document.getElementById('resultHeader');
+            const explanationText = document.getElementById('explanationText');
+
+            if (isCorrect) {
+                header.className = "flex items-center gap-3 text-xl font-black text-yellow-300";
+                header.innerHTML = `<i class="fa-solid fa-circle-check text-2xl text-emerald-400"></i> CHÍNH XÁC! (+${q.isTF ? '1,0' : '0,2'} điểm)`;
+            } else {
+                header.className = "flex items-center gap-3 text-xl font-black text-red-400";
+                header.innerHTML = `<i class="fa-solid fa-circle-xmark text-2xl"></i> CHƯA CHÍNH XÁC! (Đáp án đúng: ${q.isTF ? (q.correct ? 'ĐÚNG' : 'SAI') : q.correct})`;
+            }
+
+            explanationText.innerHTML = q.exp;
+            modal.classList.remove('hidden');
+
+            renderMathInElement(explanationText, {
+                delimiters: [
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError : false
+            });
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= activeQuestionList.length) {
+                finishGame();
+                return;
+            }
+            loadQuestion();
+        }
+
+        function finishGame() {
+            stopTimer();
+            playSound('bell');
+
+            const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+            const secs = String(totalSeconds % 60).padStart(2, '0');
+            const formattedTime = `${mins}:${secs}`;
+
+            // Sync with Apps Script backend (no-cors fetch payload)
+            const resultPayload = {
+                "Họ tên": playerName,
+                "Lớp": playerClass,
+                "Điểm số": totalScore.toFixed(1),
+                "Thời gian làm bài": formattedTime
+            };
+            postGameResultToBackend(resultPayload);
+
+            // Add locally to leaderboard
+            leaderboardData.push(resultPayload);
+            leaderboardData.sort((a, b) => parseFloat(b["Điểm số"]) - parseFloat(a["Điểm số"]));
+
+            hideAllScreens();
+            document.getElementById('victoryScreen').classList.remove('hidden');
+            document.getElementById('vicName').textContent = playerName;
+            document.getElementById('vicClass').textContent = playerClass;
+            document.getElementById('vicScore').textContent = totalScore.toFixed(1);
+            document.getElementById('vicTime').textContent = formattedTime;
+        }
+
+        function showClassDashboard() {
+            hideAllScreens();
+            document.getElementById('classDashboardScreen').classList.remove('hidden');
+            fetchLeaderboardFromBackend();
+            renderLeaderboard();
+        }
+
+        function renderLeaderboard() {
+            const tbody = document.getElementById('leaderboardBody');
+            document.getElementById('studentCountBadge').textContent = `${leaderboardData.length} học sinh`;
+
+            if (leaderboardData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-emerald-300">Chưa có kết quả nào được ghi nhận</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            leaderboardData.forEach((item, idx) => {
+                const rankBadge = idx === 0 ? "text-yellow-300 font-black text-base" : (idx === 1 ? "text-slate-200 font-bold" : (idx === 2 ? "text-amber-400 font-bold" : "text-emerald-200"));
+                html += `
+                    <tr class="hover:bg-emerald-900/50 transition">
+                        <td class="p-3 ${rankBadge}">#${idx + 1}</td>
+                        <td class="p-3 font-bold text-white">${item["Họ tên"]}</td>
+                        <td class="p-3 text-emerald-200">${item["Lớp"]}</td>
+                        <td class="p-3 text-center font-black text-yellow-300">${item["Điểm số"]} / 28.0</td>
+                        <td class="p-3 text-center text-emerald-300">${item["Thời gian làm bài"]}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function restartGame() {
+            startGame('individual');
+        }
+
+        function confirmGoHome() {
+            stopTimer();
+            hideAllScreens();
+            document.getElementById('welcomeScreen').classList.remove('hidden');
+        }
+
+        function hideAllScreens() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('flex');
+            document.getElementById('victoryScreen').classList.add('hidden');
+            document.getElementById('classDashboardScreen').classList.add('hidden');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError : false
+            });
+        });
+    </script>
+</body>
+</html>
