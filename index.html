@@ -1,994 +1,709 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10234a">
-<meta name="description" content="CHINH PHỤC TOÁN HỌC – THẦY HÒA: học Toán THPT, luyện tập, thi thử và trò chơi học tập.">
-<title>CHINH PHỤC TOÁN HỌC – THẦY HÒA</title>
+<meta name="theme-color" content="#10264b">
+<meta name="description" content="THẦY HÒA AI - Cổng học tập số Toán 9, 10, 11, 12. Trò chơi, bài học, luyện tập và ôn thi THPT.">
+<title>THẦY HÒA AI - CHINH PHỤC TOÁN HỌC</title>
 
 <style>
 :root {
-  --navy: #10234a;
-  --blue: #2458a6;
-  --yellow: #ffd34e;
-  --bg: #f4f7fc;
-  --white: #ffffff;
-  --text: #18243b;
-  --muted: #64718a;
-  --border: #e3e9f3;
-  --shadow: 0 12px 32px rgba(16,35,74,.09);
-  --radius: 20px;
+  --navy:#10264b;
+  --blue:#1769d2;
+  --cyan:#13b8c9;
+  --purple:#7957d5;
+  --bg:#f3f6fc;
+  --text:#17243b;
+  --muted:#64748b;
+  --white:#ffffff;
+  --border:#e5eaf2;
+  --shadow:0 8px 28px rgba(22,48,87,.08);
 }
-
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
+* {box-sizing:border-box;margin:0;padding:0}
+html {scroll-behavior:smooth}
 body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
 }
-
-a { text-decoration: none; }
-
-.container {
-  width: min(1160px, calc(100% - 36px));
-  margin: auto;
-}
-
-/* THANH THÔNG BÁO */
-.topbar {
-  padding: 8px 0;
-  background: var(--navy);
-  color: white;
-  text-align: center;
-  font-size: 14px;
-}
-
-.topbar strong { color: var(--yellow); }
+a {text-decoration:none;color:inherit}
+button,input {font:inherit}
+button {cursor:pointer}
+.container {width:min(1180px,92%);margin:auto}
 
 /* HEADER */
 header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255,255,255,.96);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(12px);
+  background:rgba(16,38,75,.98);
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 4px 20px #10264b22;
 }
-
-.nav {
-  min-height: 76px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+.header-inner {
+  min-height:76px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
 }
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--navy);
+.logo {display:flex;align-items:center;gap:12px}
+.logo-icon {
+  width:48px;height:48px;
+  background:linear-gradient(135deg,#20c6d2,#347bea);
+  border-radius:14px;
+  display:grid;place-items:center;
+  font-size:27px;font-weight:bold;
 }
-
-.brand-icon {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  background: var(--yellow);
-  border-radius: 15px;
-  font-weight: 900;
-  font-size: 22px;
+.logo h2 {font-size:19px;letter-spacing:.5px}
+.logo p {font-size:10px;color:#b9d7ff;letter-spacing:1.5px}
+nav {display:flex;gap:18px;align-items:center}
+nav a {
+  color:#e5efff;font-size:13px;font-weight:600;
+  transition:.2s;
 }
-
-.brand-title {
-  font-weight: 900;
-  line-height: 1.3;
-  font-size: 15px;
-}
-
-.brand-sub {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.nav-links a {
-  color: #39465e;
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.nav-links a:hover { color: var(--blue); }
-
-.menu-toggle {
-  display: none;
-  background: white;
-  border: 1px solid var(--border);
-  padding: 9px 13px;
-  border-radius: 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 17px;
-  border-radius: 12px;
-  font-weight: 800;
-  text-align: center;
-  transition: .2s ease;
-  cursor: pointer;
-  border: 0;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-
-.btn-yellow {
-  background: var(--yellow);
-  color: var(--navy);
-}
-
-.btn-blue {
-  background: var(--navy);
-  color: white;
-}
-
-.btn-light {
-  background: #edf4ff;
-  color: var(--blue);
-}
-
-.btn-white {
-  background: white;
-  color: var(--navy);
+nav a:hover {color:#49e2e9}
+.menu-btn {
+  display:none;
+  background:transparent;color:white;
+  border:1px solid #ffffff55;
+  padding:8px 12px;border-radius:8px;
 }
 
 /* HERO */
 .hero {
-  position: relative;
-  overflow: hidden;
-  padding: 72px 0;
-  color: white;
+  color:white;
   background:
-    radial-gradient(circle at 85% 25%, rgba(255,211,78,.17), transparent 24%),
-    linear-gradient(120deg, #10234a, #214c83);
+  radial-gradient(circle at 85% 20%,#347bea 0,transparent 30%),
+  radial-gradient(circle at 10% 90%,#13b8c9 0,transparent 27%),
+  linear-gradient(120deg,#10264b,#153d79);
+  padding:75px 0 68px;
+  overflow:hidden;
 }
-
 .hero-grid {
-  display: grid;
-  grid-template-columns: 1.15fr .85fr;
-  align-items: center;
-  gap: 38px;
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  align-items:center;
+  gap:35px;
 }
-
 .eyebrow {
-  display: inline-block;
-  padding: 7px 12px;
-  border: 1px solid rgba(255,255,255,.3);
-  border-radius: 999px;
-  color: var(--yellow);
-  font-size: 13px;
-  font-weight: 800;
+  display:inline-block;
+  background:#ffffff19;
+  border:1px solid #ffffff35;
+  padding:7px 14px;
+  border-radius:30px;
+  color:#aeeeff;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
 }
-
 .hero h1 {
-  margin: 20px 0;
-  font-size: clamp(36px, 5vw, 62px);
-  line-height: 1.1;
-  letter-spacing: -1.5px;
+  font-size:clamp(32px,5vw,54px);
+  line-height:1.17;
+  margin:20px 0;
 }
-
-.hero h1 span { color: var(--yellow); }
-
-.hero p {
-  max-width: 620px;
-  color: #d9e5f8;
-  font-size: 17px;
+.hero h1 span {color:#5de4eb}
+.hero-desc {color:#d5e5ff;max-width:650px;font-size:16px}
+.hero-buttons {display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}
+.btn {
+  padding:12px 21px;
+  border-radius:10px;
+  border:none;
+  font-weight:bold;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:.25s;
 }
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 25px;
-}
-
+.btn:hover {transform:translateY(-3px)}
+.btn-primary {background:#24c5d2;color:#08294a}
+.btn-light {background:white;color:#174078}
 .hero-art {
-  min-height: 300px;
-  display: grid;
-  place-items: center;
-  position: relative;
+  display:grid;place-items:center;
+  min-height:270px;
 }
-
 .math-circle {
-  width: min(300px, 75vw);
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(255,255,255,.25);
-  border-radius: 50%;
-  background: rgba(255,255,255,.05);
+  width:230px;height:230px;
+  border-radius:50%;
+  border:2px solid #ffffff55;
+  background:#ffffff12;
+  display:grid;place-items:center;
+  font-size:100px;
+  box-shadow:0 0 70px #33c9e755;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100% {transform:translateY(0)}
+  50% {transform:translateY(-14px)}
 }
 
-.math-symbol {
-  width: 150px;
-  height: 150px;
-  display: grid;
-  place-items: center;
-  background: var(--yellow);
-  color: var(--navy);
-  border-radius: 35px;
-  font-size: 75px;
-  font-weight: 900;
-  box-shadow: 0 20px 40px rgba(0,0,0,.2);
-  transform: rotate(-5deg);
+/* SEARCH */
+.search-section {margin-top:-27px;position:relative;z-index:5}
+.search-box {
+  background:white;
+  padding:12px;
+  border-radius:15px;
+  box-shadow:var(--shadow);
+  display:flex;gap:10px;
+}
+.search-box input {
+  flex:1;min-width:0;
+  border:none;outline:none;
+  padding:10px;
+  color:var(--text);
+}
+.search-box button {
+  border:0;border-radius:9px;
+  padding:10px 20px;
+  color:white;background:var(--blue);
+  font-weight:bold;
 }
 
-.math-badge {
-  position: absolute;
-  padding: 11px 14px;
-  border-radius: 13px;
-  background: white;
-  color: var(--navy);
-  box-shadow: var(--shadow);
-  font-size: 14px;
-  font-weight: 800;
+/* GENERAL */
+.section {padding:55px 0}
+.section-head {
+  display:flex;justify-content:space-between;
+  align-items:end;gap:15px;
+  margin-bottom:25px;
+}
+.section-head h2 {font-size:27px;color:var(--navy)}
+.section-head p {font-size:13px;color:var(--muted)}
+.section-tag {
+  color:var(--blue);
+  font-size:12px;font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:5px;
+}
+.grid {display:grid;gap:18px}
+.grid-4 {grid-template-columns:repeat(4,1fr)}
+.grid-3 {grid-template-columns:repeat(3,1fr)}
+.grid-2 {grid-template-columns:repeat(2,1fr)}
+
+/* GRADE CARDS */
+.grade-card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:23px;
+  box-shadow:var(--shadow);
+  transition:.25s;
+  position:relative;
+  overflow:hidden;
+}
+.grade-card:hover {
+  transform:translateY(-6px);
+  box-shadow:0 14px 35px #10264b18;
+}
+.grade-number {font-size:42px;font-weight:900;line-height:1}
+.grade-card h3 {font-size:19px;margin:12px 0 5px}
+.grade-card p {font-size:12px;color:var(--muted);min-height:38px}
+.grade-card a {
+  display:inline-block;margin-top:14px;
+  font-weight:bold;font-size:13px;
+}
+.g9 {border-top:5px solid #3182ce}
+.g10 {border-top:5px solid #20a66b}
+.g11 {border-top:5px solid #8959d5}
+.g12 {border-top:5px solid #e18b35}
+.g9 .grade-number,.g9 a {color:#3182ce}
+.g10 .grade-number,.g10 a {color:#20a66b}
+.g11 .grade-number,.g11 a {color:#8959d5}
+.g12 .grade-number,.g12 a {color:#e18b35}
+
+/* FEATURE CARDS */
+.feature-card {
+  background:white;
+  padding:23px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  transition:.25s;
+  display:block;
+}
+.feature-card:hover {transform:translateY(-5px);box-shadow:var(--shadow)}
+.feature-icon {
+  width:49px;height:49px;
+  border-radius:13px;
+  display:grid;place-items:center;
+  font-size:25px;margin-bottom:13px;
+  background:#eaf2ff;
+}
+.feature-card h3 {font-size:17px;margin-bottom:5px}
+.feature-card p {font-size:13px;color:var(--muted)}
+
+/* FEATURED GAMES */
+.dark-section {
+  background:linear-gradient(120deg,#10264b,#183d72);
+  color:white;
+}
+.dark-section .section-head h2 {color:white}
+.dark-section .section-head p {color:#c4d6f2}
+.game-card {
+  background:#ffffff12;
+  border:1px solid #ffffff25;
+  border-radius:15px;
+  padding:22px;
+  transition:.2s;
+}
+.game-card:hover {background:#ffffff20;transform:translateY(-5px)}
+.game-icon {font-size:35px;margin-bottom:12px}
+.game-card h3 {font-size:17px;margin-bottom:7px}
+.game-card p {font-size:12px;color:#c9d9f2}
+.game-card a {
+  display:inline-block;
+  margin-top:15px;
+  color:#61e1e8;font-size:13px;font-weight:bold;
 }
 
-.badge-one { top: 12%; left: 0; }
-.badge-two { top: 20%; right: 0; }
-.badge-three { bottom: 12%; left: 5%; }
-.badge-four { bottom: 10%; right: 0; }
-
-/* SECTIONS */
-section.content-section { padding: 65px 0; }
-
-.section-white { background: white; }
-
-.section-heading { margin-bottom: 28px; }
-
-.kicker {
-  color: var(--blue);
-  font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+/* FILTER */
+.filter-bar {display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}
+.filter-btn {
+  border:1px solid var(--border);
+  background:white;
+  color:var(--muted);
+  padding:8px 15px;
+  border-radius:30px;
+  font-size:12px;font-weight:bold;
 }
-
-h2 {
-  margin: 7px 0 10px;
-  color: var(--navy);
-  font-size: clamp(26px, 3vw, 36px);
-  line-height: 1.2;
+.filter-btn.active {background:var(--blue);color:white;border-color:var(--blue)}
+.resource-card {
+  background:white;border:1px solid var(--border);
+  border-radius:13px;padding:18px;
+  transition:.2s;
 }
-
-.section-desc {
-  margin: 0;
-  max-width: 700px;
-  color: var(--muted);
-}
-
-/* LỚP HỌC */
-.class-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.class-card {
-  padding: 25px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  transition: .2s ease;
-}
-
-.class-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
-}
-
-.class-number {
-  width: 55px;
-  height: 55px;
-  display: grid;
-  place-items: center;
-  border-radius: 17px;
-  background: var(--navy);
-  color: white;
-  font-size: 24px;
-  font-weight: 900;
-}
-
-.class-card h3 {
-  margin: 17px 0 7px;
-  color: var(--navy);
-}
-
-.class-card p {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-/* THẺ LIÊN KẾT */
-.link-group { margin-top: 30px; }
-
-.link-group h3 {
-  color: var(--navy);
-  font-size: 21px;
-  margin-bottom: 16px;
-}
-
-.link-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 17px;
-}
-
-.link-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 22px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 5px 18px rgba(16,35,74,.035);
-  transition: .2s ease;
-  min-width: 0;
-}
-
-.link-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
-  border-color: #bfd1ef;
-}
-
-.link-icon {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  background: #edf4ff;
-  border-radius: 15px;
-  font-size: 24px;
-}
-
-.link-card h4 {
-  margin: 14px 0 5px;
-  color: var(--navy);
-  font-size: 17px;
-}
-
-.link-card p {
-  margin: 0 0 18px;
-  color: var(--muted);
-  font-size: 14px;
-  flex: 1;
-}
-
-.link-card .btn { width: 100%; font-size: 13px; }
-
-.notice {
-  margin-top: 22px;
-  padding: 14px 16px;
-  background: #fff8dc;
-  color: #6b5712;
-  border: 1px solid #f1df9c;
-  border-radius: 12px;
-  font-size: 14px;
-}
-
-/* KHU VỰC GIỚI THIỆU */
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.step-card {
-  padding: 23px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 18px;
-}
-
-.step-card strong {
-  color: #b88700;
-  font-size: 13px;
-}
-
-.step-card h3 {
-  color: var(--navy);
-  margin-bottom: 8px;
-}
-
-.step-card p {
-  color: var(--muted);
-  font-size: 14px;
-  margin-bottom: 0;
-}
-
-/* CTA */
-.cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 32px;
-  border-radius: 24px;
-  background: var(--yellow);
-}
-
-.cta h2 { margin-top: 0; }
-
-.cta p {
-  margin-bottom: 0;
-  color: #51482b;
-}
+.resource-card:hover {box-shadow:var(--shadow)}
+.resource-card .resource-icon {font-size:25px}
+.resource-card h3 {font-size:15px;margin:8px 0 4px}
+.resource-card p {font-size:12px;color:var(--muted)}
+.resource-card a {color:var(--blue);font-size:12px;font-weight:bold}
+.resource-card[hidden] {display:none}
 
 /* FOOTER */
-footer {
-  padding: 35px 0 22px;
-  background: var(--navy);
-  color: #dce6f7;
+footer {background:#0c1d39;color:white;padding:45px 0 20px}
+.footer-grid {
+  display:grid;grid-template-columns:1.5fr 1fr 1fr;
+  gap:30px;
 }
-
-.footer-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 25px;
-  flex-wrap: wrap;
+footer h3 {margin-bottom:13px}
+footer p,footer a {font-size:13px;color:#bdcce4}
+footer a {display:block;margin:7px 0}
+.footer-bottom {
+  text-align:center;border-top:1px solid #ffffff22;
+  padding-top:18px;margin-top:30px;
+  font-size:12px;color:#9eb2d1;
 }
-
-footer strong { color: white; }
-
-footer p {
-  max-width: 550px;
-  color: #b9c9e3;
-  font-size: 14px;
-}
-
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.footer-links a {
-  color: #e5edfa;
-  font-size: 14px;
-}
-
-.copyright {
-  margin-top: 24px;
-  padding-top: 17px;
-  border-top: 1px solid rgba(255,255,255,.15);
-  color: #9db0cf;
-  font-size: 12px;
+.back-top {
+  position:fixed;bottom:20px;right:20px;
+  width:45px;height:45px;border:0;
+  border-radius:50%;background:var(--blue);
+  color:white;font-size:20px;
+  box-shadow:var(--shadow);
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
-  .nav-links { gap: 10px; }
-  .nav-links a { font-size: 12px; }
-  .hero-grid { gap: 20px; }
+@media(max-width:900px) {
+  .grid-4 {grid-template-columns:repeat(2,1fr)}
+  .grid-3 {grid-template-columns:repeat(2,1fr)}
+  .hero-grid {grid-template-columns:1fr}
+  .hero-art {display:none}
 }
-
-@media (max-width: 760px) {
-  .container { width: calc(100% - 28px); }
-
-  .nav { min-height: 70px; }
-
-  .menu-toggle {
-    display: block;
+@media(max-width:650px) {
+  .header-inner {min-height:65px}
+  .menu-btn {display:block}
+  nav {
+    display:none;position:absolute;
+    top:65px;left:0;width:100%;
+    background:var(--navy);
+    padding:20px;
+    flex-direction:column;align-items:flex-start;
   }
-
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    padding: 15px 22px 22px;
-    background: white;
-    border-bottom: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .nav-links.open { display: flex; }
-
-  .nav-links a {
-    padding: 10px 0;
-    font-size: 15px;
-  }
-
-  .hero { padding: 48px 0; }
-
-  .hero-grid { grid-template-columns: 1fr; }
-
-  .hero-art { min-height: 270px; }
-
-  section.content-section { padding: 48px 0; }
-
-  .class-grid,
-  .link-grid,
-  .steps-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cta {
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 25px;
-  }
-}
-
-@media (min-width: 520px) and (max-width: 760px) {
-  .link-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * { transition: none !important; }
+  nav.open {display:flex}
+  .hero {padding:55px 0}
+  .hero h1 {font-size:34px}
+  .section {padding:40px 0}
+  .section-head {display:block}
+  .grid-4,.grid-3,.grid-2 {grid-template-columns:1fr}
+  .footer-grid {grid-template-columns:1fr}
+  .search-box {flex-direction:column}
+  .search-box button {width:100%}
 }
 </style>
 </head>
 
 <body>
 
-<div class="topbar">
-  ✨ Cùng em học tốt hơn mỗi ngày cùng
-  <strong>THẦY HÒA AI</strong>
-</div>
-
+<!-- HEADER -->
 <header>
-  <div class="container nav">
-    <a class="brand" href="/" aria-label="Trang chủ">
-      <span class="brand-icon">H+</span>
-      <span>
-        <span class="brand-title">CHINH PHỤC TOÁN HỌC</span><br>
-        <span class="brand-sub">THẦY HÒA AI · Học hiểu, luyện chắc</span>
-      </span>
-    </a>
+ <div class="container header-inner">
+  <a class="logo" href="/">
+   <div class="logo-icon">∑</div>
+   <div>
+    <h2>THẦY HÒA AI</h2>
+    <p>CHINH PHỤC TOÁN HỌC</p>
+   </div>
+  </a>
 
-    <button class="menu-toggle" id="menuToggle"
-      aria-label="Mở menu" aria-expanded="false">☰</button>
+  <button class="menu-btn" id="menuBtn">☰ MENU</button>
 
-    <nav class="nav-links" id="mainNav">
-      <a href="/">Trang chủ</a>
-      <a href="#hoc-toan">Học Toán</a>
-      <a href="#tro-choi">Trò chơi</a>
-      <a href="#luyen-tap">Luyện tập</a>
-      <a href="#hoc-lieu">Học liệu</a>
-      <a href="#bat-dau">Bắt đầu học</a>
-    </nav>
-  </div>
+  <nav id="mainNav">
+   <a href="/">Trang chủ</a>
+   <a href="#khoi-lop">Khối lớp</a>
+   <a href="#hoc-tap">Học tập</a>
+   <a href="/tro-choi/">Trò chơi</a>
+   <a href="/tai-lieu/">Tài liệu</a>
+   <a href="/THAY-HOA-AI/">Trợ lý AI</a>
+  </nav>
+ </div>
 </header>
 
-<main>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">✦ NỀN TẢNG HỌC TOÁN THPT</span>
-        <h1>Hiểu bản chất.<br>
-          <span>Vững kiến thức.</span><br>
-          Tự tin chinh phục.
-        </h1>
-        <p>
-          Học Toán theo cách dễ hiểu hơn: nắm chắc kiến thức,
-          luyện tập từng bước và khám phá qua các trò chơi học tập.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn btn-yellow" href="#hoc-toan">
-            🎓 KHÁM PHÁ LỚP HỌC →
-          </a>
-          <a class="btn btn-white"
-             href="https://thay-hoa.vercel.app/tro-choi/toan-10/">
-            🎮 CHƠI NGAY
-          </a>
-        </div>
-      </div>
-
-      <div class="hero-art" aria-label="Minh họa Toán học">
-        <div class="math-circle">
-          <div class="math-symbol">∑</div>
-        </div>
-        <div class="math-badge badge-one">📐 Hiểu bản chất</div>
-        <div class="math-badge badge-two">🧠 Rèn tư duy</div>
-        <div class="math-badge badge-three">🎯 Luyện tập</div>
-        <div class="math-badge badge-four">⭐ Tiến bộ</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HỌC TOÁN -->
-  <section class="content-section section-white" id="hoc-toan">
-    <div class="container">
-      <div class="section-heading">
-        <div class="kicker">Hành trình học tập</div>
-        <h2>Chọn lớp học của em</h2>
-        <p class="section-desc">
-          Các khu vực học theo khối lớp sẽ được bổ sung dần.
-          Em có thể bắt đầu bằng trò chơi Toán 10 đang có.
-        </p>
-      </div>
-
-      <div class="class-grid">
-        <article class="class-card">
-          <div class="class-number">10</div>
-          <h3>Toán 10</h3>
-          <p>Củng cố kiến thức nền tảng và rèn tư duy giải toán.</p>
-          <a class="btn btn-blue"
-             href="https://thay-hoa.vercel.app/tro-choi/toan-10/">
-            CHƠI NGAY →
-          </a>
-        </article>
-
-        <article class="class-card">
-          <div class="class-number">11</div>
-          <h3>Toán 11</h3>
-          <p>Hệ thống kiến thức và luyện tập theo dạng bài.</p>
-          <a class="btn btn-light" href="#tro-choi">
-            XEM TRÒ CHƠI →
-          </a>
-        </article>
-
-        <article class="class-card">
-          <div class="class-number">12</div>
-          <h3>Toán 12</h3>
-          <p>Ôn tập trọng tâm và chuẩn bị cho kỳ thi tốt nghiệp THPT.</p>
-          <a class="btn btn-light" 
-              href="https://thay-hoa.vercel.app/tro-choi/toan-12/">
-            CHƠI NGAY →
-          </a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- 18 LIÊN KẾT -->
-  <section class="content-section" id="cac-trang">
-    <div class="container">
-      <div class="section-heading">
-        <div class="kicker">Hệ thống học tập</div>
-        <h2>Tất cả chuyên mục</h2>
-        <p class="section-desc">
-          Chọn đúng nội dung em muốn học. Các nút được gắn với đường dẫn
-          theo cây thư mục website.
-        </p>
-      </div>
-
-      <!-- 1–5: TRÒ CHƠI -->
-      <div class="link-group" id="tro-choi">
-        <h3>🎮 Trò chơi Toán học</h3>
-        <div class="link-grid">
-
-          <article class="link-card">
-            <div class="link-icon">🎮</div>
-            <h4>Trò chơi Toán 10</h4>
-            <p>Ôn tập kiến thức Toán 10 qua trò chơi tương tác.</p>
-            <a class="btn btn-yellow"
-               href="https://thay-hoa.vercel.app/tro-choi/toan-10/">
-              CHƠI NGAY →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">🎮</div>
-            <h4>Trò chơi Toán 11</h4>
-            <p>Khu vực trò chơi dành cho học sinh lớp 11.</p>
-            <a class="btn btn-yellow" href="/tro-choi/toan-11/">
-              CHƠI NGAY →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">🎮</div>
-            <h4>Trò chơi Toán 12</h4>
-            <p>Khu vực trò chơi dành cho học sinh lớp 12.</p>
-            <a class="btn btn-yellow" href="/tro-choi/toan-12/">
-              CHƠI NGAY →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">🃏</div>
-            <h4>Trò chơi Gọi bài</h4>
-            <p>Trò chơi gọi bài phục vụ hoạt động dạy học.</p>
-            <a class="btn btn-yellow" href="/tro-choi/goi-bai/">
-              CHƠI NGAY →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">🏆</div>
-            <h4>Đấu trường Toán học</h4>
-            <p>Khu vực thử thách và thi đua Toán học.</p>
-            <a class="btn btn-yellow" href="/tro-choi/dau-truong/">
-              CHƠI NGAY →
-            </a>
-          </article>
-
-        </div>
-      </div>
-
-      <!-- 6–9: LUYỆN TẬP -->
-      <div class="link-group" id="luyen-tap">
-        <h3>📝 Luyện tập – Luyện thi</h3>
-        <div class="link-grid">
-
-          <article class="link-card">
-            <div class="link-icon">📝</div>
-            <h4>Luyện tập – Luyện thi</h4>
-            <p>Trang tổng hợp các hình thức luyện tập và ôn thi.</p>
-            <a class="btn btn-blue"
-               href="/LUY%E1%BB%86N-T%E1%BA%ACP-LUY%E1%BB%86N-THI/">
-              BẮT ĐẦU LUYỆN TẬP →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">☑️</div>
-            <h4>Trắc nghiệm</h4>
-            <p>Luyện câu hỏi trắc nghiệm theo nội dung học.</p>
-            <a class="btn btn-blue"
-               href="/LUY%E1%BB%86N-T%E1%BA%ACP-LUY%E1%BB%86N-THI/trac-nghiem/">
-              BẮT ĐẦU LUYỆN TẬP →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">⚖️</div>
-            <h4>Câu hỏi đúng – sai</h4>
-            <p>Rèn kỹ năng đánh giá từng mệnh đề đúng hoặc sai.</p>
-            <a class="btn btn-blue"
-               href="/LUY%E1%BB%86N-T%E1%BA%ACP-LUY%E1%BB%86N-THI/dung-sai/">
-              BẮT ĐẦU LUYỆN TẬP →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">✍️</div>
-            <h4>Trả lời ngắn</h4>
-            <p>Luyện cách đưa ra đáp án ngắn gọn, chính xác.</p>
-            <a class="btn btn-blue"
-               href="/LUY%E1%BB%86N-T%E1%BA%ACP-LUY%E1%BB%86N-THI/tra-loi-ngan/">
-              BẮT ĐẦU LUYỆN TẬP →
-            </a>
-          </article>
-
-        </div>
-      </div>
-
-      <!-- 10–13: KHO HỌC LIỆU -->
-      <div class="link-group" id="hoc-lieu">
-        <h3>📚 Kho học liệu</h3>
-        <div class="link-grid">
-
-          <article class="link-card">
-            <div class="link-icon">📚</div>
-            <h4>Kho học liệu</h4>
-            <p>Trang tổng hợp tài nguyên học tập Toán THPT.</p>
-            <a class="btn btn-light"
-               href="/KHO-H%E1%BB%8CC-LI%E1%BB%86U/">
-              KHÁM PHÁ HỌC LIỆU →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">➗</div>
-            <h4>Công thức Toán học</h4>
-            <p>Tra cứu công thức và kiến thức trọng tâm.</p>
-            <a class="btn btn-light"
-               href="/KHO-H%E1%BB%8CC-LI%E1%BB%86U/cong-thuc/">
-              XEM CÔNG THỨC →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">🧠</div>
-            <h4>Sơ đồ tư duy</h4>
-            <p>Hệ thống hóa kiến thức bằng sơ đồ tư duy.</p>
-            <a class="btn btn-light"
-               href="/KHO-H%E1%BB%8CC-LI%E1%BB%86U/so-do-tu-duy/">
-              MỞ SƠ ĐỒ →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">📄</div>
-            <h4>Tài liệu học tập</h4>
-            <p>Khu vực tài liệu, phiếu học tập và tài nguyên.</p>
-            <a class="btn btn-light"
-               href="/KHO-H%E1%BB%8CC-LI%E1%BB%86U/tai-lieu/">
-              XEM TÀI LIỆU →
-            </a>
-          </article>
-
-        </div>
-      </div>
-
-      <!-- 14–18: CÁC KHU VỰC KHÁC -->
-      <div class="link-group">
-        <h3>🚀 Các khu vực mở rộng</h3>
-        <div class="link-grid">
-
-          <article class="link-card">
-            <div class="link-icon">🤖</div>
-            <h4>Thầy Hòa AI</h4>
-            <p>Khu vực trợ lý AI hỗ trợ học tập Toán.</p>
-            <a class="btn btn-light" href="/THAY-HOA-AI/">
-              MỞ THẦY HÒA AI →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">👩‍🏫</div>
-            <h4>Khu vực giáo viên</h4>
-            <p>Khu vực dành cho giáo viên bổ sung học liệu.</p>
-            <a class="btn btn-light" href="/GIAO-VIEN/">
-              VÀO KHU VỰC GIÁO VIÊN →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">💚</div>
-            <h4>Sức khỏe</h4>
-            <p>Khu vực nội dung về sức khỏe và học tập cân bằng.</p>
-            <a class="btn btn-light" href="/SUC-KHO%E1%BA%BA/">
-              KHÁM PHÁ →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">🎬</div>
-            <h4>Video học tập</h4>
-            <p>Khu vực video hướng dẫn và bài học trực quan.</p>
-            <a class="btn btn-light" href="/VIDEO/">
-              XEM VIDEO →
-            </a>
-          </article>
-
-          <article class="link-card">
-            <div class="link-icon">🎓</div>
-            <h4>Thi thử</h4>
-            <p>Khu vực bài thi thử khi nội dung được triển khai.</p>
-            <a class="btn btn-blue" href="/THI-THU/">
-              BẮT ĐẦU THI THỬ →
-            </a>
-          </article>
-
-        </div>
-      </div>
-
-      <div class="notice">
-        <strong>Lưu ý:</strong> Trò chơi Toán 10 dùng địa chỉ đã xác nhận.
-        Các trang còn lại phải có file index.html đúng vị trí trong GitHub
-        và được triển khai lên Vercel thì nút mới mở được nội dung.
-      </div>
-    </div>
-  </section>
-
-  <!-- CÁCH HỌC -->
-  <section class="content-section section-white">
-    <div class="container">
-      <div class="section-heading">
-        <div class="kicker">Phương pháp học tập</div>
-        <h2>Học từng bước, chắc từng phần</h2>
-      </div>
-
-      <div class="steps-grid">
-        <article class="step-card">
-          <strong>BƯỚC 01</strong>
-          <h3>Hiểu kiến thức</h3>
-          <p>Nắm bản chất, điều kiện áp dụng và ý nghĩa của công thức.</p>
-        </article>
-
-        <article class="step-card">
-          <strong>BƯỚC 02</strong>
-          <h3>Luyện tập chủ động</h3>
-          <p>Thực hành câu hỏi và tự kiểm tra cách suy luận.</p>
-        </article>
-
-        <article class="step-card">
-          <strong>BƯỚC 03</strong>
-          <h3>Rút kinh nghiệm</h3>
-          <p>Phân tích lỗi sai và củng cố những phần chưa vững.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA CUỐI -->
-  <section class="content-section" id="bat-dau">
-    <div class="container">
-      <div class="cta">
-        <div>
-          <h2>Sẵn sàng chinh phục Toán học?</h2>
-          <p>Bắt đầu luyện tập với trò chơi Toán 10 đang có.</p>
-        </div>
-        <a class="btn btn-blue"
-           href="https://thay-hoa.vercel.app/tro-choi/toan-10/">
-          🎮 CHƠI NGAY – BẮT ĐẦU LUYỆN TẬP →
-        </a>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="container">
-    <div class="footer-row">
-      <div>
-        <strong>CHINH PHỤC TOÁN HỌC – THẦY HÒA AI</strong>
-        <p>
-          Hiểu bản chất – Vững kiến thức – Tự tin chinh phục.
-          Nền tảng học Toán THPT được phát triển từng bước.
-        </p>
-      </div>
-
-      <div class="footer-links">
-        <a href="/">Trang chủ</a>
-        <a href="#hoc-toan">Học Toán</a>
-        <a href="#tro-choi">Trò chơi</a>
-        <a href="#luyen-tap">Luyện tập</a>
-        <a href="#hoc-lieu">Học liệu</a>
-      </div>
-    </div>
-
-    <div class="copyright">
-      © <span id="year"></span> CHINH PHỤC TOÁN HỌC – THẦY HÒA AI.
-    </div>
+<!-- HERO -->
+<section class="hero">
+ <div class="container hero-grid">
+  <div>
+   <span class="eyebrow">✦ HỆ SINH THÁI GIÁO DỤC SỐ</span>
+   <h1>CHINH PHỤC<br><span>TOÁN HỌC</span><br>CÙNG THẦY HÒA AI</h1>
+   <p class="hero-desc">
+    Học Toán thông minh hơn với hàng trăm trò chơi,
+    bài học tương tác, bài tập và công cụ AI.
+    Từ nền tảng Toán 9 đến chinh phục kỳ thi THPT.
+   </p>
+   <div class="hero-buttons">
+    <a href="#khoi-lop" class="btn btn-primary">📚 BẮT ĐẦU HỌC</a>
+    <a href="/tro-choi/" class="btn btn-light">🎮 KHÁM PHÁ TRÒ CHƠI</a>
+   </div>
   </div>
+  <div class="hero-art">
+   <div class="math-circle">∑</div>
+  </div>
+ </div>
+</section>
+
+<!-- SEARCH -->
+<div class="container search-section">
+ <div class="search-box">
+  <input type="search" id="searchInput"
+   placeholder="🔍 Tìm trò chơi, bài học, chủ đề Toán học...">
+  <button onclick="searchContent()">TÌM KIẾM</button>
+ </div>
+</div>
+
+<!-- GRADE -->
+<section class="section" id="khoi-lop">
+ <div class="container">
+  <div class="section-head">
+   <div>
+    <div class="section-tag">LỰA CHỌN LỘ TRÌNH</div>
+    <h2>📚 KHÁM PHÁ THEO KHỐI LỚP</h2>
+    <p>Chọn đúng khối lớp để bắt đầu hành trình chinh phục Toán học.</p>
+   </div>
+  </div>
+
+  <div class="grid grid-4">
+   <div class="grade-card g9">
+    <div class="grade-number">09</div>
+    <h3>TOÁN LỚP 9</h3>
+    <p>Củng cố nền tảng, ôn luyện và chinh phục kỳ thi vào lớp 10.</p>
+    <a href="/bai-hoc/toan-9/">KHÁM PHÁ TOÁN 9 →</a>
+   </div>
+
+   <div class="grade-card g10">
+    <div class="grade-number">10</div>
+    <h3>TOÁN LỚP 10</h3>
+    <p>Xây dựng nền tảng, phát triển tư duy và kỹ năng giải toán.</p>
+    <a href="/tro-choi/toan-10/">KHÁM PHÁ TOÁN 10 →</a>
+   </div>
+
+   <div class="grade-card g11">
+    <div class="grade-number">11</div>
+    <h3>TOÁN LỚP 11</h3>
+    <p>Làm chủ kiến thức, rèn luyện kỹ năng và vận dụng thực tiễn.</p>
+    <a href="/bai-hoc/toan-11/">KHÁM PHÁ TOÁN 11 →</a>
+   </div>
+
+   <div class="grade-card g12">
+    <div class="grade-number">12</div>
+    <h3>TOÁN LỚP 12</h3>
+    <p>Ôn thi tốt nghiệp THPT, luyện đề và nâng cao điểm số.</p>
+    <a href="/bai-hoc/toan-12/">KHÁM PHÁ TOÁN 12 →</a>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- LEARNING CENTER -->
+<section class="section" id="hoc-tap" style="background:#eaf0fa">
+ <div class="container">
+  <div class="section-head">
+   <div>
+    <div class="section-tag">TRUNG TÂM HỌC TẬP</div>
+    <h2>🚀 KHÁM PHÁ HỆ SINH THÁI</h2>
+    <p>Mọi tài nguyên học tập được tập trung tại một địa chỉ duy nhất.</p>
+   </div>
+  </div>
+
+  <div class="grid grid-3">
+   <a class="feature-card" href="/tro-choi/">
+    <div class="feature-icon">🎮</div>
+    <h3>Trung tâm trò chơi</h3>
+    <p>Học Toán qua các thử thách và game show hấp dẫn.</p>
+   </a>
+
+   <a class="feature-card" href="/bai-hoc/">
+    <div class="feature-icon">📖</div>
+    <h3>Kho bài học</h3>
+    <p>Kiến thức Toán 9, 10, 11, 12 được hệ thống khoa học.</p>
+   </a>
+
+   <a class="feature-card" href="/luyen-tap/">
+    <div class="feature-icon">✍️</div>
+    <h3>Luyện tập trực tuyến</h3>
+    <p>Rèn kỹ năng từ cơ bản đến vận dụng nâng cao.</p>
+   </a>
+
+   <a class="feature-card" href="/kiem-tra/">
+    <div class="feature-icon">📝</div>
+    <h3>Kiểm tra và thi thử</h3>
+    <p>Luyện đề, tự đánh giá và chuẩn bị cho các kỳ thi.</p>
+   </a>
+
+   <a class="feature-card" href="/ngan-hang-cau-hoi/">
+    <div class="feature-icon">🗂️</div>
+    <h3>Ngân hàng câu hỏi</h3>
+    <p>Hệ thống câu hỏi theo chương, chủ đề và mức độ.</p>
+   </a>
+
+   <a class="feature-card" href="/tai-lieu/">
+    <div class="feature-icon">📚</div>
+    <h3>Thư viện tài liệu</h3>
+    <p>Tổng hợp tài liệu PDF, Word và tài liệu ôn thi.</p>
+   </a>
+
+   <a class="feature-card" href="/VIDEO/">
+    <div class="feature-icon">🎬</div>
+    <h3>Video bài giảng</h3>
+    <p>Học tập trực quan qua các video hướng dẫn.</p>
+   </a>
+
+   <a class="feature-card" href="/THAY-HOA-AI/">
+    <div class="feature-icon">🤖</div>
+    <h3>Trợ lý AI Toán học</h3>
+    <p>Hỗ trợ giải thích, gợi ý và luyện tập kiến thức.</p>
+   </a>
+
+   <a class="feature-card" href="/ket-qua/">
+    <div class="feature-icon">📊</div>
+    <h3>Kết quả học tập</h3>
+    <p>Theo dõi tiến bộ và đánh giá năng lực học sinh.</p>
+   </a>
+  </div>
+ </div>
+</section>
+
+<!-- GAMES -->
+<section class="section dark-section" id="tro-choi">
+ <div class="container">
+  <div class="section-head">
+   <div>
+    <div class="section-tag" style="color:#64e6ed">HỌC MÀ CHƠI – CHƠI MÀ HỌC</div>
+    <h2>🎯 ĐẤU TRƯỜNG TOÁN HỌC</h2>
+    <p>Những sân chơi giúp học sinh học tập chủ động và hứng thú.</p>
+   </div>
+   <a href="/tro-choi/" class="btn btn-primary">XEM TẤT CẢ →</a>
+  </div>
+
+  <div class="grid grid-3">
+   <div class="game-card">
+    <div class="game-icon">🎯</div>
+    <h3>GỌI BÀI TOÁN HỌC</h3>
+    <p>Trò chơi gọi bài, kiểm tra kiến thức nhanh.</p>
+    <a href="/tro-choi/goi-bai/">VÀO TRÒ CHƠI →</a>
+   </div>
+
+   <div class="game-card">
+    <div class="game-icon">🏆</div>
+    <h3>ĐẤU TRƯỜNG TOÁN HỌC</h3>
+    <p>Thử thách kiến thức và chinh phục thứ hạng.</p>
+    <a href="/tro-choi/dau-truong/">THAM GIA →</a>
+   </div>
+
+   <div class="game-card">
+    <div class="game-icon">💡</div>
+    <h3>AI LÀ TRIỆU PHÚ TOÁN HỌC</h3>
+    <p>Trả lời câu hỏi và chinh phục các mốc điểm.</p>
+    <a href="/tro-choi/toan-10/">KHÁM PHÁ →</a>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="section" id="tai-nguyen">
+ <div class="container">
+  <div class="section-head">
+   <div>
+    <div class="section-tag">THƯ VIỆN SỐ</div>
+    <h2>🔎 TÌM KIẾM TÀI NGUYÊN HỌC TẬP</h2>
+    <p>Tìm nhanh nội dung theo khối lớp và chức năng.</p>
+   </div>
+  </div>
+
+  <div class="filter-bar">
+   <button class="filter-btn active" data-filter="all">Tất cả</button>
+   <button class="filter-btn" data-filter="9">Toán 9</button>
+   <button class="filter-btn" data-filter="10">Toán 10</button>
+   <button class="filter-btn" data-filter="11">Toán 11</button>
+   <button class="filter-btn" data-filter="12">Toán 12</button>
+  </div>
+
+  <div class="grid grid-3" id="resourceGrid">
+   <div class="resource-card" data-grade="9">
+    <div class="resource-icon">📘</div>
+    <h3>Học tập Toán 9</h3>
+    <p>Kiến thức nền tảng và ôn thi vào lớp 10.</p>
+    <a href="/bai-hoc/toan-9/">KHÁM PHÁ →</a>
+   </div>
+   <div class="resource-card" data-grade="10">
+    <div class="resource-icon">📗</div>
+    <h3>Trò chơi Toán 10</h3>
+    <p>Luyện tập kiến thức qua trò chơi.</p>
+    <a href="/tro-choi/toan-10/">KHÁM PHÁ →</a>
+   </div>
+   <div class="resource-card" data-grade="11">
+    <div class="resource-icon">📙</div>
+    <h3>Học tập Toán 11</h3>
+    <p>Hệ thống kiến thức và luyện tập.</p>
+    <a href="/bai-hoc/toan-11/">KHÁM PHÁ →</a>
+   </div>
+   <div class="resource-card" data-grade="12">
+    <div class="resource-icon">📕</div>
+    <h3>Ôn thi Toán 12</h3>
+    <p>Luyện đề và chuẩn bị thi tốt nghiệp.</p>
+    <a href="/bai-hoc/toan-12/">KHÁM PHÁ →</a>
+   </div>
+   <div class="resource-card" data-grade="all">
+    <div class="resource-icon">🎮</div>
+    <h3>Trò chơi tổng hợp</h3>
+    <p>Khám phá các trò chơi học tập.</p>
+    <a href="/tro-choi/">KHÁM PHÁ →</a>
+   </div>
+   <div class="resource-card" data-grade="all">
+    <div class="resource-icon">🎬</div>
+    <h3>Video bài giảng</h3>
+    <p>Học Toán trực quan qua video.</p>
+    <a href="/VIDEO/">XEM VIDEO →</a>
+   </div>
+  </div>
+  <p id="emptyMessage" hidden style="text-align:center;padding:25px;color:#64748b">
+   Không tìm thấy nội dung phù hợp.
+  </p>
+ </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+ <div class="container">
+  <div class="footer-grid">
+   <div>
+    <h3>∑ THẦY HÒA AI</h3>
+    <p>CHINH PHỤC TOÁN HỌC</p>
+    <p style="margin-top:12px">
+     Hệ sinh thái học tập số dành cho học sinh
+     từ Toán 9 đến Toán 12.
+    </p>
+   </div>
+   <div>
+    <h3>HỌC TẬP</h3>
+    <a href="/tro-choi/">Trung tâm trò chơi</a>
+    <a href="/bai-hoc/">Kho bài học</a>
+    <a href="/kiem-tra/">Kiểm tra – Thi thử</a>
+    <a href="/tai-lieu/">Thư viện tài liệu</a>
+   </div>
+   <div>
+    <h3>HỆ SINH THÁI</h3>
+    <a href="/THAY-HOA-AI/">Trợ lý AI</a>
+    <a href="/VIDEO/">Video bài giảng</a>
+    <a href="/SUC-KHOẺ/">Sức khỏe</a>
+    <a href="/">Trang chủ</a>
+   </div>
+  </div>
+  <div class="footer-bottom">
+   © 2026 THẦY HÒA AI – CHINH PHỤC TOÁN HỌC.
+   HỌC TOÁN DỄ HIỂU HƠN MỖI NGÀY.
+  </div>
+ </div>
 </footer>
 
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+ aria-label="Về đầu trang">↑</button>
+
 <script>
-(function () {
-  const toggle = document.getElementById("menuToggle");
-  const nav = document.getElementById("mainNav");
+// MENU MOBILE
+const menuBtn = document.getElementById("menuBtn");
+const mainNav = document.getElementById("mainNav");
 
-  toggle.addEventListener("click", function () {
-    const opened = nav.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", String(opened));
-    toggle.textContent = opened ? "✕" : "☰";
+menuBtn.addEventListener("click", () => {
+ mainNav.classList.toggle("open");
+});
+
+mainNav.querySelectorAll("a").forEach(link => {
+ link.addEventListener("click", () => {
+  mainNav.classList.remove("open");
+ });
+});
+
+// BỘ LỌC KHỐI LỚP
+const filterButtons = document.querySelectorAll(".filter-btn");
+const resourceCards = document.querySelectorAll(".resource-card");
+
+filterButtons.forEach(button => {
+ button.addEventListener("click", () => {
+  filterButtons.forEach(b => b.classList.remove("active"));
+  button.classList.add("active");
+
+  const selected = button.dataset.filter;
+
+  resourceCards.forEach(card => {
+   const grade = card.dataset.grade;
+   card.hidden = !(selected === "all" || grade === selected || grade === "all");
   });
 
-  nav.querySelectorAll("a").forEach(function (link) {
-    link.addEventListener("click", function () {
-      nav.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.textContent = "☰";
-    });
-  });
+  updateEmptyMessage();
+ });
+});
 
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
-})();
+// TÌM KIẾM
+function searchContent() {
+ const input = document.getElementById("searchInput");
+ const keyword = input.value.trim().toLowerCase();
+
+ if (!keyword) {
+  input.focus();
+  return;
+ }
+
+ resourceCards.forEach(card => {
+  card.hidden = !card.innerText.toLowerCase().includes(keyword);
+ });
+
+ filterButtons.forEach(b => b.classList.remove("active"));
+ updateEmptyMessage();
+
+ document.getElementById("tai-nguyen").scrollIntoView({
+  behavior:"smooth"
+ });
+}
+
+document.getElementById("searchInput").addEventListener("keydown",e=>{
+ if(e.key === "Enter") searchContent();
+});
+
+function updateEmptyMessage() {
+ const visible = [...resourceCards].some(card => !card.hidden);
+ document.getElementById("emptyMessage").hidden = visible;
+}
 </script>
 
 </body>
