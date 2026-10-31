@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vòng quay may mắn – Chinh phục Toán học – Thầy Hòa</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#fff;background:radial-gradient(ellipse at center,#14634a 0%,#0a3427 80%);border:10px solid #8a5a2b;overflow:hidden}
+.screen{display:none;flex-direction:column;height:calc(100dvh - 20px);padding:10px 16px;gap:10px}
+.screen.active{display:flex}
+h1{margin:0;text-align:center;font-size:clamp(26px,4.4vw,62px);color:#ffd84a;text-shadow:2px 2px 0 #000}
+h2{margin:0;font-size:clamp(20px,2.6vw,36px);color:#ffd84a}
+.sub{text-align:center;font-size:clamp(18px,2.4vw,34px)}
+.wrap{display:flex;gap:16px;flex:1;min-height:0}
+.panel{background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.7);border-radius:14px;padding:12px 16px;flex:1;min-width:0;overflow:auto;font-size:clamp(16px,1.9vw,28px);line-height:1.4}
+.panel ul{margin:6px 0 0;padding-left:22px}
+input{width:100%;font-size:clamp(18px,2.2vw,30px);padding:8px 12px;margin:6px 0;border-radius:10px;border:2px solid #fff;background:#fff;color:#111}
+.btn{font-size:clamp(20px,2.6vw,36px);font-weight:700;padding:10px 24px;border-radius:12px;border:3px solid #fff;background:#e0a100;color:#111;cursor:pointer}
+.btn:hover{background:#ffc928}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.err{color:#ff9d9d;min-height:1.3em;font-size:clamp(16px,1.8vw,26px)}
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;font-size:clamp(18px,2.3vw,34px);font-weight:700}
+.chip{background:rgba(0,0,0,.4);border:2px solid #fff;border-radius:10px;padding:2px 14px;white-space:nowrap}
+#timer{min-width:3.2em;text-align:center;color:#7dff9b}
+#timer.warn{color:#ff6b6b;animation:bl .5s infinite alternate}
+@keyframes bl{to{opacity:.35}}
+.progress{height:10px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}
+#bar{height:100%;width:0;background:#ffd84a;transition:width .4s}
+.lbl{text-align:center;font-size:clamp(16px,1.9vw,28px);color:#bfeeff}
+.main{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:14px;overflow:auto}
+#qtext{background:rgba(0,0,0,.4);border:3px solid #fff;border-radius:16px;padding:16px 22px;text-align:center;font-size:clamp(22px,3.3vw,50px);font-weight:600;line-height:1.35}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{font-size:clamp(20px,2.9vw,44px);text-align:left;padding:14px 18px;border-radius:40px;border:3px solid #fff;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-family:inherit}
+.opt:hover{background:rgba(255,216,74,.3)}
+.opt b{color:#ffd84a;margin-right:6px}
+.opt.good{background:#1b9a42;border-color:#b6ffc9}
+.opt.bad{background:#c62828;border-color:#ffc4c4}
+.opt.gone{visibility:hidden}
+.opt.locked{pointer-events:none}
+.opts.tf .opt{text-align:center;font-weight:800;font-size:clamp(26px,4vw,60px);border-radius:20px;padding:22px}
+.opts.tf .opt:first-child{border-color:#8dffa8}
+.opts.tf .opt:last-child{border-color:#ff9d9d}
+.ll{display:flex;gap:12px;justify-content:center}
+.ll .btn{font-size:clamp(16px,2vw,28px);padding:6px 16px;background:#2a7fc9;color:#fff}
+#fb{display:none;border-radius:14px;padding:10px 18px;gap:14px;align-items:center;border:3px solid #fff;background:rgba(0,0,0,.65)}
+#fb.show{display:flex}
+#fb.ok{border-color:#51e57a}
+#fb.no{border-color:#ff6b6b}
+#fbT{font-size:clamp(22px,3vw,44px);font-weight:800}
+#fb.ok #fbT{color:#7dff9b}
+#fb.no #fbT{color:#ff8a8a}
+#fbE{font-size:clamp(17px,2.2vw,32px);line-height:1.35;margin-top:4px}
+table{width:100%;border-collapse:collapse}
+td,th{padding:4px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25)}
+th{color:#ffd84a}
+.big{font-size:clamp(40px,7vw,100px);color:#ffd84a;font-weight:800;text-align:center}
+@media(max-width:760px){.wrap{flex-direction:column}.opts{grid-template-columns:1fr}.opt{border-radius:22px}body{border-width:5px}.screen{height:calc(100dvh - 10px);padding:6px}}
+body{background:radial-gradient(ellipse at 50% 0%,#1d5fb0 0%,#0b2a5b 45%,#04122b 100%)}
+/* Ánh sáng sân khấu */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:conic-gradient(from 160deg at 15% -10%,transparent 0,rgba(255,235,150,.2) 8deg,transparent 16deg),conic-gradient(from 200deg at 85% -10%,transparent 0,rgba(255,235,150,.2) 8deg,transparent 16deg)}
+.brand{position:fixed;right:22px;bottom:14px;z-index:5;font-weight:800;letter-spacing:2px;color:#ffd84a;background:rgba(0,0,0,.55);border:2px solid #ffd84a;border-radius:20px;padding:2px 14px;font-size:clamp(12px,1.4vw,20px)}
+/* Chuông vàng */
+.bell{font-size:clamp(40px,6vw,80px);text-align:center;filter:drop-shadow(0 0 25px #ffd84a);animation:sw 3s ease-in-out infinite;transform-origin:50% 10%;line-height:1}
+.bell.ring{animation:rg .9s ease-in-out 2}
+@keyframes sw{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes rg{25%{transform:rotate(25deg)}75%{transform:rotate(-25deg)}}
+/* Hiệu ứng đúng / sai */
+.fx{position:fixed;inset:0;pointer-events:none;z-index:9;display:none;align-items:center;justify-content:center;font-size:30vmin;font-weight:900}
+.fx.on{display:flex;animation:fo 1s forwards}
+.fx.good{background:radial-gradient(circle,rgba(81,229,122,.45),transparent 70%);color:#7dff9b}
+.fx.bad{background:radial-gradient(circle,rgba(255,60,60,.5),transparent 70%);color:#ff4d4d}
+@keyframes fo{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
+.cf{position:fixed;top:-5vh;z-index:9;font-size:4vmin;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.btn.off{background:#37507a;color:#fff}
+/* Nền xanh nhạt, ánh sáng sân khấu hài hòa (bảng chữ nền xanh đậm giữ độ tương phản) */
+body{background:radial-gradient(ellipse at 50% 0%,#f2f9ff 0%,#bfe0fa 50%,#7fb8ea 100%);border-color:#d9a400}
+body::before{background:conic-gradient(from 160deg at 15% -10%,transparent 0,rgba(255,255,255,.6) 8deg,transparent 16deg),conic-gradient(from 200deg at 85% -10%,transparent 0,rgba(255,255,255,.6) 8deg,transparent 16deg)}
+h1{color:#0b3a7a;text-shadow:0 2px 0 #fff,0 0 20px #ffd84a}
+#start>.sub{color:#0b2a5b;font-weight:600}
+#lv{color:#0b2a5b;font-weight:700}
+.panel,#qtext,.opt{background:rgba(11,42,91,.9)}
+.opt:hover{background:rgba(31,90,170,.95)}
+.progress{background:rgba(11,42,91,.25)}
+.bell{font-size:clamp(48px,9vh,100px)}
+#gbell{font-size:clamp(36px,8vh,80px)}
+.ptr{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:34px;color:#ffd84a;z-index:2;text-shadow:0 0 4px #000}
+</style></head><body>
+<div class="brand">THẦY HÒA</div><div class="fx" id="fx"></div>
+
+<section id="start" class="screen active">
+  <div class="bell">🔔</div><h1>VÒNG QUAY MAY MẮN</h1>
+  <div class="sub">CHINH PHỤC TOÁN HỌC · <b>THẦY HÒA</b> · Toán 11</div>
+  <div class="wrap">
+    <div class="panel">
+      <h2>Chế độ chơi</h2>
+      <div class="ll" style="justify-content:flex-start"><button class="btn" id="mInd">👤 Cá nhân</button><button class="btn off" id="mCls">👥 Cả lớp</button><button class="btn off" id="btnTeacher">🎓 Giáo viên</button></div>
+      <div class="lbl" id="mDesc" style="text-align:left"></div><div class="lbl" id="lastR" style="text-align:left"></div>
+      <h2>Thông tin người chơi</h2>
+      <input id="inName" placeholder="Họ và tên" maxlength="40" autocomplete="off">
+      <input id="inClass" placeholder="Lớp (ví dụ: 11A1)" maxlength="12" autocomplete="off">
+      <div class="err" id="err"></div>
+      <h2>Luật chơi</h2>
+      <ul>
+        <li><b>60 câu</b>, độ khó tăng dần: 40 câu trắc nghiệm (0,2 điểm/câu) rồi 20 nhận định Đúng/Sai (1,0 điểm/câu). Tối đa <b>28 điểm</b>.</li>
+        <li>Trả lời sai <b>không bị loại</b>: bạn chơi hết 60 câu, trò chơi kết thúc sau câu cuối cùng.</li>
+        <li><b>Không giới hạn thời gian</b> trả lời mỗi câu; thời gian cả bài chỉ dùng để xếp hạng.</li>
+        <li>Quyền trợ giúp (mỗi loại 1 lần, chỉ phần trắc nghiệm): <b>50:50</b> và <b>Hỏi khán giả</b>.</li>
+        <li><b>Vòng quay may mắn</b>: trước mỗi câu, bấm QUAY để chọn chủ đề; trong mỗi chủ đề câu hỏi đi từ dễ đến khó. Điểm mỗi câu không đổi.</li><li>Hai chế độ: <b>Cá nhân</b> và <b>Cả lớp</b> (giáo viên xem xếp hạng ở màn hình giáo viên). Đồng hồ chỉ đếm thời gian cả bài.</li><li>Sau mỗi câu có giải thích. Xếp hạng: điểm cao hơn trước; bằng điểm thì thời gian ngắn hơn.</li>
+      </ul>
+      <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ BẮT ĐẦU</button></p>
+    </div>
+    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div class="top">
+    <span class="chip">Câu <span id="qno"></span></span>
+    <span class="chip">Điểm: <span id="score">0,0</span></span>
+    <span class="chip" id="lives" style="display:none"></span>
+    <span class="chip">⏱ <span id="clock">00:00</span></span>
+    <span class="chip" id="remain" style="display:none"></span>
+    
+    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff">🔊</button>
+  </div>
+  <div class="progress"><div id="bar"></div></div>
+  <div class="bell" id="gbell">🔔</div>
+  <div class="lbl" id="lv"></div>
+  <div class="main" id="main">
+    <div id="qtext"></div>
+    <div class="opts" id="opts"></div>
+  </div>
+  <div id="wheelBox" style="display:none;flex:1;min-height:0;flex-direction:column;align-items:center;justify-content:center;gap:10px"><div style="position:relative"><div class="ptr">▼</div><canvas id="wheel" width="420" height="420" style="width:min(46vh,88vw);height:min(46vh,88vw)"></canvas></div><div class="lbl" id="wMsg"></div><button class="btn" id="btnSpin">🎡 QUAY</button></div>
+  <div class="ll" id="llBox"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llAud">👥 Hỏi khán giả</button></div>
+  <div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp theo ▶</button></div>
+</section>
+
+<section id="teacher" class="screen">
+  <h1>🎓 MÀN HÌNH GIÁO VIÊN</h1>
+  <div class="wrap">
+    <div class="panel"><h2>Tình hình cả lớp</h2><div class="sub" id="tCnt"></div><div class="lbl" id="tNote"></div>
+      <p style="text-align:center"><button class="btn" id="tBack">⬅ Quay lại</button></p></div>
+    <div class="panel"><h2>🏆 Bảng xếp hạng trực tiếp</h2><div class="lbBody"></div></div>
+  </div>
+</section>
+
+<section id="end" class="screen">
+  <div class="bell">🔔</div><h1 id="endT">HOÀN THÀNH!</h1>
+  <div class="wrap">
+    <div class="panel" style="text-align:center">
+      <div id="endName" class="sub"></div>
+      <div class="big" id="endScore"></div>
+      <div class="sub">Số câu đúng: <b id="endOk"></b> · Thời gian: <b id="endTime"></b></div>
+      <div class="sub" id="endMsg" style="margin-top:8px"></div>
+      <div class="lbl" id="endSave" style="margin-top:8px"></div>
+      <p><button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></p>
+    </div>
+    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+  </div>
+</section>
+
+<script>
+// ===== Cấu hình (ẩn khỏi giao diện): điền URL Web App của Apps Script vào đây =====
+const APPS_SCRIPT_URL = "";
+
+const $ = id => document.getElementById(id);
+const LV = {NB:"Nhận biết",TH:"Thông hiểu",VD:"Vận dụng",VDC:"Vận dụng cao"};
+
+// ===== NGÂN HÀNG CÂU HỎI (khu vực dành cho giáo viên chỉnh sửa) =====
+// Chủ đề (khớp với các ô trên vòng quay): GT, CT, HS, PT, DS, CC, CN, TK
+// Trắc nghiệm: [mức độ, câu hỏi, đáp án đúng, [3 đáp án sai], giải thích/hướng giải, chủ đề]
+const TOPICS={GT:"Giá trị LG",CT:"Công thức LG",HS:"Hàm số LG",PT:"Phương trình LG",DS:"Dãy số",CC:"Cấp số cộng",CN:"Cấp số nhân",TK:"Thống kê"};
+const TK_KEYS=Object.keys(TOPICS);
+const MC = [
+["NB","Đổi số đo góc 225° sang radian ta được:","5π/4",["3π/4","7π/4","4π/3"],"225° = 225·π/180 = 5π/4 (rút gọn cho 45).","GT"],
+["NB","Đổi số đo góc 2π/5 sang độ ta được:","72°",["36°","60°","144°"],"2π/5 rad = (2π/5)·(180°/π) = 72°.","GT"],
+["TH","Điểm biểu diễn góc lượng giác 7π/3 trên đường tròn lượng giác trùng với điểm biểu diễn góc nào sau đây?","π/3",["2π/3","π/6","4π/3"],"7π/3 = π/3 + 2π nên hai góc sai khác một số nguyên lần 2π, cùng điểm biểu diễn.","GT"],
+["TH","Giá trị của sin(−π/6) bằng:","−1/2",["1/2","−√3/2","√3/2"],"sin là hàm lẻ: sin(−π/6) = −sin(π/6) = −1/2.","GT"],
+["VD","Cho tan α = −2 với π/2 < α < π. Giá trị cos α bằng:","−√5/5",["√5/5","−2√5/5","2√5/5"],"1 + tan²α = 1/cos²α = 5 ⇒ cos²α = 1/5; α ở góc phần tư II nên cos α < 0, cos α = −√5/5.","GT"],
+["NB","Công thức nào sau đây là đúng?","cos(a + b) = cos a·cos b − sin a·sin b",["cos(a + b) = cos a·cos b + sin a·sin b","cos(a + b) = sin a·cos b + cos a·sin b","cos(a + b) = sin a·sin b − cos a·cos b"],"Công thức cộng: côsin của tổng bằng cos·cos trừ sin·sin.","CT"],
+["NB","Công thức nhân đôi nào sau đây là đúng?","sin 2a = 2sin a·cos a",["sin 2a = cos²a − sin²a","sin 2a = 2sin²a","sin 2a = sin a·cos a"],"sin 2a = sin(a + a) = 2sin a·cos a.","CT"],
+["TH","Giá trị của biểu thức cos 75°·cos 15° − sin 75°·sin 15° bằng:","0",["1","1/2","−1"],"Biểu thức = cos(75° + 15°) = cos 90° = 0.","CT"],
+["TH","Cho sin a = 1/3. Giá trị cos 2a bằng:","7/9",["8/9","−7/9","2/3"],"cos 2a = 1 − 2sin²a = 1 − 2/9 = 7/9.","CT"],
+["VD","Cho tan a = 1/2 và tan b = 1/3. Giá trị tan(a + b) bằng:","1",["1/5","5/6","5/7"],"tan(a + b) = (tan a + tan b)/(1 − tan a·tan b) = (5/6)/(1 − 1/6) = 1.","CT"],
+["NB","Tập xác định của hàm số y = cot x là:","ℝ \\ {kπ, k ∈ ℤ}",["ℝ \\ {π/2 + kπ, k ∈ ℤ}","ℝ","ℝ \\ {0}"],"cot x = cos x / sin x xác định khi sin x ≠ 0, tức x ≠ kπ.","HS"],
+["TH","Chu kì tuần hoàn của hàm số y = sin 2x là:","π",["2π","π/2","4π"],"Hàm y = sin(ωx) có chu kì 2π/|ω| = 2π/2 = π.","HS"],
+["TH","Giá trị lớn nhất của hàm số y = 4 − 3sin x là:","7",["4","1","−1"],"sin x ≥ −1 nên −3sin x ≤ 3, suy ra y ≤ 7 (khi sin x = −1).","HS"],
+["VD","Giá trị nhỏ nhất của hàm số y = 2cos²x − 4cos x + 1 là:","−1",["7","−3","1"],"Đặt t = cos x ∈ [−1; 1]: f(t) = 2(t − 1)² − 1 nghịch biến trên [−1; 1] nên min = f(1) = −1.","HS"],
+["VD","Tập xác định của hàm số y = 1/(1 − cos x) là:","ℝ \\ {k2π, k ∈ ℤ}",["ℝ \\ {kπ, k ∈ ℤ}","ℝ \\ {π/2 + k2π, k ∈ ℤ}","ℝ \\ {π + k2π, k ∈ ℤ}"],"Cần 1 − cos x ≠ 0 ⇔ cos x ≠ 1 ⇔ x ≠ k2π.","HS"],
+["NB","Nghiệm của phương trình cos x = 1 là:","x = k2π, k ∈ ℤ",["x = kπ, k ∈ ℤ","x = π + k2π, k ∈ ℤ","x = π/2 + kπ, k ∈ ℤ"],"cos x = 1 chỉ tại x = k2π.","PT"],
+["TH","Nghiệm của phương trình tan x = √3 là:","x = π/3 + kπ, k ∈ ℤ",["x = π/6 + kπ, k ∈ ℤ","x = π/3 + k2π, k ∈ ℤ","x = ±π/3 + kπ, k ∈ ℤ"],"tan(π/3) = √3 nên tan x = tan(π/3) ⇔ x = π/3 + kπ.","PT"],
+["TH","Nghiệm của phương trình 2cos x + √3 = 0 là:","x = ±5π/6 + k2π, k ∈ ℤ",["x = ±π/6 + k2π, k ∈ ℤ","x = ±5π/6 + kπ, k ∈ ℤ","x = ±π/3 + k2π, k ∈ ℤ"],"cos x = −√3/2 = cos(5π/6) ⇔ x = ±5π/6 + k2π.","PT"],
+["VD","Số nghiệm của phương trình cos x = 1/2 trên đoạn [0; 4π] là:","4",["2","3","6"],"Nghiệm x = ±π/3 + k2π; trên [0; 4π] gồm π/3, 5π/3, 7π/3, 11π/3.","PT"],
+["VD","Số nghiệm của phương trình tan x = 1 trên đoạn [0; 3π] là:","3",["2","4","6"],"x = π/4 + kπ; trên [0; 3π] có π/4, 5π/4, 9π/4 (13π/4 > 3π).","PT"],
+["NB","Dãy số (uₙ) có uₙ = n² − 1. Số hạng u₄ bằng:","15",["16","17","7"],"u₄ = 4² − 1 = 15.","DS"],
+["TH","Dãy số (uₙ) với uₙ = (−1)ⁿ là dãy số:","không tăng, không giảm",["tăng","giảm","không đổi"],"Các số hạng lần lượt −1; 1; −1; 1; … nên luân phiên tăng giảm.","DS"],
+["TH","Cho dãy số xác định bởi u₁ = 1 và uₙ₊₁ = uₙ + 2n. Số hạng u₄ bằng:","13",["9","11","15"],"u₂ = 1 + 2 = 3; u₃ = 3 + 4 = 7; u₄ = 7 + 6 = 13.","DS"],
+["VD","Cho dãy số xác định bởi u₁ = 2 và uₙ₊₁ = 2uₙ + 1. Số hạng u₅ bằng:","47",["31","23","95"],"u₂ = 5; u₃ = 11; u₄ = 23; u₅ = 47.","DS"],
+["VD","Giá trị nhỏ nhất của các số hạng của dãy uₙ = n² − 6n + 10 (n ∈ ℕ*) là:","1",["2","10","0"],"uₙ = (n − 3)² + 1 ≥ 1, dấu bằng khi n = 3.","DS"],
+["NB","Cấp số cộng (uₙ) có u₁ = −2 và d = 5. Số hạng u₃ bằng:","8",["3","13","18"],"u₃ = u₁ + 2d = −2 + 10 = 8.","CC"],
+["TH","Cấp số cộng (uₙ) có u₂ = 7 và u₅ = 16. Công sai d bằng:","3",["2","4","9"],"u₅ − u₂ = 3d = 9 ⇒ d = 3.","CC"],
+["TH","Cấp số cộng (uₙ) có u₁ = 3 và d = 2. Tổng 20 số hạng đầu bằng:","440",["400","460","420"],"S₂₀ = 20/2·[2·3 + 19·2] = 10·44 = 440.","CC"],
+["VD","Cấp số cộng (uₙ) có u₁ = 3 và tổng 10 số hạng đầu bằng 120. Công sai d bằng:","2",["3","1","4"],"S₁₀ = 5·(6 + 9d) = 120 ⇒ 6 + 9d = 24 ⇒ d = 2.","CC"],
+["VD","Tổng S = 1 + 4 + 7 + … + 100 bằng:","1717",["1700","1750","1683"],"Cấp số cộng d = 3: 100 = 1 + 3(n − 1) ⇒ n = 34; S = 34·(1 + 100)/2 = 1717.","CC"],
+["NB","Cấp số nhân (uₙ) có u₁ = 5 và q = 3. Số hạng u₃ bằng:","45",["15","27","135"],"u₃ = u₁·q² = 5·9 = 45.","CN"],
+["NB","Dãy số nào sau đây là một cấp số nhân?","3; 6; 12; 24",["1; 3; 5; 7","2; 4; 7; 11","1; 4; 9; 16"],"Mỗi số hạng gấp đôi số hạng đứng trước (q = 2).","CN"],
+["TH","Cấp số nhân (uₙ) có các số hạng dương, u₃ = 12 và u₅ = 48. Công bội q bằng:","2",["4","1/2","6"],"q² = u₅/u₃ = 4, các số hạng dương nên q = 2.","CN"],
+["TH","Cấp số nhân (uₙ) có u₁ = 1 và q = 2. Tổng 6 số hạng đầu bằng:","63",["64","127","31"],"S₆ = (2⁶ − 1)/(2 − 1) = 63.","CN"],
+["VD","Gửi 100 triệu đồng, lãi kép 8%/năm. Sau 3 năm số tiền (làm tròn đến hàng phần trăm) là:","125,97 triệu đồng",["124,00 triệu đồng","126,97 triệu đồng","108,00 triệu đồng"],"Sau n năm: 100·1,08ⁿ; với n = 3: 100·1,259712 ≈ 125,97 (triệu đồng).","CN"],
+["NB","Giá trị đại diện của nhóm [10; 14) là:","12",["10","14","4"],"Giá trị đại diện = (10 + 14)/2 = 12.","TK"],
+["NB","Nhóm chứa mốt của mẫu số liệu ghép nhóm là nhóm có:","tần số lớn nhất",["tần số nhỏ nhất","giá trị đại diện lớn nhất","độ dài lớn nhất"],"Mốt đo giá trị xuất hiện nhiều nhất nên nằm ở nhóm có tần số lớn nhất.","TK"],
+["TH","Mẫu số liệu: [0;5):4; [5;10):7; [10;15):7; [15;20):2. Số trung bình bằng:","9,25",["9,5","10","8,75"],"Đại diện 2,5; 7,5; 12,5; 17,5: (10 + 52,5 + 87,5 + 35)/20 = 185/20 = 9,25.","TK"],
+["TH","Với mẫu số liệu [0;5):4; [5;10):7; [10;15):7; [15;20):2, nhóm chứa trung vị là:","[5; 10)",["[0; 5)","[10; 15)","[15; 20)"],"n = 20, n/2 = 10; tần số tích lũy: 4; 11; … nên nhóm đầu tiên có tích lũy ≥ 10 là [5; 10).","TK"],
+["VD","Với mẫu số liệu [0;5):4; [5;10):7; [10;15):7; [15;20):2, trung vị Me bằng:","65/7",["60/7","70/7","75/7"],"Me = 5 + (10 − 4)/7·5 = 5 + 30/7 = 65/7.","TK"]
+];
+// Đúng/Sai: [mức độ, nhận định, đúng?, giải thích/hướng giải, chủ đề]
+const TF = [
+["TH","cos(−π/3) = −1/2.",false,"cos là hàm chẵn: cos(−π/3) = cos(π/3) = 1/2.","GT"],
+["VD","Nếu sin α = 1/2 thì cos α = √3/2.",false,"cos²α = 3/4 nên cos α = ±√3/2; dấu phụ thuộc α ở góc phần tư I hay II.","GT"],
+["NB","cos 2a = 2cos²a − 1 với mọi a.",true,"Đây là một trong ba dạng của công thức nhân đôi côsin.","CT"],
+["TH","sin(a − b) = sin a·cos b + cos a·sin b với mọi a, b.",false,"Công thức đúng là sin(a − b) = sin a·cos b − cos a·sin b; dấu + là của sin(a + b).","CT"],
+["VDC","Với mọi x, sin⁴x + cos⁴x = 1 − (1/2)sin²2x.",true,"sin⁴x + cos⁴x = (sin²x + cos²x)² − 2sin²x·cos²x = 1 − (1/2)(2sin x·cos x)² = 1 − (1/2)sin²2x.","CT"],
+["NB","Hàm số y = cot x là hàm số lẻ.",true,"cot(−x) = −cot x trên tập xác định đối xứng.","HS"],
+["TH","Hàm số y = sin x đồng biến trên khoảng (0; π).",false,"sin x đồng biến trên (0; π/2) nhưng nghịch biến trên (π/2; π).","HS"],
+["VD","Tập giá trị của hàm số y = 3cos x − 1 là [−4; 2].",true,"−1 ≤ cos x ≤ 1 ⇒ −3 ≤ 3cos x ≤ 3 ⇒ −4 ≤ y ≤ 2.","HS"],
+["TH","Phương trình sin x = 3/2 có nghiệm.",false,"Vì |sin x| ≤ 1 mà 3/2 > 1 nên phương trình vô nghiệm.","PT"],
+["TH","Phương trình cos x = cos(π/5) có nghiệm x = ±π/5 + k2π (k ∈ ℤ).",true,"cos x = cos α ⇔ x = ±α + k2π.","PT"],
+["VDC","Phương trình sin x = cos x có nghiệm x = π/4 + k2π (k ∈ ℤ).",false,"sin x = cos x ⇔ tan x = 1 ⇔ x = π/4 + kπ; họ k2π chỉ là một nửa số nghiệm.","PT"],
+["NB","Dãy số (uₙ) với uₙ = 1/n là dãy số giảm.",true,"uₙ₊₁ = 1/(n + 1) < 1/n = uₙ với mọi n ≥ 1.","DS"],
+["TH","Dãy số 1; 1; 1; 1; … vừa là cấp số cộng vừa là cấp số nhân.",true,"Dãy là cấp số cộng với d = 0 và cấp số nhân với q = 1.","DS"],
+["TH","Cấp số cộng có u₁ = 1 và d = 3 thì u₁₀ = 31.",false,"u₁₀ = u₁ + 9d = 1 + 27 = 28.","CC"],
+["VD","Tổng 50 số hạng đầu của dãy số lẻ 1; 3; 5; … bằng 2500.",true,"S₅₀ = 50/2·(2·1 + 49·2) = 25·100 = 2500 (= 50²).","CC"],
+["TH","Dãy −1; 2; −4; 8 là cấp số nhân với công bội q = −2.",true,"2/(−1) = −4/2 = 8/(−4) = −2.","CN"],
+["VD","Quần thể vi khuẩn có 1000 con, mỗi giờ tăng 20% so với giờ trước. Sau 3 giờ có 1700 con.",false,"Số con sau n giờ là 1000·1,2ⁿ; với n = 3 được 1728 con.","CN"],
+["NB","Giá trị đại diện của nhóm [8; 12) là 10.",true,"(8 + 12)/2 = 10.","TK"],
+["TH","Mẫu số liệu [0;10):3; [10;20):9; [20;30):5; [30;40):3. Tứ phân vị thứ nhất Q₁ ≈ 12,22.",true,"n = 20, n/4 = 5 thuộc nhóm [10; 20): Q₁ = 10 + (5 − 3)/9·10 ≈ 12,22.","TK"],
+["VD","Với mẫu số liệu [0;10):3; [10;20):9; [20;30):5; [30;40):3, số trung bình bằng 18,5.",false,"Đại diện 5; 15; 25; 35: (15 + 135 + 125 + 105)/20 = 380/20 = 19.","TK"]
+];
+const ORD={NB:0,TH:1,VD:2,VDC:3};
+const QS = MC.map(m=>({k:"mc",lv:m[0],q:m[1],ok:m[2],bad:m[3],ex:m[4],tp:m[5]}))
+  .concat(TF.map(t=>({k:"tf",lv:t[0],q:t[1],ok:t[2],ex:t[3],tp:t[4]})));
+const PT = {mc:2, tf:10};          // tính theo phần mười điểm: 0,2 và 1,0
+const MAXPT = QS.reduce((s,q)=>s+PT[q.k],0); // 280 = 28,0 điểm
+
+// ===== Tiện ích =====
+const fmt = n => (n/10).toFixed(1).replace(".",",");
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const mmss = s => String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));}
+
+// ===== Âm thanh =====
+let AC=null, muted=false;
+function initAudio(){ if(!AC){ const C=window.AudioContext||window.webkitAudioContext; if(C) AC=new C(); } if(AC&&AC.state==="suspended") AC.resume(); }
+function tone(f,t,d,type,g){ const o=AC.createOscillator(), gn=AC.createGain(); o.type=type; o.frequency.setValueAtTime(f,t);
+  gn.gain.setValueAtTime(0.0001,t); gn.gain.exponentialRampToValueAtTime(g,t+0.03); gn.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  o.connect(gn).connect(AC.destination); o.start(t); o.stop(t+d+0.05); }
+function clap(t,g){ const n=Math.floor(AC.sampleRate*0.06), b=AC.createBuffer(1,n,AC.sampleRate), d=b.getChannelData(0);
+  for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);
+  const s=AC.createBufferSource(); s.buffer=b; const f=AC.createBiquadFilter(); f.type="bandpass"; f.frequency.value=1500+Math.random()*1500; f.Q.value=0.7;
+  const gn=AC.createGain(); gn.gain.value=g; s.connect(f).connect(gn).connect(AC.destination); s.start(t); }
+function applause(){ if(muted||!AC) return; const t0=AC.currentTime, D=4.8;
+  for(let i=0;i<150;i++){ const x=Math.random()*D, env=Math.min(1,x/0.5)*Math.min(1,(D-x)/1.5); clap(t0+x,0.5*env+0.04); }
+  [523,659,784,1047,1319].forEach((f,i)=>tone(f,t0+i*0.13,0.5,"triangle",0.18)); }
+function sad(){ if(muted||!AC) return; const t0=AC.currentTime;
+  [392,349,311,262].forEach((f,i)=>tone(f,t0+i*0.32,0.45,"sawtooth",0.12)); tone(98,t0+1.2,0.8,"sawtooth",0.15); }
+
+// ===== Trạng thái trò chơi =====
+let G=null, tmr=null, left=0;
+function newGame(name,cls){ return {name,cls,i:0,n:0,done:[],pts:0,ok:0,lives:3,u50:false,uAud:false,locked:false,t0:Date.now(),saved:false}; }
+function stopTimer(){ if(tmr){clearInterval(tmr);tmr=null;} }
+function paintTimer(){ $("timer").textContent=left; $("timer").classList.toggle("warn",left<=10); }
+function startTimer(s){ stopTimer(); left=s; paintTimer();
+  tmr=setInterval(()=>{ left--; paintTimer(); if(left<=0) answer(null); },1000); }
+function updLL(){ const mc=QS[G.i].k==="mc"&&!G.locked; $("ll50").disabled=G.u50||!mc; $("llAud").disabled=G.uAud||!mc; }
+
+function showQ(){
+  const q=QS[G.i]; G.locked=false; $("main").style.display=""; $("llBox").style.display=""; $("wheelBox").style.display="none"; $("fb").classList.remove("show");
+  $("qno").textContent=(G.n+1)+"/"+QS.length; $("score").textContent=fmt(G.pts);
+  $("lives").textContent="❤".repeat(G.lives)+"🖤".repeat(3-G.lives);
+  $("lv").textContent=(q.k==="mc"?"Trắc nghiệm · 0,2 điểm":"Nhận định Đúng/Sai · 1,0 điểm")+" · "+LV[q.lv]+" · "+TOPICS[q.tp];
+  $("bar").style.width=(G.n/QS.length*100)+"%";
+  $("qtext").textContent=(q.k==="tf"?"Nhận định: ":"")+q.q;
+  const box=$("opts"); box.innerHTML=""; box.className="opts "+q.k;
+  if(q.k==="mc"){
+    q.sh=shuffle([q.ok].concat(q.bad));   // xáo trộn vị trí đáp án mỗi lần hiển thị
+    q.sh.forEach((t,j)=>{ const b=document.createElement("button"); b.className="opt";
+      const l=document.createElement("b"); l.textContent="ABCD"[j]+".";
+      const s=document.createElement("span"); s.textContent=t; b.append(l,s); b.onclick=()=>answer(j); box.appendChild(b); });
+  } else {
+    [["ĐÚNG",true],["SAI",false]].forEach(([t,v])=>{ const b=document.createElement("button"); b.className="opt"; b.textContent=t; b.onclick=()=>answer(v); box.appendChild(b); });
+  }
+  updLL();
+}
+
+function answer(c){
+  if(!G||G.locked) return; G.locked=true;
+  const q=QS[G.i], timeout=(c===null), btns=[...$("opts").children];
+  let right;
+  if(q.k==="mc"){ right=!timeout&&q.sh[c]===q.ok;
+    btns.forEach((b,j)=>{ b.classList.add("locked"); if(q.sh[j]===q.ok) b.classList.add("good"); else if(j===c) b.classList.add("bad"); }); }
+  else { right=!timeout&&c===q.ok;
+    btns.forEach((b,j)=>{ const v=(j===0); b.classList.add("locked"); if(v===q.ok) b.classList.add("good"); else if(c===v) b.classList.add("bad"); }); }
+  const fb=$("fb"); fb.className="show "+(right?"ok":"no");
+  let corr = q.k==="mc" ? "ABCD"[q.sh.indexOf(q.ok)]+". "+q.ok : (q.ok?"ĐÚNG":"SAI");
+  if(right){ G.pts+=PT[q.k]; G.ok++;
+    $("fbT").textContent="✔ CHÍNH XÁC! +"+fmt(PT[q.k])+" điểm";
+    $("fbE").textContent="💡 Hướng giải: "+q.ex; applause(); ringBell(); fx("good","✔"); say("Chính xác!");
+  } else {
+    let mine = timeout ? "Bạn đã hết thời gian." : (q.k==="mc" ? "Lựa chọn của bạn chưa đúng." : "Bạn chọn "+(c?"ĐÚNG":"SAI")+" nhưng nhận định này là "+(q.ok?"ĐÚNG":"SAI")+".");
+    $("fbT").textContent=(timeout?"⏰ HẾT GIỜ!":"✘ CHƯA ĐÚNG!")+" Đáp án: "+corr;
+    $("fbE").textContent=mine+" 💡 Hướng giải: "+q.ex; sad(); fx("bad","✘"); }
+  $("score").textContent=fmt(G.pts); $("lives").textContent="❤".repeat(G.lives)+"🖤".repeat(3-G.lives);
+  const last = G.n>=QS.length-1;
+  $("btnNext").textContent = last ? "Xem kết quả ▶" : "Câu tiếp theo ▶";
+  updLL();
+}
+function next(){
+  if(!G||!G.locked) return;
+  if(G.n>=QS.length-1){ endGame(); return; }
+  G.n++; showWheel();
+}
+
+// ===== Vòng quay may mắn: chọn ngẫu nhiên chủ đề cho câu kế tiếp =====
+let wrot=0, spinning=false;
+const WCOL=["#e0a100","#2a7fc9","#1b9a42","#c62828","#8e44ad","#16a085","#d35400","#2c3e50"];
+function drawWheel(){ const c=$("wheel"), x=c.getContext("2d"), R=c.width/2, a=2*Math.PI/TK_KEYS.length;
+  x.clearRect(0,0,c.width,c.height); x.save(); x.translate(R,R); x.rotate(wrot);
+  TK_KEYS.forEach((k,i)=>{ x.beginPath(); x.moveTo(0,0); x.arc(0,0,R-6,i*a,(i+1)*a); x.closePath(); x.fillStyle=WCOL[i%WCOL.length]; x.fill(); x.strokeStyle="#fff"; x.lineWidth=3; x.stroke();
+    x.save(); x.rotate(i*a+a/2); x.fillStyle="#fff"; x.font="bold 22px Segoe UI,Arial"; x.textAlign="right"; x.fillText(TOPICS[k],R-22,8); x.restore(); });
+  x.restore(); }
+// Chọn câu: giai đoạn trắc nghiệm trước, Đúng/Sai sau; trong chủ đề lấy câu dễ nhất còn lại
+function pick(){ const ph=G.n<MC.length?"mc":"tf";
+  const av=QS.map((q,i)=>i).filter(i=>QS[i].k===ph&&G.done.indexOf(i)<0);
+  const tps=[...new Set(av.map(i=>QS[i].tp))], t=tps[Math.floor(Math.random()*tps.length)];
+  const cand=av.filter(i=>QS[i].tp===t).sort((p,q)=>ORD[QS[p].lv]-ORD[QS[q].lv]||p-q);
+  return {t:t,i:cand[0]}; }
+function showWheel(){ $("fb").classList.remove("show"); $("main").style.display="none"; $("llBox").style.display="none"; $("wheelBox").style.display="flex";
+  $("btnSpin").disabled=false; $("wMsg").textContent="Bấm QUAY để chọn chủ đề câu hỏi";
+  $("qno").textContent=(G.n+1)+"/"+QS.length; $("score").textContent=fmt(G.pts); $("bar").style.width=(G.n/QS.length*100)+"%";
+  $("lv").textContent="🎡 Vòng quay may mắn"; drawWheel(); }
+function spin(){ if(spinning||!G) return; spinning=true; $("btnSpin").disabled=true; initAudio();
+  const r=pick(), a=2*Math.PI/TK_KEYS.length, t=TK_KEYS.indexOf(r.t), g=G, TP=2*Math.PI;
+  const fin=-Math.PI/2-t*a-a/2, cur=((wrot%TP)+TP)%TP;
+  const delta=((((fin-cur)%TP)+TP)%TP)+TP*(4+Math.floor(Math.random()*3)), w0=wrot, t0=performance.now(), D=4200;
+  (function f(now){ const p=Math.min(1,(now-t0)/D), e=1-Math.pow(1-p,3); wrot=w0+delta*e; drawWheel();
+    if(p<1){ requestAnimationFrame(f); return; }
+    spinning=false; if(G!==g) return;
+    $("wMsg").textContent="➜ "+TOPICS[r.t]; if(!muted&&AC) tone(880,AC.currentTime,0.35,"triangle",0.2);
+    G.i=r.i; G.done.push(r.i); setTimeout(()=>{ if(G===g) showQ(); },1300); })(t0); }
+
+// ===== Trợ giúp =====
+function lifeline50(){ if(!G||G.locked||G.u50||QS[G.i].k!=="mc") return; const q=QS[G.i]; G.u50=true;
+  const bad=[...$("opts").children].filter((b,j)=>q.sh[j]!==q.ok);
+  shuffle(bad).slice(0,2).forEach(b=>{b.classList.add("gone");b.onclick=null;}); updLL(); }
+function lifelineAud(){ if(!G||G.locked||G.uAud||QS[G.i].k!=="mc") return; const q=QS[G.i]; G.uAud=true;
+  const btns=[...$("opts").children].filter(b=>!b.classList.contains("gone")); const okIdx=q.sh.indexOf(q.ok);
+  const cp=45+Math.floor(Math.random()*26), others=btns.filter(b=>+[...$("opts").children].indexOf(b)!==okIdx);
+  const w=others.map(()=>Math.random()+0.2), sw=w.reduce((a,b)=>a+b,0); let used=cp;
+  const pct=others.map((_,i)=>{ if(i===others.length-1) return 100-used; const p=Math.floor((100-cp)*w[i]/sw); used+=p; return p; });
+  btns.forEach(b=>{ const j=[...$("opts").children].indexOf(b); const s=document.createElement("span"); s.style.cssText="float:right;color:#ffd84a;font-weight:700";
+    s.textContent=(j===okIdx?cp:pct[others.indexOf(b)])+"%"; b.appendChild(s); });
+  updLL(); }
+
+// ===== Kết thúc & bảng xếp hạng =====
+function endGame(){
+  stopTimer(); const sec=Math.round((Date.now()-G.t0)/1000), tstr=mmss(sec);
+  G.sec=sec; G.tstr=tstr;
+  const full=G.lives>0;
+  $("endT").textContent = full ? "🎉 HOÀN THÀNH TRÒ CHƠI! 🎉" : "💔 HẾT MẠNG – TRÒ CHƠI KẾT THÚC";
+  $("endName").textContent=G.name+" · Lớp "+G.cls;
+  $("endScore").textContent=fmt(G.pts)+" / "+fmt(MAXPT);
+  $("endOk").textContent=G.ok+"/"+QS.length; $("endTime").textContent=tstr;
+  const r=G.pts/MAXPT;
+  $("endMsg").textContent = r>=0.9?"Xuất sắc! Bạn là Triệu phú Toán 11!":r>=0.7?"Rất tốt! Bạn nắm vững kiến thức.":r>=0.5?"Khá ổn! Hãy xem lại các câu đã sai.":"Cố gắng thêm nhé! Ôn lại công thức lượng giác, cấp số cộng – cấp số nhân và thống kê ghép nhóm.";
+  $("endSave").textContent=""; show("end"); confetti(); applause();
+  try{sessionStorage.setItem("lastResult",G.name+" · "+fmt(G.pts)+"/"+fmt(MAXPT)+" · "+tstr);}catch(e){}
+  sendResult();
+}
+async function sendResult(){
+  if(G.saved) return; G.saved=true;
+  if(!APPS_SCRIPT_URL){ renderLB(); return; }
+  $("endSave").textContent="Đang gửi kết quả…";
+  try{
+    await fetch(APPS_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({"Họ tên":G.name,"Lớp":G.cls,"Điểm số":G.pts/10,"Thời gian làm bài":G.tstr})});
+    $("endSave").textContent="✔ Đã ghi nhận kết quả của bạn.";
+    setTimeout(fetchLB,1500);
+  }catch(e){ $("endSave").textContent="Chưa gửi được kết quả lên bảng xếp hạng."; }
+}
+let LB=[];
+function secOf(t){ const p=String(t||"").split(":").map(Number); return p.length===2&&!p.some(isNaN)?p[0]*60+p[1]:99999; }
+async function fetchLB(){
+  if(!APPS_SCRIPT_URL){ renderLB(); return; }
+  try{
+    const r=await fetch(APPS_SCRIPT_URL+(APPS_SCRIPT_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now());
+    const j=await r.json(); if(j&&j.status==="ok"&&Array.isArray(j.data)) LB=j.data;
+  }catch(e){}
+  renderLB();
+}
+function renderLB(){
+  const rows=LB.slice().sort((a,b)=>(Number(b["Điểm số"])||0)-(Number(a["Điểm số"])||0)||secOf(a["Thời gian làm bài"])-secOf(b["Thời gian làm bài"])).slice(0,10);
+  document.querySelectorAll(".lbBody").forEach(el=>{
+    el.innerHTML="";
+    if(!rows.length){ const p=document.createElement("div"); p.textContent="Chưa có dữ liệu xếp hạng."; el.appendChild(p); return; }
+    const tb=document.createElement("table"), hr=tb.insertRow();
+    ["#","Họ tên","Lớp","Điểm","Thời gian"].forEach(h=>{const th=document.createElement("th"); th.textContent=h; hr.appendChild(th);});
+    rows.forEach((r,i)=>{ const tr=tb.insertRow();
+      [(i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1),r["Họ tên"],r["Lớp"],String(Number(r["Điểm số"])||0).replace(".",","),r["Thời gian làm bài"]]
+        .forEach(v=>{ tr.insertCell().textContent=(v===undefined||v===null)?"":v; }); });
+    el.appendChild(tb);
+  });
+  $("tCnt").textContent="Số bài đã nộp: "+LB.length;
+  $("tNote").textContent=APPS_SCRIPT_URL?"Bảng cập nhật tự động vài giây một lần.":"Chưa kết nối nơi lưu kết quả.";
+}
+
+// ===== Chế độ chơi & đồng bộ nhiều người =====
+let MODE="ind";
+// SYNC: khung sẵn để sau này nối máy chủ (WebSocket/Firebase...) cho chế độ Cả lớp.
+// Hiện chưa bật nên KHÔNG giả lập đồng bộ bằng dữ liệu cục bộ.
+const SYNC={enabled:false, remaining:()=>null, join(name,cls){}, report(i,pts){}};
+function setMode(m){ MODE=m; $("mInd").classList.toggle("off",m!=="ind"); $("mCls").classList.toggle("off",m!=="cls");
+  $("mDesc").textContent=m==="ind"?"Một học sinh chơi trên một thiết bị, tự chấm điểm.":"Mỗi học sinh dùng thiết bị riêng; giáo viên xem xếp hạng ở màn hình giáo viên."; }
+function showLast(){ try{ const l=sessionStorage.getItem("lastResult"); $("lastR").textContent=l?"Kết quả gần nhất: "+l:""; }catch(e){} }
+function fx(c,t){ const e=$("fx"); e.className="fx "+c; e.textContent=t; void e.offsetWidth; e.classList.add("on"); }
+function confetti(){ for(let i=0;i<60;i++){ const d=document.createElement("div"); d.className="cf"; d.textContent=["🎉","⭐","🔔","🏆"][i%4];
+  d.style.left=Math.random()*100+"vw"; d.style.animationDuration=(2+Math.random()*3)+"s"; document.body.appendChild(d); setTimeout(()=>d.remove(),5500); } }
+// Giọng nói đọc "Chính xác!" (Web Speech API của trình duyệt, tiếng Việt)
+function say(t){ if(muted||!window.speechSynthesis) return; try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang="vi-VN"; u.rate=0.95; speechSynthesis.speak(u); }catch(e){} }
+function ringBell(){ const b=$("gbell"); b.classList.remove("ring"); void b.offsetWidth; b.classList.add("ring"); }
+// Đồng hồ đếm lên cho cả bài (chỉ một timer, luôn dừng trước khi tạo mới)
+function startClock(){ stopTimer(); $("clock").textContent="00:00"; tmr=setInterval(()=>{ $("clock").textContent=mmss(Math.floor((Date.now()-G.t0)/1000)); },1000); }
+
+// ===== Khởi tạo (mỗi sự kiện chỉ gắn một lần) =====
+$("btnStart").onclick=()=>{
+  const n=$("inName").value.trim(), c=$("inClass").value.trim();
+  if(!n||!c){ $("err").textContent="Vui lòng nhập đầy đủ Họ tên và Lớp."; return; }
+  $("err").textContent=""; initAudio(); stopTimer();
+  G=newGame(n,c); show("game"); spinning=false; showWheel(); startClock(); SYNC.join(n,c);
+  const r=SYNC.remaining(); $("remain").style.display=(MODE==="cls"&&r!==null)?"":"none"; if(r!==null) $("remain").textContent="👥 Còn lại: "+r;
+};
+$("btnNext").onclick=next; $("btnSpin").onclick=spin;
+$("mInd").onclick=()=>setMode("ind"); $("mCls").onclick=()=>setMode("cls");
+$("btnTeacher").onclick=()=>{ show("teacher"); fetchLB(); }; $("tBack").onclick=()=>show("start");
+setMode("ind"); showLast();
+$("ll50").onclick=lifeline50;
+$("llAud").onclick=lifelineAud;
+$("btnAgain").onclick=()=>{ stopTimer(); G=null; show("start"); showLast(); fetchLB(); };
+$("mute").onclick=()=>{ muted=!muted; if(muted&&window.speechSynthesis) speechSynthesis.cancel(); $("mute").textContent=muted?"🔇":"🔊"; };
+renderLB(); fetchLB();
+setInterval(fetchLB,5000);
+</script>
+</body></html>
