@@ -1,63 +1,354 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KHO TRÒ CHƠI TOÁN HỌC</title>
+<meta name="description" content="Kho trò chơi Toán học THPT - THẦY HÒA AI. Học Toán qua trò chơi, rèn tư duy và chinh phục kiến thức.">
+<title>Kho trò chơi Toán học | THẦY HÒA AI</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#102b55,#1766a8);
-    color: white;
-    text-align: center;
-    padding: 30px 15px;
+:root{
+  --navy:#102d52;
+  --blue:#1763a6;
+  --yellow:#ffd45c;
+  --bg:#f3f6fc;
+  --white:#ffffff;
+  --text:#1b2b43;
+  --muted:#64748b;
+  --green:#16845b;
 }
-h1 { margin-bottom: 10px; }
-.container {
-    max-width: 850px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap: 18px;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
-a {
-    display: block;
-    background: white;
-    color: #174b82;
-    padding: 25px 12px;
-    border-radius: 16px;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    transition: .2s;
+a{text-decoration:none;color:inherit}
+header{
+  background:var(--navy);
+  color:white;
+  padding:20px 6%;
 }
-a:hover {
-    transform: translateY(-5px);
-    background: #ffe89a;
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
 }
-p { margin-bottom: 30px; }
+.logo h1{
+  margin:0;
+  font-size:23px;
+  line-height:1.4;
+}
+.logo span{color:var(--yellow)}
+.logo p{
+  margin:5px 0 0;
+  color:#d7e5f5;
+  font-size:13px;
+}
+.home-btn{
+  background:var(--yellow);
+  color:var(--navy);
+  padding:12px 18px;
+  border-radius:9px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+nav{
+  background:white;
+  box-shadow:0 3px 12px #0000000a;
+}
+.nav-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:15px 6%;
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+}
+nav a{
+  color:var(--navy);
+  font-weight:bold;
+  font-size:14px;
+}
+nav a:hover{color:var(--blue)}
+main{
+  max-width:1200px;
+  margin:30px auto;
+  padding:0 20px;
+}
+.hero{
+  background:linear-gradient(120deg,#102d52,#2467a6);
+  color:white;
+  padding:45px 35px;
+  border-radius:22px;
+  position:relative;
+  overflow:hidden;
+}
+.hero h2{
+  font-size:32px;
+  margin:0 0 15px;
+  line-height:1.3;
+}
+.hero p{
+  max-width:650px;
+  line-height:1.8;
+  color:#e1edfa;
+  font-size:16px;
+}
+.hero-btn{
+  display:inline-block;
+  margin-top:12px;
+  background:var(--yellow);
+  color:var(--navy);
+  padding:14px 23px;
+  border-radius:10px;
+  font-weight:bold;
+}
+.section-title{
+  margin:38px 0 18px;
+}
+.section-title h2{
+  color:var(--navy);
+  font-size:24px;
+  margin:0 0 7px;
+}
+.section-title p{
+  color:var(--muted);
+  margin:0;
+  line-height:1.6;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+  gap:20px;
+}
+.card{
+  background:white;
+  padding:25px;
+  border-radius:17px;
+  box-shadow:0 5px 20px #102d520d;
+  border:1px solid #e8edf5;
+  display:flex;
+  flex-direction:column;
+  min-height:225px;
+  transition:.2s;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px #102d521a;
+}
+.card-icon{
+  font-size:38px;
+  margin-bottom:13px;
+}
+.card h3{
+  margin:0 0 10px;
+  color:var(--navy);
+  font-size:20px;
+}
+.card p{
+  color:var(--muted);
+  line-height:1.65;
+  font-size:14px;
+  margin:0 0 20px;
+  flex:1;
+}
+.btn{
+  display:inline-block;
+  background:var(--blue);
+  color:white;
+  padding:12px 17px;
+  border-radius:9px;
+  text-align:center;
+  font-weight:bold;
+  font-size:14px;
+}
+.btn:hover{background:var(--navy)}
+.btn-yellow{
+  background:var(--yellow);
+  color:var(--navy);
+}
+.btn-yellow:hover{background:#f1c13b}
+.coming{
+  background:#edf1f6;
+  color:#66758a;
+  cursor:default;
+  pointer-events:none;
+}
+.notice{
+  margin-top:30px;
+  background:#fff8e7;
+  border:1px solid #f4dfaa;
+  padding:20px;
+  border-radius:13px;
+  line-height:1.7;
+  color:#74551a;
+}
+footer{
+  margin-top:55px;
+  padding:30px 20px;
+  text-align:center;
+  background:var(--navy);
+  color:white;
+}
+footer p{margin:7px 0;color:#d4e2f2}
+@media(max-width:600px){
+  .header-inner{align-items:flex-start;flex-direction:column}
+  .logo h1{font-size:19px}
+  .nav-inner{gap:15px}
+  .hero{padding:30px 22px}
+  .hero h2{font-size:25px}
+  .section-title h2{font-size:21px}
+}
 </style>
 </head>
 
 <body>
 
-<h1>🎮 KHO TRÒ CHƠI TOÁN HỌC</h1>
-<p>HỌC TOÁN THẦY HÒA – Học mà chơi, chơi mà học</p>
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <h1>CHINH PHỤC TOÁN HỌC</h1>
+      <h1><span>THẦY HÒA AI</span></h1>
+      <p>Học vui – Hiểu sâu – Luyện tập – Chinh phục điểm cao</p>
+    </div>
+    <a class="home-btn" href="/">⌂ TRANG CHỦ</a>
+  </div>
+</header>
 
-<div class="container">
+<nav>
+  <div class="nav-inner">
+    <a href="/">Trang chủ</a>
+    <a href="/hoc-toan/">Học Toán</a>
+    <a href="/luyen-tap/">Luyện tập</a>
+    <a href="/tro-choi/">Trò chơi</a>
+    <a href="/kho-hoc-lieu/">Kho học liệu</a>
+    <a href="/thi-thu/">Thi thử</a>
+  </div>
+</nav>
 
-<a href="./toan-9/">📘 TOÁN 9<br>Chơi ngay</a>
+<main>
 
-<a href="./toan-10/">📗 TOÁN 10<br>Chơi ngay</a>
+  <section class="hero">
+    <h2>🎮 KHO TRÒ CHƠI TOÁN HỌC</h2>
+    <p>
+      Chào mừng em đến với thế giới trò chơi Toán học của THẦY HÒA AI!
+      Hãy lựa chọn thử thách phù hợp, vừa học tập, vừa rèn luyện tư duy
+      và chinh phục những kiến thức Toán học thú vị.
+    </p>
+    <a class="hero-btn" href="/tro-choi/toan-10/">
+      🚀 CHƠI TOÁN 10 NGAY
+    </a>
+  </section>
 
-<a href="./toan-11/">📙 TOÁN 11<br>Chơi ngay</a>
+  <section>
+    <div class="section-title">
+      <h2>📚 TRÒ CHƠI THEO KHỐI LỚP</h2>
+      <p>Lựa chọn lớp học để khám phá các thử thách Toán học.</p>
+    </div>
 
-<a href="./toan-12/">📕 TOÁN 12<br>Chơi ngay</a>
+    <div class="grid">
 
-<a href="./goi-bai/">🎯 GÓI BÀI<br>Chơi ngay</a>
+      <div class="card">
+        <div class="card-icon">📘</div>
+        <h3>TOÁN HỌC 10</h3>
+        <p>
+          Củng cố kiến thức nền tảng, ôn tập giữa kỳ,
+          hệ thức lượng, bất phương trình và nhiều chuyên đề khác.
+        </p>
+        <a class="btn btn-yellow"
+           href="/tro-choi/toan-10/">
+          CHƠI NGAY →
+        </a>
+      </div>
 
-</div>
+      <div class="card">
+        <div class="card-icon">📗</div>
+        <h3>TOÁN HỌC 11</h3>
+        <p>
+          Khu vực phát triển các trò chơi Toán 11.
+          Nội dung sẽ được bổ sung theo từng chuyên đề.
+        </p>
+        <span class="btn coming">ĐANG PHÁT TRIỂN</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📕</div>
+        <h3>TOÁN HỌC 12</h3>
+        <p>
+          Khu vực trò chơi ôn tập Toán 12,
+          hướng đến kỳ thi tốt nghiệp THPT.
+        </p>
+        <span class="btn coming">ĐANG PHÁT TRIỂN</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>🏆 TRÒ CHƠI TƯƠNG TÁC</h2>
+      <p>Những hoạt động tạo không khí sôi nổi trong giờ học Toán.</p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>GỌI BÀI NGẪU NHIÊN</h3>
+        <p>
+          Hỗ trợ giáo viên gọi học sinh, tạo sự hào hứng
+          và tăng tương tác trong lớp học.
+        </p>
+        <a class="btn" href="/tro-choi/goi-bai/">
+          KHÁM PHÁ →
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⚔️</div>
+        <h3>ĐẤU TRƯỜNG TOÁN HỌC</h3>
+        <p>
+          Thử sức với các câu hỏi Toán học,
+          rèn tốc độ tư duy và khả năng vận dụng.
+        </p>
+        <a class="btn" href="/tro-choi/dau-truong/">
+          THAM GIA →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>🌟 CÙNG CHINH PHỤC TOÁN HỌC</h2>
+      <p>
+        Học từ cơ bản đến nâng cao – hiểu bản chất – tự tin vận dụng.
+      </p>
+    </div>
+
+    <div class="notice">
+      <strong>💡 Thông điệp của THẦY HÒA AI</strong><br>
+      Mỗi câu hỏi là một cơ hội học tập.
+      Mỗi lần luyện tập là một bước tiến bộ.
+      Hãy kiên trì từng ngày để chinh phục Toán học!
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <h3>CHINH PHỤC TOÁN HỌC – THẦY HÒA AI</h3>
+  <p>Nền tảng học tập và rèn luyện Toán học dành cho học sinh THPT.</p>
+  <p>© 2026 THẦY HÒA AI. Học vui – Hiểu sâu – Tiến bộ mỗi ngày.</p>
+</footer>
 
 </body>
 </html>
