@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNG CHUÔNG VÀNG – CHINH PHỤC TOÁN HỌC 11 – THẦY HÒA AI</title>
+    <!-- Tailwind CSS for UI styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- KaTeX for rendering mathematical formulas smoothly -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .heading-font {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* TV Show Stage Effects */
+        .stage-bg {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 0.98) 100%),
+                        radial-gradient(circle at 50% 20%, rgba(234, 179, 8, 0.15) 0%, transparent 60%);
+        }
+
+        .spotlight-left {
+            position: absolute;
+            top: -100px;
+            left: 10%;
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.25) 0%, transparent 70%);
+            transform: rotate(25deg);
+            pointer-events: none;
+            filter: blur(20px);
+        }
+
+        .spotlight-right {
+            position: absolute;
+            top: -100px;
+            right: 10%;
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(-135deg, rgba(234, 179, 8, 0.25) 0%, transparent 70%);
+            transform: rotate(-25deg);
+            pointer-events: none;
+            filter: blur(20px);
+        }
+
+        /* Golden Bell Glow Animation */
+        .bell-glow {
+            filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.8));
+            animation: ringPulse 2s infinite alternate;
+        }
+
+        @keyframes ringPulse {
+            0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 10px rgba(234, 179, 8, 0.6)); }
+            50% { transform: scale(1.05) rotate(-3deg); filter: drop-shadow(0 0 25px rgba(250, 204, 21, 0.9)); }
+            100% { transform: scale(1) rotate(3deg); filter: drop-shadow(0 0 10px rgba(234, 179, 8, 0.6)); }
+        }
+
+        /* Option Card Styling */
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 2px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            border-color: #facc15;
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+            background: linear-gradient(135deg, rgba(51, 65, 85, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+        }
+
+        .option-correct {
+            background: linear-gradient(135deg, #15803d 0%, #166534 100%) !important;
+            border-color: #4ade80 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.6) !important;
+            animation: pulseCorrect 0.6s ease-in-out infinite alternate;
+        }
+
+        .option-wrong {
+            background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
+            border-color: #f87171 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 20px rgba(248, 113, 113, 0.6) !important;
+        }
+
+        @keyframes pulseCorrect {
+            from { transform: scale(1); }
+            to { transform: scale(1.02); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #facc15;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between stage-bg">
+
+    <!-- Stage Spotlights -->
+    <div class="spotlight-left"></div>
+    <div class="spotlight-right"></div>
+
+    <!-- HEADER / BRANDING -->
+    <header class="relative z-10 w-full px-4 py-3 bg-slate-900/80 backdrop-blur-md border-b border-yellow-500/30 flex justify-between items-center shadow-lg">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-500 to-amber-300 flex items-center justify-center shadow-md">
+                <i class="fa-solid fa-bell text-slate-950 text-xl"></i>
+            </div>
+            <div>
+                <h1 class="heading-font font-black text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-200 to-yellow-500 uppercase tracking-wider">
+                    THẦY HÒA AI
+                </h1>
+                <p class="text-xs text-slate-400 font-medium hidden sm:block">Rung Chuông Vàng – Toán Học Lớp 11 (KNTTVCS)</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <!-- Audio Toggle Button -->
+            <button id="audioToggleBtn" onclick="toggleAudio()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-yellow-400 border border-yellow-500/30 text-xs font-semibold flex items-center gap-2 transition">
+                <i id="audioIcon" class="fa-solid fa-volume-high"></i>
+                <span id="audioText" class="hidden sm:inline">Âm thanh: Bật</span>
+            </button>
+            <!-- Return Home / Restart -->
+            <button onclick="confirmGoHome()" class="px-3 py-1.5 rounded-lg bg-red-900/50 hover:bg-red-800/80 text-red-200 border border-red-500/30 text-xs font-semibold flex items-center gap-2 transition">
+                <i class="fa-solid fa-house"></i>
+                <span class="hidden sm:inline">Trang chủ</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="relative z-10 container mx-auto px-4 py-4 flex-1 flex flex-col justify-center items-center max-w-5xl">
+
+        <!-- 1. SCREEN: WELCOME / HOME -->
+        <div id="welcomeScreen" class="w-full bg-slate-900/90 border border-yellow-500/30 rounded-2xl p-6 md:p-8 text-center backdrop-blur-md shadow-2xl space-y-6">
+            <div class="inline-block relative">
+                <!-- Golden Bell SVG Logo -->
+                <svg class="w-24 h-24 md:w-32 md:h-32 mx-auto bell-glow text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a2 2 0 0 0-2 2v1.07A7.001 7.001 0 0 0 4 12v5l-2 2v1h20v-1l-2-2v-5a7.001 7.001 0 0 0-6-6.93V4a2 2 0 0 0-2-2zm0 20a3 3 0 0 0 2.82-2H9.18A3 3 0 0 0 12 22z"/>
+                </svg>
+            </div>
+
+            <div>
+                <h2 class="heading-font text-2xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-200 to-yellow-500 uppercase tracking-wide">
+                    RUNG CHUÔNG VÀNG
+                </h2>
+                <p class="text-slate-300 text-sm md:text-base font-medium mt-1">
+                    CHINH PHỤC TOÁN HỌC LỚP 11 – GDPT 2018 (KẾT NỐI TRI THỨC)
+                </p>
+            </div>
+
+            <!-- Mode Selection Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
+                <div onclick="selectMode('individual')" id="modeIndCard" class="cursor-pointer p-4 rounded-xl bg-slate-800/80 border-2 border-yellow-500/50 hover:border-yellow-400 transition flex items-start gap-4">
+                    <div class="p-3 bg-yellow-500/20 rounded-lg text-yellow-400">
+                        <i class="fa-solid fa-user text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-yellow-300">Chế độ 1: Cá nhân</h3>
+                        <p class="text-xs text-slate-300 mt-1">Chơi trên 1 thiết bị. Thử thách trực tiếp 20 câu hỏi để Rung Chuông Vàng!</p>
+                    </div>
+                </div>
+
+                <div onclick="selectMode('class')" id="modeClassCard" class="cursor-pointer p-4 rounded-xl bg-slate-800/40 border-2 border-slate-700 hover:border-yellow-400/50 transition flex items-start gap-4">
+                    <div class="p-3 bg-blue-500/20 rounded-lg text-blue-400">
+                        <i class="fa-solid fa-users text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-200">Chế độ 2: Cả lớp (Dashboard Giáo viên)</h3>
+                        <p class="text-xs text-slate-400 mt-1">Màn hình điều khiển chiếu trên lớp, theo dõi học sinh nộp bài thi đấu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="max-w-md mx-auto space-y-4 pt-2">
+                <div class="text-left space-y-1">
+                    <label class="text-xs text-slate-300 font-semibold uppercase tracking-wider">Họ và tên người chơi:</label>
+                    <input type="text" id="playerNameInput" placeholder="Nhập họ và tên..." class="w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400">
+                </div>
+                <div class="text-left space-y-1">
+                    <label class="text-xs text-slate-300 font-semibold uppercase tracking-wider">Lớp học:</label>
+                    <input type="text" id="playerClassInput" placeholder="Ví dụ: 11A1..." class="w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400">
+                </div>
+
+                <button onclick="startGame()" class="w-full py-3.5 rounded-xl font-extrabold text-slate-950 bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 hover:brightness-110 shadow-lg shadow-yellow-500/20 transform active:scale-95 transition text-base uppercase tracking-wider flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play"></i> Bắt đầu thi đấu
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. SCREEN: QUIZ GAMEPLAY -->
+        <div id="quizScreen" class="hidden w-full flex-col space-y-4">
+            
+            <!-- Game Top Status Bar -->
+            <div class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl p-3 flex flex-wrap justify-between items-center gap-2 text-xs md:text-sm">
+                <!-- User Info -->
+                <div class="flex items-center space-x-2">
+                    <span class="px-2.5 py-1 rounded-md bg-yellow-500/20 text-yellow-300 font-bold border border-yellow-500/30" id="displayPlayerInfo">Thi sinh: --</span>
+                </div>
+
+                <!-- Hearts / Lives remaining (Max 3 wrong allowed) -->
+                <div class="flex items-center space-x-1" title="Trả lời sai 3 câu sẽ bị loại">
+                    <span class="text-slate-400 font-semibold mr-1">Cơ hội:</span>
+                    <span id="livesContainer" class="flex gap-1 text-red-500 text-base">
+                        <i class="fa-solid fa-heart"></i>
+                        <i class="fa-solid fa-heart"></i>
+                        <i class="fa-solid fa-heart"></i>
+                    </span>
+                </div>
+
+                <!-- Timer & Question counter -->
+                <div class="flex items-center gap-3">
+                    <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">
+                        <i class="fa-regular fa-clock text-yellow-400 mr-1"></i><span id="timerDisplay">00:00</span>
+                    </span>
+                    <span class="px-3 py-1 rounded-md bg-yellow-500 text-slate-950 font-black" id="questionCounter">
+                        Câu 1 / 20
+                    </span>
+                </div>
+            </div>
+
+            <!-- Question Box -->
+            <div class="w-full bg-slate-900/90 border border-yellow-500/40 rounded-2xl p-5 md:p-7 backdrop-blur-md shadow-xl relative overflow-hidden">
+                <!-- Question Level Badge -->
+                <div class="flex justify-between items-center mb-3">
+                    <span id="difficultyBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                        Mức độ: Nhận biết
+                    </span>
+                    <span id="topicBadge" class="text-xs font-medium text-slate-400 italic">
+                        Chủ đề: Giá trị lượng giác
+                    </span>
+                </div>
+
+                <!-- Question Text -->
+                <div id="questionText" class="text-base md:text-xl font-bold text-slate-100 leading-relaxed my-2 min-h-[60px]">
+                    Nội dung câu hỏi đang tải...
+                </div>
+
+                <!-- Options Grid -->
+                <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+                    <!-- Dynamically injected -->
+                </div>
+            </div>
+
+            <!-- Solution & Explanation Box (Shown after selecting an answer) -->
+            <div id="explanationModal" class="hidden w-full bg-slate-900/95 border-2 border-yellow-500/60 rounded-2xl p-5 md:p-6 backdrop-blur-lg shadow-2xl space-y-4">
+                <div id="resultHeader" class="flex items-center gap-3 text-lg font-bold">
+                    <!-- Correct/Incorrect Icon & Status -->
+                </div>
+
+                <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800 space-y-2 text-sm">
+                    <div class="text-yellow-400 font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i> Lời giải & Kiến thức cần nhớ:
+                    </div>
+                    <div id="explanationText" class="text-slate-200 leading-relaxed overflow-x-auto">
+                        <!-- Solution content -->
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button onclick="nextQuestion()" class="px-6 py-2.5 rounded-xl font-bold bg-yellow-500 hover:bg-yellow-400 text-slate-950 shadow-md transition flex items-center gap-2">
+                        <span>Tiếp tục câu kế tiếp</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 3. SCREEN: GAME OVER / ELIMINATED -->
+        <div id="eliminatedScreen" class="hidden w-full bg-slate-900/90 border border-red-500/40 rounded-2xl p-6 md:p-8 text-center backdrop-blur-md shadow-2xl space-y-6 max-w-xl">
+            <div class="w-20 h-20 mx-auto rounded-full bg-red-500/20 border-2 border-red-500 flex items-center justify-center text-red-500 text-4xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h2 class="heading-font text-2xl md:text-3xl font-extrabold text-red-400">
+                    BẠN ĐÃ BỊ LOẠI!
+                </h2>
+                <p class="text-slate-300 text-sm mt-2">
+                    Bạn đã trả lời sai quá 3 câu quy định. Đừng nản lòng, hãy ôn tập lại kiến thức và thử sức lại nhé!
+                </p>
+            </div>
+            <div class="p-4 bg-slate-800/80 rounded-xl text-sm space-y-1 text-slate-300 border border-slate-700">
+                <p>Số câu trả lời đúng: <span id="elimScore" class="font-bold text-yellow-400">0/20</span></p>
+                <p>Thời gian thi đấu: <span id="elimTime" class="font-bold text-slate-200">00:00</span></p>
+            </div>
+            <button onclick="restartGame()" class="w-full py-3 rounded-xl font-bold bg-yellow-500 hover:bg-yellow-400 text-slate-950 shadow-md transition">
+                <i class="fa-solid fa-rotate-right mr-1"></i> Thi đấu lại
+            </button>
+        </div>
+
+        <!-- 4. SCREEN: VICTORY / RING THE GOLDEN BELL -->
+        <div id="victoryScreen" class="hidden w-full bg-slate-900/95 border-2 border-yellow-400 rounded-2xl p-6 md:p-8 text-center backdrop-blur-md shadow-2xl space-y-6 max-w-2xl">
+            <div class="relative">
+                <svg class="w-28 h-28 mx-auto bell-glow text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a2 2 0 0 0-2 2v1.07A7.001 7.001 0 0 0 4 12v5l-2 2v1h20v-1l-2-2v-5a7.001 7.001 0 0 0-6-6.93V4a2 2 0 0 0-2-2zm0 20a3 3 0 0 0 2.82-2H9.18A3 3 0 0 0 12 22z"/>
+                </svg>
+                <i class="fa-solid fa-crown text-4xl text-amber-300 absolute -top-4 left-1/2 transform -translate-x-1/2 animate-bounce"></i>
+            </div>
+            <div>
+                <h2 class="heading-font text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-200 to-yellow-500 uppercase tracking-wide">
+                    CHÚC MỪNG BẠN ĐÃ RUNG CHUÔNG VÀNG!
+                </h2>
+                <p class="text-slate-300 text-base mt-2">
+                    Xuất sắc vượt qua 20 câu hỏi Toán học Lớp 11 (GDPT 2018)!
+                </p>
+            </div>
+
+            <div class="p-4 bg-slate-800/80 rounded-xl border border-yellow-500/30 text-slate-200 text-sm space-y-2">
+                <p>Họ tên: <span id="vicName" class="font-bold text-yellow-300">--</span> | Lớp: <span id="vicClass" class="font-bold text-yellow-300">--</span></p>
+                <p>Điểm số tuyệt đối: <span id="vicScore" class="font-bold text-emerald-400 text-lg">20 / 20</span></p>
+                <p>Tổng thời gian hoàn thành: <span id="vicTime" class="font-bold text-slate-100">00:00</span></p>
+            </div>
+
+            <button onclick="restartGame()" class="w-full py-3.5 rounded-xl font-black text-slate-950 bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 hover:brightness-110 shadow-lg shadow-yellow-500/30 transition text-base">
+                <i class="fa-solid fa-trophy mr-1"></i> Chơi lượt mới
+            </button>
+        </div>
+
+        <!-- 5. SCREEN: CLASSROOM TEACHER DASHBOARD -->
+        <div id="classDashboardScreen" class="hidden w-full bg-slate-900/90 border border-blue-500/30 rounded-2xl p-6 backdrop-blur-md shadow-2xl space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="heading-font text-xl md:text-2xl font-bold text-yellow-400 flex items-center gap-2">
+                        <i class="fa-solid fa-chalkboard-user"></i> BẢNG ĐIỀU KHIỂN GIÁO VIÊN
+                    </h2>
+                    <p class="text-xs text-slate-400">Theo dõi kết quả Rung Chuông Vàng trực tuyến toàn lớp</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-slate-400 block">Số học sinh đã nộp:</span>
+                    <span id="studentCountBadge" class="text-xl font-black text-yellow-400">0 học sinh</span>
+                </div>
+            </div>
+
+            <!-- Server Integration Notice & Config Area -->
+            <div class="p-4 rounded-xl bg-blue-950/40 border border-blue-500/30 text-xs text-slate-300 space-y-2">
+                <p class="font-bold text-blue-400 flex items-center gap-1">
+                    <i class="fa-solid fa-network-wired"></i> Cấu trúc sẵn sàng kết nối máy chủ đồng bộ nhiều người chơi:
+                </p>
+                <p>Chức năng lưu trữ kết quả và xếp hạng sẵn sàng đồng bộ thông qua API RESTful / Firebase Firestore.</p>
+            </div>
+
+            <!-- Leaderboard Table -->
+            <div class="overflow-x-auto rounded-xl border border-slate-800">
+                <table class="w-full text-left text-xs md:text-sm text-slate-300">
+                    <thead class="bg-slate-800 text-yellow-400 font-bold uppercase tracking-wider text-xs">
+                        <tr>
+                            <th class="p-3">Hạng</th>
+                            <th class="p-3">Họ và Tên</th>
+                            <th class="p-3">Lớp</th>
+                            <th class="p-3 text-center">Câu Đúng</th>
+                            <th class="p-3 text-center">Thời Gian</th>
+                            <th class="p-3 text-center">Trạng Thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody" class="divide-y divide-slate-800 bg-slate-900/60">
+                        <tr>
+                            <td colspan="6" class="p-4 text-center text-slate-500">Chưa có kết quả nào được ghi nhận</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="clearLeaderboard()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
+                    <i class="fa-solid fa-trash mr-1"></i> Xóa dữ liệu tạm
+                </button>
+                <button onclick="switchModeToIndividual()" class="px-4 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-400 text-slate-950 text-xs font-bold">
+                    <i class="fa-solid fa-play mr-1"></i> Chuyển sang màn hình chơi
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 w-full py-3 text-center text-xs text-slate-500 border-t border-slate-800/80 bg-slate-950/60 backdrop-blur-md">
+        © 2026 RUNG CHUÔNG VÀNG TOÁN 11 – THẦY HÒA AI. Phát triển bám sát Chương trình GDPT 2018.
+    </footer>
+
+    <!-- JAVASCRIPT GAME LOGIC -->
+    <script>
+        /* ==========================================================================
+           I. QUESTION BANK DATA (20 QUESTIONS - GDPT 2018 GRADE 11 KNTTVCS)
+           Categorization:
+           - 5 Nhận biết (Recognition)
+           - 5 Thông hiểu (Comprehension)
+           - 6 Vận dụng (Application)
+           - 4 Vận dụng cao (Advanced Application)
+           ========================================================================== */
+        const questionBank = [
+            // --- 5 CÂU NHẬN BIẾT ---
+            {
+                id: 1,
+                level: "Nhận biết",
+                topic: "Giá trị lượng giác",
+                question: "Trên đường tròn lượng giác, cho góc lượng giác \\(\\alpha\\). Khẳng định nào sau đây là **ĐÚNG** về tung độ của điểm M biểu diễn góc \\(\\alpha\\)?",
+                options: [
+                    "Tung độ của điểm M bằng \\(\\sin \\alpha\\)",
+                    "Tung độ của điểm M bằng \\(\\cos \\alpha\\)",
+                    "Tung độ của điểm M bằng \\(\\tan \\alpha\\)",
+                    "Tung độ của điểm M bằng \\(\\cot \\alpha\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Theo định nghĩa trên đường tròn lượng giác đơn vị, tung độ \\(y_M\\) của điểm M biểu diễn góc \\(\\alpha\\) chính là \\(\\sin \\alpha\\), còn hoành độ \\(x_M = \\cos \\alpha\\)."
+            },
+            {
+                id: 2,
+                level: "Nhận biết",
+                topic: "Công thức lượng giác",
+                question: "Công thức biến đổi tổng thành tích nào sau đây là **ĐÚNG**?",
+                options: [
+                    "\\(\\cos a + \\cos b = 2\\cos\\frac{a+b}{2}\\cos\\frac{a-b}{2}\\)",
+                    "\\(\\cos a + \\cos b = -2\\sin\\frac{a+b}{2}\\sin\\frac{a-b}{2}\\)",
+                    "\\(\\sin a + \\sin b = 2\\cos\\frac{a+b}{2}\\sin\\frac{a-b}{2}\\)",
+                    "\\(\\cos a - \\cos b = 2\\sin\\frac{a+b}{2}\\sin\\frac{a-b}{2}\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Công thức lượng giác cơ bản: \\(\\cos a + \\cos b = 2\\cos\\frac{a+b}{2}\\cos\\frac{a-b}{2}\\). Nhớ câu thần chú: 'Cos cộng cos bằng 2 cos cos'."
+            },
+            {
+                id: 3,
+                level: "Nhận biết",
+                topic: "Hàm số lượng giác",
+                question: "Tập xác định của hàm số \\(y = \\tan x\\) là:",
+                options: [
+                    "\\(D = \\mathbb{R} \\setminus \\left\\{ \\frac{\\pi}{2} + k\\pi, k \\in \\mathbb{Z} \\right\\}\\)",
+                    "\\(D = \\mathbb{R} \\setminus \\left\\{ k\\pi, k \\in \\mathbb{Z} \\right\\}\\)",
+                    "\\(D = \\mathbb{R}\\)",
+                    "\\(D = \\mathbb{R} \\setminus \\left\\{ \\pi + k2\\pi, k \\in \\mathbb{Z} \\right\\}\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Hàm số \\(y = \\tan x = \\frac{\\sin x}{\\cos x}\\) xác định khi \\(\\cos x \\neq 0 \\Leftrightarrow x \\neq \\frac{\\pi}{2} + k\\pi, k \\in \\mathbb{Z}\\)."
+            },
+            {
+                id: 4,
+                level: "Nhận biết",
+                topic: "Cấp số cộng",
+                question: "Cho cấp số cộng \\((u_n)\\) có số hạng đầu \\(u_1\\) và công sai \\(d\\). Số hạng tổng quát \\(u_n\\) \\((n \\ge 2)\\) được tính theo công thức:",
+                options: [
+                    "\\(u_n = u_1 + (n-1)d\\)",
+                    "\\(u_n = u_1 + nd\\)",
+                    "\\(u_n = u_1 . d^{n-1}\\)",
+                    "\\(u_n = u_1 - (n-1)d\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Số hạng tổng quát của cấp số cộng có công thức chính xác là \\(u_n = u_1 + (n-1)d\\)."
+            },
+            {
+                id: 5,
+                level: "Nhận biết",
+                topic: "Số đặc trưng mẫu số liệu ghép nhóm",
+                question: "Trong mẫu số liệu ghép nhóm, nhóm chứa mốt (nhóm chứa nhóm có tần số lớn nhất) được gọi là gì?",
+                options: [
+                    "Nhóm chứa mốt",
+                    "Nhóm chứa trung vị",
+                    "Nhóm chứa số trung bình",
+                    "Nhóm tứ phân vị"
+                ],
+                correctIndex: 0,
+                explanation: "Nhóm có tần số lớn nhất trong mẫu số liệu ghép nhóm được gọi là nhóm chứa mốt (modal class)."
+            },
+
+            // --- 5 CÂU THÔNG HIỂU ---
+            {
+                id: 6,
+                level: "Thông hiểu",
+                topic: "Phương trình lượng giác",
+                question: "Nghiệm của phương trình \\(\\sin x = \\sin \\frac{\\pi}{3}\\) là:",
+                options: [
+                    "\\(\\left[ \\begin{array}{l} x = \\frac{\\pi}{3} + k2\\pi \\\\ x = \\frac{2\\pi}{3} + k2\\pi \\end{array} \\right. (k \\in \\mathbb{Z})\\)",
+                    "\\(\\left[ \\begin{array}{l} x = \\frac{\\pi}{3} + k\\pi \\\\ x = -\\frac{\\pi}{3} + k\\pi \\end{array} \\right. (k \\in \\mathbb{Z})\\)",
+                    "\\(x = \\pm \\frac{\\pi}{3} + k2\\pi, k \\in \\mathbb{Z}\\)",
+                    "\\(x = \\frac{\\pi}{3} + k2\\pi, k \\in \\mathbb{Z}\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Phương trình \\(\\sin x = \\sin \\alpha \\Leftrightarrow x = \\alpha + k2\\pi\\) hoặc \\(x = \\pi - \\alpha + k2\\pi\\). Với \\(\\alpha = \\frac{\\pi}{3}\\) ta được \\(x = \\frac{\\pi}{3} + k2\\pi\\) hoặc \\(x = \\pi - \\frac{\\pi}{3} + k2\\pi = \\frac{2\\pi}{3} + k2\\pi\\)."
+            },
+            {
+                id: 7,
+                level: "Thông hiểu",
+                topic: "Dãy số",
+                question: "Cho dãy số \\((u_n)\\) xác định bởi \\(u_n = \\frac{2n + 1}{n + 2}\\). Giá trị của số hạng \\(u_3\\) là:",
+                options: [
+                    "\\(\\frac{7}{5}\\)",
+                    "\\(\\frac{5}{7}\\)",
+                    "\\(\\frac{7}{3}\\)",
+                    "\\(\\frac{3}{5}\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Thay \\(n = 3\\) vào công thức \\(u_n\\): \\(u_3 = \\frac{2(3) + 1}{3 + 2} = \\frac{7}{5}\\)."
+            },
+            {
+                id: 8,
+                level: "Thông hiểu",
+                topic: "Cấp số nhân",
+                question: "Cho cấp số nhân \\((v_n)\\) có \\(v_1 = 3\\) và công bội \\(q = 2\\). Số hạng thứ 4 của cấp số nhân bằng bao nhiêu?",
+                options: [
+                    "\\(24\\)",
+                    "\\(18\\)",
+                    "\\(12\\)",
+                    "\\(48\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Áp dụng công thức số hạng tổng quát của cấp số nhân \\(v_n = v_1 . q^{n-1}\\), ta có: \\(v_4 = v_1 . q^3 = 3 . 2^3 = 3 . 8 = 24\\)."
+            },
+            {
+                id: 9,
+                level: "Thông hiểu",
+                topic: "Hàm số lượng giác",
+                question: "Chu kỳ tuần hoàn \\(T\\) của hàm số \\(y = \\cos(2x)\\) là:",
+                options: [
+                    "\\(T = \\pi\\)",
+                    "\\(T = 2\\pi\\)",
+                    "\\(T = \\frac{\\pi}{2}\\)",
+                    "\\(T = 4\\pi\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Hàm số \\(y = \\cos(ax + b)\\) với \\(a \\neq 0\\) có chu kỳ tuần hoàn \\(T = \\frac{2\\pi}{|a|}\\). Với \\(a = 2\\) thì \\(T = \\frac{2\\pi}{2} = \\pi\\)."
+            },
+            {
+                id: 10,
+                level: "Thông hiểu",
+                topic: "Số đặc trưng mẫu số liệu ghép nhóm",
+                question: "Khảo sát thời gian tự học (giờ/tuần) của học sinh thu được bảng ghép nhóm: [0;4) có 5 học sinh, [4;8) có 12 học sinh, [8;12) me: 8 học sinh. Trung vị \\(M_e\\) thuộc nhóm nào?",
+                options: [
+                    "\\([4; 8)\\)",
+                    "\\([0; 4)\\)",
+                    "\\([8; 12)\\)",
+                    " Không xác định được"
+                ],
+                correctIndex: 0,
+                explanation: "Tổng số học sinh \\(N = 5 + 12 + 8 = 25\\). Trung vị ở vị trí thứ \\(\\frac{25+1}{2} = 13\\). Nhóm 1 có 5 người, nhóm 2 tích lũy có \\(5 + 12 = 17\\) người. Vậy người thứ 13 nằm trong nhóm \\([4; 8)\\)."
+            },
+
+            // --- 6 CÂU VẬN DỤNG ---
+            {
+                id: 11,
+                level: "Vận dụng",
+                topic: "Giá trị lượng giác",
+                question: "Cho góc \\(\\alpha\\) thỏa mãn \\(\\frac{\\pi}{2} < \\alpha < \\pi\\) và \\(\\sin \\alpha = \\frac{3}{5}\\). Giá trị của \\(\\cos \\alpha\\) bằng:",
+                options: [
+                    "\\(-\\frac{4}{5}\\)",
+                    "\\(\\frac{4}{5}\\)",
+                    "\\(-\\frac{1}{5}\\)",
+                    "\\(\\frac{2}{5}\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Ta có \\(\\cos^2 \\alpha = 1 - \\sin^2 \\alpha = 1 - \\frac{9}{25} = \\frac{16}{25}\\). Vì \\(\\frac{\\pi}{2} < \\alpha < \\pi\\) (góc phần tư thứ II) nên \\(\\cos \\alpha < 0\\). Do đó \\(\\cos \\alpha = -\\sqrt{\\frac{16}{25}} = -\\frac{4}{5}\\)."
+            },
+            {
+                id: 12,
+                level: "Vận dụng",
+                topic: "Phương trình lượng giác",
+                question: "Số nghiệm của phương trình \\(\\sqrt{3}\\tan x - 3 = 0\\) trên đoạn \\([0; 2\\pi]\\) là:",
+                options: [
+                    "\\(2\\)",
+                    "\\(1\\)",
+                    "\\(3\\)",
+                    "\\(4\\)"
+                ],
+                correctIndex: 0,
+                explanation: "\\(\\sqrt{3}\\tan x - 3 = 0 \\Leftrightarrow \\tan x = \\sqrt{3} \\Leftrightarrow x = \\frac{\\pi}{3} + k\\pi\\). Trên đoạn \\([0; 2\\pi]\\), ta lấy \\(k = 0 \\Rightarrow x = \\frac{\\pi}{3}\\) và \\(k = 1 \\Rightarrow x = \\frac{4\\pi}{3}\\). Có đúng 2 nghiệm."
+            },
+            {
+                id: 13,
+                level: "Vận dụng",
+                topic: "Cấp số cộng",
+                question: "Cho cấp số cộng \\((u_n)\\) có \\(u_1 = 2\\) và công sai \\(d = 3\\). Tổng của 10 số hạng đầu tiên \\(S_{10}\\) bằng:",
+                options: [
+                    "\\(155\\)",
+                    "\\(140\\)",
+                    "\\(310\\)",
+                    "\\(170\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Áp dụng công thức tổng \\(n\\) số hạng đầu: \\(S_n = \\frac{n}{2}\\left[2u_1 + (n-1)d\\right]\\). Với \\(n = 10\\): \\(S_{10} = 5 \\times [2(2) + 9(3)] = 5 \\times (4 + 27) = 5 \\times 31 = 155\\)."
+            },
+            {
+                id: 14,
+                level: "Vận dụng",
+                topic: "Cấp số nhân",
+                question: "Một công ty thu nạp vi khuẩn thử nghiệm: Ban đầu có 500 con, mỗi giờ số lượng vi khuẩn tăng gấp đôi. Hỏi sau 5 giờ số lượng vi khuẩn là bao nhiêu?",
+                options: [
+                    "\\(16.000\\) con",
+                    "\\(8.000\\) con",
+                    "\\(32.000\\) con",
+                    "\\(5.000\\) con"
+                ],
+                correctIndex: 0,
+                explanation: "Số lượng vi khuẩn tạo thành một cấp số nhân với \\(u_1 = 500\\) và công bội \\(q = 2\\). Sau 5 giờ (tương ứng số hạng \\(u_6\\) tính từ mốc ban đầu hoặc lấy \\(500 \\times 2^5\\)): \\(N = 500 \\times 2^5 = 500 \\times 32 = 16.000\\) con."
+            },
+            {
+                id: 15,
+                level: "Vận dụng",
+                topic: "Công thức lượng giác",
+                question: "Rút gọn biểu thức \\(P = \\sin 2x \\cos x - \\cos 2x \\sin x\\) ta được:",
+                options: [
+                    "\\(\\sin x\\)",
+                    "\\(\\cos x\\)",
+                    "\\(\\sin 3x\\)",
+                    "\\(\\cos 3x\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Áp dụng công thức cộng: \\(\\sin(a - b) = \\sin a \\cos b - \\cos a \\sin b\\). Do đó \\(P = \\sin(2x - x) = \\sin x\\)."
+            },
+            {
+                id: 16,
+                level: "Vận dụng",
+                topic: "Số đặc trưng mẫu số liệu ghép nhóm",
+                question: "Bảng ghép nhóm thời gian hoàn thành bài thi (phút) của 20 học sinh: nhóm [10; 20) có 4HS, nhóm [20; 30) có 10HS, nhóm [30; 40) có 6HS. Giá trị trung bình \\(\\bar{x}\\) xấp xỉ bằng:",
+                options: [
+                    "\\(26\\) phút",
+                    "\\(25\\) phút",
+                    "\\(24\\) phút",
+                    "\\(27\\) phút"
+                ],
+                correctIndex: 0,
+                explanation: "Giá trị đại diện các nhóm lần lượt là: \\(x_1 = 15, x_2 = 25, x_3 = 35\\). Số trung bình \\(\\bar{x} = \\frac{4(15) + 10(25) + 6(35)}{20} = \\frac{60 + 250 + 210}{20} = \\frac{520}{20} = 26\\) phút."
+            },
+
+            // --- 4 CÂU VẬN DỤNG CAO ---
+            {
+                id: 17,
+                level: "Vận dụng cao",
+                topic: "Phương trình lượng giác",
+                question: "Tìm tất cả các giá trị của tham số \\(m\\) để phương trình \\(\\sin x + \\cos x = m\\) có nghiệm.",
+                options: [
+                    "\\(-\\sqrt{2} \\le m \\le \\sqrt{2}\\)",
+                    "\\(-1 \\le m \\le 1\\)",
+                    "\\(m \\ge \\sqrt{2}\\)",
+                    "\\(m \\le -\\sqrt{2}\\) hoặc \\(m \\ge \\sqrt{2}\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Biến đổi \\(\\sin x + \\cos x = \\sqrt{2}\\sin\\left(x + \\frac{\\pi}{4}\\right)\\). Do \\(-1 \\le \\sin\\left(x + \\frac{\\pi}{4}\\right) \\le 1\\) nên \\(-\\sqrt{2} \\le \\sqrt{2}\\sin\\left(x + \\frac{\\pi}{4}\\right) \\le \\sqrt{2}\\). Phương trình có nghiệm khi và chỉ khi \\(-\\sqrt{2} \\le m \\le \\sqrt{2}\\)."
+            },
+            {
+                id: 18,
+                level: "Vận dụng cao",
+                topic: "Cấp số cộng & Cấp số nhân",
+                question: "Cho 3 số \\(x, y, z\\) theo thứ tự lập thành một cấp số nhân có công bội \\(q \\neq 1\\). Đồng thời \\(x, 2y, 3z\\) theo thứ tự lập thành một cấp số cộng. Giá trị của công bội \\(q\\) bằng:",
+                options: [
+                    "\\(\\frac{1}{3}\\)",
+                    "\\(3\\)",
+                    "\\(\\frac{1}{2}\\)",
+                    "\\(2\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Vì \\(x, y, z\\) là CSN nên \\(y = xq, z = xq^2\\) (với \\(x \\neq 0\\)). Ba số \\(x, 2y, 3z\\) là CSC nên \\(x + 3z = 2(2y) \\Leftrightarrow x + 3xq^2 = 4xq \\Leftrightarrow 3q^2 - 4q + 1 = 0\\). Suy ra \\(q = 1\\) (loại) hoặc \\(q = \\frac{1}{3}\\)."
+            },
+            {
+                id: 19,
+                level: "Vận dụng cao",
+                topic: "Ứng dụng Lượng giác thực tế",
+                question: "Một gạt nước mưa xe ô tô quay quanh trục O với góc quay \\(120^\\circ\\). Lưỡi gạt cao \\(40\\text{ cm}\\) và khoảng cách từ O đến gốc lưỡi gạt là \\(20\\text{ cm}\\). Diện tích mặt kính được gạt sạch bằng:",
+                options: [
+                    "\\(\\frac{3200\\pi}{3}\\text{ cm}^2\\)",
+                    "\\(\\frac{1600\\pi}{3}\\text{ cm}^2\\)",
+                    "\\(1200\\pi\\text{ cm}^2\\)",
+                    "\\(\\frac{6400\\pi}{3}\\text{ cm}^2\\)"
+                ],
+                correctIndex: 0,
+                explanation: "Bán kính ngoài \\(R = 20 + 40 = 60\\text{ cm}\\), bán kính trong \\(r = 20\\text{ cm}\\). Góc quay \\(\\alpha = 120^\\circ = \\frac{2\\pi}{3}\\text{ rad}\\). Diện tích hình quạt bị gạt sạch bằng diện tích hình quạt lớn trừ hình quạt nhỏ: \\(S = \\frac{1}{2}\\alpha (R^2 - r^2) = \\frac{1}{2} \\cdot \\frac{2\\pi}{3} (60^2 - 20^2) = \\frac{\\pi}{3} (3600 - 400) = \\frac{3200\\pi}{3}\\text{ cm}^2\\)."
+            },
+            {
+                id: 20,
+                level: "Vận dụng cao",
+                topic: "Số đặc trưng mẫu số liệu ghép nhóm",
+                question: "Khi tính mốt \\(M_o\\) của mẫu số liệu ghép nhóm thu nhập (triệu đồng): nhóm \\([10; 15)\\) có 6 người, nhóm \\([15; 20)\\) có 14 người (nhóm chứa mốt), nhóm \\([20; 25)\\) có 8 người. Giá trị mốt \\(M_o\\) chuẩn xác là:",
+                options: [
+                    "\\(17,5\\) triệu",
+                    "\\(18,0\\) triệu",
+                    "\\(16,8\\) triệu",
+                    "\\(17,0\\) triệu"
+                ],
+                correctIndex: 0,
+                explanation: "Nhóm chứa mốt là \\([15; 20)\\), có \\(a_j = 15, h = 5, n_j = 14, n_{j-1} = 6, n_{j+1} = 8\\). Công thức mốt: \\(M_o = a_j + \\frac{n_j - n_{j-1}}{(n_j - n_{j-1}) + (n_j - n_{j+1})} \\cdot h = 15 + \\frac{14 - 6}{(14 - 6) + (14 - 8)} \\cdot 5 = 15 + \\frac{8}{8 + 6} \\cdot 5 = 15 + \\frac{40}{14} = 15 + 2,5 = 17,5\\) triệu."
+            }
+        ];
+
+        /* ==========================================================================
+           II. AUDIO SYNTHESIZER (WEB AUDIO API - NO EXTERNAL DEPENDENCY ERRORS)
+           ========================================================================== */
+        let audioEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            document.getElementById('audioText').textContent = audioEnabled ? "Âm thanh: Bật" : "Âm thanh: Tắt";
+            document.getElementById('audioIcon').className = audioEnabled ? "fa-solid fa-volume-high" : "fa-solid fa-volume-xmark";
+        }
+
+        function playSound(type) {
+            if (!audioEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (ctx.state === 'suspended') ctx.resume();
+
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                const now = ctx.currentTime;
+
+                if (type === 'correct') {
+                    // Upbeat major triad chord sound
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                    osc.frequency.setValueAtTime(1046.50, now + 0.3); // C6
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                    osc.start(now);
+                    osc.stop(now + 0.6);
+                } else if (type === 'wrong') {
+                    // Low buzz / error sound
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now); // A3
+                    osc.frequency.setValueAtTime(164.81, now + 0.15); // E3
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                    osc.start(now);
+                    osc.stop(now + 0.5);
+                } else if (type === 'bell') {
+                    // Ringing Bell Effect
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(880, now);
+                    gain.gain.setValueAtTime(0.4, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
+                    osc.start(now);
+                    osc.stop(now + 1.8);
+                }
+            } catch (e) {
+                console.log("Audio synthesis error:", e);
+            }
+        }
+
+        /* ==========================================================================
+           III. STATE MANAGEMENT
+           ========================================================================== */
+        let currentMode = 'individual'; // 'individual' or 'class'
+        let playerName = "";
+        let playerClass = "";
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let wrongCount = 0;
+        const maxWrongAllowed = 3;
+        let timerInterval = null;
+        let totalSeconds = 0;
+        let leaderboardData = [];
+        let shuffledQuestions = [];
+
+        /* ==========================================================================
+           IV. GAME LOGIC & NAVIGATION
+           ========================================================================== */
+        
+        function selectMode(mode) {
+            currentMode = mode;
+            const indCard = document.getElementById('modeIndCard');
+            const classCard = document.getElementById('modeClassCard');
+
+            if (mode === 'individual') {
+                indCard.className = "cursor-pointer p-4 rounded-xl bg-slate-800/80 border-2 border-yellow-500/50 hover:border-yellow-400 transition flex items-start gap-4";
+                classCard.className = "cursor-pointer p-4 rounded-xl bg-slate-800/40 border-2 border-slate-700 hover:border-yellow-400/50 transition flex items-start gap-4";
+            } else {
+                classCard.className = "cursor-pointer p-4 rounded-xl bg-slate-800/80 border-2 border-yellow-500/50 hover:border-yellow-400 transition flex items-start gap-4";
+                indCard.className = "cursor-pointer p-4 rounded-xl bg-slate-800/40 border-2 border-slate-700 hover:border-yellow-400/50 transition flex items-start gap-4";
+            }
+        }
+
+        function switchModeToIndividual() {
+            hideAllScreens();
+            document.getElementById('welcomeScreen').classList.remove('hidden');
+            selectMode('individual');
+        }
+
+        function startGame() {
+            playerName = document.getElementById('playerNameInput').value.trim() || "Thí sinh";
+            playerClass = document.getElementById('playerClassInput').value.trim() || "11";
+
+            if (currentMode === 'class') {
+                showClassDashboard();
+                return;
+            }
+
+            // Shuffle questions for fresh experience
+            shuffledQuestions = [...questionBank];
+            // Reset game state
+            currentQuestionIndex = 0;
+            score = 0;
+            wrongCount = 0;
+            totalSeconds = 0;
+
+            hideAllScreens();
+            document.getElementById('quizScreen').classList.remove('hidden');
+            document.getElementById('quizScreen').classList.add('flex');
+            document.getElementById('displayPlayerInfo').textContent = `${playerName} - Lớp ${playerClass}`;
+
+            updateLivesDisplay();
+            startTimer();
+            loadQuestion();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                totalSeconds++;
+                const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+                const secs = String(totalSeconds % 60).padStart(2, '0');
+                document.getElementById('timerDisplay').textContent = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function updateLivesDisplay() {
+            const container = document.getElementById('livesContainer');
+            const remaining = maxWrongAllowed - wrongCount;
+            let html = '';
+            for (let i = 0; i < maxWrongAllowed; i++) {
+                if (i < remaining) {
+                    html += `<i class="fa-solid fa-heart text-red-500"></i>`;
+                } else {
+                    html += `<i class="fa-regular fa-heart text-slate-600"></i>`;
+                }
+            }
+            container.innerHTML = html;
+        }
+
+        function loadQuestion() {
+            // Hide previous explanation modal
+            document.getElementById('explanationModal').classList.add('hidden');
+
+            const q = shuffledQuestions[currentQuestionIndex];
+
+            // Badges & Counter
+            document.getElementById('questionCounter').textContent = `Câu ${currentQuestionIndex + 1} / ${shuffledQuestions.length}`;
+            document.getElementById('difficultyBadge').textContent = `Mức độ: ${q.level}`;
+            document.getElementById('topicBadge').textContent = `Chủ đề: ${q.topic}`;
+            document.getElementById('questionText').innerHTML = q.question;
+
+            // Render Options
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            q.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full p-4 rounded-xl text-left font-semibold text-slate-200 flex items-start gap-3`;
+                btn.setAttribute('onclick', `selectOption(${idx})`);
+                btn.id = `optBtn_${idx}`;
+
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-lg bg-yellow-500/20 text-yellow-400 font-bold flex items-center justify-center shrink-0 border border-yellow-500/30">
+                        ${optionLabels[idx]}
+                    </span>
+                    <span class="pt-0.5">${optText}</span>
+                `;
+                container.appendChild(btn);
+            });
+
+            // Re-render LaTeX formulas using KaTeX
+            renderMathInElement(document.getElementById('quizScreen'), {
+                delimiters: [
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError : false
+            });
+        }
+
+        function selectOption(selectedIndex) {
+            const q = shuffledQuestions[currentQuestionIndex];
+            const isCorrect = (selectedIndex === q.correctIndex);
+
+            // Disable all option buttons
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => btn.disabled = true);
+
+            // Highlight chosen & correct answers
+            const selectedBtn = document.getElementById(`optBtn_${selectedIndex}`);
+            const correctBtn = document.getElementById(`optBtn_${q.correctIndex}`);
+
+            if (isCorrect) {
+                score++;
+                selectedBtn.classList.add('option-correct');
+                playSound('correct');
+            } else {
+                wrongCount++;
+                selectedBtn.classList.add('option-wrong');
+                correctBtn.classList.add('option-correct');
+                playSound('wrong');
+                updateLivesDisplay();
+            }
+
+            // Show Solution Modal
+            showExplanation(isCorrect, q);
+        }
+
+        function showExplanation(isCorrect, q) {
+            const modal = document.getElementById('explanationModal');
+            const header = document.getElementById('resultHeader');
+            const explanationText = document.getElementById('explanationText');
+
+            if (isCorrect) {
+                header.className = "flex items-center gap-3 text-lg font-bold text-emerald-400";
+                header.innerHTML = `<i class="fa-solid fa-circle-check text-2xl"></i> CHÍNH XÁC! RẤT XUẤT SẮC!`;
+            } else {
+                header.className = "flex items-center gap-3 text-lg font-bold text-red-400";
+                header.innerHTML = `<i class="fa-solid fa-circle-xmark text-2xl"></i> CHƯA CHÍNH XÁC! (Cơ hội còn lại: ${maxWrongAllowed - wrongCount}/3)`;
+            }
+
+            explanationText.innerHTML = q.explanation;
+            modal.classList.remove('hidden');
+
+            // Re-render LaTeX inside explanation
+            renderMathInElement(explanationText, {
+                delimiters: [
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError : false
+            });
+        }
+
+        function nextQuestion() {
+            // Check if user was eliminated (reached 3 wrong answers)
+            if (wrongCount >= maxWrongAllowed) {
+                stopTimer();
+                saveResultToLeaderboard(false);
+                showEliminatedScreen();
+                return;
+            }
+
+            currentQuestionIndex++;
+
+            // Check if user completed all 20 questions
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                stopTimer();
+                playSound('bell');
+                saveResultToLeaderboard(true);
+                showVictoryScreen();
+                return;
+            }
+
+            loadQuestion();
+        }
+
+        function showEliminatedScreen() {
+            hideAllScreens();
+            document.getElementById('eliminatedScreen').classList.remove('hidden');
+            document.getElementById('elimScore').textContent = `${score} / 20`;
+            const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+            const secs = String(totalSeconds % 60).padStart(2, '0');
+            document.getElementById('elimTime').textContent = `${mins}:${secs}`;
+        }
+
+        function showVictoryScreen() {
+            hideAllScreens();
+            document.getElementById('victoryScreen').classList.remove('hidden');
+            document.getElementById('vicName').textContent = playerName;
+            document.getElementById('vicClass').textContent = playerClass;
+            document.getElementById('vicScore').textContent = `${score} / 20`;
+            const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+            const secs = String(totalSeconds % 60).padStart(2, '0');
+            document.getElementById('vicTime').textContent = `${mins}:${secs}`;
+        }
+
+        function showClassDashboard() {
+            hideAllScreens();
+            document.getElementById('classDashboardScreen').classList.remove('hidden');
+            renderLeaderboard();
+        }
+
+        function saveResultToLeaderboard(isVictory) {
+            const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+            const secs = String(totalSeconds % 60).padStart(2, '0');
+            const entry = {
+                name: playerName,
+                class: playerClass,
+                score: score,
+                time: `${mins}:${secs}`,
+                status: isVictory ? "Rung Chuông Vàng" : "Dừng cuộc chơi",
+                timestamp: new Date().getTime()
+            };
+
+            leaderboardData.push(entry);
+            // Sort by score desc, then time asc
+            leaderboardData.sort((a, b) => b.score - a.score);
+        }
+
+        function renderLeaderboard() {
+            const tbody = document.getElementById('leaderboardBody');
+            const countBadge = document.getElementById('studentCountBadge');
+            countBadge.textContent = `${leaderboardData.length} học sinh`;
+
+            if (leaderboardData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500">Chưa có kết quả nào được ghi nhận</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            leaderboardData.forEach((item, idx) => {
+                const rankColor = idx === 0 ? "text-yellow-400 font-bold" : (idx === 1 ? "text-slate-300 font-bold" : (idx === 2 ? "text-amber-600 font-bold" : "text-slate-400"));
+                html += `
+                    <tr class="hover:bg-slate-800/50 transition">
+                        <td class="p-3 font-bold ${rankColor}">#${idx + 1}</td>
+                        <td class="p-3 font-semibold text-slate-100">${item.name}</td>
+                        <td class="p-3 text-slate-300">${item.class}</td>
+                        <td class="p-3 text-center font-bold text-yellow-400">${item.score}/20</td>
+                        <td class="p-3 text-center text-slate-400">${item.time}</td>
+                        <td class="p-3 text-center">
+                            <span class="px-2 py-0.5 rounded-full text-xs font-bold ${item.status === 'Rung Chuông Vàng' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}">
+                                ${item.status}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function clearLeaderboard() {
+            leaderboardData = [];
+            renderLeaderboard();
+        }
+
+        function restartGame() {
+            startGame();
+        }
+
+        function confirmGoHome() {
+            stopTimer();
+            hideAllScreens();
+            document.getElementById('welcomeScreen').classList.remove('hidden');
+        }
+
+        function hideAllScreens() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('flex');
+            document.getElementById('eliminatedScreen').classList.add('hidden');
+            document.getElementById('victoryScreen').classList.add('hidden');
+            document.getElementById('classDashboardScreen').classList.add('hidden');
+        }
+
+        // Initialize KaTeX rendering on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError : false
+            });
+        });
+    </script>
+</body>
+</html>
