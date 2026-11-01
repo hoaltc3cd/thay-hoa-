@@ -1,1 +1,218 @@
 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10264b">
+<meta name="description" content="Thư viện kiểm tra và thi thử Toán 9 - THẦY HÒA AI">
+<title>Kiểm tra và thi thử Toán 9 - THẦY HÒA AI</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f2f6fc;
+  color:#17243b;
+  line-height:1.6;
+}
+
+a{text-decoration:none}
+
+header{
+  background:linear-gradient(120deg,#10264b,#1769d2);
+  color:white;
+  padding:35px 15px;
+  text-align:center;
+}
+
+header .logo{font-size:42px}
+header h1{font-size:clamp(24px,4vw,36px);margin:8px 0}
+header p{color:#dceaff}
+
+.container{
+  width:min(1050px,92%);
+  margin:35px auto;
+}
+
+.intro{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.intro h2{
+  color:#10264b;
+  font-size:26px;
+}
+
+.intro p{
+  color:#64748b;
+  margin-top:8px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border-radius:16px;
+  padding:24px;
+  border:1px solid #e1e8f2;
+  box-shadow:0 6px 22px #10264b12;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 28px #10264b20;
+}
+
+.icon{font-size:36px}
+
+.card h3{
+  color:#10264b;
+  margin:8px 0;
+  font-size:19px;
+}
+
+.card p{
+  color:#64748b;
+  font-size:14px;
+  margin-bottom:15px;
+}
+
+.btn{
+  display:inline-block;
+  background:#1769d2;
+  color:white;
+  padding:10px 18px;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:13px;
+}
+
+.btn:hover{background:#10264b}
+
+.note{
+  background:#e6f4ff;
+  border-left:4px solid #1769d2;
+  padding:16px;
+  margin-top:25px;
+  border-radius:8px;
+  font-size:14px;
+}
+
+.back{
+  text-align:center;
+  margin:35px 0;
+}
+
+.back a{
+  color:#1769d2;
+  font-weight:bold;
+}
+
+footer{
+  background:#10264b;
+  color:#dceaff;
+  text-align:center;
+  padding:25px 15px;
+  font-size:13px;
+}
+
+@media(max-width:650px){
+  .grid{grid-template-columns:1fr}
+  header{padding:27px 12px}
+  .container{margin:25px auto}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">📘</div>
+  <h1>KIỂM TRA VÀ THI THỬ TOÁN 9</h1>
+  <p>THẦY HÒA AI – CHINH PHỤC TOÁN HỌC</p>
+  <p>Củng cố kiến thức – Luyện đề – Chinh phục kỳ thi vào lớp 10</p>
+</header>
+
+<main class="container">
+
+  <section class="intro">
+    <h2>📚 THƯ VIỆN ĐỀ TOÁN 9</h2>
+    <p>Chọn nội dung em muốn học tập và ôn luyện.</p>
+  </section>
+
+  <section class="grid">
+
+    <article class="card">
+      <div class="icon">📝</div>
+      <h3>Kiểm tra giữa học kì I</h3>
+      <p>Đề kiểm tra, bài tập ôn tập và hướng dẫn giải.</p>
+      <a class="btn" href="./giua-ki-1/">XEM ĐỀ →</a>
+    </article>
+
+    <article class="card">
+      <div class="icon">📋</div>
+      <h3>Kiểm tra cuối học kì I</h3>
+      <p>Hệ thống đề kiểm tra và tài liệu ôn tập.</p>
+      <a class="btn" href="./cuoi-ki-1/">XEM ĐỀ →</a>
+    </article>
+
+    <article class="card">
+      <div class="icon">📚</div>
+      <h3>Kiểm tra giữa học kì II</h3>
+      <p>Ôn tập kiến thức trọng tâm và luyện đề.</p>
+      <a class="btn" href="./giua-ki-2/">XEM ĐỀ →</a>
+    </article>
+
+    <article class="card">
+      <div class="icon">📖</div>
+      <h3>Kiểm tra cuối học kì II</h3>
+      <p>Đề tổng hợp và tài liệu chuẩn bị kiểm tra.</p>
+      <a class="btn" href="./cuoi-ki-2/">XEM ĐỀ →</a>
+    </article>
+
+    <article class="card">
+      <div class="icon">🏆</div>
+      <h3>Đề thi thử vào lớp 10</h3>
+      <p>Luyện đề theo cấu trúc ôn thi vào THPT.</p>
+      <a class="btn" href="./de-thi-vao-10/">LUYỆN THI →</a>
+    </article>
+
+    <article class="card">
+      <div class="icon">✅</div>
+      <h3>Đáp án và hướng dẫn giải</h3>
+      <p>Đối chiếu kết quả và hiểu cách giải từng bài.</p>
+      <a class="btn" href="./dap-an/">XEM ĐÁP ÁN →</a>
+    </article>
+
+  </section>
+
+  <div class="note">
+    <strong>💡 Hướng dẫn học tập:</strong>
+    Em hãy tải đề về làm bài trước, sau đó đối chiếu đáp án
+    và ghi lại những câu còn sai để ôn tập.
+  </div>
+
+  <div class="back">
+    <a href="../">← QUAY LẠI CHỌN KHỐI LỚP</a>
+    &nbsp; | &nbsp;
+    <a href="/">TRANG CHỦ THẦY HÒA AI</a>
+  </div>
+
+</main>
+
+<footer>
+  © 2026 THẦY HÒA AI – CHINH PHỤC TOÁN HỌC
+  <br>
+  Học Toán dễ hiểu hơn mỗi ngày!
+</footer>
+
+</body>
+</html>
