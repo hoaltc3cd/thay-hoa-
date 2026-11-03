@@ -4,8 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Thư viện đề giữa kì 1 Toán 9 - THẦY HÒA</title>
+<title>Thư viện đề giữa kì 1 - Toán 9 | THẦY HÒA</title>
 
 <style>
 * { box-sizing: border-box; }
@@ -14,20 +13,25 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f1f5f9;
-    color: #183153;
+    color: #172554;
 }
 
 header {
-    padding: 30px 15px;
-    text-align: center;
-    color: white;
     background: linear-gradient(120deg,#102c54,#1765a5,#087eaa);
+    color: white;
+    padding: 28px 15px;
+    text-align: center;
 }
 
-header h1 { margin: 0 0 12px; }
+header h1 {
+    margin: 0 0 10px;
+    font-size: 27px;
+}
+
+header p { margin: 0; }
 
 .container {
-    max-width: 1250px;
+    max-width: 1200px;
     margin: auto;
     padding: 20px;
 }
@@ -36,83 +40,106 @@ header h1 { margin: 0 0 12px; }
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
 input {
     flex: 1;
-    min-width: 200px;
-    padding: 14px;
+    min-width: 220px;
+    padding: 13px;
     border: 1px solid #cbd5e1;
     border-radius: 9px;
     font-size: 15px;
 }
 
-button, .download {
-    padding: 12px 16px;
+button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 9px;
     background: #1261a0;
     color: white;
-    border: 0;
-    border-radius: 8px;
     cursor: pointer;
-    text-decoration: none;
     font-weight: bold;
 }
 
-.layout {
+button:hover { opacity: .85; }
+
+.main {
     display: grid;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 310px 1fr;
     gap: 18px;
 }
 
-.panel {
+.sidebar, .viewer {
     background: white;
-    border-radius: 12px;
+    border-radius: 13px;
     padding: 16px;
     box-shadow: 0 3px 12px #00000010;
-    min-width: 0;
 }
 
-.file {
+.sidebar h3, .viewer h3 {
+    margin-top: 0;
+    color: #124c7b;
+}
+
+.file-item {
     padding: 13px;
-    margin-bottom: 9px;
     border: 1px solid #e2e8f0;
     border-radius: 9px;
+    margin-bottom: 9px;
     cursor: pointer;
+    line-height: 1.5;
     overflow-wrap: anywhere;
 }
 
-.file:hover, .file.active {
+.file-item:hover, .file-item.active {
     background: #e0f2fe;
     border-color: #0284c7;
 }
 
-#viewer {
-    width: 100%;
-    height: 750px;
-    border: none;
-    background: #f8fafc;
-    border-radius: 8px;
+.file-item.active {
+    font-weight: bold;
 }
 
-.actions {
+.viewer iframe {
+    width: 100%;
+    height: 720px;
+    border: 0;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.viewer-actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
     margin-bottom: 12px;
 }
 
-.status {
-    padding: 12px;
-    color: #475569;
-    background: #f8fafc;
+.viewer-actions a {
+    background: #0f766e;
+    color: white;
+    text-decoration: none;
+    padding: 10px 14px;
     border-radius: 8px;
-    margin-bottom: 15px;
+}
+
+.empty {
+    text-align: center;
+    color: #64748b;
+    padding: 30px 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 22px;
+    color: #64748b;
 }
 
 @media(max-width:800px) {
-    .layout { grid-template-columns: 1fr; }
-    #viewer { height: 600px; }
+    .main { grid-template-columns: 1fr; }
+    .viewer iframe { height: 600px; }
+    header h1 { font-size: 21px; }
 }
 </style>
 </head>
@@ -120,57 +147,42 @@ button, .download {
 <body>
 
 <header>
-    <h1>📚 THƯ VIỆN ĐỀ KIỂM TRA GIỮA KÌ 1</h1>
-    <p>CHINH PHỤC TOÁN HỌC – THẦY HÒA AI</p>
+    <h1> THƯ VIỆN ĐỀ KIỂM TRA GIỮA KÌ 1</h1>
+    <p>CHINH PHỤC TOÁN HỌC – THẦY HÒA</p>
     <p>Học tập chủ động – Rèn luyện tư duy – Bứt phá điểm số</p>
 </header>
 
 <div class="container">
 
-    <div class="status" id="status">
-        ⏳ Đang kết nối GitHub để tải danh sách đề...
-    </div>
-
     <div class="toolbar">
         <input
             id="search"
-            type="search"
-            placeholder="🔍 Tìm kiếm đề kiểm tra..."
-        >
-
-        <button onclick="loadPDFs()">
-            🔄 Làm mới danh sách
-        </button>
+            type="text"
+            placeholder=" Tìm kiếm tên đề kiểm tra..."
+            oninput="renderList()">
     </div>
 
-    <div class="layout">
+    <div class="main">
 
-        <div class="panel">
-            <h3>📖 DANH SÁCH ĐỀ PDF</h3>
+        <div class="sidebar">
+            <h3> DANH SÁCH ĐỀ</h3>
             <div id="fileList"></div>
         </div>
 
-        <div class="panel">
-            <h3 id="title">📄 Chọn đề để xem</h3>
+        <div class="viewer">
+            <h3 id="currentTitle">📄 Chọn một đề để xem</h3>
 
-            <div class="actions">
-                <a id="download"
-                   class="download"
-                   href="#"
-                   target="_blank"
-                   rel="noopener"
-                   style="display:none">
-                   ⬇ Tải PDF
+            <div class="viewer-actions">
+                <a id="downloadBtn" href="#" download>
+                     Tải đề PDF
                 </a>
-
                 <button onclick="openNewTab()">
                     ↗ Mở tab mới
                 </button>
             </div>
 
-            <iframe
-                id="viewer"
-                title="Xem đề kiểm tra PDF"
+            <iframe id="pdfViewer"
+                title="Trình xem đề PDF"
                 src="about:blank">
             </iframe>
         </div>
@@ -178,159 +190,94 @@ button, .download {
     </div>
 </div>
 
+<footer>
+    ©  THẦY HÒA – Cổng học tập số
+</footer>
+
 <script>
 
-// =====================================
-// THÔNG TIN REPOSITORY GITHUB
-// =====================================
+// ==================================
+// DANH SÁCH FILE PDF CẦN HIỂN THỊ
+// ==================================
 
-const OWNER = "hoaltc3cd";
-const REPO = "thay-hoa-";
-const BRANCH = "main";
+const pdfFiles = [
 
-const FOLDER =
-"Toan-9/Kiem-tra/De-giua-ki-1";
+    {
+        name: "Đề trường THCS Nguyễn Trải – Quảng Ninh",
+        file: "./de-giua-hoc-ki-1-toan-9-nam-2026-2027-truong-thcs-nguyen-trai-quang-ninh.pdf"
+    },
 
-const API =
-`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FOLDER}?ref=${BRANCH}`;
-
-let pdfFiles = [];
-let selectedFile = null;
-
-// =====================================
-// TẢI DANH SÁCH PDF TỰ ĐỘNG
-// =====================================
-
-async function loadPDFs() {
-
-    const status = document.getElementById("status");
-    const list = document.getElementById("fileList");
-
-    status.textContent = "⏳ Đang đọc dữ liệu từ GitHub...";
-    list.replaceChildren();
-
-    try {
-
-        const response = await fetch(API, {
-            headers: {
-                "Accept": "application/vnd.github+json"
-            },
-            cache: "no-store"
-        });
-
-        if (!response.ok) {
-            throw new Error(
-                response.status === 404
-                ? "Không tìm thấy thư mục. Hãy kiểm tra tên thư mục, repository và nhánh main."
-                : response.status === 403
-                ? "GitHub tạm giới hạn số lượt truy cập API. Vui lòng thử lại sau."
-                : "GitHub trả về lỗi HTTP " + response.status
-            );
-        }
-
-        const data = await response.json();
-
-        if (!Array.isArray(data)) {
-            throw new Error("Dữ liệu thư mục GitHub không hợp lệ.");
-        }
-
-        pdfFiles = data.filter(file =>
-            file.type === "file" &&
-            file.name.toLowerCase().endsWith(".pdf")
-        ).sort((a,b) =>
-            a.name.localeCompare(b.name, "vi")
-        );
-
-        selectedFile = null;
-
-        document.getElementById("viewer").src = "about:blank";
-        document.getElementById("title").textContent =
-            " Chọn đề để xem";
-
-        document.getElementById("download").style.display = "none";
-
-        renderList();
-
-        status.textContent =
-            " Đã tìm thấy " + pdfFiles.length +
-            " file PDF trong thư mục GitHub.";
-
-    } catch(error) {
-
-        status.textContent = "⚠️ " + error.message;
-
-        list.textContent =
-            "Không thể tải danh sách đề. Hãy kiểm tra kết nối và cấu hình GitHub.";
-
+    {
+        name: "Đề trường THCS Trọng Điểm – Quảng Ninh",
+        file: "./de-giua-hoc-ky-1-toan-9-nam-2026-2027-truong-thcs-trong-diem-quang-ninh.pdf"
     }
-}
 
-// =====================================
+];
+
+// ==================================
 // HIỂN THỊ DANH SÁCH
-// =====================================
+// ==================================
+
+let selectedFile = null;
 
 function renderList() {
 
-    const keyword = document
-        .getElementById("search")
-        .value.toLowerCase();
+    const keyword =
+        document.getElementById("search").value.toLowerCase();
 
     const list = document.getElementById("fileList");
 
-    list.replaceChildren();
-
-    const filtered = pdfFiles.filter(file =>
-        file.name.toLowerCase().includes(keyword)
+    const filtered = pdfFiles.filter(item =>
+        item.name.toLowerCase().includes(keyword)
     );
 
-    if (!filtered.length) {
-        list.textContent = "Chưa tìm thấy file PDF phù hợp.";
+    list.innerHTML = "";
+
+    if (filtered.length === 0) {
+        list.innerHTML =
+            '<div class="empty">Không tìm thấy đề kiểm tra.</div>';
         return;
     }
 
-    filtered.forEach(file => {
+    filtered.forEach(item => {
 
-        const item = document.createElement("div");
+        const div = document.createElement("div");
 
-        item.className = "file" +
-            (selectedFile?.name === file.name ? " active" : "");
+        div.className = "file-item" +
+            (selectedFile === item ? " active" : "");
 
-        item.textContent = "📘 " + file.name;
+        div.textContent = "📘 " + item.name;
 
-        item.onclick = () => openPDF(file);
+        div.onclick = () => openPDF(item);
 
-        list.appendChild(item);
+        list.appendChild(div);
 
     });
+
 }
 
-// =====================================
+// ==================================
 // MỞ FILE PDF
-// =====================================
+// ==================================
 
-function openPDF(file) {
+function openPDF(item) {
 
-    selectedFile = file;
+    selectedFile = item;
 
-    const url = file.download_url;
+    document.getElementById("currentTitle").textContent =
+        "📄 " + item.name;
 
-    document.getElementById("title").textContent =
-        "📄 " + file.name;
+    document.getElementById("pdfViewer").src = item.file;
 
-    document.getElementById("viewer").src = url;
-
-    const download = document.getElementById("download");
-
-    download.href = url;
-    download.style.display = "inline-block";
+    document.getElementById("downloadBtn").href = item.file;
 
     renderList();
 
 }
 
-// =====================================
-// MỞ PDF TRONG TAB MỚI
-// =====================================
+// ==================================
+// MỞ PDF Ở TAB MỚI
+// ==================================
 
 function openNewTab() {
 
@@ -339,28 +286,14 @@ function openNewTab() {
         return;
     }
 
-    window.open(
-        selectedFile.download_url,
-        "_blank",
-        "noopener"
-    );
+    window.open(selectedFile.file, "_blank");
 
 }
 
-// =====================================
-// TÌM KIẾM VÀ KHỞI ĐỘNG
-// =====================================
-
-document.getElementById("search")
-    .addEventListener("input", renderList);
-
-loadPDFs();
+// KHỞI ĐỘNG
+renderList();
 
 </script>
-
-<footer style="text-align:center;padding:25px;color:#64748b">
-    © THẦY HÒA – Cổng học tập số
-</footer>
 
 </body>
 </html>
