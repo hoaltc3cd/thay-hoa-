@@ -6,13 +6,260 @@
   <title> Thư viện tài liệu - THẦY HÒA </title>
 </head>
 <body>
-  <h1> THƯ VIỆN TÀI LIỆU TOÁN 9–12</h1>
-  <p>Chào mừng em đến với thư viện tài liệu THẦY HÒA.</p>
- <ul>
-    <li><a href="./toan-9/">Toán 9</a></li>
-    <li><a href="./toan-10/">Toán 10</a></li>
-    <li><a href="./toan-11/">Toán 11</a></li>
-    <li><a href="./toan-12/">Toán 12</a></li>
-  </ul>
+ 
+<!-- ===== THƯ VIỆN TÀI LIỆU TOÁN 9-12 ===== -->
+
+<section class="library-section">
+
+  <div class="library-header">
+    <div class="library-icon">📚</div>
+
+    <div class="library-label">THẦY HÒA AI EDUCATION</div>
+
+    <h1>THƯ VIỆN TÀI LIỆU TOÁN 9–12</h1>
+
+    <p>
+      Chào mừng em đến với thư viện tài liệu THẦY HÒA.
+      <br>
+      Học chắc kiến thức – Luyện tập thông minh – Chinh phục điểm cao!
+    </p>
+  </div>
+
+  <div class="library-grid">
+
+    <!-- TOÁN 9 -->
+    <a href="https://thay-hoa.vercel.app/Tai-lieu/toan-9/"
+       class="library-card grade-9">
+
+      <div class="grade-icon">📐</div>
+      <div class="grade-tag">KHỐI LỚP 9</div>
+      <h2>TOÁN 9</h2>
+      <p>Kiến thức nền tảng<br>Ôn thi tuyển sinh lớp 10</p>
+      <span class="library-button">Khám phá thư viện ↗</span>
+
+    </a>
+
+    <!-- TOÁN 10 -->
+    <a href="https://thay-hoa.vercel.app/Tai-lieu/toan-10/"
+       class="library-card grade-10">
+
+      <div class="grade-icon">📊</div>
+      <div class="grade-tag">KHỐI LỚP 10</div>
+      <h2>TOÁN 10</h2>
+      <p>Khám phá kiến thức mới<br>Rèn luyện tư duy toán học</p>
+      <span class="library-button">Khám phá thư viện ↗</span>
+
+    </a>
+
+    <!-- TOÁN 11 -->
+    <a href="https://thay-hoa.vercel.app/Tai-lieu/toan-11/"
+       class="library-card grade-11">
+
+      <div class="grade-icon">📈</div>
+      <div class="grade-tag">KHỐI LỚP 11</div>
+      <h2>TOÁN 11</h2>
+      <p>Phát triển tư duy<br>Chinh phục kiến thức nâng cao</p>
+      <span class="library-button">Khám phá thư viện ↗</span>
+
+    </a>
+
+    <!-- TOÁN 12 -->
+    <a href="https://thay-hoa.vercel.app/Tai-lieu/toan-12/"
+       class="library-card grade-12">
+
+      <div class="grade-icon">🎓</div>
+      <div class="grade-tag">KHỐI LỚP 12</div>
+      <h2>TOÁN 12</h2>
+      <p>Ôn thi tốt nghiệp THPT<br>Bứt phá mục tiêu điểm cao</p>
+      <span class="library-button">Khám phá thư viện ↗</span>
+
+    </a>
+
+  </div>
+
+  <div class="library-footer">
+    <span>✨</span>
+    <strong>CHINH PHỤC TOÁN HỌC – THẦY HÒA AI</strong>
+    <p>Đồng hành cùng em trên hành trình chinh phục tri thức.</p>
+  </div>
+
+</section>
+
+<style>
+
+/* KHUNG CHÍNH */
+.library-section {
+  max-width: 1150px;
+  margin: 30px auto;
+  padding: 30px 20px;
+  font-family: Arial, sans-serif;
+  color: #183153;
+}
+
+/* TIÊU ĐỀ */
+.library-header {
+  text-align: center;
+  padding: 35px 15px;
+  background: linear-gradient(135deg, #102b50, #155c91, #563c91);
+  border-radius: 22px;
+  color: white;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(16,43,80,.2);
+}
+
+.library-icon {
+  font-size: 52px;
+  margin-bottom: 10px;
+}
+
+.library-label {
+  color: #8eeaff;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.library-header h1 {
+  font-size: clamp(23px, 4vw, 35px);
+  margin: 15px 0;
+  font-weight: 800;
+}
+
+.library-header p {
+  color: #e2f3ff;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+/* LƯỚI THẺ */
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+/* THẺ TÀI LIỆU */
+.library-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none !important;
+  padding: 28px 18px;
+  min-height: 255px;
+  border-radius: 20px;
+  border: 1px solid #dce8f5;
+  background: linear-gradient(145deg, #ffffff, #f3f8ff);
+  box-shadow: 0 5px 18px rgba(0,0,0,.06);
+  transition: all .3s ease;
+  overflow: hidden;
+  color: #17385e !important;
+}
+
+.library-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 30px rgba(26,100,170,.17);
+}
+
+.grade-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  transition: transform .3s ease;
+}
+
+.library-card:hover .grade-icon {
+  transform: scale(1.2) rotate(-5deg);
+}
+
+.grade-tag {
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #64809c;
+}
+
+.library-card h2 {
+  font-size: 27px;
+  font-weight: 800;
+  margin: 10px 0;
+}
+
+.library-card p {
+  font-size: 14px;
+  color: #60748a;
+  line-height: 1.7;
+  margin: 5px 0 18px;
+}
+
+/* NÚT KHÁM PHÁ */
+.library-button {
+  display: inline-block;
+  padding: 11px 20px;
+  border-radius: 30px;
+  background: #e7f3ff;
+  color: #1268ad;
+  font-weight: bold;
+  font-size: 13px;
+  margin-top: auto;
+}
+
+/* MÀU TỪNG KHỐI */
+.grade-9 { border-top: 5px solid #2496e8; }
+.grade-10 { border-top: 5px solid #16a085; }
+.grade-11 { border-top: 5px solid #9563d5; }
+.grade-12 { border-top: 5px solid #e59b37; }
+
+.grade-9 h2 { color: #2184d1; }
+.grade-10 h2 { color: #119477; }
+.grade-11 h2 { color: #8652c4; }
+.grade-12 h2 { color: #d88b22; }
+
+/* CHÂN TRANG */
+.library-footer {
+  text-align: center;
+  margin-top: 35px;
+  padding: 22px 10px;
+  border-radius: 16px;
+  background: #eef6ff;
+  color: #244d78;
+  line-height: 1.7;
+}
+
+.library-footer span {
+  font-size: 25px;
+}
+
+.library-footer p {
+  font-size: 13px;
+  color: #71869b;
+}
+
+/* ĐIỆN THOẠI */
+@media (max-width: 600px) {
+
+  .library-section {
+    padding: 15px 10px;
+  }
+
+  .library-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .library-card {
+    min-height: 230px;
+  }
+
+  .library-header {
+    padding: 25px 12px;
+  }
+
+}
+
+</style>
+
+<!-- ===== KẾT THÚC THƯ VIỆN TOÁN 9-12 ===== -->
+
 </body>
 </html>
