@@ -1,1 +1,474 @@
 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Thư viện đề giữa kì 1 - Toán 9 | THẦY HÒA</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #172554;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(120deg,#102c54,#1765a5,#087eaa);
+    color: white;
+    padding: 30px 15px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0 0 12px;
+    font-size: 27px;
+}
+
+header p {
+    margin: 7px 0;
+    line-height: 1.5;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* THANH TÌM KIẾM */
+.toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px #0284c720;
+}
+
+/* BỐ CỤC CHÍNH */
+.main {
+    display: grid;
+    grid-template-columns: 310px 1fr;
+    gap: 18px;
+    align-items: start;
+}
+
+.sidebar,
+.viewer {
+    background: white;
+    border-radius: 13px;
+    padding: 18px;
+    box-shadow: 0 3px 12px #00000010;
+    min-width: 0;
+}
+
+.sidebar h3,
+.viewer h3 {
+    margin-top: 0;
+    color: #124c7b;
+}
+
+/* DANH SÁCH TÀI LIỆU */
+.file-item {
+    padding: 13px;
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+    margin-bottom: 9px;
+    cursor: pointer;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    transition: .2s;
+}
+
+.file-item:hover,
+.file-item.active {
+    background: #e0f2fe;
+    border-color: #0284c7;
+}
+
+.file-item.active {
+    font-weight: bold;
+}
+
+.file-item:hover {
+    transform: translateX(3px);
+}
+
+/* NÚT CHỨC NĂNG */
+.viewer-actions {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-bottom: 13px;
+}
+
+.viewer-actions a,
+.viewer-actions button {
+    display: inline-block;
+    border: none;
+    background: #0f766e;
+    color: white;
+    text-decoration: none;
+    padding: 11px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.viewer-actions button {
+    background: #1261a0;
+}
+
+.viewer-actions a:hover,
+.viewer-actions button:hover {
+    opacity: .85;
+}
+
+/* KHUNG XEM PDF */
+.viewer iframe {
+    display: block;
+    width: 100%;
+    height: 720px;
+    border: 0;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+/* THÔNG BÁO WORD */
+.docx-notice {
+    padding: 55px 20px;
+    text-align: center;
+    background: #f0f9ff;
+    border: 1px dashed #0284c7;
+    border-radius: 10px;
+    color: #124c7b;
+    line-height: 1.8;
+}
+
+.docx-notice h3 {
+    color: #1261a0;
+}
+
+/* THÔNG BÁO */
+.empty {
+    text-align: center;
+    color: #64748b;
+    padding: 30px 10px;
+}
+
+.hint {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 22px;
+    color: #64748b;
+}
+
+/* ĐIỆN THOẠI */
+@media(max-width:800px) {
+
+    .main {
+        grid-template-columns: 1fr;
+    }
+
+    .viewer iframe {
+        height: 600px;
+    }
+
+    header h1 {
+        font-size: 21px;
+    }
+
+    .container {
+        padding: 12px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <h1>📚 THƯ VIỆN ĐỀ KIỂM TRA GIỮA KÌ 1</h1>
+    <p><strong>CHINH PHỤC TOÁN HỌC – THẦY HÒA</strong></p>
+    <p>Học tập chủ động – Rèn luyện tư duy – Bứt phá điểm số</p>
+</header>
+
+<div class="container">
+
+    <!-- TÌM KIẾM -->
+    <div class="toolbar">
+        <input
+            id="search"
+            type="text"
+            placeholder="🔍 Tìm kiếm tên đề kiểm tra..."
+            oninput="renderList()">
+    </div>
+
+    <!-- NỘI DUNG -->
+    <div class="main">
+
+        <!-- DANH SÁCH -->
+        <div class="sidebar">
+
+            <h3>📂 DANH SÁCH ĐỀ</h3>
+
+            <div id="fileList"></div>
+
+            <p class="hint">
+                Chọn một tài liệu để xem hoặc tải xuống.
+            </p>
+
+        </div>
+
+        <!-- KHUNG XEM -->
+        <div class="viewer">
+
+            <h3 id="currentTitle">
+                📄 Chọn một đề để xem
+            </h3>
+
+            <div class="viewer-actions">
+
+                <a
+                    id="downloadBtn"
+                    href="#"
+                    download
+                    style="display:none">
+                    ⬇ Tải tài liệu
+                </a>
+
+                <button
+                    id="newTabBtn"
+                    type="button"
+                    onclick="openNewTab()">
+                    ↗ Mở tab mới
+                </button>
+
+            </div>
+
+            <!-- HIỂN THỊ PDF -->
+            <iframe
+                id="pdfViewer"
+                title="Trình xem đề PDF"
+                src="about:blank">
+            </iframe>
+
+            <!-- HIỂN THỊ WORD -->
+            <div
+                id="docxNotice"
+                class="docx-notice"
+                hidden>
+
+                <h3>📝 TÀI LIỆU WORD</h3>
+
+                <p>
+                    Tài liệu này có định dạng Microsoft Word (.docx).
+                </p>
+
+                <p>
+                    Nhấn nút <strong>Tải tài liệu</strong>
+                    để tải về và mở bằng Word.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    © THẦY HÒA – Cổng học tập số
+</footer>
+
+<script>
+
+// ======================================
+// DANH SÁCH TÀI LIỆU
+// ======================================
+
+const pdfFiles = [
+    {
+        name: "Đề cương ôn giữa kì 1 (PDF)",
+        file: "./De-cuong-on-tap-giua-HK1-Toan-9-nam-26-27.pdf",
+        type: "pdf"
+    },
+    {
+        name: "Đề cương ôn giữa kì 1 (Word)",
+        file: "./De-cuong-on-tap-giua-HK1-Toan-9-nam-26-27.docx",
+        type: "docx"
+    },
+    {
+        name: "Đề trường THCS Nguyễn Trãi – Quảng Ninh",
+        file: "./de-giua-hoc-ki-1-toan-9-nam-2026-2027-truong-thcs-nguyen-trai-quang-ninh.pdf",
+        type: "pdf"
+    },
+    {
+        name: "Đề trường THCS Trọng Điểm – Quảng Ninh",
+        file: "./de-giua-hoc-ky-1-toan-9-nam-2026-2027-truong-thcs-trong-diem-quang-ninh.pdf",
+        type: "pdf"
+    }
+];
+
+let selectedFile = null;
+
+// ======================================
+// HIỂN THỊ DANH SÁCH
+// ======================================
+
+function renderList() {
+
+    const list = document.getElementById("fileList");
+    const search = document.getElementById("search");
+
+    if (!list || !search) {
+        console.error("Không tìm thấy fileList hoặc search trong HTML!");
+        return;
+    }
+
+    const keyword = search.value.trim().toLowerCase();
+
+    const filtered = pdfFiles.filter(item =>
+        item.name.toLowerCase().includes(keyword)
+    );
+
+    list.innerHTML = "";
+
+    if (filtered.length === 0) {
+        list.innerHTML =
+            '<div class="empty">Không tìm thấy đề kiểm tra.</div>';
+        return;
+    }
+
+    filtered.forEach(item => {
+
+        const div = document.createElement("div");
+
+        div.className = "file-item";
+
+        if (selectedFile === item) {
+            div.classList.add("active");
+        }
+
+        div.textContent =
+            (item.type === "pdf" ? "📕 " : "📝 ") + item.name;
+
+        div.addEventListener("click", function() {
+            openPDF(item);
+        });
+
+        list.appendChild(div);
+
+    });
+
+}
+
+// ======================================
+// MỞ TÀI LIỆU
+// ======================================
+
+function openPDF(item) {
+
+    selectedFile = item;
+
+    const viewer = document.getElementById("pdfViewer");
+    const notice = document.getElementById("docxNotice");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    document.getElementById("currentTitle").textContent =
+        "📄 " + item.name;
+
+    downloadBtn.href = item.file;
+    downloadBtn.style.display = "inline-block";
+
+    if (item.type === "pdf") {
+
+        viewer.style.display = "block";
+        viewer.src = item.file;
+
+        notice.hidden = true;
+
+        downloadBtn.removeAttribute("download");
+        downloadBtn.textContent = "⬇ Tải đề PDF";
+
+    } else {
+
+        viewer.style.display = "none";
+        viewer.src = "about:blank";
+
+        notice.hidden = false;
+
+        downloadBtn.setAttribute("download", "");
+        downloadBtn.textContent = "⬇ Tải tài liệu Word";
+
+    }
+
+    renderList();
+}
+
+// ======================================
+// MỞ TAB MỚI
+// ======================================
+
+function openNewTab() {
+
+    if (!selectedFile) {
+        alert("Vui lòng chọn một đề kiểm tra!");
+        return;
+    }
+
+    if (selectedFile.type === "pdf") {
+        window.open(selectedFile.file, "_blank", "noopener");
+    } else {
+        document.getElementById("downloadBtn").click();
+    }
+}
+
+// ======================================
+// KHỞI ĐỘNG
+// ======================================
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    renderList();
+
+    document.getElementById("search").addEventListener("input", renderList);
+
+});
+
+</script>
+
+</body>
+</html>
