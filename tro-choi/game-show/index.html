@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAME SHOW - THẦY HÒA AI</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#071329;
+    color:#fff;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(120deg,#101f46,#102f60,#172554);
+    padding:25px 5%;
+    border-bottom:1px solid #38bdf855;
+}
+
+.header h1{
+    font-size:30px;
+    color:#38d9ff;
+    font-weight:900;
+}
+
+.header p{
+    color:#c5d8f5;
+    margin-top:10px;
+    line-height:1.6;
+}
+
+.brand{
+    color:#facc15;
+    font-weight:bold;
+    letter-spacing:2px;
+    margin-bottom:12px;
+}
+
+/* HERO */
+
+.hero{
+    text-align:center;
+    padding:55px 15px;
+    background:
+    radial-gradient(circle at center,#17417c,#071329 70%);
+}
+
+.hero h2{
+    font-size:clamp(30px,5vw,48px);
+    color:#facc15;
+    margin-bottom:15px;
+    text-shadow:0 0 20px #facc1566;
+}
+
+.hero p{
+    color:#c5d8f5;
+    font-size:17px;
+    line-height:1.7;
+}
+
+.hero-button{
+    display:inline-block;
+    margin-top:25px;
+    padding:14px 28px;
+    border-radius:35px;
+    background:linear-gradient(90deg,#06b6d4,#6366f1);
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 25px #22d3ee66;
+    transition:.3s;
+}
+
+.hero-button:hover{
+    transform:scale(1.06);
+}
+
+/* MAIN */
+
+.container{
+    width:92%;
+    max-width:1250px;
+    margin:40px auto;
+}
+
+.section-title{
+    font-size:25px;
+    color:#38d9ff;
+    margin-bottom:10px;
+}
+
+.section-desc{
+    color:#a9bad6;
+    margin-bottom:25px;
+    line-height:1.6;
+}
+
+/* GAME GRID */
+
+.game-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:22px;
+}
+
+.game-card{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(145deg,#142d55,#0d1c38);
+    border:1px solid #38bdf844;
+    border-radius:20px;
+    padding:25px;
+    min-height:260px;
+    transition:.35s;
+    display:flex;
+    flex-direction:column;
+}
+
+.game-card:hover{
+    transform:translateY(-8px);
+    border-color:#38d9ff;
+    box-shadow:0 12px 35px #0ea5e955;
+}
+
+.game-icon{
+    width:70px;
+    height:70px;
+    display:grid;
+    place-items:center;
+    font-size:38px;
+    background:#ffffff12;
+    border-radius:18px;
+    margin-bottom:18px;
+}
+
+.game-card h3{
+    color:#facc15;
+    font-size:21px;
+    margin-bottom:12px;
+}
+
+.game-card p{
+    color:#c2d3ed;
+    font-size:14px;
+    line-height:1.7;
+    flex:1;
+}
+
+.game-button{
+    display:block;
+    text-align:center;
+    margin-top:20px;
+    padding:12px;
+    border-radius:12px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+    background:linear-gradient(90deg,#087ea4,#4f46e5);
+    transition:.3s;
+}
+
+.game-button:hover{
+    background:linear-gradient(90deg,#0891b2,#7c3aed);
+    letter-spacing:.5px;
+}
+
+/* FEATURE */
+
+.feature{
+    margin-top:45px;
+    padding:30px;
+    border-radius:22px;
+    background:linear-gradient(120deg,#172554,#164e63);
+    border:1px solid #38bdf855;
+    text-align:center;
+}
+
+.feature h2{
+    color:#facc15;
+    margin-bottom:15px;
+}
+
+.feature p{
+    color:#dbeafe;
+    line-height:1.8;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:35px 15px;
+    color:#8ca6c9;
+    border-top:1px solid #ffffff18;
+    line-height:1.8;
+}
+
+@media(max-width:600px){
+    .header h1{font-size:24px;}
+    .hero{padding:40px 15px;}
+    .container{width:94%;}
+    .game-card{min-height:240px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+<div class="brand">✦ THẦY HÒA AI ✦</div>
+
+<h1>🎮 TRUNG TÂM GAME SHOW TOÁN HỌC</h1>
+
+<p>
+Học vui mỗi ngày – Chinh phục thử thách – Khám phá tài năng Toán học.
+</p>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h2>🌟 MATH GAME SHOW 🌟</h2>
+
+<p>
+Bước lên sân khấu – Thể hiện bản lĩnh –<br>
+Trở thành nhà vô địch Toán học!
+</p>
+
+<a href="#game-list" class="hero-button">
+🚀 KHÁM PHÁ TRÒ CHƠI
+</a>
+
+</section>
+
+<!-- GAME LIST -->
+
+<main class="container" id="game-list">
+
+<h2 class="section-title">
+🏆 SÂN KHẤU GAME SHOW
+</h2>
+
+<p class="section-desc">
+Chọn chương trình yêu thích và bắt đầu hành trình chinh phục tri thức.
+</p>
+
+<div class="game-grid">
+
+<!-- GAME 1 -->
+
+<div class="game-card">
+
+<div class="game-icon">💰</div>
+
+<h3>AI LÀ TRIỆU PHÚ?</h3>
+
+<p>
+15 câu hỏi Toán học tăng dần độ khó.
+Trợ giúp 50:50, hỏi chuyên gia.
+Chinh phục đỉnh cao triệu phú.
+</p>
+
+<a class="game-button"
+href="/tro-choi/game-show/ai-la-trieu-phu/">
+🎤 CHƠI NGAY
+</a>
+
+</div>
+
+<!-- GAME 2 -->
+
+<div class="game-card">
+
+<div class="game-icon">🔔</div>
+
+<h3>RUNG CHUÔNG VÀNG</h3>
+
+<p>
+Vượt qua những câu hỏi hóc búa.
+Thử thách kiến thức và bản lĩnh.
+Ai sẽ là người chiến thắng?
+</p>
+
+<a class="game-button"
+href="/tro-choi/game-show/rung-chuong-vang/">
+🏆 THAM GIA NGAY
+</a>
+
+</div>
+
+<!-- GAME 3 -->
+
+<div class="game-card">
+
+<div class="game-icon">🎡</div>
+
+<h3>VÒNG QUAY MAY MẮN</h3>
+
+<p>
+Quay vòng quay bí ẩn.
+Khám phá câu hỏi bất ngờ.
+Nhận điểm thưởng thú vị.
+</p>
+
+<a class="game-button"
+href="/tro-choi/game-show/vong-quay-may-man/">
+🎯 THỬ VẬN MAY
+</a>
+
+</div>
+
+<!-- GAME 4 -->
+
+<div class="game-card">
+
+<div class="game-icon">⚔️</div>
+
+<h3>ĐẤU TRƯỜNG TOÁN HỌC</h3>
+
+<p>
+Đối đầu với bạn bè.
+Trả lời nhanh – ghi điểm cao.
+Trở thành nhà vô địch.
+</p>
+
+<a class="game-button"
+href="/tro-choi/game-show/dau-truong-toan-hoc/">
+⚡ VÀO ĐẤU TRƯỜNG
+</a>
+
+</div>
+
+<!-- GAME 5 -->
+
+<div class="game-card">
+
+<div class="game-icon">🗝️</div>
+
+<h3>TRUY TÌM KHO BÁU</h3>
+
+<p>
+Giải mã những bí ẩn Toán học.
+Mở khóa từng thử thách.
+Tìm kiếm kho báu tri thức.
+</p>
+
+<a class="game-button"
+href="/tro-choi/game-show/truy-tim-kho-bau/">
+🗺️ KHÁM PHÁ
+</a>
+
+</div>
+
+<!-- GAME 6 -->
+
+<div class="game-card">
+
+<div class="game-icon">🚗</div>
+
+<h3>ĐƯỜNG ĐUA TOÁN HỌC</h3>
+
+<p>
+Giải toán thật nhanh.
+Tăng tốc vượt đối thủ.
+Về đích với số điểm cao nhất.
+</p>
+
+<a class="game-button"
+href="/tro-choi/game-show/duong-dua-toan-hoc/">
+🏁 XUẤT PHÁT
+</a>
+
+</div>
+
+<!-- GAME 7 -->
+
+<div class="game-card">
+
+<div class="game-icon">🕵️</div>
+
+<h3>THÁM TỬ TOÁN HỌC</h3>
+
+<p>
+Tìm kiếm manh mối.
+Phát hiện lời giải sai.
+Phá án bằng tư duy logic.
+</p>
+
+<a class="game-button"
+href="/tro-choi/game-show/tham-tu-toan-hoc/">
+🔍 PHÁ ÁN NGAY
+</a>
+
+</div>
+
+<!-- GAME 8 -->
+
+<div class="game-card">
+
+<div class="game-icon">👾</div>
+
+<h3>ĐẠI CHIẾN TRÙM CUỐI</h3>
+
+<p>
+Đối đầu những thử thách khó.
+Dùng kiến thức để đánh bại trùm.
+Nhận huy hiệu chiến thắng.
+</p>
+
+<a class="game-button"
+href="/tro-choi/game-show/dai-chien-trum-cuoi/">
+🔥 CHIẾN ĐẤU
+</a>
+
+</div>
+
+</div>
+
+<!-- FEATURE -->
+
+<section class="feature">
+
+<h2>🌟 THỬ THÁCH BẢN LĨNH – CHINH PHỤC ĐỈNH CAO</h2>
+
+<p>
+Mỗi trò chơi là một hành trình khám phá.
+Mỗi câu trả lời đúng là một bước tiến bộ.
+Hãy cùng THẦY HÒA AI biến Toán học thành niềm đam mê!
+</p>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+<strong>THẦY HÒA AI</strong><br>
+
+CHINH PHỤC TOÁN HỌC – HỌC VUI MỖI NGÀY<br>
+
+© 2026 – Hệ sinh thái học tập số THẦY HÒA AI
+
+</footer>
+
+</body>
+</html>
