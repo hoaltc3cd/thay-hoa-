@@ -316,58 +316,49 @@ footer {
 <script>
 
 // ======================================
-// 1. DANH SÁCH TÀI LIỆU
+// DANH SÁCH TÀI LIỆU
 // ======================================
 
 const pdfFiles = [
-
     {
         name: "Đề cương ôn giữa kì 1 (PDF)",
         file: "./De-cuong-on-tap-giua-HK1-Toan-9-nam-26-27.pdf",
         type: "pdf"
     },
-
     {
         name: "Đề cương ôn giữa kì 1 (Word)",
         file: "./De-cuong-on-tap-giua-HK1-Toan-9-nam-26-27.docx",
         type: "docx"
     },
-
     {
         name: "Đề trường THCS Nguyễn Trãi – Quảng Ninh",
         file: "./de-giua-hoc-ki-1-toan-9-nam-2026-2027-truong-thcs-nguyen-trai-quang-ninh.pdf",
         type: "pdf"
     },
-
     {
         name: "Đề trường THCS Trọng Điểm – Quảng Ninh",
         file: "./de-giua-hoc-ky-1-toan-9-nam-2026-2027-truong-thcs-trong-diem-quang-ninh.pdf",
         type: "pdf"
     }
-
 ];
-
-
-// ======================================
-// 2. BIẾN LƯU TÀI LIỆU ĐANG CHỌN
-// ======================================
 
 let selectedFile = null;
 
-
 // ======================================
-// 3. HIỂN THỊ DANH SÁCH
+// HIỂN THỊ DANH SÁCH
 // ======================================
 
 function renderList() {
 
-    const searchInput = document.getElementById("search");
-
-    const keyword = searchInput.value
-        .trim()
-        .toLowerCase();
-
     const list = document.getElementById("fileList");
+    const search = document.getElementById("search");
+
+    if (!list || !search) {
+        console.error("Không tìm thấy fileList hoặc search trong HTML!");
+        return;
+    }
+
+    const keyword = search.value.trim().toLowerCase();
 
     const filtered = pdfFiles.filter(item =>
         item.name.toLowerCase().includes(keyword)
@@ -376,10 +367,8 @@ function renderList() {
     list.innerHTML = "";
 
     if (filtered.length === 0) {
-
         list.innerHTML =
             '<div class="empty">Không tìm thấy đề kiểm tra.</div>';
-
         return;
     }
 
@@ -387,15 +376,18 @@ function renderList() {
 
         const div = document.createElement("div");
 
-        div.className = "file-item" +
-            (selectedFile === item ? " active" : "");
+        div.className = "file-item";
+
+        if (selectedFile === item) {
+            div.classList.add("active");
+        }
 
         div.textContent =
             (item.type === "pdf" ? "📕 " : "📝 ") + item.name;
 
-        div.onclick = function() {
+        div.addEventListener("click", function() {
             openPDF(item);
-        };
+        });
 
         list.appendChild(div);
 
@@ -403,9 +395,8 @@ function renderList() {
 
 }
 
-
 // ======================================
-// 4. MỞ TÀI LIỆU
+// MỞ TÀI LIỆU
 // ======================================
 
 function openPDF(item) {
@@ -413,92 +404,69 @@ function openPDF(item) {
     selectedFile = item;
 
     const viewer = document.getElementById("pdfViewer");
-
     const notice = document.getElementById("docxNotice");
-
     const downloadBtn = document.getElementById("downloadBtn");
-
-    const newTabBtn = document.getElementById("newTabBtn");
 
     document.getElementById("currentTitle").textContent =
         "📄 " + item.name;
 
     downloadBtn.href = item.file;
-
     downloadBtn.style.display = "inline-block";
 
     if (item.type === "pdf") {
 
-        // HIỂN THỊ PDF
-
         viewer.style.display = "block";
-
         viewer.src = item.file;
 
         notice.hidden = true;
 
         downloadBtn.removeAttribute("download");
-
         downloadBtn.textContent = "⬇ Tải đề PDF";
-
-        newTabBtn.textContent = "↗ Mở PDF ở tab mới";
 
     } else {
 
-        // HIỂN THỊ THÔNG BÁO WORD
-
         viewer.style.display = "none";
-
         viewer.src = "about:blank";
 
         notice.hidden = false;
 
         downloadBtn.setAttribute("download", "");
-
         downloadBtn.textContent = "⬇ Tải tài liệu Word";
-
-        newTabBtn.textContent = "⬇ Tải tài liệu Word";
 
     }
 
     renderList();
-
 }
 
-
 // ======================================
-// 5. MỞ PDF Ở TAB MỚI
+// MỞ TAB MỚI
 // ======================================
 
 function openNewTab() {
 
     if (!selectedFile) {
-
         alert("Vui lòng chọn một đề kiểm tra!");
-
         return;
     }
 
     if (selectedFile.type === "pdf") {
-
         window.open(selectedFile.file, "_blank", "noopener");
-
     } else {
-
-        // Tài liệu Word được tải xuống
-
         document.getElementById("downloadBtn").click();
-
     }
-
 }
 
-
 // ======================================
-// 6. KHỞI ĐỘNG WEBSITE
+// KHỞI ĐỘNG
 // ======================================
 
-renderList();
+document.addEventListener("DOMContentLoaded", function() {
+
+    renderList();
+
+    document.getElementById("search").addEventListener("input", renderList);
+
+});
 
 </script>
 
