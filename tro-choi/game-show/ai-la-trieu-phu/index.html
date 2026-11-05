@@ -1,1 +1,292 @@
 
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ai là triệu phú – THẦY HÒA</title>
+<style>
+/* ===== GIAO DIỆN SÂN KHẤU TRUYỀN HÌNH: phông xanh nhạt, bảng chữ xanh đậm – chữ trắng ===== */
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#fff;background:radial-gradient(ellipse at 50% 20%,#e3f5ff,#9fd6f7 55%,#5aa9e6);overflow:hidden}
+.screen{display:none;flex-direction:column;height:100dvh;padding:8px 14px;gap:8px}.screen.active{display:flex}
+.brand{font-weight:900;letter-spacing:2px;color:#ffd84a;text-shadow:2px 2px 0 #0b3a6b;font-size:clamp(18px,2.4vw,32px)}
+h1{margin:0;text-align:center;font-size:clamp(26px,4vw,54px);color:#0b3a6b;text-shadow:0 2px 0 #fff}
+h2{margin:0;font-size:clamp(20px,2.4vw,32px);color:#ffd84a}
+.panel{background:linear-gradient(#0f4c8a,#0b3a6b);border:3px solid #ffd84a;border-radius:16px;padding:12px 16px;font-size:clamp(16px,1.8vw,25px);line-height:1.4;overflow:auto;box-shadow:0 6px 18px rgba(0,40,90,.35)}
+.panel ul{margin:6px 0 0;padding-left:22px}
+.wrap{display:flex;gap:14px;flex:1;min-height:0}.wrap>.panel{flex:1;min-width:0}
+input{width:100%;font-size:clamp(18px,2.1vw,26px);padding:8px 12px;margin:6px 0;border-radius:10px;border:2px solid #fff;background:#fff;color:#111}
+.btn{font-size:clamp(17px,2.2vw,30px);font-weight:700;padding:9px 20px;border-radius:12px;border:3px solid #fff;background:#e0a100;color:#111;cursor:pointer;margin:3px}
+.btn:hover{background:#ffc928}.btn:disabled{opacity:.35;cursor:not-allowed}.btn.blue{background:#2a7fc9;color:#fff}
+.err{color:#ffb3b3;min-height:1.3em}.row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
+.top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:space-between;font-weight:700;font-size:clamp(15px,2vw,28px)}
+.chip{background:#0b3a6b;border:2px solid #ffd84a;border-radius:10px;padding:2px 12px;white-space:nowrap}
+.meter{height:16px;background:rgba(11,58,107,.35);border-radius:8px;overflow:hidden;border:2px solid #0b3a6b}#bar{height:100%;width:0;background:linear-gradient(90deg,#ffd84a,#ff9f1c);transition:width .5s}
+.stage{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:10px;overflow:auto}
+.bellbox{display:flex;align-items:center;justify-content:center;gap:12px}
+.bell{width:clamp(70px,13vh,130px);height:auto;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35));transform-origin:50% 5%}.bell.ring{animation:ring .9s}
+@keyframes ring{20%{transform:rotate(18deg)}40%{transform:rotate(-16deg)}60%{transform:rotate(10deg)}80%{transform:rotate(-6deg)}}
+.mascot{font-size:clamp(36px,8vh,70px);animation:bob 2s infinite}@keyframes bob{50%{transform:translateY(-8px)}}
+.say{background:#fff;color:#0b3a6b;border-radius:14px;padding:6px 12px;font-weight:700;font-size:clamp(14px,1.8vw,22px);max-width:40ch}
+#qtext{background:linear-gradient(#0f4c8a,#0b3a6b);border:4px solid #ffd84a;border-radius:18px;padding:14px 20px;text-align:center;font-size:clamp(22px,3.1vw,46px);font-weight:600;line-height:1.35}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{font-size:clamp(19px,2.7vw,40px);text-align:left;padding:12px 18px;border-radius:40px;border:3px solid #ffd84a;background:#0b3a6b;color:#fff;cursor:pointer;font-family:inherit}
+.opt:hover{background:#1c63b0}.opt b{color:#ffd84a;margin-right:6px}.opt.hint{outline:4px solid #7dff9b}
+.opt.good{background:#1b9a42;animation:glow 1s 2}.opt.bad{background:#c62828}.opt.gone{visibility:hidden}.opt.locked{pointer-events:none}
+@keyframes glow{50%{box-shadow:0 0 30px 10px #fff7a0}}
+.opts.tf .opt{text-align:center;font-weight:800;font-size:clamp(26px,4vw,56px);border-radius:20px;padding:20px}
+#fb{display:none;border-radius:14px;padding:8px 16px;gap:12px;align-items:center;border:3px solid #fff;background:#0b3a6b}
+#fb.show{display:flex}#fb.ok{border-color:#51e57a}#fb.no{border-color:#ff6b6b}
+#fbT{font-size:clamp(20px,2.8vw,40px);font-weight:800}#fb.ok #fbT{color:#7dff9b}#fb.no #fbT{color:#ff9a9a}
+#fbE{font-size:clamp(16px,2vw,28px);line-height:1.35;margin-top:3px}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:9;display:flex;align-items:center;justify-content:center;font-size:30vmin;font-weight:900}
+#fx.good{animation:fg 1.2s}#fx.bad{animation:fb .9s;color:#ff3b3b;text-shadow:0 0 30px #900}
+@keyframes fg{0%{background:radial-gradient(circle,#fff7a0 0,transparent 70%);opacity:1}100%{background:radial-gradient(circle,transparent,transparent);opacity:0}}
+@keyframes fb{0%{background:rgba(200,0,0,.45);opacity:1;transform:scale(.6)}30%{transform:scale(1)}100%{opacity:0;transform:scale(1.2)}}
+.conf{position:fixed;top:-5vh;width:10px;height:16px;z-index:8;animation:fall linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+table{width:100%;border-collapse:collapse}td,th{padding:3px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25)}th{color:#ffd84a}
+.big{font-size:clamp(34px,6vw,84px);color:#ffd84a;font-weight:800;text-align:center}.center{text-align:center}
+.badge{display:inline-block;background:#ffd84a;color:#0b3a6b;border-radius:20px;padding:2px 12px;margin:3px;font-weight:700}
+@media(max-width:760px){.wrap{flex-direction:column}.opts{grid-template-columns:1fr}.opt{border-radius:22px}}
+</style></head><body>
+<div id="fx"></div>
+
+<!-- ===== MÀN HÌNH BẮT ĐẦU ===== -->
+<section id="start" class="screen active">
+<div class="row"><span class="brand">★ THẦY HÒA ★</span></div>
+<div class="bellbox"><svg class="bell" viewBox="0 0 100 100"><path d="M50 6c-3 0-5 2-5 5-14 4-22 16-22 32v14l-8 12h70l-8-12V43c0-16-8-28-22-32 0-3-2-5-5-5z" fill="#ffc928" stroke="#a66b00" stroke-width="3"/><circle cx="50" cy="88" r="8" fill="#e0a100"/></svg></div>
+<h1>AI LÀ TRIỆU PHÚ</h1>
+<div class="center" style="color:#0b3a6b;font-weight:700;font-size:clamp(16px,2.2vw,30px)">Toán 12 · Vectơ và hệ tọa độ trong không gian</div>
+<div class="wrap"><div class="panel">
+<h2>Người chơi</h2>
+<input id="inName" placeholder="Họ và tên" maxlength="40" autocomplete="off">
+<input id="inClass" placeholder="Lớp (ví dụ: 12A1)" maxlength="12" autocomplete="off">
+<div class="err" id="err"></div>
+<div class="row"><button class="btn" id="btnSolo">▶ CHƠI CÁ NHÂN</button><button class="btn blue" id="btnClass">👥 CẢ LỚP (HỌC SINH)</button><button class="btn blue" id="btnTeacher">🎬 MÀN HÌNH GIÁO VIÊN</button></div>
+<h2>Luật chơi</h2>
+<ul>
+<li><b id="nq"></b> câu, khó dần: 20 trắc nghiệm (0,2 điểm/câu) rồi 10 Đúng/Sai (1,0 điểm/câu). Tối đa <b id="mx"></b> điểm = mốc <b>10 triệu điểm thưởng</b>.</li>
+<li><b>Không giới hạn thời gian</b> mỗi câu (đồng hồ chỉ tính tổng thời gian để xếp hạng).</li>
+<li>3 mạng ❤: sai mất 1 mạng, hết mạng thì bị loại.</li>
+<li>Trợ giúp 1 lần mỗi loại (phần trắc nghiệm): <b>50:50</b>, <b>Hỏi chuyên gia</b>.</li>
+<li>Nhận XP, cấp độ, danh hiệu, huy hiệu; kết quả được lưu để xem tiến bộ.</li></ul>
+</div><div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div></div>
+</section>
+
+<!-- ===== MÀN HÌNH CHƠI ===== -->
+<section id="game" class="screen">
+<div class="top"><span class="brand">THẦY HÒA</span><span class="chip">Câu <span id="qno"></span></span><span class="chip">Điểm: <span id="score">0,0</span></span><span class="chip" id="lives"></span><span class="chip">⏱ <span id="clock">00:00</span></span><span class="chip" id="left" style="display:none"></span><button class="btn" id="mute" style="padding:2px 10px;background:#fff">🔊</button></div>
+<div class="meter"><div id="bar"></div></div>
+<div class="center" id="lv" style="color:#0b3a6b;font-weight:700;font-size:clamp(14px,1.8vw,24px)"></div>
+<div class="stage">
+<div class="bellbox"><span class="mascot">🦉</span><svg class="bell" id="bell" viewBox="0 0 100 100"><path d="M50 6c-3 0-5 2-5 5-14 4-22 16-22 32v14l-8 12h70l-8-12V43c0-16-8-28-22-32 0-3-2-5-5-5z" fill="#ffc928" stroke="#a66b00" stroke-width="3"/><circle cx="50" cy="88" r="8" fill="#e0a100"/></svg><div class="say" id="say">Chúc bạn may mắn!</div></div>
+<div id="qtext"></div><div class="opts" id="opts"></div></div>
+<div class="row"><button class="btn blue" id="ll50">50 : 50</button><button class="btn blue" id="llExp">🎓 Hỏi chuyên gia</button></div>
+<div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp ▶</button></div>
+</section>
+
+<!-- ===== MÀN HÌNH KẾT THÚC / VINH DANH ===== -->
+<section id="end" class="screen">
+<div class="row"><span class="brand">★ THẦY HÒA ★</span></div>
+<h1 id="endT"></h1>
+<div class="wrap"><div class="panel center">
+<div id="endName" style="font-size:clamp(18px,2.4vw,32px)"></div><div class="big" id="endScore"></div>
+<div>Điểm thưởng: <b id="endRw"></b> / 10.000.000</div>
+<div>Đúng: <b id="endOk"></b> · Thời gian: <b id="endTime"></b></div>
+<div>XP: <b id="endXp"></b> · Cấp <b id="endLv"></b> – <b id="endTitle"></b></div>
+<div id="endBadges"></div><div id="endProg"></div><div id="endMsg"></div><div id="endSave"></div>
+<button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></div>
+<div class="panel"><h2>🏆 Vinh danh · Bảng xếp hạng</h2><div class="lbBody"></div></div></div>
+</section>
+
+<!-- ===== MÀN HÌNH ĐIỀU KHIỂN CỦA GIÁO VIÊN (chế độ Cả lớp) ===== -->
+<section id="teacher" class="screen">
+<div class="row"><span class="brand">★ THẦY HÒA ★</span></div><h1>Bảng điều khiển giáo viên</h1>
+<div class="wrap"><div class="panel">
+<h2>Điều khiển lớp</h2>
+<p id="syncState"></p>
+<div class="row"><button class="btn" data-cmd="start">▶ Bắt đầu</button><button class="btn" data-cmd="next">⏭ Câu tiếp</button><button class="btn" data-cmd="reveal">👁 Hiện đáp án</button><button class="btn" data-cmd="end">⏹ Kết thúc</button></div>
+<p>Số người còn trong cuộc: <b id="alive">—</b></p>
+<button class="btn blue" id="tBack">⬅ Quay lại</button>
+</div><div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div></div>
+</section>
+
+<script>
+/* =====================================================================
+   KHU VỰC CẤU HÌNH (ẩn khỏi giao diện học sinh)
+   ===================================================================== */
+const APPS_SCRIPT_URL = "";   // ← Dán URL Web App của Google Apps Script vào đây
+const LIVES = 3;              // số mạng
+
+/* =====================================================================
+   KHU VỰC DỮ LIỆU CÂU HỎI – giáo viên chỉnh sửa tại đây
+   Trắc nghiệm: [mức, câu hỏi, đáp án đúng, [3 đáp án sai], giải thích + định hướng giải]
+   Đúng/Sai:    [mức, nhận định, đúng?(true/false), giải thích + định hướng giải]
+   ===================================================================== */
+const MC=[
+["NB","Trong không gian Oxyz, điểm M(a; b; c) thuộc mặt phẳng (Oyz) khi và chỉ khi:","a = 0",["b = 0","c = 0","a = b = c = 0"],"Mặt phẳng (Oyz) gồm các điểm có hoành độ bằng 0, tức a = 0 (b, c tùy ý)."],
+["NB","Hình chiếu vuông góc của M(3; −2; 5) lên trục Oy là:","(0; −2; 0)",["(3; 0; 0)","(0; 0; 5)","(3; −2; 0)"],"Chiếu lên trục Oy: giữ lại tung độ, hoành độ và cao độ bằng 0."],
+["NB","Điểm đối xứng với M(1; −2; 3) qua gốc tọa độ O là:","(−1; 2; −3)",["(1; 2; 3)","(−1; −2; 3)","(1; −2; −3)"],"Đối xứng qua gốc O thì đổi dấu cả ba tọa độ."],
+["NB","Vectơ a = 2i − 3j + k có tọa độ là:","(2; −3; 1)",["(2; 3; 1)","(−2; 3; −1)","(2; −3; −1)"],"Hệ số của i, j, k chính là hoành độ, tung độ, cao độ."],
+["NB","Khoảng cách giữa hai điểm A(xA; yA; zA) và B(xB; yB; zB) là:","√[(xB−xA)² + (yB−yA)² + (zB−zA)²]",["(xB−xA)² + (yB−yA)² + (zB−zA)²","|xB−xA| + |yB−yA| + |zB−zA|","√(xA·xB + yA·yB + zA·zB)"],"AB = |AB| với AB = (xB−xA; yB−yA; zB−zA), nên lấy căn của tổng bình phương các hiệu."],
+["NB","Với ba điểm A, B, C bất kì, AB + BC bằng:","AC",["CA","BC − AB","0"],"Quy tắc ba điểm: đi từ A đến B rồi từ B đến C tương đương đi thẳng từ A đến C."],
+["TH","Cho A(3; 1; −2), B(−1; 5; 4). Trung điểm I của AB có tọa độ:","(1; 3; 1)",["(2; 6; 2)","(2; −2; 3)","(−2; 2; 3)"],"Tọa độ trung điểm là trung bình cộng: ((3−1)/2; (1+5)/2; (−2+4)/2) = (1; 3; 1)."],
+["TH","Cho a = (1; 2; 3), b = (−2; 1; 0). Tọa độ 2a − b là:","(4; 3; 6)",["(0; 5; 6)","(4; 5; 6)","(−4; −3; −6)"],"2a = (2; 4; 6); trừ b = (−2; 1; 0) cho (4; 3; 6)."],
+["TH","Cho a = (3; −1; 2), b = (1; 4; 2). Tích vô hướng a·b bằng:","3",["−3","11","4"],"a·b = 3·1 + (−1)·4 + 2·2 = 3 − 4 + 4 = 3."],
+["TH","Góc giữa hai vectơ a = (1; 0; −1) và b = (1; 0; 1) bằng:","90°",["0°","45°","180°"],"a·b = 1 + 0 − 1 = 0 nên cos(a, b) = 0, góc bằng 90°."],
+["TH","Cho A(2; −1; 3), B(−1; 3; 3). Độ dài đoạn AB bằng:","5",["7","25","1"],"AB = (−3; 4; 0) nên |AB| = √(9 + 16 + 0) = 5."],
+["TH","Trọng tâm G của tam giác ABC với A(0; 3; −1), B(2; −1; 4), C(−2; 1; 3) là:","(0; 1; 2)",["(0; 3; 6)","(0; 1; 6)","(2; 1; 2)"],"G = ((0+2−2)/3; (3−1+1)/3; (−1+4+3)/3) = (0; 1; 2)."],
+["TH","Hai vectơ a = (1; m; 2) và b = (2; −4; 4) cùng phương khi m bằng:","−2",["2","−1/2","4"],"b = 2a (vì 2/1 = 4/2 = 2) nên −4 = 2m, suy ra m = −2."],
+["TH","Cho A(1; 1; 1), B(3; 2; 0), C(5; 4; 3). Tìm D để ABCD là hình bình hành.","D(3; 3; 4)",["D(7; 5; 2)","D(3; 1; 4)","D(1; 1; 4)"],"ABCD là hình bình hành ⇔ AB = DC ⇔ D = A + C − B = (1+5−3; 1+4−2; 1+3−0) = (3; 3; 4)."],
+["VD","Vật chịu hai lực F₁ = (2; 1; −1) N và F₂ = (−1; 3; 4) N. Độ lớn hợp lực bằng:","√26 N",["√14 N","8 N","√30 N"],"Hợp lực F = F₁ + F₂ = (1; 4; 3) nên |F| = √(1 + 16 + 9) = √26 N."],
+["VD","Drone ở vị trí A(3; 4; 12) (đơn vị m, gốc O là người điều khiển trên mặt đất). Khoảng cách từ drone tới người điều khiển là:","13 m",["19 m","12 m","5 m"],"OA = √(3² + 4² + 12²) = √169 = 13 m."],
+["VD","Cho A(1; 0; 0), B(0; 1; 0), C(0; 0; 1). Số đo góc BAC bằng:","60°",["30°","90°","120°"],"AB = (−1; 1; 0), AC = (−1; 0; 1): AB·AC = 1, |AB||AC| = 2 nên cos = 1/2, góc 60°."],
+["VD","Cho A(1; 2; 0), B(3; 0; −2). Điểm M thuộc trục Oy cách đều A và B là:","M(0; −2; 0)",["M(0; 2; 0)","M(0; −4; 0)","M(0; −1; 0)"],"M(0; m; 0): MA² = 1 + (m−2)², MB² = 13 + m². Cho MA² = MB² ⇒ 5 − 4m = 13 ⇒ m = −2."],
+["VD","Hình hộp chữ nhật OABC.O′A′B′C′ có O là gốc, A(3; 0; 0), C(0; 4; 0), O′(0; 0; 5). Độ dài đường chéo OB′ bằng:","5√2",["12","5√3","√34"],"B′(3; 4; 5) nên OB′ = √(9 + 16 + 25) = √50 = 5√2."],
+["VD","Cho u = (m; 2; 1), v = (2; −3; m). Để u ⊥ v thì m bằng:","2",["3","−2","6"],"u·v = 2m − 6 + m = 3m − 6 = 0 ⇒ m = 2."]
+];
+const TF=[
+["NB","Điểm A(0; −3; 0) nằm trên trục Oy.",true,"Điểm thuộc Oy có hoành độ và cao độ bằng 0."],
+["NB","Với a = (1; 2; 3) thì a·a = 14.",true,"a·a = |a|² = 1 + 4 + 9 = 14."],
+["TH","Hình chiếu vuông góc của M(4; −1; 2) lên mặt phẳng (Oyz) là (0; −1; 2).",true,"Chiếu lên (Oyz) thì cho hoành độ bằng 0 và giữ nguyên y, z."],
+["TH","Hai vectơ a = (2; −1; 3) và b = (−4; 2; −6) ngược hướng.",true,"b = −2a với hệ số âm nên hai vectơ cùng phương và ngược hướng."],
+["TH","Với A(1; 2; 3), B(−1; 0; 5), trung điểm của AB là (0; 1; 3).",false,"Trung điểm là (0; 1; 4); cao độ là (3 + 5)/2 = 4, không phải 3."],
+["VD","Tam giác ABC với A(1; 0; 0), B(0; 2; 0), C(0; 0; 3) có trọng tâm G(1/3; 2/3; 1).",true,"G = ((1+0+0)/3; (0+2+0)/3; (0+0+3)/3) = (1/3; 2/3; 1)."],
+["VD","Điểm A(1; 2; 2) cách gốc tọa độ O một khoảng bằng 9.",false,"OA = √(1 + 4 + 4) = 3, không phải 9."],
+["VD","Tam giác ABC với A(1; 1; 0), B(3; 1; 0), C(2; 1+√3; 0) là tam giác đều.",true,"AB = 2, AC = √(1 + 3) = 2, BC = √(1 + 3) = 2 nên ba cạnh bằng nhau."],
+["VDC","Cho A(1; 0; 0), B(0; 1; 0), C(0; 0; 1). Điểm M(0; 0; 0) là điểm duy nhất thuộc mặt phẳng (Oxy) thỏa MA = MB = MC.",true,"M(x; y; 0): MA = MB ⇒ x = y; MA = MC ⇒ −2x + 1 = 1 ⇒ x = 0 nên M = O, và khi đó MA = MB = MC = 1."],
+["VDC","Cho A(1; 2; 3), B(3; 4; 5). Điểm M thuộc trục Oz làm MA² + MB² nhỏ nhất là M(0; 0; 4).",true,"M(0; 0; t): MA² + MB² = 30 + (t−3)² + (t−5)² nhỏ nhất khi t = (3 + 5)/2 = 4."]
+];
+/* ===== HẾT KHU VỰC DỮ LIỆU ===== */
+
+const $=id=>document.getElementById(id);
+const LV={NB:"Nhận biết",TH:"Thông hiểu",VD:"Vận dụng",VDC:"Vận dụng cao"};
+const QS=MC.map(m=>({k:"mc",lv:m[0],q:m[1],ok:m[2],bad:m[3],ex:m[4]})).concat(TF.map(t=>({k:"tf",lv:t[0],q:t[1],ok:t[2],ex:t[3]})));
+const PT={mc:2,tf:10}, XPV={mc:20,tf:100}, MAXPT=QS.reduce((s,q)=>s+PT[q.k],0), TARGET=10000000;
+const TITLES=["Tân binh","Học trò chăm chỉ","Nhà thám hiểm tọa độ","Chuyên gia vectơ","Thiên tài Oxyz"];
+const fmt=n=>(n/10).toFixed(1).replace(".",",");
+const reward=p=>Math.round(p/MAXPT*TARGET);
+const money=n=>n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,".");
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const mmss=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+const show=id=>document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));
+$("nq").textContent=QS.length;$("mx").textContent=fmt(MAXPT);
+
+/* ===== BỘ ĐỒNG BỘ CHẾ ĐỘ CẢ LỚP =====
+   Chỉ là khung kết nối: chưa có máy chủ nên KHÔNG giả lập đồng bộ.
+   Sau này nối WebSocket/Firebase... vào connect/send/onUpdate. */
+const ClassSync={connected:false,players:null,
+ send(cmd){ if(!this.connected) return false; /* TODO: gửi lệnh tới máy chủ */ return true; },
+ onUpdate(cb){ /* TODO: nhận trạng thái (số người còn lại...) từ máy chủ rồi gọi cb */ }};
+
+/* ===== ÂM THANH ===== */
+let AC=null,muted=false,susp=null;
+function initAudio(){if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(C)AC=new C();}if(AC&&AC.state==="suspended")AC.resume();}
+function tone(f,t,d,ty,g){const o=AC.createOscillator(),n=AC.createGain();o.type=ty;o.frequency.setValueAtTime(f,t);n.gain.setValueAtTime(.0001,t);n.gain.exponentialRampToValueAtTime(g,t+.03);n.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(n).connect(AC.destination);o.start(t);o.stop(t+d+.05);}
+function clap(t,g){const n=Math.floor(AC.sampleRate*.06),b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);const s=AC.createBufferSource();s.buffer=b;const f=AC.createBiquadFilter();f.type="bandpass";f.frequency.value=1500+Math.random()*1500;const n2=AC.createGain();n2.gain.value=g;s.connect(f).connect(n2).connect(AC.destination);s.start(t);}
+function say(t){try{if(muted||!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="vi-VN";speechSynthesis.speak(u);}catch(e){}}
+function bell(){if(muted||!AC)return;const t=AC.currentTime;tone(880,t,1.2,"sine",.25);tone(1320,t,1,"sine",.12);}
+function applause(){if(muted)return;say("Chính xác!");if(!AC)return;bell();const t0=AC.currentTime,D=4.8;for(let i=0;i<150;i++){const x=Math.random()*D,e=Math.min(1,x/.5)*Math.min(1,(D-x)/1.5);clap(t0+x,.5*e+.04);}[523,659,784,1047,1319].forEach((f,i)=>tone(f,t0+i*.13,.5,"triangle",.18));}
+function sad(){if(muted||!AC)return;const t0=AC.currentTime;[392,349,311,262].forEach((f,i)=>tone(f,t0+i*.32,.45,"sawtooth",.12));tone(98,t0+1.2,.8,"sawtooth",.15);}
+function fanfare(){if(muted||!AC)return;const t0=AC.currentTime;[523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,t0+i*.18,.5,"triangle",.2));}
+function startSusp(){stopSusp();if(muted||!AC)return;susp=setInterval(()=>{if(AC)tone(70,AC.currentTime,.35,"sine",.18);},900);} // nhạc hồi hộp: nhịp tim
+function stopSusp(){if(susp){clearInterval(susp);susp=null;}}
+
+/* ===== HIỆU ỨNG ===== */
+function fx(cls,txt){const e=$("fx");e.className="";void e.offsetWidth;e.textContent=txt||"";e.className=cls;}
+function ringBell(){const b=$("bell");b.classList.remove("ring");void b.offsetWidth;b.classList.add("ring");}
+function confetti(){for(let i=0;i<70;i++){const c=document.createElement("div");c.className="conf";c.style.left=Math.random()*100+"vw";c.style.background=["#ffd84a","#ff6b6b","#51e57a","#4da3ff"][i%4];c.style.animationDuration=(2+Math.random()*2.5)+"s";c.style.animationDelay=Math.random()+"s";document.body.appendChild(c);setTimeout(()=>c.remove(),6000);}}
+const setSay=t=>$("say").textContent=t;
+
+/* ===== TRẠNG THÁI TRÒ CHƠI ===== */
+let G=null,clk=null;
+const newGame=(name,cls,mode)=>({name,cls,mode,i:0,pts:0,ok:0,xp:0,lives:LIVES,uses:0,u50:false,uExp:false,locked:false,t0:Date.now(),sec:0,saved:false});
+const hearts=()=>"❤".repeat(G.lives)+"🖤".repeat(LIVES-G.lives);
+function stopClock(){if(clk){clearInterval(clk);clk=null;}}
+function startClock(){stopClock();clk=setInterval(()=>{G.sec=Math.round((Date.now()-G.t0)/1000);$("clock").textContent=mmss(G.sec);},1000);}
+function updLL(){const mc=QS[G.i].k==="mc"&&!G.locked;$("ll50").disabled=G.u50||!mc;$("llExp").disabled=G.uExp||!mc;}
+function updHud(){$("score").textContent=fmt(G.pts);$("lives").textContent=hearts();$("bar").style.width=(G.pts/MAXPT*100)+"%";
+ $("left").textContent="Còn lại: "+(ClassSync.players==null?"—":ClassSync.players);}
+
+function showQ(){
+ const q=QS[G.i];G.locked=false;$("fb").classList.remove("show");
+ $("qno").textContent=(G.i+1)+"/"+QS.length;$("lv").textContent=(q.k==="mc"?"Trắc nghiệm · 0,2 điểm":"Đúng/Sai · 1,0 điểm")+" · "+LV[q.lv]+" · Mốc: "+money(reward(G.pts))+" / 10.000.000 điểm thưởng";
+ $("qtext").textContent=(q.k==="tf"?"Nhận định: ":"")+q.q;setSay("Hãy suy nghĩ thật kĩ nhé!");
+ const box=$("opts");box.innerHTML="";box.className="opts "+q.k;
+ if(q.k==="mc"){q.sh=shuffle([q.ok].concat(q.bad)); // xáo trộn vị trí đáp án mỗi lần hiển thị
+  q.sh.forEach((t,j)=>{const b=document.createElement("button");b.className="opt";const l=document.createElement("b");l.textContent="ABCD"[j]+".";const s=document.createElement("span");s.textContent=t;b.append(l,s);b.onclick=()=>answer(j);box.appendChild(b);});}
+ else[["ĐÚNG",true],["SAI",false]].forEach(([t,v])=>{const b=document.createElement("button");b.className="opt";b.textContent=t;b.onclick=()=>answer(v);box.appendChild(b);});
+ updHud();updLL();startSusp();}
+
+function answer(c){
+ if(!G||G.locked)return;G.locked=true;stopSusp();
+ const q=QS[G.i],btns=[...$("opts").children];let right;
+ if(q.k==="mc"){right=q.sh[c]===q.ok;btns.forEach((b,j)=>{b.classList.remove("hint");b.classList.add("locked");if(q.sh[j]===q.ok)b.classList.add("good");else if(j===c)b.classList.add("bad");});}
+ else{right=c===q.ok;btns.forEach((b,j)=>{b.classList.add("locked");if((j===0)===q.ok)b.classList.add("good");else if(c===(j===0))b.classList.add("bad");});}
+ $("fb").className="show "+(right?"ok":"no");
+ const corr=q.k==="mc"?"ABCD"[q.sh.indexOf(q.ok)]+". "+q.ok:(q.ok?"ĐÚNG":"SAI");
+ if(right){G.pts+=PT[q.k];G.ok++;G.xp+=XPV[q.k];$("fbT").textContent="✔ CHÍNH XÁC! +"+fmt(PT[q.k])+" điểm";$("fbE").textContent=q.ex;fx("good");ringBell();setSay("Chính xác! Tuyệt vời!");applause();}
+ else{G.lives--;const mine=q.k==="mc"?"Lựa chọn của bạn chưa đúng.":"Bạn chọn "+(c?"ĐÚNG":"SAI")+" nhưng nhận định này là "+(q.ok?"ĐÚNG":"SAI")+".";
+  $("fbT").textContent="✘ CHƯA ĐÚNG! Đáp án: "+corr;$("fbE").textContent=mine+" "+q.ex+" (Mất 1 mạng.)";fx("bad","✖");setSay("Tiếc quá! Cố lên!");sad();}
+ updHud();$("btnNext").textContent=(G.lives<=0||G.i>=QS.length-1)?"Xem kết quả ▶":"Câu tiếp ▶";updLL();}
+function next(){if(!G||!G.locked)return;if(G.lives<=0||G.i>=QS.length-1){endGame();return;}G.i++;showQ();}
+
+/* ===== TRỢ GIÚP ===== */
+function lifeline50(){if(!G||G.locked||G.u50||QS[G.i].k!=="mc")return;const q=QS[G.i];G.u50=true;G.uses++;
+ shuffle([...$("opts").children].filter((b,j)=>q.sh[j]!==q.ok)).slice(0,2).forEach(b=>{b.classList.add("gone");b.onclick=null;});updLL();}
+function lifelineExp(){if(!G||G.locked||G.uExp||QS[G.i].k!=="mc")return;const q=QS[G.i];G.uExp=true;G.uses++;
+ const all=[...$("opts").children],okI=q.sh.indexOf(q.ok),vis=all.map((b,j)=>j).filter(j=>!all[j].classList.contains("gone"));
+ const pick=(Math.random()<.85)?okI:shuffle(vis.filter(j=>j!==okI))[0]; // chuyên gia đúng khoảng 85%
+ all[pick].classList.add("hint");setSay("Chuyên gia: tôi nghiêng về đáp án "+"ABCD"[pick]+" (độ tin cậy khoảng 85%).");updLL();}
+
+/* ===== KẾT THÚC, XP, HUY HIỆU, TIẾN BỘ ===== */
+function endGame(){
+ stopClock();stopSusp();G.sec=Math.round((Date.now()-G.t0)/1000);G.tstr=mmss(G.sec);
+ const win=G.lives>0,r=G.pts/MAXPT,lvl=Math.min(TITLES.length,Math.floor(G.xp/300)+1);
+ $("endT").textContent=win?"🏆 VINH DANH NGƯỜI CHIẾN THẮNG! 🏆":"💔 BẠN ĐÃ BỊ LOẠI – CẢM ơN ĐÃ THAM GIA";
+ $("endName").textContent=G.name+" · Lớp "+G.cls;$("endScore").textContent=fmt(G.pts)+" / "+fmt(MAXPT);
+ $("endRw").textContent=money(reward(G.pts));$("endOk").textContent=G.ok+"/"+QS.length;$("endTime").textContent=G.tstr;
+ $("endXp").textContent=G.xp;$("endLv").textContent=lvl;$("endTitle").textContent=TITLES[lvl-1];
+ const bd=[];if(win)bd.push("🏅 Vượt qua câu cuối");if(r>=.9)bd.push("🎖 Chuyên gia Oxyz");if(G.lives===LIVES)bd.push("❤ Không mất mạng");if(G.uses===0&&win)bd.push("🧠 Không dùng trợ giúp");if(reward(G.pts)>=TARGET)bd.push("💎 Chinh phục 10 triệu điểm");
+ $("endBadges").innerHTML="";bd.forEach(t=>{const s=document.createElement("span");s.className="badge";s.textContent=t;$("endBadges").appendChild(s);});
+ $("endMsg").textContent=r>=.9?"Xuất sắc! Bạn thật sự là triệu phú Vectơ!":r>=.6?"Rất tốt! Hãy xem lại các câu đã sai.":"Cố gắng thêm nhé! Ôn lại tọa độ điểm, vectơ và tích vô hướng.";
+ let prev=null;try{const h=JSON.parse(localStorage.getItem("thayhoa_hist")||"[]");prev=h.length?h[h.length-1]:null;h.push(G.pts/10);localStorage.setItem("thayhoa_hist",JSON.stringify(h.slice(-20)));}catch(e){}
+ $("endProg").textContent=prev==null?"Đây là lần chơi đầu tiên của bạn trên thiết bị này.":(G.pts/10>prev?"📈 Tiến bộ! Lần trước: "+prev.toFixed(1).replace(".",",")+" điểm.":"Lần trước: "+prev.toFixed(1).replace(".",",")+" điểm – hãy thử vượt qua nhé!");
+ $("endSave").textContent="";show("end");if(win){fx("good");confetti();fanfare();say("Chúc mừng người chiến thắng!");}sendResult();}
+async function sendResult(){
+ if(G.saved)return;G.saved=true;if(!APPS_SCRIPT_URL){renderLB();return;}
+ $("endSave").textContent="Đang gửi kết quả…";
+ try{await fetch(APPS_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({"Họ tên":G.name,"Lớp":G.cls,"Điểm số":G.pts/10,"Thời gian làm bài":G.tstr})});
+ $("endSave").textContent="✔ Đã ghi nhận kết quả của bạn.";setTimeout(fetchLB,1500);}
+ catch(e){$("endSave").textContent="Chưa gửi được kết quả lên bảng xếp hạng.";}}
+
+/* ===== BẢNG XẾP HẠNG (GET định kỳ) ===== */
+let LB=[];
+const secOf=t=>{const p=String(t||"").split(":").map(Number);return p.length===2&&!p.some(isNaN)?p[0]*60+p[1]:99999;};
+async function fetchLB(){
+ if(!APPS_SCRIPT_URL){renderLB();return;}
+ try{const r=await fetch(APPS_SCRIPT_URL+(APPS_SCRIPT_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now());const j=await r.json();if(j&&j.status==="ok"&&Array.isArray(j.data))LB=j.data;}catch(e){}
+ renderLB();}
+function renderLB(){
+ const rows=LB.slice().sort((a,b)=>(Number(b["Điểm số"])||0)-(Number(a["Điểm số"])||0)||secOf(a["Thời gian làm bài"])-secOf(b["Thời gian làm bài"])).slice(0,10);
+ document.querySelectorAll(".lbBody").forEach(el=>{el.innerHTML="";
+  if(!rows.length){const p=document.createElement("div");p.textContent="Chưa có dữ liệu xếp hạng.";el.appendChild(p);return;}
+  const tb=document.createElement("table"),hr=tb.insertRow();
+  ["#","Họ tên","Lớp","Điểm","Thời gian"].forEach(h=>{const th=document.createElement("th");th.textContent=h;hr.appendChild(th);});
+  rows.forEach((r,i)=>{const tr=tb.insertRow();[(i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1),r["Họ tên"],r["Lớp"],String(Number(r["Điểm số"])||0).replace(".",","),r["Thời gian làm bài"]].forEach(v=>{tr.insertCell().textContent=(v==null)?"":v;});});
+  el.appendChild(tb);});}
+
+/* ===== KHỞI TẠO: mỗi sự kiện và mỗi bộ đếm chỉ gắn MỘT lần ===== */
+function begin(mode){
+ const n=$("inName").value.trim(),c=$("inClass").value.trim();
+ if(!n||!c){$("err").textContent="Vui lòng nhập đầy đủ Họ tên và Lớp.";return;}
+ $("err").textContent="";initAudio();stopClock();stopSusp();G=newGame(n,c,mode);
+ $("left").style.display=mode==="class"?"":"none";$("clock").textContent="00:00";show("game");startClock();showQ();}
+$("btnSolo").onclick=()=>begin("solo");
+$("btnClass").onclick=()=>begin("class");
+$("btnTeacher").onclick=()=>{$("syncState").textContent=ClassSync.connected?"Đã kết nối máy chủ đồng bộ.":"Chưa kết nối máy chủ đồng bộ nên các lệnh điều khiển chưa có tác dụng. Khung điều khiển đã sẵn sàng để tích hợp sau.";show("teacher");fetchLB();};
+document.querySelectorAll("[data-cmd]").forEach(b=>b.onclick=()=>{if(!ClassSync.send(b.dataset.cmd))$("syncState").textContent="Chưa có máy chủ đồng bộ – lệnh '"+b.dataset.cmd+"' chưa được gửi đi.";});
+$("tBack").onclick=()=>show("start");
+$("btnNext").onclick=next;$("ll50").onclick=lifeline50;$("llExp").onclick=lifelineExp;
+$("btnAgain").onclick=()=>{stopClock();stopSusp();G=null;show("start");fetchLB();};
+$("mute").onclick=()=>{muted=!muted;$("mute").textContent=muted?"🔇":"🔊";if(muted){stopSusp();if(window.speechSynthesis)speechSynthesis.cancel();}else if(G&&!G.locked&&$("game").classList.contains("active"))startSusp();};
+renderLB();fetchLB();setInterval(fetchLB,5000);
+</script></body></html>
