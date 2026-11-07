@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vòng Quay May Mắn - Chinh Phục Toán Học - THẦY HÒA</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti Library for Victory effect -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tvBgLight: '#e0f2fe', // Phông nền xanh nhạt truyền hình
+                        chalkboard: '#0f3822',
+                        chalkboardDark: '#071a10',
+                        chalkYellow: '#facc15',
+                        chalkWhite: '#ffffff',
+                        goldBell: '#fbbf24',
+                        tvAccent: '#0284c7'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #bae6fd 0%, #e0f2fe 50%, #7dd3fc 100%);
+            color: #0f172a;
+            font-family: 'Montserrat', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            min-height: 100vh;
+        }
+
+        /* Chalkboard Main Screen Frame */
+        .chalkboard-frame {
+            background: radial-gradient(circle, #144d2d 0%, #0a2918 100%);
+            border: 10px solid #452a1d;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8), 0 15px 35px rgba(0,0,0,0.4);
+            border-radius: 20px;
+        }
+
+        /* TV Bell Glow & Animation */
+        .bell-btn {
+            background: radial-gradient(circle, #ffe066 0%, #f59e0b 70%, #d97706 100%);
+            box-shadow: 0 0 30px #f59e0b, 0 10px 0 #b45309;
+            transition: all 0.15s ease;
+        }
+        .bell-btn:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 0 45px #fbbf24, 0 13px 0 #b45309;
+        }
+        .bell-btn:active:not(:disabled) {
+            transform: translateY(5px) scale(0.98);
+            box-shadow: 0 0 15px #f59e0b, 0 2px 0 #b45309;
+        }
+
+        /* Option buttons styling */
+        .option-btn {
+            background: linear-gradient(180deg, #165b35 0%, #0e3d23 100%);
+            border: 2.5px solid #34d399;
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: linear-gradient(180deg, #047857 0%, #065f46 100%);
+            border-color: #facc15;
+            transform: scale(1.01);
+        }
+        .option-btn.selected {
+            background: linear-gradient(180deg, #d97706 0%, #b45309 100%) !important;
+            border-color: #fef08a !important;
+            color: #ffffff !important;
+        }
+        .option-btn.correct {
+            background: linear-gradient(180deg, #15803d 0%, #166534 100%) !important;
+            border-color: #4ade80 !important;
+            animation: pulse-correct 0.6s infinite alternate;
+        }
+        .option-btn.incorrect {
+            background: linear-gradient(180deg, #b91c1c 0%, #991b1b 100%) !important;
+            border-color: #fca5a5 !important;
+        }
+
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 5px #4ade80; }
+            100% { box-shadow: 0 0 25px #4ade80; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #071a10; }
+        ::-webkit-scrollbar-thumb { background: #165b35; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #34d399; }
+    </style>
+</head>
+<body class="flex flex-col justify-between p-2 sm:p-4">
+
+    <!-- APPS SCRIPT CONFIGURATION (HARDCODED & HIDDEN FROM USER) -->
+    <script>
+        // Điền Apps Script Web App URL tại đây khi bạn có sẵn
+        const APPS_SCRIPT_URL = ""; 
+    </script>
+
+    <!-- TV HEADER / BRANDING BANNER -->
+    <header class="w-full max-w-6xl mx-auto bg-slate-900 text-white rounded-2xl p-3 sm:p-4 mb-3 border-4 border-amber-400 shadow-xl flex flex-wrap justify-between items-center gap-2">
+        <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-200 text-slate-950 font-black text-xl flex items-center justify-center border-2 border-white shadow-md">
+                <i class="fa-solid fa-crown text-amber-600"></i>
+            </div>
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded tracking-widest uppercase animate-pulse">SHOW TRUYỀN HÌNH</span>
+                    <h1 class="text-xl sm:text-2xl font-black text-amber-300 tracking-wider">THẦY HÒA AI</h1>
+                </div>
+                <p class="text-xs sm:text-sm text-sky-200 font-bold">VÒNG QUAY MAY MẮN – CHINH PHỤC TOÁN HỌC 10</p>
+            </div>
+        </div>
+
+        <!-- Mode selection & Sound toggle -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+            <button id="btn-sound-toggle" onclick="toggleSound()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-amber-300 rounded-xl font-bold text-xs sm:text-sm border border-amber-400/40 transition flex items-center gap-1.5">
+                <i id="sound-icon" class="fa-solid fa-volume-high"></i>
+                <span id="sound-text" class="hidden sm:inline">Âm Thanh: BẬT</span>
+            </button>
+            <button onclick="showLeaderboard()" class="px-3 py-2 bg-sky-700 hover:bg-sky-600 text-white rounded-xl font-bold text-xs sm:text-sm border border-sky-400 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-trophy text-yellow-300"></i> <span class="hidden sm:inline">Bảng Xếp Hạng</span>
+            </button>
+            <button onclick="showRulesModal()" class="px-3 py-2 bg-indigo-700 hover:bg-indigo-600 text-white rounded-xl font-bold text-xs sm:text-sm border border-indigo-400 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-info"></i> <span class="hidden sm:inline">Luật Chơi</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN GAME CONTAINER -->
+    <main class="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-center">
+
+        <!-- SCREEN 1: START / MODE & STUDENT REGISTRATION -->
+        <div id="screen-start" class="chalkboard-frame p-6 sm:p-10 text-center max-w-2xl mx-auto w-full my-auto text-white">
+            <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-amber-400/20 border-4 border-amber-400 flex items-center justify-center text-amber-300 text-5xl shadow-2xl animate-bounce">
+                <i class="fa-solid fa-dharmachakra"></i>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-chalkYellow mb-2 uppercase tracking-wide">CHINH PHỤC TOÁN HỌC 10</h2>
+            <p class="text-sm sm:text-base text-emerald-200 mb-6 font-medium">Chủ đề: Bất phương trình & Hệ bất phương trình bậc nhất 2 ẩn</p>
+
+            <form onsubmit="handleStartGame(event)" class="space-y-4 max-w-md mx-auto text-left">
+                <div>
+                    <label class="block text-xs sm:text-sm font-bold text-emerald-300 mb-1">Họ và Tên Học Sinh <span class="text-red-400">*</span></label>
+                    <input type="text" id="player-name" required placeholder="Nhập Họ và Tên..." class="w-full px-4 py-3 bg-slate-900 border-2 border-emerald-500 rounded-xl text-white font-medium focus:outline-none focus:border-chalkYellow text-sm sm:text-base">
+                </div>
+                <div>
+                    <label class="block text-xs sm:text-sm font-bold text-emerald-300 mb-1">Lớp Học <span class="text-red-400">*</span></label>
+                    <input type="text" id="player-class" required placeholder="Ví dụ: 10A1" class="w-full px-4 py-3 bg-slate-900 border-2 border-emerald-500 rounded-xl text-white font-medium focus:outline-none focus:border-chalkYellow text-sm sm:text-base">
+                </div>
+
+                <!-- Mode Select -->
+                <div>
+                    <label class="block text-xs sm:text-sm font-bold text-emerald-300 mb-1">Chế Độ Chơi</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button type="button" id="mode-btn-1" onclick="setGameMode(1)" class="py-2.5 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm bg-emerald-700 border-chalkYellow text-white">
+                            <i class="fa-solid fa-user mr-1"></i> Cá Nhân
+                        </button>
+                        <button type="button" id="mode-btn-2" onclick="setGameMode(2)" class="py-2.5 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm bg-slate-800 border-slate-600 text-gray-300">
+                            <i class="fa-solid fa-users mr-1"></i> Cả Lớp / Show
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-lg sm:text-xl rounded-xl shadow-2xl border-2 border-white transition transform hover:-translate-y-0.5 mt-6 uppercase">
+                    VÀO SÂN KHẤU GAME SHOW <i class="fa-solid fa-play ml-2"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- SCREEN 2: GAME STAGE (LUCKY WHEEL + BELL + QUESTION BOARD) -->
+        <div id="screen-game" class="hidden flex-col gap-4">
+            
+            <!-- TOP GAME DASHBOARD -->
+            <div class="bg-slate-900/90 border-2 border-sky-400 p-3 rounded-2xl flex justify-between items-center text-white flex-wrap gap-2 shadow-lg">
+                <div class="flex items-center space-x-3">
+                    <span class="px-3 py-1 bg-sky-700 text-sky-100 rounded-lg text-xs font-bold uppercase">Thí Sinh: <span id="dash-player-name" class="text-amber-300">--</span></span>
+                    <span class="px-3 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs font-bold">Lớp: <span id="dash-player-class" class="text-white">--</span></span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-center">
+                        <span class="block text-[10px] text-emerald-400 font-bold uppercase">Tiến Trình</span>
+                        <span id="dash-progress" class="text-base sm:text-lg font-black text-chalkYellow">1 / 30</span>
+                    </div>
+                    <div class="h-6 w-px bg-slate-700"></div>
+                    <div class="text-center">
+                        <span class="block text-[10px] text-emerald-400 font-bold uppercase">Điểm Tích Lũy</span>
+                        <span id="dash-score" class="text-base sm:text-lg font-black text-amber-400">0.0 / 14.0</span>
+                    </div>
+                    <div class="h-6 w-px bg-slate-700"></div>
+                    <div class="text-center">
+                        <span class="block text-[10px] text-emerald-400 font-bold uppercase">Thời Gian</span>
+                        <span id="dash-timer" class="text-base sm:text-lg font-mono font-bold text-sky-300">00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE CENTRAL: LUCKY WHEEL & GOLD BELL AREA -->
+            <div id="wheel-stage-area" class="chalkboard-frame p-4 sm:p-6 flex flex-col md:flex-row items-center justify-around gap-6 text-white min-h-[300px]">
+                <!-- Interactive HTML5 Canvas Wheel -->
+                <div class="flex flex-col items-center">
+                    <div class="relative">
+                        <!-- Wheel Pointer -->
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-10 w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-t-[24px] border-t-red-600 drop-shadow-md"></div>
+                        <canvas id="wheel-canvas" width="280" height="280" class="rounded-full shadow-2xl border-4 border-amber-400 bg-slate-900"></canvas>
+                    </div>
+                    <button id="btn-spin-wheel" onclick="spinWheel()" class="mt-3 px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-extrabold rounded-xl shadow-lg border border-emerald-300 text-xs sm:text-sm">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> QUAY VÒNG MAY MẮN
+                    </button>
+                </div>
+
+                <!-- Center Gold Bell & Call-to-Action -->
+                <div class="flex flex-col items-center justify-center text-center max-w-sm">
+                    <div id="wheel-result-badge" class="mb-3 px-4 py-1.5 bg-amber-400/20 border border-amber-400 rounded-full text-amber-300 font-bold text-xs sm:text-sm">
+                        Hãy quay vòng để chọn Thử Thách!
+                    </div>
+
+                    <!-- GIANT GOLD BELL BUTTON -->
+                    <button id="btn-gold-bell" onclick="ringGoldBell()" disabled class="bell-btn w-32 h-32 sm:w-40 sm:h-40 rounded-full flex flex-col items-center justify-center border-4 border-white text-slate-950 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed my-2">
+                        <i class="fa-solid fa-bell text-4xl sm:text-5xl text-slate-950 mb-1 animate-bounce"></i>
+                        <span class="font-black text-xs sm:text-sm tracking-wider uppercase text-slate-950">RUNG CHUÔNG</span>
+                    </button>
+                    <span class="text-xs text-emerald-200 mt-2 font-semibold">Bấm chuông vàng để mở câu hỏi thử thách!</span>
+                </div>
+            </div>
+
+            <!-- QUESTION BOARD CONTAINER (Hidden until Bell is Rung) -->
+            <div id="question-board" class="hidden chalkboard-frame p-4 sm:p-8 flex-col justify-between text-white min-h-[420px]">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span id="question-badge" class="px-3 py-1 bg-amber-500/20 border border-amber-400 text-amber-300 text-xs font-bold rounded-full uppercase">
+                            Dạng: Trắc nghiệm 4 đáp án (0.2đ)
+                        </span>
+                        <span id="difficulty-badge" class="px-3 py-1 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-xs font-bold rounded-full">
+                            Mức độ: Nhận biết
+                        </span>
+                    </div>
+
+                    <!-- Question Content -->
+                    <div id="question-text" class="text-base sm:text-xl font-bold text-white leading-relaxed my-4 text-center sm:text-left min-h-[70px] flex items-center">
+                        Nội dung câu hỏi sẽ hiển thị ở đây...
+                    </div>
+                </div>
+
+                <!-- ANSWERS AREA -->
+                <div id="answers-container" class="my-4">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+
+                <!-- EXPLANATION & NEXT STEP BOX -->
+                <div id="explanation-box" class="hidden p-4 bg-slate-900/95 border-2 border-amber-400 rounded-xl mt-4">
+                    <div class="flex items-start gap-3">
+                        <div id="explanation-icon" class="text-2xl sm:text-3xl"></div>
+                        <div class="flex-1">
+                            <h4 id="explanation-title" class="font-extrabold text-base sm:text-lg mb-1"></h4>
+                            <div id="explanation-text" class="text-xs sm:text-sm text-gray-100 leading-relaxed font-medium space-y-1"></div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <button id="btn-next-question" onclick="nextStageStep()" class="px-6 py-2.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition shadow-lg">
+                            TIẾP TỤC CHINH PHỤC <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SCREEN 3: VICTORY & RESULT SCREEN -->
+        <div id="screen-result" class="hidden chalkboard-frame p-6 sm:p-10 text-center max-w-2xl mx-auto w-full my-auto text-white">
+            <div class="w-24 h-24 mx-auto mb-3 rounded-full bg-amber-400/20 border-4 border-amber-400 flex items-center justify-center text-amber-300 text-5xl shadow-2xl">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-black text-chalkYellow mb-1 tracking-wide">VINH DANH NGƯỜI CHIẾN THẮNG!</h2>
+            <p id="result-subtitle" class="text-xs sm:text-sm text-emerald-200 mb-6">Bạn đã hoàn thành xuất sắc chặng đường Chinh Phục Toán Học 10!</p>
+
+            <div class="bg-slate-900/90 border-2 border-emerald-500 rounded-xl p-5 mb-6 text-left space-y-3">
+                <div class="flex justify-between border-b border-emerald-900 pb-2 text-sm">
+                    <span class="text-gray-300">Thí sinh vinh danh:</span>
+                    <span id="res-player-name" class="font-bold text-amber-300">--</span>
+                </div>
+                <div class="flex justify-between border-b border-emerald-900 pb-2 text-sm">
+                    <span class="text-gray-300">Lớp học:</span>
+                    <span id="res-player-class" class="font-bold text-white">--</span>
+                </div>
+                <div class="flex justify-between border-b border-emerald-900 pb-2 text-sm">
+                    <span class="text-gray-300">Tổng thời gian thi:</span>
+                    <span id="res-total-time" class="font-bold text-sky-300">--</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                    <span class="text-gray-100 font-bold text-base">TỔNG ĐIỂM ĐẠT ĐƯỢC:</span>
+                    <span id="res-final-score" class="font-black text-chalkYellow text-2xl">0.0 / 14.0</span>
+                </div>
+            </div>
+
+            <div id="upload-status" class="text-xs text-emerald-300 mb-4 h-4 font-semibold"></div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="resetGameToStart()" class="px-6 py-3.5 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-extrabold rounded-xl transition shadow-lg text-xs sm:text-sm uppercase">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> CHƠI LẠI TỪ ĐẦU
+                </button>
+                <button onclick="showLeaderboard()" class="px-6 py-3.5 bg-sky-700 hover:bg-sky-600 text-white font-extrabold rounded-xl transition border border-sky-400 text-xs sm:text-sm uppercase">
+                    <i class="fa-solid fa-list-ol mr-2"></i> BẢNG XẾP HẠNG LỚP
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL: LEADERBOARD -->
+    <div id="modal-leaderboard" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="chalkboard-frame border-4 border-amber-400 rounded-2xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl text-white">
+            <div class="p-4 border-b border-emerald-800 flex justify-between items-center bg-slate-900">
+                <h3 class="text-lg sm:text-xl font-black text-chalkYellow flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-amber-400"></i> BẢNG XẾP HẠNG TOÁN HỌC - THẦY HÒA AI
+                </h3>
+                <button onclick="hideLeaderboard()" class="text-gray-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-4 overflow-y-auto flex-1">
+                <table class="w-full text-left text-xs sm:text-sm text-gray-200">
+                    <thead class="text-xs text-emerald-300 uppercase bg-emerald-950 sticky top-0 border-b border-emerald-800">
+                        <tr>
+                            <th class="py-3 px-3">Hạng</th>
+                            <th class="py-3 px-3">Họ và Tên</th>
+                            <th class="py-3 px-3">Lớp</th>
+                            <th class="py-3 px-3 text-center">Điểm số</th>
+                            <th class="py-3 px-3 text-right">Thời gian</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body" class="divide-y divide-emerald-900/40">
+                        <tr>
+                            <td colspan="5" class="py-8 text-center text-gray-400">Đang cập nhật bảng xếp hạng...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-4 border-t border-emerald-800 bg-slate-900 text-right">
+                <button onclick="hideLeaderboard()" class="px-5 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-xs sm:text-sm">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: RULES -->
+    <div id="modal-rules" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="chalkboard-frame border-4 border-amber-400 rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl text-white">
+            <div class="p-4 border-b border-emerald-800 flex justify-between items-center bg-slate-900">
+                <h3 class="text-lg sm:text-xl font-black text-chalkYellow flex items-center gap-2">
+                    <i class="fa-solid fa-book-open"></i> LUẬT CHƠI & THANG ĐIỂM
+                </h3>
+                <button onclick="hideRulesModal()" class="text-gray-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 overflow-y-auto flex-1 space-y-4 text-xs sm:text-sm leading-relaxed">
+                <div class="p-3 bg-emerald-950/80 rounded-xl border border-emerald-800">
+                    <h4 class="font-bold text-chalkYellow mb-1">1. Vòng quay may mắn & Chuông vàng:</h4>
+                    <p>Học sinh tiến hành quay bánh xe may mắn để xác định thử thách điểm thưởng. Sau đó rung <b>Chuông vàng</b> trung tâm để mở câu hỏi thử thách.</p>
+                </div>
+                <div class="p-3 bg-emerald-950/80 rounded-xl border border-emerald-800">
+                    <h4 class="font-bold text-chalkYellow mb-1">2. Thang điểm đánh giá (Tổng 14.0 điểm):</h4>
+                    <ul class="list-disc list-inside ml-2 space-y-1 text-gray-200">
+                        <li><b>20 Câu Trắc nghiệm 4 lựa chọn:</b> Mỗi câu trả lời đúng đạt <b>0.2 điểm</b>.</li>
+                        <li><b>10 Câu Trắc nghiệm Đúng/Sai (4 ý a,b,c,d):</b> Mỗi ý chọn đúng đạt <b>0.25 điểm</b> (Đạt tối đa 1.0 điểm/câu).</li>
+                    </ul>
+                </div>
+                <div class="p-3 bg-emerald-950/80 rounded-xl border border-emerald-800">
+                    <h4 class="font-bold text-chalkYellow mb-1">3. Thời gian trả lời:</h4>
+                    <p><b>KHÔNG GIỚI HẠN THỜI GIAN TRẢ LỜI CHO MỖI CÂU HỎI.</b> Học sinh suy nghĩ kỹ lưỡng trước khi chọn đáp án để đạt điểm cao nhất.</p>
+                </div>
+            </div>
+            <div class="p-4 border-t border-emerald-800 bg-slate-900 text-right">
+                <button onclick="hideRulesModal()" class="px-5 py-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-lg text-xs sm:text-sm">
+                    Đã Hiểu Luật
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="w-full max-w-6xl mx-auto text-center py-2 text-xs font-semibold text-slate-700">
+        Hệ thống Game Show Dạy học Toán 10 &copy; THẦY HÒA AI - GDPT 2018
+    </footer>
+
+    <!-- MAIN JAVASCRIPT LOGIC -->
+    <script>
+        /* ==========================================================================
+           1. AUDIO ENGINE & SYNTHESIZER (Web Audio API + Speech API)
+           ========================================================================== */
+        let soundEnabled = true;
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            const text = document.getElementById('sound-text');
+            if (soundEnabled) {
+                icon.className = 'fa-solid fa-volume-high';
+                text.textContent = 'Âm Thanh: BẬT';
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-red-400';
+                text.textContent = 'Âm Thanh: TẮT';
+            }
+        }
+
+        // Voice Synthesizer for "CHÍNH XÁC"
+        function speakExact() {
+            if (!soundEnabled || !('speechSynthesis' in window)) return;
+            try {
+                window.speechSynthesis.cancel();
+                const msg = new SpeechSynthesisUtterance("CHÍNH XÁC");
+                msg.lang = 'vi-VN';
+                msg.rate = 1.0;
+                msg.pitch = 1.2;
+                window.speechSynthesis.speak(msg);
+            } catch (e) { console.log(e); }
+        }
+
+        function playSoundEffect(type) {
+            if (!soundEnabled) return;
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'correct') {
+                    // Voice speech
+                    speakExact();
+
+                    // Crowd Cheer / Happy Celebration Sound Simulation
+                    for (let i = 0; i < 5; i++) {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+
+                        osc.type = 'triangle';
+                        const freqs = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+                        osc.frequency.setValueAtTime(freqs[i], now + i * 0.08);
+
+                        gain.gain.setValueAtTime(0.2, now + i * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+
+                        osc.start(now + i * 0.08);
+                        osc.stop(now + 1.2);
+                    }
+                } else if (type === 'wrong') {
+                    // Sad / Disappointed Tone
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(280, now);
+                    osc.frequency.setValueAtTime(210, now + 0.2);
+                    osc.frequency.setValueAtTime(150, now + 0.4);
+
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.7);
+
+                    osc.start(now);
+                    osc.stop(now + 0.7);
+                } else if (type === 'spin') {
+                    // Wheel Tick Sound
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+
+                    osc.start(now);
+                    osc.stop(now + 0.04);
+                } else if (type === 'bell') {
+                    // Gold Bell Sound
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(987.77, now); // B5 bell note
+                    gain.gain.setValueAtTime(0.5, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+
+                    osc.start(now);
+                    osc.stop(now + 1.5);
+                }
+            } catch (e) {
+                console.log("Audio error:", e);
+            }
+        }
+
+        /* ==========================================================================
+           2. QUESTION BANK (GDPT 2018 - Math 10: BPT & Hệ BPT Bậc Nhất 2 Ẩn)
+           ========================================================================== */
+        // Dạng 1: 20 Câu Trắc nghiệm 4 Lựa chọn (MCQ) - 0.2 điểm/câu
+        const mcqQuestionBank = [
+            {
+                question: 'Bất phương trình nào sau đây là bất phương trình bậc nhất hai ẩn x, y?',
+                options: ['2x + 3y - 5 > 0', 'x² + y ≤ 2', '2x + 3y² > 1', 'xy + x < 0'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Bất phương trình bậc nhất hai ẩn x, y có dạng ax + by < c (hoặc >, ≤, ≥) với a, b không đồng thời bằng 0. Vậy 2x + 3y - 5 > 0 đúng dạng.'
+            },
+            {
+                question: 'Cặp số nào sau đây là một nghiệm của bất phương trình x - 2y + 4 > 0?',
+                options: ['(1, 1)', '(0, 3)', '(-5, 0)', '(1, 3)'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Thay x = 1, y = 1 vào BPT ta được 1 - 2(1) + 4 = 3 > 0 (Đúng). Do đó (1, 1) là một nghiệm.'
+            },
+            {
+                question: 'Miền nghiệm của bất phương trình x + y ≤ 2 chứa điểm nào sau đây?',
+                options: ['(0, 0)', '(2, 1)', '(3, 0)', '(1, 2)'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Thay x = 0, y = 0 vào BPT ta được 0 + 0 = 0 ≤ 2 (Mệnh đề đúng). Vậy điểm O(0,0) thuộc miền nghiệm.'
+            },
+            {
+                question: 'Trong mặt phẳng tọa độ Oxy, đường thẳng d: x - y + 1 = 0 chia mặt phẳng thành hai nửa. Nửa mặt phẳng chứa điểm O(0,0) là miền nghiệm của BPT nào?',
+                options: ['x - y + 1 > 0', 'x - y + 1 < 0', 'x - y + 1 ≤ -1', 'x - y + 1 = 0'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Thay tọa độ O(0,0) vào biểu thức x - y + 1 ta được 0 - 0 + 1 = 1 > 0. Do đó nửa mặt phẳng chứa O ứng với x - y + 1 > 0.'
+            },
+            {
+                question: 'Hệ bất phương trình nào sau đây là hệ bất phương trình bậc nhất hai ẩn?',
+                options: [
+                    '\\begin{cases} x + y > 0 \\\\ 2x - 3y ≤ 5 \\end{cases}',
+                    '\\begin{cases} x^2 + y > 0 \\\\ x - y ≤ 1 \\end{cases}',
+                    '\\begin{cases} x + xy > 1 \\\\ y > 0 \\end{cases}',
+                    '\\begin{cases} x + y^2 ≤ 3 \\\\ x ≥ 0 \\end{cases}'
+                ],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Hệ BPT bậc nhất hai ẩn gồm các BPT bậc nhất hai ẩn. Hệ thứ nhất thỏa mãn tất cả các ẩn x, y đều ở bậc nhất.'
+            },
+            {
+                question: 'Cho hệ BPT: \\begin{cases} x ≥ 0 \\\\ y ≥ 0 \\\\ x + y ≤ 4 \\end{cases}. Cặp số nào sau đây KHÔNG thuộc miền nghiệm của hệ?',
+                options: ['(2, 3)', '(1, 1)', '(0, 0)', '(2, 2)'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Thay (2, 3) vào x + y ≤ 4 ta được 2 + 3 = 5 ≤ 4 (Sai). Vậy (2,3) không thuộc miền nghiệm.'
+            },
+            {
+                question: 'Điểm nào sau đây thuộc miền nghiệm của hệ BPT: \\begin{cases} 2x - y > 1 \\\\ x + 3y ≤ 6 \\end{cases}?',
+                options: ['(2, 0)', '(0, 0)', '(1, 2)', '(-1, 1)'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Thay (2,0): 2(2) - 0 = 4 > 1 (Đúng) và 2 + 3(0) = 2 ≤ 6 (Đúng). Thỏa mãn cả 2 BPT.'
+            },
+            {
+                question: 'Miền nghiệm của bất phương trình 2x + y - 6 < 0 KHÔNG chứa điểm nào sau đây?',
+                options: ['(3, 1)', '(0, 0)', '(1, 1)', '(2, 1)'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Thay (3, 1): 2(3) + 1 - 6 = 1 < 0 (Sai). Do đó điểm (3,1) không nằm trong miền nghiệm.'
+            },
+            {
+                question: 'Cho bất phương trình x - 2y ≥ 0. Khẳng định nào sau đây là ĐÚNG?',
+                options: [
+                    'Đường thẳng x - 2y = 0 thuộc miền nghiệm của bất phương trình',
+                    'Điểm (1, 1) thuộc miền nghiệm',
+                    'Điểm (-2, 1) thuộc miền nghiệm',
+                    'Gốc tọa độ O(0,0) không thuộc miền nghiệm'
+                ],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: BPT chứa dấu "≥" nên tất cả các điểm nằm trên đường thẳng ranh giới x - 2y = 0 đều là nghiệm.'
+            },
+            {
+                question: 'Miền biểu diễn nghiệm của hệ BPT \\begin{cases} x ≥ 0 \\\\ y ≥ 0 \\\\ x + y ≤ 3 \\end{cases} là một hình gì?',
+                options: ['Tam giác', 'Tứ giác', 'Hình chữ nhật', 'Ngũ giác'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Miền nghiệm giới hạn bởi các đường x=0, y=0 và x+y=3 tạo thành tam giác vuông tại O có 3 đỉnh (0,0), (3,0), (0,3).'
+            },
+            {
+                question: 'Bất phương trình 3x - 2y + 6 > 0 có bờ là đường thẳng d. Đường thẳng d có phương trình là:',
+                options: ['3x - 2y + 6 = 0', '3x - 2y = 0', 'x - y + 6 = 0', '2x - 3y + 6 = 0'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Bờ của miền nghiệm bất phương trình ax + by + c > 0 chính là đường thẳng ax + by + c = 0.'
+            },
+            {
+                question: 'Cặp số (-1, 2) là nghiệm của bất phương trình nào sau đây?',
+                options: ['-x + 2y - 3 > 0', 'x + y - 2 > 0', '2x + y > 1', 'x - y + 1 > 0'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Thay x = -1, y = 2 vào -x + 2y - 3: -(-1) + 2(2) - 3 = 1 + 4 - 3 = 2 > 0 (Đúng).'
+            },
+            {
+                question: 'Giá trị nhỏ nhất của biểu thức F(x, y) = x - 2y trên miền nghiệm là hình đa giác có các đỉnh (0,0), (2,0), (2,3), (0,2) đạt tại đỉnh nào?',
+                options: ['(0, 2)', '(2, 3)', '(0, 0)', '(2, 0)'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Tính F tại các đỉnh: F(0,0)=0, F(2,0)=2, F(2,3)=-4, F(0,2)=-4. Điểm (0,2) và (2,3) cho F min = -4, đỉnh (0,2) nằm trong danh sách lựa chọn.'
+            },
+            {
+                question: 'Giá trị lớn nhất của F(x, y) = 3x + y trên miền đa giác đỉnh A(0,4), B(3,2), C(2,0), D(0,0) bằng bao nhiêu?',
+                options: ['11', '4', '6', '0'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Thử các đỉnh: F(A)=4, F(B)=3(3)+2=11, F(C)=6, F(D)=0. Vậy max F = 11 tại B(3,2).'
+            },
+            {
+                question: 'Một đại lý nhập hai loại hàng A và B. Gọi x, y lần lượt là số lượng hàng A và B nhập về (x, y ≥ 0). Điều kiện số vốn không vượt quá 50 triệu (hàng A giá 2 triệu/sp, B giá 5 triệu/sp) được biểu diễn bởi BPT nào?',
+                options: ['2x + 5y ≤ 50', '2x + 5y ≥ 50', '5x + 2y ≤ 50', 'x + y ≤ 50'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Tổng số tiền mua hàng là 2x + 5y (triệu). Do vốn không quá 50 triệu nên BPT là 2x + 5y ≤ 50.'
+            },
+            {
+                question: 'Miền nghiệm của hệ BPT \\begin{cases} x - y ≤ 0 \\\\ x + 2y ≥ 0 \\end{cases} chứa phần tư nào của mặt phẳng tọa độ?',
+                options: ['Phần tư thứ II', 'Phần tư thứ IV', 'Toàn bộ mặt phẳng', 'Không chứa phần tư nào'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Góc phần tư thứ II có x < 0, y > 0. Thỏa mãn x - y < 0 và với y đủ lớn thì x + 2y > 0.'
+            },
+            {
+                question: 'Bất phương trình ax + by ≤ c có nghiệm với mọi x, y khi và chỉ khi:',
+                options: ['a = 0, b = 0 và c ≥ 0', 'a = 0, b = 0 và c < 0', 'a ≠ 0, b ≠ 0', 'a = 1, b = 1'],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Khi a=0, b=0 thì BPT trở thành 0 ≤ c. BPT này đúng với mọi x, y khi và chỉ khi c ≥ 0.'
+            },
+            {
+                question: 'Hệ BPT nào dưới đây vô nghiệm?',
+                options: [
+                    '\\begin{cases} x + y < 1 \\\\ x + y > 3 \\end{cases}',
+                    '\\begin{cases} x > 0 \\\\ y > 0 \\end{cases}',
+                    '\\begin{cases} x + y ≥ 0 \\\\ x - y ≤ 1 \\end{cases}',
+                    '\\begin{cases} x ≤ 2 \\\\ y ≥ 0 \\end{cases}'
+                ],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: x + y không thể vừa nhỏ hơn 1 vừa lớn hơn 3 cùng một lúc. Do đó hệ vô nghiệm.'
+            },
+            {
+                question: 'Miền nghiệm của BPT x + 2y - 4 ≤ 0 là nửa mặt phẳng có bờ là đường thẳng x + 2y - 4 = 0 và:',
+                options: [
+                    'Chứa gốc tọa độ O(0,0)',
+                    'Không chứa gốc tọa độ O(0,0)',
+                    'Chứa điểm (4, 4)',
+                    'Chứa điểm (0, 3)'
+                ],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Thay O(0,0) vào BPT: 0 + 2(0) - 4 = -4 ≤ 0 (Đúng). Miền nghiệm chứa O(0,0).'
+            },
+            {
+                question: 'Trong bài toán tối ưu tuyến tính, giá trị lớn nhất hoặc nhỏ nhất của biểu thức F(x, y) = ax + by trên miền đa giác thu được tại đâu?',
+                options: [
+                    'At ít nhất một trong các đỉnh của đa giác miền nghiệm',
+                    'Tại tâm của đa giác miền nghiệm',
+                    'Tại trung điểm của một cạnh bất kỳ',
+                    'Tại một điểm nằm hoàn toàn bên trong đa giác'
+                ],
+                correctIndex: 0,
+                explanation: 'Định hướng giải: Theo định lý biểu diễn miền nghiệm bài toán quy hoạch tuyến tính, F(x,y) luôn đạt cực trị tại các đỉnh của miền đa giác nghiệm.'
+            }
+        ];
+
+        // Dạng 2: 10 Câu Trắc nghiệm Đúng/Sai (TF - 4 ý a,b,c,d) - 1.0 điểm/câu
+        const tfQuestionBank = [
+            {
+                question: 'Cho hệ bất phương trình bậc nhất hai ẩn: \\begin{cases} x + y ≤ 4 \\\\ x ≥ 0 \\\\ y ≥ 0 \\end{cases}. Xét tính Đúng/Sai của các khẳng định sau:',
+                items: [
+                    { text: 'a) Miền nghiệm của hệ là một miền tam giác vuông cân', correct: true },
+                    { text: 'b) Điểm A(2, 2) nằm trong miền nghiệm của hệ', correct: true },
+                    { text: 'c) Điểm B(3, 2) thuộc miền nghiệm của hệ', correct: false },
+                    { text: 'd) Giá trị lớn nhất của F(x, y) = 2x + 3y trên miền nghiệm là 12', correct: true }
+                ],
+                explanation: 'Định hướng giải: Đỉnh tam giác là O(0,0), (4,0), (0,4) nên vuông cân (a Đúng). 2+2=4 ≤ 4 (b Đúng). 3+2=5 > 4 (c Sai). Max F đạt tại (0,4) => F = 3(4) = 12 (d Đúng).'
+            },
+            {
+                question: 'Một xưởng sản xuất hai loại sản phẩm I và II. Để sản xuất 1 kg sản phẩm I cần 2 kg nguyên liệu và 30 giờ; sản xuất 1 kg loại II cần 1 kg nguyên liệu và 15 giờ. Xưởng có 8 kg nguyên liệu và 90 giờ làm việc. Gọi x, y (kg) lần lượt là số lượng sản phẩm I và II.',
+                items: [
+                    { text: 'a) Hệ BPT biểu diễn giới hạn nguyên liệu và thời gian là \\begin{cases} 2x + y ≤ 8 \\\\ 30x + 15y ≤ 90 \\\\ x ≥ 0, y ≥ 0 \\end{cases}', correct: true },
+                    { text: 'b) Hai đường thẳng 2x + y = 8 và 30x + 15y = 90 song song với nhau', correct: true },
+                    { text: 'c) Xưởng có thể sản xuất tối đa 6 kg sản phẩm loại II nếu không sản xuất loại I', correct: true },
+                    { text: 'd) Điểm (3, 2) thỏa mãn tất cả các điều kiện sản xuất của xưởng', correct: false }
+                ],
+                explanation: 'Định hướng giải: BPT nguyên liệu 2x+y≤8, thời gian 30x+15y≤90 (a Đúng). 30x+15y=90 <=> 2x+y=6 song song với 2x+y=8 (b Đúng). Khi x=0 => y ≤ 6 (c Đúng). Với (3,2) thì 2(3)+2=8 nhưng 30(3)+15(2)=120 > 90 (d Sai).'
+            },
+            {
+                question: 'Cho bất phương trình bậc nhất hai ẩn (m - 1)x + (m + 2)y > 3 (với m là tham số).',
+                items: [
+                    { text: 'a) Với m = 1, BPT trở thành 3y > 3 hay y > 1', correct: true },
+                    { text: 'b) Khi m = 1, miền nghiệm của BPT là nửa mặt phẳng phía trên đường thẳng y = 1', correct: true },
+                    { text: 'c) Với m = -2, gốc tọa độ O(0,0) thuộc miền nghiệm của BPT', correct: false },
+                    { text: 'd) Không tồn tại giá trị nào của m để BPT là BPT bậc nhất hai ẩn', correct: false }
+                ],
+                explanation: 'Định hướng giải: m=1 => 0x + 3y > 3 <=> y > 1 (a,b Đúng). m=-2 => -3x > 3, thay O(0,0): 0 > 3 (Sai => c Sai). BPT luôn là BPT 2 ẩn vì m-1 và m+2 không đồng thời bằng 0 (d Sai).'
+            },
+            {
+                question: 'Xét bài toán quy hoạch tuyến tính: Tìm giá trị lớn nhất của F(x, y) = 4x + 3y trên miền nghiệm của hệ \\begin{cases} x + 2y ≤ 6 \\\\ 2x + y ≤ 8 \\x ≥ 0, y ≥ 0 \\end{cases}.',
+                items: [
+                    { text: 'a) Các đỉnh của miền đa giác nghiệm là O(0,0), A(4,0), B(10/3, 4/3), C(0,3)', correct: true },
+                    { text: 'b) Giá trị của F tại đỉnh A(4,0) là 16', correct: true },
+                    { text: 'c) Giá trị của F tại giao điểm B(10/3, 4/3) là 52/3 ≈ 17.33', correct: opacity = true },
+                    { text: 'd) Giá trị lớn nhất của F(x, y) trên miền nghiệm là 16', correct: false }
+                ],
+                explanation: 'Định hướng giải: Giao điểm B là nghiệm hệ x+2y=6 & 2x+y=8 => x=10/3, y=4/3. F(B) = 4(10/3) + 3(4/3) = 52/3 ≈ 17.33 > 16. Do đó Max F là 52/3, không phải 16 (d Sai).'
+            },
+            {
+                question: 'Xét miền nghiệm của hệ bất phương trình \\begin{cases} x - y ≥ -1 \\\\ x + y ≤ 3 \\\\ x ≥ 0 \\end{cases}. Khẳng định nào sau đây Đúng hay Sai?',
+                items: [
+                    { text: 'a) Miền nghiệm chứa điểm (1, 1)', correct: true },
+                    { text: 'b) Đường thẳng x - y = -1 cắt trục Oy tại điểm (0, 1)', correct: true },
+                    { text: 'c) Miền nghiệm là một đa giác có 4 đỉnh', correct: false },
+                    { text: 'd) Diện tích của miền đa giác nghiệm bằng 4', correct: true }
+                ],
+                explanation: 'Định hướng giải: Thử (1,1) thỏa mãn (a Đúng). x-y=-1 cắt Oy tại (0,1) (b Đúng). Miền nghiệm có 3 đỉnh (0,1), (0,-1) và (1,2) hoặc tam giác (c Sai). Diện tích tam giác S = 1/2 * đáy * cao = 1/2 * 4 * 2 = 4 (d Đúng).'
+            },
+            {
+                question: 'Một hộ gia đình cần ít nhất 900 đơn vị protein và 400 đơn vị lipid trong thức ăn mỗi ngày. Họ phối hợp mua thịt bò (x kg) và thịt lợn (y kg). Mỗi kg thịt bò chứa 800 protein, 200 lipid. Mỗi kg thịt lợn chứa 600 protein, 400 lipid.',
+                items: [
+                    { text: 'a) BPT điều kiện protein là 800x + 600y ≥ 900', correct: true },
+                    { text: 'b) BPT điều kiện lipid là 200x + 400y ≥ 400', correct: true },
+                    { text: 'c) Cặp (x,y) = (1, 1) thỏa mãn cả hai nhu cầu dinh dưỡng trên', correct: true },
+                    { text: 'd) Chi phí mua tối thiểu đạt được khi chỉ mua 1.5 kg thịt lợn và không mua thịt bò', correct: false }
+                ],
+                explanation: 'Định hướng giải: BPT Protein: 800x+600y ≥ 900, Lipid: 200x+400y ≥ 400 (a, b Đúng). Với (1,1): Protein=1400≥900, Lipid=600≥400 (c Đúng). Nếu x=0, y=1.5 thì Protein = 900 nhưng Lipid = 600, giá thịt lợn/bò quyết định chi phí (d Sai).'
+            },
+            {
+                question: 'Cho miền nghiệm của hệ BPT \\begin{cases} x + 2y - 2 ≤ 0 \\\\ 2x - y + 1 ≥ 0 \\\\ y ≥ 0 \\end{cases}.',
+                items: [
+                    { text: 'a) Điểm (-1/2, 0) là một đỉnh của miền nghiệm', correct: true },
+                    { text: 'b) Điểm (2, 0) là một đỉnh của miền nghiệm', correct: true },
+                    { text: 'c) Điểm (0, 1) là giao điểm của hai đường thẳng ranh giới', correct: true },
+                    { text: 'd) Điểm (1, 1) nằm trong miền nghiệm', correct: false }
+                ],
+                explanation: 'Định hướng giải: Giao Oy & x+2y-2=0 => (0,1). Giao x+2y=2 & 2x-y=-1 => x=0, y=1 (a,b,c Đúng). Thay (1,1): 1+2-2 = 1 ≤ 0 (Sai => d Sai).'
+            },
+            {
+                question: 'Một cuộc thi giải toán có 2 loại câu hỏi: Dễ (x câu) và Khó (y câu). Mỗi câu dễ được 10 điểm, mỗi câu khó 20 điểm. Thí sinh phải làm ít nhất 5 câu dễ và số câu khó không quá 10 câu. Tổng thời gian làm không quá 100 phút (câu dễ làm 4 phút, câu khó 8 phút).',
+                items: [
+                    { text: 'a) Điều kiện thời gian là 4x + 8y ≤ 100', correct: true },
+                    { text: 'b) Điểm số tối đa thí sinh có thể đạt được là 250 điểm', correct: true },
+                    { text: 'c) Thí sinh có thể làm 10 câu dễ và 10 câu khó', correct: false },
+                    { text: 'd) Hệ BPT có các điều kiện: x ≥ 5, 0 ≤ y ≤ 10, 4x + 8y ≤ 100', correct: true }
+                ],
+                explanation: 'Định hướng giải: BPT thời gian 4x+8y ≤ 100 (a,d Đúng). Nếu x=10, y=10 => 4(10)+8(10)=120 > 100 (c Sai). Max điểm = 10(5) + 20(10) = 250 tại x=5, y=10 (b Đúng).'
+            },
+            {
+                question: 'Xét bất phương trình bậc nhất hai ẩn 2x - 3y + 6 ≤ 0.',
+                items: [
+                    { text: 'a) Đường thẳng d: 2x - 3y + 6 = 0 đi qua điểm A(-3, 0) và B(0, 2)', correct: true },
+                    { text: 'b) Miền nghiệm của BPT là nửa mặt phẳng bờ d không chứa gốc tọa độ O(0,0)', correct: true },
+                    { text: 'c) Vector pháp tuyến của đường thẳng ranh giới là n = (2, -3)', correct: true },
+                    { text: 'd) Điểm C(1, 4) thuộc miền nghiệm của BPT', correct: true }
+                ],
+                explanation: 'Định hướng giải: d cắt Ox tại (-3,0), Oy tại (0,2) (a Đúng). Thay O(0,0): 6 ≤ 0 (Sai => b Đúng). VTPT n=(2,-3) (c Đúng). Thay C(1,4): 2(1)-3(4)+6 = -4 ≤ 0 (d Đúng).'
+            },
+            {
+                question: 'Cho biểu thức F(x, y) = y - x trên miền nghiệm giới hạn bởi các BPT: y - x ≤ 2, x + y ≤ 4, x ≥ 0, y ≥ 0.',
+                items: [
+                    { text: 'a) Miền nghiệm là một ngũ giác', correct: false },
+                    { text: 'b) Đỉnh của miền nghiệm gồm (0,0), (4,0), (1,3), (0,2)', correct: true },
+                    { text: 'c) Giá trị lớn nhất của F(x, y) bằng 2 đạt tại (0,2)', correct: true },
+                    { text: 'd) Giá trị nhỏ nhất của F(x, y) bằng -4 đạt tại (4,0)', correct: true }
+                ],
+                explanation: 'Định hướng giải: Miền nghiệm có 4 đỉnh => Tứ giác, không phải ngũ giác (a Sai). Các đỉnh O(0,0), (4,0), giao điểm (1,3) và (0,2) (b Đúng). F(0,2) = 2 (Max), F(4,0) = -4 (Min) (c,d Đúng).'
+            }
+        ];
+
+        /* ==========================================================================
+           3. GAME ENGINE & STATE MANAGEMENT
+           ========================================================================== */
+        let gameState = {
+            playerName: '',
+            playerClass: '',
+            gameMode: 1, // 1: Individual, 2: Class Show
+            currentQuestionIndex: 0,
+            score: 0.0,
+            timerInterval: null,
+            totalSeconds: 0,
+            activeQuestions: [],
+            wheelSpun: false,
+            wheelSegment: '',
+            currentQuestionAnswered: false,
+            userTFSelections: {}
+        };
+
+        const screens = {
+            start: document.getElementById('screen-start'),
+            game: document.getElementById('screen-game'),
+            result: document.getElementById('screen-result')
+        };
+
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function setGameMode(mode) {
+            playSoundEffect('spin');
+            gameState.gameMode = mode;
+            const btn1 = document.getElementById('mode-btn-1');
+            const btn2 = document.getElementById('mode-btn-2');
+
+            if (mode === 1) {
+                btn1.className = 'py-2.5 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm bg-emerald-700 border-chalkYellow text-white';
+                btn2.className = 'py-2.5 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm bg-slate-800 border-slate-600 text-gray-300';
+            } else {
+                btn2.className = 'py-2.5 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm bg-sky-700 border-chalkYellow text-white';
+                btn1.className = 'py-2.5 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm bg-slate-800 border-slate-600 text-gray-300';
+            }
+        }
+
+        function handleStartGame(e) {
+            e.preventDefault();
+            playSoundEffect('spin');
+
+            const name = document.getElementById('player-name').value.trim();
+            const cls = document.getElementById('player-class').value.trim();
+            if (!name || !cls) return;
+
+            resetGameState();
+
+            gameState.playerName = name;
+            gameState.playerClass = cls;
+
+            // Process MCQ with shuffled options
+            const processedMCQ = mcqQuestionBank.map(q => {
+                const indexedOpts = q.options.map((opt, idx) => ({
+                    text: opt,
+                    isCorrect: idx === q.correctIndex
+                }));
+                return {
+                    type: 'MCQ',
+                    question: q.question,
+                    shuffledOptions: shuffleArray(indexedOpts),
+                    explanation: q.explanation
+                };
+            });
+
+            const processedTF = tfQuestionBank.map(q => ({
+                type: 'TF',
+                question: q.question,
+                items: q.items,
+                explanation: q.explanation
+            }));
+
+            // Combine and Shuffle all 30 questions
+            gameState.activeQuestions = [...shuffleArray(processedMCQ), ...shuffleArray(processedTF)];
+
+            // Switch Screen
+            screens.start.classList.add('hidden');
+            screens.game.classList.remove('hidden');
+            screens.game.classList.add('flex');
+
+            // Set Header Infos
+            document.getElementById('dash-player-name').textContent = gameState.playerName;
+            document.getElementById('dash-player-class').textContent = gameState.playerClass;
+
+            // Draw Initial Wheel Canvas
+            drawWheel(0);
+
+            // Start Global Timer
+            startTimer();
+
+            // Prepare stage for question 1
+            prepareQuestionStage();
+        }
+
+        function startTimer() {
+            clearInterval(gameState.timerInterval);
+            gameState.totalSeconds = 0;
+            const timerEl = document.getElementById('dash-timer');
+            timerEl.textContent = "00:00";
+
+            gameState.timerInterval = setInterval(() => {
+                gameState.totalSeconds++;
+                timerEl.textContent = formatTime(gameState.totalSeconds);
+            }, 1000);
+        }
+
+        /* ==========================================================================
+           4. LUCKY WHEEL HTML5 CANVAS DRAWING & SPIN LOGIC
+           ========================================================================== */
+        const wheelSegments = [
+            { label: '+0.2 ĐIỂM', color: '#10b981' },
+            { label: 'MAY MẮN', color: '#f59e0b' },
+            { label: '+1.0 ĐIỂM', color: '#8b5cf6' },
+            { label: 'THỬ THÁCH', color: '#06b6d4' },
+            { label: 'NHÂN ĐÔI', color: '#ec4899' },
+            { label: 'XUẤT SẮC', color: '#eab308' }
+        ];
+
+        function drawWheel(angleOffset = 0) {
+            const canvas = document.getElementById('wheel-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const numSegments = wheelSegments.length;
+            const arcSize = (2 * Math.PI) / numSegments;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = canvas.width / 2 - 8;
+
+            for (let i = 0; i < numSegments; i++) {
+                const angle = i * arcSize + angleOffset;
+                ctx.beginPath();
+                ctx.fillStyle = wheelSegments[i].color;
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
+                ctx.lineTo(centerX, centerY);
+                ctx.fill();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#ffffff';
+                ctx.stroke();
+
+                // Draw Text
+                ctx.save();
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 12px Montserrat';
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle + arcSize / 2);
+                ctx.textAlign = 'right';
+                ctx.fillText(wheelSegments[i].label, radius - 15, 4);
+                ctx.restore();
+            }
+
+            // Center Pin
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 20, 0, 2 * Math.PI);
+            ctx.fillStyle = '#0f172a';
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#fbbf24';
+            ctx.stroke();
+        }
+
+        let isSpinning = false;
+        function spinWheel() {
+            if (isSpinning || gameState.wheelSpun) return;
+            isSpinning = true;
+            playSoundEffect('spin');
+
+            const btnSpin = document.getElementById('btn-spin-wheel');
+            btnSpin.disabled = true;
+            btnSpin.classList.add('opacity-40');
+
+            let currentAngle = 0;
+            const totalRounds = 5 + Math.random() * 3;
+            const targetAngle = totalRounds * 2 * Math.PI + Math.random() * 2 * Math.PI;
+            const duration = 3000;
+            const startTime = performance.now();
+
+            function animateWheel(now) {
+                const elapsed = now - startTime;
+                if (elapsed < duration) {
+                    // Ease out cubic
+                    const progress = elapsed / duration;
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    currentAngle = easeOut * targetAngle;
+
+                    drawWheel(currentAngle);
+                    if (Math.floor(elapsed / 100) % 2 === 0) playSoundEffect('spin');
+                    requestAnimationFrame(animateWheel);
+                } else {
+                    drawWheel(targetAngle);
+                    isSpinning = false;
+                    gameState.wheelSpun = true;
+
+                    // Enable Bell Button
+                    const bellBtn = document.getElementById('btn-gold-bell');
+                    bellBtn.disabled = false;
+                    bellBtn.classList.add('animate-bounce');
+
+                    // Set badge
+                    document.getElementById('wheel-result-badge').innerHTML = '<span class="text-emerald-400">✓ Vòng quay hoàn tất! Hãy RUNG CHUÔNG VÀNG!</span>';
+                }
+            }
+            requestAnimationFrame(animateWheel);
+        }
+
+        /* ==========================================================================
+           5. GOLD BELL & QUESTION DISPLAY LOGIC
+           ========================================================================== */
+        function prepareQuestionStage() {
+            gameState.wheelSpun = false;
+            document.getElementById('btn-spin-wheel').disabled = false;
+            document.getElementById('btn-spin-wheel').classList.remove('opacity-40');
+
+            const bellBtn = document.getElementById('btn-gold-bell');
+            bellBtn.disabled = true;
+
+            document.getElementById('wheel-result-badge').textContent = 'Hãy quay vòng để chọn Thử Thách!';
+
+            // Hide Question Board, Show Wheel Area
+            document.getElementById('question-board').classList.add('hidden');
+            document.getElementById('question-board').classList.remove('flex');
+            document.getElementById('wheel-stage-area').classList.remove('hidden');
+            document.getElementById('wheel-stage-area').classList.add('flex');
+
+            // Update Progress Header
+            document.getElementById('dash-progress').textContent = `${gameState.currentQuestionIndex + 1} / ${gameState.activeQuestions.length}`;
+            document.getElementById('dash-score').textContent = `${gameState.score.toFixed(2)} / 14.0`;
+        }
+
+        function ringGoldBell() {
+            playSoundEffect('bell');
+
+            // Hide Wheel Area, Show Question Board
+            document.getElementById('wheel-stage-area').classList.add('hidden');
+            document.getElementById('wheel-stage-area').classList.remove('flex');
+            
+            const qBoard = document.getElementById('question-board');
+            qBoard.classList.remove('hidden');
+            qBoard.classList.add('flex');
+
+            renderCurrentQuestion();
+        }
+
+        function renderCurrentQuestion() {
+            gameState.currentQuestionAnswered = false;
+            gameState.userTFSelections = {};
+
+            const q = gameState.activeQuestions[gameState.currentQuestionIndex];
+            document.getElementById('explanation-box').classList.add('hidden');
+
+            const badgeType = document.getElementById('question-badge');
+            const badgeDiff = document.getElementById('difficulty-badge');
+
+            if (q.type === 'MCQ') {
+                badgeType.textContent = 'Dạng: Trắc nghiệm 4 lựa chọn (0.2đ)';
+                badgeType.className = 'px-3 py-1 bg-amber-500/20 border border-amber-400 text-amber-300 text-xs font-bold rounded-full uppercase';
+                badgeDiff.textContent = 'Mức độ: Nhận biết / Thông hiểu';
+            } else {
+                badgeType.textContent = 'Dạng: Trắc nghiệm Đúng / Sai (1.0đ)';
+                badgeType.className = 'px-3 py-1 bg-purple-500/20 border border-purple-400 text-purple-300 text-xs font-bold rounded-full uppercase';
+                badgeDiff.textContent = 'Mức độ: Vận dụng / Vận dụng cao';
+            }
+
+            // Render Math & Text content
+            document.getElementById('question-text').innerHTML = q.question;
+
+            const container = document.getElementById('answers-container');
+            container.innerHTML = '';
+
+            if (q.type === 'MCQ') {
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4';
+
+                const prefixes = ['A', 'B', 'C', 'D'];
+                q.shuffledOptions.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn p-3 sm:p-4 rounded-xl text-left flex items-start space-x-3 w-full text-white font-medium text-xs sm:text-base';
+                    btn.onclick = () => selectMCQAnswer(idx, btn);
+                    btn.innerHTML = `
+                        <span class="w-7 h-7 rounded-full bg-amber-400/20 border border-amber-400 text-amber-300 flex items-center justify-center font-bold text-xs shrink-0">${prefixes[idx]}</span>
+                        <span class="flex-1 my-auto">${opt.text}</span>
+                    `;
+                    grid.appendChild(btn);
+                });
+                container.appendChild(grid);
+            } else if (q.type === 'TF') {
+                const list = document.createElement('div');
+                list.className = 'space-y-3';
+
+                q.items.forEach((item, idx) => {
+                    const row = document.createElement('div');
+                    row.className = 'p-3 bg-chalkboardDark/90 border border-emerald-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2';
+                    row.innerHTML = `
+                        <div class="text-xs sm:text-sm font-medium text-white flex-1">${item.text}</div>
+                        <div class="flex gap-2 w-full sm:w-auto justify-end">
+                            <button id="tf-btn-${idx}-true" onclick="selectTFAnswer(${idx}, true)" class="px-4 py-1.5 bg-slate-800 hover:bg-emerald-700 border border-emerald-500 rounded-lg text-xs font-bold text-white transition">
+                                ĐÚNG
+                            </button>
+                            <button id="tf-btn-${idx}-false" onclick="selectTFAnswer(${idx}, false)" class="px-4 py-1.5 bg-slate-800 hover:bg-rose-700 border border-rose-500 rounded-lg text-xs font-bold text-white transition">
+                                SAI
+                            </button>
+                        </div>
+                    `;
+                    list.appendChild(row);
+                });
+
+                const submitDiv = document.createElement('div');
+                submitDiv.className = 'mt-4 text-center';
+                submitDiv.innerHTML = `
+                    <button id="btn-submit-tf" onclick="submitTFQuestion()" class="px-8 py-3 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black rounded-xl border border-white shadow-lg text-xs sm:text-sm uppercase tracking-wide">
+                        XÁC NHẬN CÂU TRẢ LỜI
+                    </button>
+                `;
+                list.appendChild(submitDiv);
+                container.appendChild(list);
+            }
+        }
+
+        /* ==========================================================================
+           6. ANSWER EVALUATION & EXPLANATION
+           ========================================================================== */
+        function selectMCQAnswer(selectedIndex, btn) {
+            if (gameState.currentQuestionAnswered) return;
+            gameState.currentQuestionAnswered = true;
+
+            const q = gameState.activeQuestions[gameState.currentQuestionIndex];
+            const isCorrect = q.shuffledOptions[selectedIndex].isCorrect;
+
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                gameState.score += 0.2;
+                playSoundEffect('correct');
+            } else {
+                btn.classList.add('incorrect');
+                playSoundEffect('wrong');
+                q.shuffledOptions.forEach((opt, idx) => {
+                    if (opt.isCorrect) allBtns[idx].classList.add('correct');
+                });
+            }
+
+            showExplanation(isCorrect, q.explanation);
+        }
+
+        function selectTFAnswer(itemIndex, choice) {
+            if (gameState.currentQuestionAnswered) return;
+            playSoundEffect('spin');
+
+            gameState.userTFSelections[itemIndex] = choice;
+
+            const trueBtn = document.getElementById(`tf-btn-${itemIndex}-true`);
+            const falseBtn = document.getElementById(`tf-btn-${itemIndex}-false`);
+
+            if (choice === true) {
+                trueBtn.className = "px-4 py-1.5 bg-emerald-600 text-white font-bold border-2 border-emerald-300 rounded-lg text-xs shadow-md";
+                falseBtn.className = "px-4 py-1.5 bg-slate-800 text-gray-400 font-bold border border-slate-600 rounded-lg text-xs opacity-50";
+            } else {
+                falseBtn.className = "px-4 py-1.5 bg-rose-600 text-white font-bold border-2 border-rose-300 rounded-lg text-xs shadow-md";
+                trueBtn.className = "px-4 py-1.5 bg-slate-800 text-gray-400 font-bold border border-slate-600 rounded-lg text-xs opacity-50";
+            }
+        }
+
+        function submitTFQuestion() {
+            if (gameState.currentQuestionAnswered) return;
+
+            const q = gameState.activeQuestions[gameState.currentQuestionIndex];
+            if (Object.keys(gameState.userTFSelections).length < q.items.length) {
+                alert("Vui lòng lựa chọn Đúng hoặc Sai cho tất cả 4 ý trước khi xác nhận!");
+                return;
+            }
+
+            gameState.currentQuestionAnswered = true;
+            let correctCount = 0;
+
+            q.items.forEach((item, idx) => {
+                const userChoice = gameState.userTFSelections[idx];
+                const trueBtn = document.getElementById(`tf-btn-${idx}-true`);
+                const falseBtn = document.getElementById(`tf-btn-${idx}-false`);
+
+                trueBtn.disabled = true;
+                falseBtn.disabled = true;
+
+                if (userChoice === item.correct) {
+                    correctCount++;
+                    if (userChoice) trueBtn.classList.add('ring-4', 'ring-emerald-400');
+                    else falseBtn.classList.add('ring-4', 'ring-emerald-400');
+                } else {
+                    if (userChoice) trueBtn.classList.add('bg-rose-900', 'line-through');
+                    else falseBtn.classList.add('bg-rose-900', 'line-through');
+                }
+            });
+
+            const earnedPoints = correctCount * 0.25;
+            gameState.score += earnedPoints;
+
+            const subBtn = document.getElementById('btn-submit-tf');
+            if (subBtn) {
+                subBtn.disabled = true;
+                subBtn.classList.add('opacity-40');
+            }
+
+            const isAllCorrect = (correctCount === q.items.length);
+            if (isAllCorrect) playSoundEffect('correct');
+            else playSoundEffect('wrong');
+
+            showExplanation(isAllCorrect, `Bạn trả lời chính xác ${correctCount}/4 ý (+${earnedPoints.toFixed(2)}đ).<br>${q.explanation}`);
+        }
+
+        function showExplanation(isCorrect, text) {
+            const box = document.getElementById('explanation-box');
+            const icon = document.getElementById('explanation-icon');
+            const title = document.getElementById('explanation-title');
+            const expText = document.getElementById('explanation-text');
+
+            box.classList.remove('hidden');
+
+            if (isCorrect) {
+                icon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+                title.textContent = 'CHÍNH XÁC!';
+                title.className = 'font-black text-base sm:text-lg mb-1 text-emerald-400';
+            } else {
+                icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i>';
+                title.textContent = 'CHƯA CHÍNH XÁC!';
+                title.className = 'font-black text-base sm:text-lg mb-1 text-rose-400';
+            }
+
+            expText.innerHTML = text;
+            document.getElementById('dash-score').textContent = `${gameState.score.toFixed(2)} / 14.0`;
+        }
+
+        function nextStageStep() {
+            playSoundEffect('spin');
+            gameState.currentQuestionIndex++;
+
+            if (gameState.currentQuestionIndex < gameState.activeQuestions.length) {
+                prepareQuestionStage();
+            } else {
+                finishGame();
+            }
+        }
+
+        /* ==========================================================================
+           7. GAME FINISH & APPS SCRIPT SYNC
+           ========================================================================== */
+        function finishGame() {
+            clearInterval(gameState.timerInterval);
+
+            // Victory Confetti Effect
+            try {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+            } catch (e) {}
+
+            screens.game.classList.add('hidden');
+            screens.game.classList.remove('flex');
+            screens.result.classList.remove('hidden');
+
+            document.getElementById('res-player-name').textContent = gameState.playerName;
+            document.getElementById('res-player-class').textContent = gameState.playerClass;
+            document.getElementById('res-total-time').textContent = formatTime(gameState.totalSeconds);
+            document.getElementById('res-final-score').textContent = `${gameState.score.toFixed(2)} / 14.0`;
+
+            const sub = document.getElementById('result-subtitle');
+            if (gameState.score >= 11.0) {
+                sub.textContent = "Xuất sắc! Bạn là Nhà Vô Địch Toán Học THẦY HÒA AI!";
+            } else if (gameState.score >= 7.0) {
+                sub.textContent = "Khá tốt! Bạn đã nắm vững lý thuyết Bất phương trình bậc nhất 2 ẩn.";
+            } else {
+                sub.textContent = "Hãy rèn luyện thêm để chinh phục đỉnh cao ở lần thi tiếp theo!";
+            }
+
+            uploadResultsToAppsScript();
+        }
+
+        function uploadResultsToAppsScript() {
+            const statusEl = document.getElementById('upload-status');
+            statusEl.textContent = "Đang đồng bộ kết quả thi trực tuyến...";
+
+            const payload = {
+                "Họ tên": gameState.playerName,
+                "Lớp": gameState.playerClass,
+                "Điểm số": Number(gameState.score.toFixed(2)),
+                "Thời gian làm bài": formatTime(gameState.totalSeconds)
+            };
+
+            if (!APPS_SCRIPT_URL) {
+                statusEl.textContent = "Lưu ý: Chưa điền URL Apps Script (Kết quả đã được lưu tạm thời).";
+                return;
+            }
+
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                statusEl.textContent = "✓ Đã lưu kết quả thành công vào Bảng Điểm Lớp Học!";
+            })
+            .catch(err => {
+                console.error("Sync error:", err);
+                statusEl.textContent = "Không thể gửi dữ liệu trực tuyến.";
+            });
+        }
+
+        /* ==========================================================================
+           8. LEADERBOARD & MODALS LOGIC
+           ========================================================================== */
+        function showLeaderboard() {
+            playSoundEffect('spin');
+            const modal = document.getElementById('modal-leaderboard');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            fetchLeaderboardData();
+        }
+
+        function hideLeaderboard() {
+            playSoundEffect('spin');
+            const modal = document.getElementById('modal-leaderboard');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function fetchLeaderboardData() {
+            const tbody = document.getElementById('leaderboard-body');
+            tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-gray-400">Đang tải bảng xếp hạng...</td></tr>';
+
+            if (!APPS_SCRIPT_URL) {
+                setTimeout(() => {
+                    tbody.innerHTML = `
+                        <tr class="hover:bg-emerald-900/30">
+                            <td class="py-3 px-3 font-bold text-amber-400">1</td>
+                            <td class="py-3 px-3 font-semibold text-white">${gameState.playerName || 'Học sinh xuất sắc'}</td>
+                            <td class="py-3 px-3">${gameState.playerClass || '10A1'}</td>
+                            <td class="py-3 px-3 text-center font-bold text-chalkYellow">${gameState.score ? gameState.score.toFixed(2) : '13.50'}</td>
+                            <td class="py-3 px-3 text-right font-mono text-gray-300">${gameState.totalSeconds ? formatTime(gameState.totalSeconds) : '03:45'}</td>
+                        </tr>
+                    `;
+                }, 400);
+                return;
+            }
+
+            fetch(APPS_SCRIPT_URL)
+            .then(res => res.json())
+            .then(resp => {
+                if (resp.status === 'ok' && Array.isArray(resp.data)) {
+                    renderLeaderboardTable(resp.data);
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" class="py-4 text-center text-rose-400">Lỗi cấu trúc dữ liệu xếp hạng.</td></tr>';
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                tbody.innerHTML = '<tr><td colspan="5" class="py-4 text-center text-rose-400">Không thể kết nối máy chủ.</td></tr>';
+            });
+        }
+
+        function renderLeaderboardTable(data) {
+            const tbody = document.getElementById('leaderboard-body');
+            tbody.innerHTML = '';
+
+            const sorted = [...data].sort((a, b) => {
+                if (b["Điểm số"] !== a["Điểm số"]) {
+                    return b["Điểm số"] - a["Điểm số"];
+                }
+                return String(a["Thời gian làm bài"]).localeCompare(String(b["Thời gian làm bài"]));
+            });
+
+            if (sorted.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="py-6 text-center text-gray-400">Chưa có kết quả ghi nhận.</td></tr>';
+                return;
+            }
+
+            sorted.forEach((row, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-emerald-900/30 border-b border-emerald-900/40 text-xs sm:text-sm';
+                tr.innerHTML = `
+                    <td class="py-3 px-3 font-bold ${idx < 3 ? 'text-amber-400 text-base' : 'text-gray-400'}">${idx + 1}</td>
+                    <td class="py-3 px-3 font-semibold text-white">${row["Họ tên"] || 'N/A'}</td>
+                    <td class="py-3 px-3 text-gray-300">${row["Lớp"] || 'N/A'}</td>
+                    <td class="py-3 px-3 text-center font-bold text-chalkYellow">${Number(row["Điểm số"]).toFixed(2)}</td>
+                    <td class="py-3 px-3 text-right font-mono text-gray-300">${row["Thời gian làm bài"] || '--:--'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function showRulesModal() {
+            playSoundEffect('spin');
+            const modal = document.getElementById('modal-rules');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function hideRulesModal() {
+            playSoundEffect('spin');
+            const modal = document.getElementById('modal-rules');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        /* ==========================================================================
+           9. RESET GAME TO INITIAL CLEAN STATE
+           ========================================================================== */
+        function resetGameState() {
+            clearInterval(gameState.timerInterval);
+            gameState.timerInterval = null;
+            gameState.totalSeconds = 0;
+            gameState.currentQuestionIndex = 0;
+            gameState.score = 0.0;
+            gameState.wheelSpun = false;
+            gameState.currentQuestionAnswered = false;
+            gameState.userTFSelections = {};
+        }
+
+        function resetGameToStart() {
+            playSoundEffect('spin');
+            resetGameState();
+
+            screens.result.classList.add('hidden');
+            screens.game.classList.add('hidden');
+            screens.game.classList.remove('flex');
+            screens.start.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
