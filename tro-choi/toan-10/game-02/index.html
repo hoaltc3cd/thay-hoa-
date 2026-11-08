@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chinh phục Toán học – Thầy Hòa AI</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#fff;background:radial-gradient(ellipse at center,#e6f5ff 0%,#8ccbf2 85%);border:10px solid #c9971c;overflow:hidden}
+.screen{display:none;flex-direction:column;height:calc(100dvh - 20px);padding:10px 16px;gap:10px}
+.screen.active{display:flex}
+h1{margin:0;text-align:center;font-size:clamp(26px,4.4vw,62px);color:#ffc400;text-shadow:2px 2px 0 #5a3a00,-1px -1px 0 #5a3a00}
+h2{margin:0;font-size:clamp(20px,2.6vw,36px);color:#ffd84a}
+.sub{color:#0b2a5b;text-align:center;font-size:clamp(18px,2.4vw,34px)}
+.wrap{display:flex;gap:16px;flex:1;min-height:0}
+.panel{background:rgba(8,35,92,.9);border:2px solid rgba(255,255,255,.7);border-radius:14px;padding:12px 16px;flex:1;min-width:0;overflow:auto;font-size:clamp(16px,1.9vw,28px);line-height:1.4}
+.panel ul{margin:6px 0 0;padding-left:22px}
+input{width:100%;font-size:clamp(18px,2.2vw,30px);padding:8px 12px;margin:6px 0;border-radius:10px;border:2px solid #fff;background:#fff;color:#111}
+.btn{font-size:clamp(20px,2.6vw,36px);font-weight:700;padding:10px 24px;border-radius:12px;border:3px solid #fff;background:#e0a100;color:#111;cursor:pointer}
+.btn:hover{background:#ffc928}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.err{color:#ff9d9d;min-height:1.3em;font-size:clamp(16px,1.8vw,26px)}
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;font-size:clamp(18px,2.3vw,34px);font-weight:700}
+.chip{background:rgba(8,35,92,.92);border:2px solid #fff;border-radius:10px;padding:2px 14px;white-space:nowrap}
+#timer{min-width:3.2em;text-align:center;color:#7dff9b}
+#timer.warn{color:#ff6b6b;animation:bl .5s infinite alternate}
+@keyframes bl{to{opacity:.35}}
+.progress{height:10px;background:rgba(8,35,92,.25);border-radius:6px;overflow:hidden}
+#bar{height:100%;width:0;background:#ffd84a;transition:width .4s}
+.lbl{text-align:center;font-size:clamp(16px,1.9vw,28px);color:#0b2a5b;font-weight:700}
+.main{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:14px;overflow:auto}
+#qtext{background:rgba(8,35,92,.92);border:3px solid #fff;border-radius:16px;padding:16px 22px;text-align:center;font-size:clamp(22px,3.3vw,50px);font-weight:600;line-height:1.35}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{font-size:clamp(20px,2.9vw,44px);text-align:left;padding:14px 18px;border-radius:40px;border:3px solid #fff;background:rgba(8,35,92,.88);color:#fff;cursor:pointer;font-family:inherit}
+.opt:hover{background:rgba(255,216,74,.3)}
+.opt b{color:#ffd84a;margin-right:6px}
+.opt.good{background:#1b9a42;border-color:#b6ffc9}
+.opt.bad{background:#c62828;border-color:#ffc4c4}
+.opt.gone{visibility:hidden}
+.opt.locked{pointer-events:none}
+.opts.tf .opt{text-align:center;font-weight:800;font-size:clamp(26px,4vw,60px);border-radius:20px;padding:22px}
+.opts.tf .opt:first-child{border-color:#8dffa8}
+.opts.tf .opt:last-child{border-color:#ff9d9d}
+.ll{display:flex;gap:12px;justify-content:center}
+.ll .btn{font-size:clamp(16px,2vw,28px);padding:6px 16px;background:#2a7fc9;color:#fff}
+#fb{display:none;border-radius:14px;padding:10px 18px;gap:14px;align-items:center;border:3px solid #fff;background:rgba(8,35,92,.96)}
+#fb.show{display:flex}
+#fb.ok{border-color:#51e57a}
+#fb.no{border-color:#ff6b6b}
+#fbT{font-size:clamp(22px,3vw,44px);font-weight:800}
+#fb.ok #fbT{color:#7dff9b}
+#fb.no #fbT{color:#ff8a8a}
+#fbE{font-size:clamp(17px,2.2vw,32px);line-height:1.35;margin-top:4px}
+table{width:100%;border-collapse:collapse}
+td,th{padding:4px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25)}
+th{color:#ffd84a}
+.big{font-size:clamp(26px,4.6vw,72px);color:#ffd84a;font-weight:800;text-align:center}
+@media(max-width:760px){.wrap{flex-direction:column}.opts{grid-template-columns:1fr}.opt{border-radius:22px}body{border-width:5px}.screen{height:calc(100dvh - 10px);padding:6px}}
+.panel .sub{color:#fff}.panel .lbl{color:#bfeeff}
+.bellBox{height:clamp(60px,13vh,140px);text-align:center}.bellBox svg{height:100%;width:auto}.bellBox.sm{height:48px}
+.ring svg{animation:rg .9s;transform-origin:50% 8%}@keyframes rg{0%,100%{transform:rotate(0)}20%{transform:rotate(22deg)}40%{transform:rotate(-20deg)}60%{transform:rotate(14deg)}80%{transform:rotate(-8deg)}}
+.brand{background:#ffc400!important;color:#0b2a5b;border-color:#0b2a5b!important}
+#fx{position:fixed;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;font-size:clamp(50px,12vw,170px);font-weight:900;opacity:0;z-index:50;text-align:center}
+#fx.ok{background:radial-gradient(circle,rgba(255,236,120,.7),rgba(255,236,120,0) 70%);color:#0b6b2a;text-shadow:0 0 30px #fff;animation:fxo 1.3s}
+#fx.no{background:rgba(210,30,30,.4);color:#fff;text-shadow:3px 3px 0 #700;animation:fxo 1.3s,shk .5s}
+@keyframes fxo{0%{opacity:0}15%,75%{opacity:1}100%{opacity:0}}@keyframes shk{20%{transform:translateX(-18px)}40%{transform:translateX(18px)}60%{transform:translateX(-10px)}80%{transform:translateX(10px)}}
+.cf{position:fixed;top:-8vh;font-size:30px;z-index:40;pointer-events:none;animation:fall linear forwards}@keyframes fall{to{transform:translateY(115vh) rotate(720deg)}}
+#qtext{white-space:pre-line}#fig{text-align:center}#fig svg{max-height:26vh;max-width:90%;height:auto;border-radius:8px}
+.opts.sa{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}.opts.sa input{max-width:440px;text-align:center;font-size:clamp(24px,3.4vw,48px)}
+#intro{display:none;position:fixed;inset:0;z-index:60;background:rgba(8,35,92,.9);align-items:center;justify-content:center;padding:20px;text-align:center}#intro.show{display:flex}#intro .sub{color:#fff}
+#inMasc{font-size:clamp(50px,10vw,110px);animation:bn 1s infinite alternate}@keyframes bn{to{transform:translateY(-14px)}}
+</style></head><body>
+
+<section id="start" class="screen active">
+  <h1>CHINH PHỤC TOÁN HỌC</h1><div class="bellBox" id="bellBig"></div>
+  <div class="sub"><b>THẦY HÒA AI</b> · Toán 10 · Giữa kì I: Triệu phú – Đấu trường – Vượt chướng ngại</div>
+  <div class="wrap">
+    <div class="panel">
+      <h2>Thông tin người chơi</h2>
+      <input id="inName" placeholder="Họ và tên" maxlength="40" autocomplete="off">
+      <input id="inClass" placeholder="Lớp (ví dụ: 10A1)" maxlength="12" autocomplete="off">
+      <div class="err" id="err"></div>
+      <div class="lbl" id="progLine" style="text-align:left"></div>
+      <h2>Luật chơi</h2>
+      <ul>
+        <li><b>44 câu, 3 vòng</b>: ① Ai là triệu phú (18 câu trắc nghiệm) → ② Đấu trường (16 nhận định Đúng/Sai) → ③ Vượt chướng ngại vật (10 câu trả lời ngắn). Mục tiêu: chạm mốc <b>10.000.000 điểm</b>.</li>
+        <li>Có <b>5 mạng ❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
+        <li><b>Không giới hạn thời gian</b> cho mỗi câu; đồng hồ chỉ ghi tổng thời gian làm bài để xếp hạng.</li>
+        <li>Quyền trợ giúp ở Vòng 1 (mỗi loại 1 lần): <b>50:50</b> và <b>Hỏi chuyên gia</b>. Nhận <b>XP, huy hiệu, cấp độ, danh hiệu</b>; tiến bộ được lưu trên máy này.</li>
+        <li>Sau mỗi câu có giải thích. Xếp hạng: điểm cao hơn trước; bằng điểm thì thời gian ngắn hơn.</li>
+      </ul>
+      <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ CHẾ ĐỘ CÁ NHÂN</button> <button class="btn" id="btnClass" style="background:#2a7fc9;color:#fff">👩‍🏫 CHẾ ĐỘ CẢ LỚP</button></p>
+    </div>
+    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div class="top">
+    <span class="bellBox sm" id="bellSm"></span><span class="chip brand">THẦY HÒA</span>
+    <span class="chip" id="remain" style="display:none">👥 Còn lại: <span id="remainN">—</span></span>
+    <span class="chip">Câu <span id="qno"></span></span>
+    <span class="chip">Điểm: <span id="score">0</span></span>
+    <span class="chip" id="lives"></span>
+    <span class="chip">⏱ <span id="timer">00:00</span></span>
+    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff">🔊</button>
+  </div>
+  <div class="progress"><div id="bar"></div></div>
+  <div class="lbl" id="lv"></div>
+  <div class="main">
+    <div id="qtext"></div>
+    <div id="fig"></div>
+    <div class="opts" id="opts"></div>
+    <div class="lbl" id="expert"></div>
+    <div class="lbl" id="gates" style="font-size:clamp(24px,3vw,44px)"></div>
+  </div>
+  <div class="ll"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llAud">🎓 Hỏi chuyên gia</button></div>
+  <div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp theo ▶</button></div>
+</section>
+
+<section id="end" class="screen">
+  <h1 id="endT">HOÀN THÀNH!</h1>
+  <div class="wrap">
+    <div class="panel" style="text-align:center">
+      <div id="endName" class="sub"></div>
+      <div class="big" id="endScore"></div>
+      <div class="sub">Số câu đúng: <b id="endOk"></b> · Thời gian: <b id="endTime"></b></div>
+      <div class="sub" id="endMsg" style="margin-top:8px"></div>
+      <div class="sub" id="endRew" style="margin-top:8px;white-space:pre-line"></div>
+      <div class="lbl" id="endSave" style="margin-top:8px"></div>
+      <p><button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></p>
+    </div>
+    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+  </div>
+</section>
+
+<section id="teacher" class="screen">
+  <h1>👩‍🏫 BẢNG ĐIỀU KHIỂN GIÁO VIÊN</h1>
+  <div class="wrap"><div class="panel">
+    <h2>Chế độ Cả lớp</h2>
+    <p>Chế độ này cần một máy chủ đồng bộ (ví dụ Firebase hoặc WebSocket) để nhiều thiết bị cùng nhận câu hỏi. <b>Hiện chưa kết nối máy chủ</b>, nên các nút điều khiển bên dưới đang bị khóa. Cấu trúc đối tượng <code>SYNC</code> trong mã nguồn đã được chuẩn bị sẵn để tích hợp sau.</p>
+    <p><button class="btn" disabled>Mở phòng</button> <button class="btn" disabled>Bắt đầu</button> <button class="btn" disabled>Câu tiếp</button> <button class="btn" disabled>Hiện đáp án</button> <button class="btn" disabled>Kết thúc</button></p>
+    <p>Số người còn lại: <b>—</b></p>
+    <p><button class="btn" id="btnTBack">◀ Quay lại</button></p>
+  </div></div>
+</section>
+<div id="fx"></div><div id="cf"></div>
+<div id="intro"><div class="panel" style="flex:none;max-width:900px"><div id="inMasc">🧑‍🏫</div><h1 id="inT"></h1><div class="sub" id="inD"></div><p><button class="btn" id="inGo">▶ VÀO VÒNG</button></p></div></div>
+<script>
+// ===== Cấu hình (ẩn khỏi giao diện): điền URL Web App của Apps Script vào đây =====
+const APPS_SCRIPT_URL = "";
+
+const $ = id => document.getElementById(id);
+const LV = {NB:"Nhận biết",TH:"Thông hiểu",VD:"Vận dụng",VDC:"Vận dụng cao"};
+
+// ===== NGÂN HÀNG CÂU HỎI — chuyển từ đề giữa kì I Toán 10 (THPT Thuận Thành số 2, mã đề 1001 và 1002) =====
+// Công thức viết bằng LaTeX trong dấu $...$ (KaTeX tự hiển thị). Giáo viên có thể thêm/sửa câu hỏi tại đây.
+// --- Hình vẽ SVG (vẽ lại theo đề) ---
+const FIG1='<svg viewBox="0 0 250 210" width="250" height="210" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="h1" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#333" stroke-width="1.4"/></pattern></defs><rect width="250" height="210" fill="#fff"/><polygon points="155,10 240,10 240,200 60,200" fill="url(#h1)"/><line x1="10" y1="70" x2="240" y2="70" stroke="#000" stroke-width="1.5"/><line x1="80" y1="5" x2="80" y2="205" stroke="#000" stroke-width="1.5"/><line x1="60" y1="200" x2="155" y2="10" stroke="#000" stroke-width="2"/><g font-size="14" font-family="serif" font-style="italic"><text x="66" y="84">O</text><text x="232" y="62">x</text><text x="86" y="16">y</text><text x="118" y="60" font-style="normal">3/2</text><text x="52" y="166" font-style="normal">−3</text><text x="160" y="18">d</text></g></svg>';
+const FIG2='<svg viewBox="0 0 230 200" width="230" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="230" height="200" fill="#fff"/><rect x="5" y="170" width="220" height="14" fill="#cfe6f5"/><line x1="5" y1="170" x2="225" y2="170" stroke="#000" stroke-width="1.5"/><line x1="40" y1="170" x2="163" y2="47" stroke="#000" stroke-width="2"/><line x1="130" y1="170" x2="163" y2="47" stroke="#000" stroke-width="2"/><rect x="158" y="30" width="10" height="18" fill="#c44" stroke="#000"/><circle cx="163" cy="25" r="4" fill="#333"/><path d="M65,170 A25,25 0 0 0 57.7,152.3" fill="none" stroke="#000"/><path d="M155,170 A25,25 0 0 0 136.5,145.9" fill="none" stroke="#000"/><g font-size="14" font-family="serif"><text x="68" y="162">45°</text><text x="146" y="160">75°</text><text x="72" y="197">30 m</text><text x="32" y="197" font-style="italic">A</text><text x="124" y="197" font-style="italic">B</text></g></svg>';
+const FIG3='<svg viewBox="0 0 210 200" width="210" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="210" height="200" fill="#fff"/><polygon points="30,180 30,30 90,60 150,180" fill="#9fd3ff" stroke="#000" stroke-width="2"/><line x1="15" y1="180" x2="195" y2="180" stroke="#000" stroke-width="1.5"/><line x1="30" y1="195" x2="30" y2="12" stroke="#000" stroke-width="1.5"/><g font-size="13" font-family="serif" font-style="italic"><text x="16" y="194">O</text><text x="38" y="26">A(0;50)</text><text x="96" y="58">B(20;40)</text><text x="132" y="196">C(40;0)</text><text x="188" y="176">x</text><text x="36" y="16">y</text></g></svg>';
+// --- VÒNG 1: AI LÀ TRIỆU PHÚ. [mức độ, câu hỏi, đáp án đúng, [3 đáp án sai], lời giải/định hướng, hình (tuỳ chọn)] ---
+const MC = [
+["NB","Mệnh đề nào sau đây đúng?","Hai vectơ được gọi là bằng nhau nếu chúng cùng hướng và có cùng độ dài.",["Hai vectơ được gọi là bằng nhau nếu chúng ngược hướng và có cùng độ dài.","Hai vectơ được gọi là bằng nhau nếu chúng có cùng độ dài.","Hai vectơ được gọi là bằng nhau nếu chúng cùng phương và có cùng độ dài."],"Hai vectơ bằng nhau khi vừa cùng hướng vừa cùng độ dài; chỉ cùng độ dài hoặc chỉ cùng phương là chưa đủ."],
+["NB","Hai vectơ được gọi là đối nhau khi nào? Mệnh đề nào sau đây đúng?","Hai vectơ được gọi là đối nhau nếu chúng ngược hướng và có cùng độ dài.",["Hai vectơ được gọi là đối nhau nếu chúng cùng hướng và có cùng độ dài.","Hai vectơ được gọi là đối nhau nếu chúng có cùng độ dài.","Hai vectơ được gọi là đối nhau nếu chúng cùng phương và có cùng độ dài."],"Vectơ đối của $\\vec a$ là $-\\vec a$: ngược hướng và cùng độ dài."],
+["NB","Trong các phát biểu sau, phát biểu nào là mệnh đề?","3 là số nguyên tố.",["Các em hãy cố gắng học tập!","Hôm nay trời đẹp quá!","Bạn có khỏe không?"],"Mệnh đề là câu khẳng định có tính đúng hoặc sai; câu mệnh lệnh, cảm thán, nghi vấn không phải mệnh đề."],
+["NB","Phát biểu nào sau đây là một mệnh đề?","$8-3=5$.",["Đề thi môn Toán khó quá!","Bạn có đi học không?","Mùa thu Hà Nội đẹp quá!"],"“$8-3=5$” là câu khẳng định xác định được đúng. Ba câu còn lại là câu cảm thán hoặc nghi vấn."],
+["NB","Cho $A=\\{1;3;5\\}$. Tập hợp nào sau đây là tập con của $A$?","$\\{1;3\\}$",["$\\{1;3;5;6\\}$","$\\{1;2;3\\}$","$\\{0;1;5\\}$"],"Tập con chỉ chứa phần tử của $A$. Các tập còn lại chứa phần tử 6, 2 hoặc 0 không thuộc $A$."],
+["NB","Trong các bất phương trình sau, bất phương trình nào là bất phương trình bậc nhất hai ẩn?","$2x+3y\\le 5$",["$2x^2+5y\\ge 3$","$3x^2+2x-4\\le 0$","$2x+5y-3z\\ge 0$"],"Dạng $ax+by\\le c$ với hai ẩn đều bậc nhất. Các đáp án còn lại có $x^2$ hoặc có ba ẩn."],
+["NB","Trong các bất phương trình sau, bất phương trình nào là bất phương trình bậc nhất hai ẩn $x,y$?","$3x+2y\\ge 0$",["$3x^3+2y\\ge 0$","$3x^2+2y\\le 6$","$3xy+2y\\ge 6$"],"Bậc nhất hai ẩn không chứa $x^3$, $x^2$ hay tích $xy$."],
+["NB","Cho tam giác $ABC$, mệnh đề nào sau đây đúng?","$a^2=b^2+c^2-2bc\\cos A$",["$a^2=b^2+c^2-2bc\\cos C$","$a^2=b^2+c^2+2bc\\cos A$","$a^2=b^2+c^2-2bc\\cos B$"],"Định lí côsin: cạnh $a$ đối diện góc $A$ nên $a^2=b^2+c^2-2bc\\cos A$."],
+["NB","Trong tam giác $ABC$ với $BC=a$, $AC=b$, $AB=c$ và $S$ là diện tích, khẳng định nào đúng?","$S=\\frac12 bc\\sin A$",["$S=\\frac12 bc\\sin C$","$S=\\frac12 ac\\sin A$","$S=\\frac12 bc\\sin B$"],"Diện tích bằng nửa tích hai cạnh nhân sin góc xen giữa; góc $A$ xen giữa $b$ và $c$."],
+["NB","Cho góc $\\alpha$ thoả mãn $0^\\circ<\\alpha<90^\\circ$. Khẳng định nào sau đây là đúng?","$\\cos\\alpha>0$",["$\\sin\\alpha<0$","$\\tan\\alpha<0$","$\\cot\\alpha<0$"],"Góc nhọn có mọi giá trị lượng giác đều dương."],
+["TH","Cho $A=[1;3]$ và $B=(-1;2)$. Tập hợp $C=A\\cap B$ là:","$[1;2)$",["$[1;2]$","$(-1;3]$","$(-1;2)$"],"Phần chung: từ 1 (lấy vì $1\\in A$) đến 2 (không lấy vì $2\\notin B$)."],
+["TH","Cho $A=[0;2]$ và $B=(1;3)$. Tập hợp $C=A\\cap B$ là:","$(1;2]$",["$[0;3)$","$(1;2)$","$[0;1)$"],"Phần chung: lớn hơn 1 (không lấy 1) đến 2 (lấy 2 vì $2\\in A$ và $2\\in B$)."],
+["TH","Cặp số $(x;y)$ nào sau đây là nghiệm của bất phương trình $2x-y+1<0$?","$(1;4)$",["$(3;5)$","$(2;1)$","$(0;1)$"],"Thay $(1;4)$: $2-4+1=-1<0$ đúng. Cặp $(0;1)$ cho giá trị 0, không nhỏ hơn 0."],
+["TH","Cho góc $\\alpha$ thoả mãn $90^\\circ<\\alpha<180^\\circ$. Đẳng thức nào sau đây SAI?","$\\cot(180^\\circ-\\alpha)=\\cot\\alpha$",["$\\cos(180^\\circ-\\alpha)=-\\cos\\alpha$","$\\sin(180^\\circ-\\alpha)=\\sin\\alpha$","$\\tan(180^\\circ-\\alpha)=-\\tan\\alpha$"],"Hai góc bù nhau có sin bằng nhau, còn côsin, tang, côtang đối nhau: $\\cot(180^\\circ-\\alpha)=-\\cot\\alpha$."],
+["TH","Miền nghiệm của bất phương trình nào được biểu diễn bởi nửa mặt phẳng không bị gạch (kể cả đường thẳng $d$) trong hình vẽ?","$2x-y\\le 3$",["$2x-y\\ge 3$","$-x+2y\\le 3$","$2x+y\\le 3$"],"$d$ đi qua $(\\frac32;0)$ và $(0;-3)$ nên $d:2x-y=3$. Gốc $O$ nằm trong miền không gạch: $0\\le3$ đúng, kể cả bờ nên chọn $2x-y\\le3$.",FIG1],
+["TH","Hệ bất phương trình nào là hệ bất phương trình bậc nhất hai ẩn?","$\\begin{cases}4x-3y\\le1\\\\2x+9y>-5\\end{cases}$",["$\\begin{cases}3x^3-2y>1\\\\5x+4y\\le2\\end{cases}$","$\\begin{cases}-6x+2y\\ge5\\\\6xy-5y\\le1\\end{cases}$","$\\begin{cases}7x-2y^2>5\\\\4x+3y\\le1\\end{cases}$"],"Mỗi bất phương trình của hệ phải bậc nhất hai ẩn. Ba hệ còn lại có $x^3$, $xy$ hoặc $y^2$."],
+["TH","Điểm nào sau đây KHÔNG thuộc miền nghiệm của hệ $\\begin{cases}y>0\\\\5x-y+4<0\\end{cases}$?","$(0;0)$",["$(-1;4)$","$(-3;4)$","$(-2;4)$"],"$(0;0)$ có $y=0$ nên vi phạm $y>0$. Ba điểm còn lại thoả cả hai, ví dụ $(-1;4)$: $4>0$ và $-5<0$."],
+["TH","Cặp số $(x;y)$ nào là nghiệm của hệ $\\begin{cases}x+3y\\le0\\\\x-2y\\ge1\\end{cases}$?","$(1;-3)$",["$(-2;3)$","$(3;1)$","$(1;0)$"],"Thay $(1;-3)$: $1-9=-8\\le0$ và $1+6=7\\ge1$ đều đúng; các cặp khác vi phạm ít nhất một bất phương trình."]
+];
+MC.sort((a,b)=>({NB:0,TH:1,VD:2,VDC:3}[a[0]]-{NB:0,TH:1,VD:2,VDC:3}[b[0]]));
+// --- VÒNG 2: ĐẤU TRƯỜNG TOÁN HỌC (Đúng/Sai). [mức độ, ngữ cảnh, nhận định, đúng?, lời giải] ---
+const C61="Cho tam giác $ABC$ có các cạnh $a=6;\\ b=8;\\ c=10$.", C62="Cho bất phương trình $3x-4y\\le-3$.", C63="Cho bất phương trình $3x+2y\\ge6$.", C64="Cho tam giác $ABC$ có $AC=8$, $BC=12$, $\\widehat C=60^\\circ$.";
+const TF = [
+["NB",C61,"Nửa chu vi $p=16$.",false,"$p=\\frac{a+b+c}{2}=\\frac{24}{2}=12$, không phải 16."],
+["NB",C61,"Công thức tính diện tích tam giác là $S=\\sqrt{p(p-a)(p-b)(p-c)}$.",true,"Đây là công thức Heron với $p$ là nửa chu vi."],
+["NB",C62,"Bất phương trình đã cho là bất phương trình bậc nhất hai ẩn.",true,"Có dạng $ax+by\\le c$ với $x,y$ đều có số mũ 1."],
+["NB",C63,"Cặp số $(0;0)$ là một nghiệm của bất phương trình đã cho.",false,"Thay $(0;0)$: $0\\ge6$ là khẳng định sai."],
+["NB",C63,"Bất phương trình đã cho là bất phương trình bậc nhất hai ẩn.",true,"Có dạng $ax+by\\ge c$ với hai ẩn bậc nhất."],
+["TH",C61,"Diện tích tam giác $S=24$.",true,"$p=12$ nên $S=\\sqrt{12\\cdot6\\cdot4\\cdot2}=24$ (cũng là tam giác vuông: $\\frac12\\cdot6\\cdot8=24$)."],
+["TH",C61,"Bán kính đường tròn nội tiếp tam giác $ABC$ là $r=4$.",false,"$r=\\frac Sp=\\frac{24}{12}=2$."],
+["TH",C62,"Cặp số $(2;1)$ là một nghiệm của bất phương trình đã cho.",false,"Thay vào: $6-4=2\\le-3$ là khẳng định sai."],
+["TH",C62,"Miền nghiệm là nửa mặt phẳng chứa gốc tọa độ, có bờ là đường thẳng $d:3x-4y=-3$.",false,"Thay $O$: $0\\le-3$ sai nên miền nghiệm không chứa gốc tọa độ."],
+["TH",C62,"Miền nghiệm của bất phương trình đã cho chứa đường thẳng $d:3x-4y=-3$.",true,"Dấu $\\le$ nên miền nghiệm kể cả bờ $d$."],
+["TH",C63,"Miền nghiệm là nửa mặt phẳng chứa gốc tọa độ, có bờ là đường thẳng $\\Delta:3x+2y=6$.",false,"Thay $O$: $0\\ge6$ sai nên miền nghiệm không chứa gốc tọa độ."],
+["TH",C63,"Miền nghiệm của bất phương trình đã cho chứa đường thẳng $\\Delta:3x+2y=6$.",true,"Dấu $\\ge$ nên miền nghiệm kể cả bờ $\\Delta$."],
+["VD",C64,"$\\dfrac{\\sin A}{BC}=\\dfrac{\\sin B}{AC}=\\dfrac{\\sin C}{AB}=2R$.",false,"Theo định lí sin, các tỉ số này bằng $\\frac1{2R}$, không phải $2R$."],
+["VD",C64,"$AB^2=AC^2+BC^2-2\\cdot AC\\cdot BC\\cdot\\cos C$.",true,"Đúng theo định lí côsin: cạnh $AB$ đối diện góc $C$."],
+["VD",C64,"$AB=4\\sqrt7$.",true,"$AB^2=64+144-2\\cdot8\\cdot12\\cdot\\frac12=112$, nên $AB=4\\sqrt7$."],
+["VD",C64,"Diện tích tam giác $ABC$ là $S=24$.",false,"$S=\\frac12\\cdot8\\cdot12\\cdot\\sin60^\\circ=24\\sqrt3$, không phải 24."]
+];
+// --- VÒNG 3: VƯỢT CHƯỚNG NGẠI VẬT (trả lời ngắn). [mức độ, câu hỏi, giá trị số, [đáp án dạng chữ chấp nhận], đáp án hiển thị, lời giải, hình] ---
+const SA = [
+["NB","Mỗi học sinh lớp 10A đều học giỏi môn Toán hoặc môn Hóa, biết rằng có 30 học sinh giỏi Toán, 35 học sinh giỏi Hóa và 20 em học giỏi cả hai môn. Hỏi lớp 10A có bao nhiêu học sinh?",45,[],"45","Số học sinh $=30+35-20=45$ (công thức $n(T\\cup H)=n(T)+n(H)-n(T\\cap H)$)."],
+["NB","Mỗi học sinh lớp 10C đều học giỏi môn Toán hoặc môn Văn, biết rằng có 35 học sinh giỏi Toán, 25 học sinh giỏi Văn và 20 em học giỏi cả hai môn. Hỏi lớp 10C có bao nhiêu học sinh?",40,[],"40","Số học sinh $=35+25-20=40$."],
+["NB","Cho $\\sin x=\\dfrac35$ $(0^\\circ<x<90^\\circ)$. Biết $\\cos x=\\dfrac ab$ với $\\dfrac ab$ là phân số tối giản. Tính $a+b$.",9,[],"9","$\\cos x=\\sqrt{1-\\frac9{25}}=\\frac45$ (góc nhọn nên dương), suy ra $a+b=4+5=9$."],
+["NB","Cho $\\sin x=\\dfrac45$ $(0^\\circ<x<90^\\circ)$. Biết $\\cos x=\\dfrac ab$ với $\\dfrac ab$ là phân số tối giản. Tính $a+b$.",8,[],"8","$\\cos x=\\sqrt{1-\\frac{16}{25}}=\\frac35$, suy ra $a+b=3+5=8$."],
+["TH","Cho hai tập hợp $A=(-3;4)$ và $B=[1;+\\infty)$. Biết $A\\cap B=[a;b)$. Tính $a+b$.",5,[],"5","$A\\cap B=[1;4)$ nên $a=1$, $b=4$ và $a+b=5$."],
+["TH","Cho hai tập hợp $A=(-1;5)$ và $B=[2;+\\infty)$. Biết $A\\cap B=[a;b)$. Tính $a+b$.",7,[],"7","$A\\cap B=[2;5)$ nên $a+b=2+5=7$."],
+["TH","Cho góc $\\alpha$ thỏa mãn $90^\\circ<\\alpha<180^\\circ$ và $\\cos\\alpha=-\\dfrac13$. Tính $\\tan\\alpha$ (nhập dạng $-2\\sqrt2$ hoặc số thập phân làm tròn đến hai chữ số).",-2.8284271,["-2sqrt2","-2sqrt(2)"],"−2√2 (≈ −2,83)","$\\sin\\alpha=\\sqrt{1-\\frac19}=\\frac{2\\sqrt2}3$ (góc tù nên dương), $\\tan\\alpha=\\frac{\\sin\\alpha}{\\cos\\alpha}=-2\\sqrt2$."],
+["TH","Cho hình vuông $ABCD$ có cạnh bằng 1. Tính độ dài vectơ $\\overrightarrow{AB}-\\overrightarrow{DA}$ (nhập $\\sqrt2$ hoặc số thập phân làm tròn đến hai chữ số).",1.4142136,["sqrt2","sqrt(2)"],"√2 (≈ 1,41)","$\\overrightarrow{AB}-\\overrightarrow{DA}=\\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{AC}$ (quy tắc hình bình hành), nên độ dài là $AC=\\sqrt2$."],
+["VD","Một người đi dọc bờ biển từ vị trí $A$ đến vị trí $B$ và quan sát một ngọn hải đăng. Góc nghiêng của phương quan sát từ $A$, $B$ tới ngọn hải đăng với đường đi lần lượt là $45^\\circ$ và $75^\\circ$. Biết $AB=30$ m (như hình vẽ). Ngọn hải đăng cách bờ biển bao nhiêu mét (làm tròn đến hàng đơn vị)?",41,[],"41","Góc trong tam giác tại $B$ là $180^\\circ-75^\\circ=105^\\circ$ nên góc ở hải đăng $=30^\\circ$. $AC=\\frac{30\\sin105^\\circ}{\\sin30^\\circ}\\approx58$; khoảng cách đến bờ $=AC\\sin45^\\circ\\approx41$ m.",FIG2],
+["VD","Một xưởng sản xuất sản phẩm loại I (mỗi kg cần 2 kg nguyên liệu và 30 giờ, lãi 40 nghìn đồng) và loại II (mỗi kg cần 4 kg nguyên liệu và 15 giờ, lãi 30 nghìn đồng). Xưởng có tối đa 200 kg nguyên liệu và 1200 giờ làm việc. Gọi $x,y$ là số kg sản phẩm loại I và II. Lãi cao nhất là bao nhiêu nghìn đồng?",2000,[],"2000","Hệ: $x+2y\\le100$, $2x+y\\le80$, $x,y\\ge0$. Các đỉnh $O(0;0)$, $A(0;50)$, $B(20;40)$, $C(40;0)$ cho $F=40x+30y$ lần lượt $0;1500;2000;1600$. Lớn nhất là 2000.",FIG3]
+];
+// --- Điểm: tổng tối đa = 18×250.000 + 16×125.000 + 10×350.000 = 10.000.000 điểm ---
+const PTS={mc:250000, tf:125000, sa:350000};
+const QS = MC.map(m=>({k:"mc",lv:m[0],q:m[1],ok:m[2],bad:m[3],ex:m[4],fig:m[5]||""}))
+  .concat(TF.map(t=>({k:"tf",lv:t[0],q:t[1],s:t[2],ok:t[3],ex:t[4]})))
+  .concat(SA.map(s=>({k:"sa",lv:s[0],q:s[1],val:s[2],acc:s[3],show:s[4],ex:s[5],fig:s[6]||""})));
+const MAXPT = QS.reduce((s,q)=>s+PTS[q.k],0);   // 10.000.000 điểm — mốc chinh phục
+const SAN = QS.filter(q=>q.k==="sa").length;      // số cổng ở vòng 3
+const LIVES = 5;                                  // số mạng
+const ROUND = {
+  mc:["VÒNG 1","AI LÀ TRIỆU PHÚ","Chọn 1 trong 4 đáp án. Có quyền trợ giúp 50:50 và Hỏi chuyên gia (mỗi loại 1 lần)."],
+  tf:["VÒNG 2","ĐẤU TRƯỜNG TOÁN HỌC","Chọn ĐÚNG hoặc SAI cho từng nhận định. Trả lời đúng liên tiếp tạo combo và thêm XP."],
+  sa:["VÒNG 3","VƯỢT CHƯỚNG NGẠI VẬT","Nhập đáp án. Mỗi câu đúng mở một cổng; mở hết các cổng để chinh phục thử thách."]
+};
+
+// ===== Khung đồng bộ chế độ Cả lớp (CHƯA tích hợp máy chủ; không giả lập nhiều thiết bị) =====
+const SYNC={ready:false, connect(){}, publishState(s){}, onState(cb){}, remaining(){return null;}};
+// ===== Chuông vàng, hiệu ứng, giọng nói =====
+const BELL='<svg viewBox="0 0 100 100"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3a0"/><stop offset=".5" stop-color="#ffc400"/><stop offset="1" stop-color="#b8860b"/></linearGradient></defs><circle cx="50" cy="10" r="6" fill="url(#gg)"/><path d="M50 14C32 14 24 30 24 50c0 14-6 20-10 26h72c-4-6-10-12-10-26 0-20-8-36-26-36z" fill="url(#gg)" stroke="#8a5a00" stroke-width="2"/><circle cx="50" cy="84" r="8" fill="url(#gg)" stroke="#8a5a00" stroke-width="2"/></svg>';
+let fxT=null;
+function ringBells(){ document.querySelectorAll(".bellBox").forEach(b=>{b.classList.remove("ring"); void b.offsetWidth; b.classList.add("ring");}); }
+function fx(type,text){ const e=$("fx"); clearTimeout(fxT); e.className=""; void e.offsetWidth; e.textContent=text; e.className=type; ringBells(); fxT=setTimeout(()=>{e.className="";},1400); }
+function confetti(){ const c=$("cf"); c.innerHTML=""; const E=["🎉","✨","⭐","🏆","🔔"];
+  for(let i=0;i<70;i++){ const s=document.createElement("span"); s.className="cf"; s.textContent=E[i%E.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(3+Math.random()*3)+"s"; s.style.animationDelay=(Math.random()*1.5)+"s"; c.appendChild(s); } }
+function speak(t){ if(muted||!window.speechSynthesis) return; try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang="vi-VN"; speechSynthesis.speak(u); }catch(e){} }
+
+// ===== Tiện ích =====
+const fmt = n => Number(n).toLocaleString("vi-VN");
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const mmss = s => String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));}
+
+// ===== Âm thanh =====
+let AC=null, muted=false;
+function initAudio(){ if(!AC){ const C=window.AudioContext||window.webkitAudioContext; if(C) AC=new C(); } if(AC&&AC.state==="suspended") AC.resume(); }
+function tone(f,t,d,type,g){ const o=AC.createOscillator(), gn=AC.createGain(); o.type=type; o.frequency.setValueAtTime(f,t);
+  gn.gain.setValueAtTime(0.0001,t); gn.gain.exponentialRampToValueAtTime(g,t+0.03); gn.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  o.connect(gn).connect(AC.destination); o.start(t); o.stop(t+d+0.05); }
+function clap(t,g){ const n=Math.floor(AC.sampleRate*0.06), b=AC.createBuffer(1,n,AC.sampleRate), d=b.getChannelData(0);
+  for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);
+  const s=AC.createBufferSource(); s.buffer=b; const f=AC.createBiquadFilter(); f.type="bandpass"; f.frequency.value=1500+Math.random()*1500; f.Q.value=0.7;
+  const gn=AC.createGain(); gn.gain.value=g; s.connect(f).connect(gn).connect(AC.destination); s.start(t); }
+function applause(){ if(muted||!AC) return; const t0=AC.currentTime, D=4.8;
+  for(let i=0;i<150;i++){ const x=Math.random()*D, env=Math.min(1,x/0.5)*Math.min(1,(D-x)/1.5); clap(t0+x,0.5*env+0.04); }
+  [523,659,784,1047,1319].forEach((f,i)=>tone(f,t0+i*0.13,0.5,"triangle",0.18)); }
+function sad(){ if(muted||!AC) return; const t0=AC.currentTime;
+  [392,349,311,262].forEach((f,i)=>tone(f,t0+i*0.32,0.45,"sawtooth",0.12)); tone(98,t0+1.2,0.8,"sawtooth",0.15); }
+
+// ===== Trạng thái trò chơi =====
+let G=null;
+function newGame(name,cls){ return {name,cls,i:0,pts:0,ok:0,lives:LIVES,u50:false,uExp:false,locked:false,t0:Date.now(),saved:false,fin:false,rew:false,combo:0,bestCombo:0,gates:0,mcOk:0,mcN:0}; }
+// Không giới hạn thời gian mỗi câu: đồng hồ chỉ đo tổng thời gian làm bài (một bộ đếm duy nhất, tạo một lần)
+function stopTimer(){}
+function tick(){ if(G&&!G.fin) $("timer").textContent=mmss(Math.round((Date.now()-G.t0)/1000)); }
+setInterval(tick,1000);
+// ===== Hiển thị công thức KaTeX (có chốt chặn, không đệ quy) =====
+let mathBusy=false;
+function renderMath(el){ if(mathBusy||!window.renderMathInElement) return; mathBusy=true;
+  try{ renderMathInElement(el||document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false,strict:false,maxExpand:1000}); }catch(e){}
+  mathBusy=false; }
+window.addEventListener("load",()=>renderMath(document.body));
+function paintLives(){ $("lives").textContent="❤".repeat(G.lives)+"🖤".repeat(LIVES-G.lives); }
+function paintGates(){ $("gates").textContent = QS[G.i].k==="sa" ? "🔓".repeat(G.gates)+"🚧".repeat(SAN-G.gates) : ""; }
+function updLL(){ const mc=QS[G.i].k==="mc"&&!G.locked; $("ll50").disabled=G.u50||!mc; $("llAud").disabled=G.uExp||!mc; }
+function showIntro(k){ $("inT").textContent=ROUND[k][0]+" · "+ROUND[k][1]; $("inD").textContent=ROUND[k][2]; $("intro").classList.add("show"); }
+// ===== Chấm câu trả lời ngắn =====
+function normSA(s){ return String(s).toLowerCase().replace(/\s+/g,"").replace(/−/g,"-").replace(/√/g,"sqrt").replace(/,/g,"."); }
+function checkSA(q,raw){ const n=normSA(raw); if((q.acc||[]).includes(n)) return true;
+  if(/^-?\d+(\.\d+)?$/.test(n)){ const tol=Number.isInteger(q.val)?0:0.006; return Math.abs(parseFloat(n)-q.val)<=tol; } return false; }
+
+function showQ(){
+  const q=QS[G.i]; G.locked=false; $("fb").classList.remove("show"); $("expert").textContent="";
+  $("remain").style.display=SYNC.ready?"":"none";
+  $("qno").textContent=(G.i+1)+"/"+QS.length; $("score").textContent=fmt(G.pts); paintLives(); paintGates();
+  $("lv").textContent=ROUND[q.k][0]+" · "+ROUND[q.k][1]+" · "+LV[q.lv]+" · +"+fmt(PTS[q.k])+" điểm · Còn "+fmt(Math.max(0,MAXPT-G.pts))+" điểm tới mốc 10 triệu";
+  $("bar").style.width=(G.i/QS.length*100)+"%";
+  $("fig").innerHTML=q.fig||"";
+  const box=$("opts"); box.innerHTML=""; box.className="opts "+q.k;
+  if(q.k==="mc"){
+    $("qtext").textContent=q.q;
+    q.sh=shuffle([q.ok].concat(q.bad));   // xáo trộn vị trí đáp án mỗi lần hiển thị
+    q.sh.forEach((t,j)=>{ const b=document.createElement("button"); b.className="opt";
+      const l=document.createElement("b"); l.textContent="ABCD"[j]+".";
+      const s=document.createElement("span"); s.textContent=t; b.append(l,s); b.onclick=()=>answer(j); box.appendChild(b); });
+  } else if(q.k==="tf"){
+    $("qtext").textContent=q.q+"\n\nNhận định: "+q.s;
+    [["ĐÚNG",true],["SAI",false]].forEach(([t,v])=>{ const b=document.createElement("button"); b.className="opt"; b.textContent=t; b.onclick=()=>answer(v); box.appendChild(b); });
+  } else {
+    $("qtext").textContent=q.q;
+    const inp=document.createElement("input"); inp.id="saIn"; inp.placeholder="Nhập đáp án"; inp.autocomplete="off";
+    const go=document.createElement("button"); go.id="saGo"; go.className="btn"; go.textContent="🚪 MỞ CỔNG";
+    const fire=()=>answer(inp.value); go.onclick=fire; inp.onkeydown=e=>{ if(e.key==="Enter") fire(); };
+    box.append(inp,go); setTimeout(()=>inp.focus(),60);
+  }
+  updLL(); renderMath($("game"));
+  if(G.i===0||QS[G.i-1].k!==q.k) showIntro(q.k);   // giới thiệu vòng mới
+}
+
+function answer(c){
+  if(!G||G.locked) return;
+  const q=QS[G.i], btns=[...$("opts").children]; let right, corr;
+  if(q.k==="sa"){ if(!String(c==null?"":c).trim()) return; right=checkSA(q,c); corr=q.show; }
+  G.locked=true;
+  if(q.k==="mc"){ right=q.sh[c]===q.ok; corr="ABCD"[q.sh.indexOf(q.ok)]+". "+q.ok; G.mcN++; if(right) G.mcOk++;
+    btns.forEach((b,j)=>{ b.classList.add("locked"); if(q.sh[j]===q.ok) b.classList.add("good"); else if(j===c) b.classList.add("bad"); }); }
+  else if(q.k==="tf"){ right=(c===q.ok); corr=q.ok?"ĐÚNG":"SAI";
+    btns.forEach((b,j)=>{ const v=(j===0); b.classList.add("locked"); if(v===q.ok) b.classList.add("good"); else if(c===v) b.classList.add("bad"); }); }
+  else { const inp=$("saIn"); inp.disabled=true; inp.style.borderColor=right?"#51e57a":"#ff6b6b"; $("saGo").disabled=true; }
+  const fb=$("fb"); fb.className="show "+(right?"ok":"no");
+  if(right){ G.pts+=PTS[q.k]; G.ok++; G.combo++; G.bestCombo=Math.max(G.bestCombo,G.combo); if(q.k==="sa") G.gates++;
+    $("fbT").textContent="✔ CHÍNH XÁC! +"+fmt(PTS[q.k])+" điểm"+(G.combo>=3?" · 🔥 Combo ×"+G.combo:"");
+    $("fbE").textContent="💡 Định hướng giải: "+q.ex; applause(); speak("Chính xác!"); fx("ok","✔ CHÍNH XÁC!");
+  } else { G.lives--; G.combo=0;
+    const mine = q.k==="mc" ? "Lựa chọn của bạn chưa đúng." : q.k==="tf" ? "Bạn chọn "+(c?"ĐÚNG":"SAI")+" nhưng nhận định này là "+(q.ok?"ĐÚNG":"SAI")+"." : "Đáp án bạn nhập chưa đúng.";
+    $("fbT").textContent="✘ CHƯA ĐÚNG! Đáp án: "+corr;
+    $("fbE").textContent=mine+" 💡 Định hướng giải: "+q.ex+" (Bạn mất 1 mạng.)"; sad(); fx("no",G.lives<=0?"✘ BỊ LOẠI":"✘ SAI RỒI"); }
+  $("score").textContent=fmt(G.pts); paintLives(); paintGates();
+  const last = G.lives<=0 || G.i>=QS.length-1;
+  $("btnNext").textContent = last ? "Xem kết quả ▶" : "Câu tiếp theo ▶";
+  updLL(); renderMath(fb);
+}
+function next(){
+  if(!G||!G.locked) return;
+  if(G.lives<=0||G.i>=QS.length-1){ endGame(); return; }
+  G.i++; showQ();
+}
+
+// ===== Trợ giúp: 50:50 và Hỏi chuyên gia =====
+function lifeline50(){ if(!G||G.locked||G.u50||QS[G.i].k!=="mc") return; const q=QS[G.i]; G.u50=true;
+  const bad=[...$("opts").children].filter((b,j)=>q.sh[j]!==q.ok);
+  shuffle(bad).slice(0,2).forEach(b=>{b.classList.add("gone");b.onclick=null;}); updLL(); }
+function lifelineExp(){ if(!G||G.locked||G.uExp||QS[G.i].k!=="mc") return; const q=QS[G.i]; G.uExp=true;
+  const opts=[...$("opts").children], okIdx=q.sh.indexOf(q.ok);
+  const wrong=opts.map((b,j)=>j).filter(j=>j!==okIdx&&!opts[j].classList.contains("gone"));
+  let pick=okIdx; if(wrong.length&&Math.random()>0.8) pick=wrong[Math.floor(Math.random()*wrong.length)];   // chuyên gia đúng khoảng 80%
+  $("expert").textContent="🎓 Thầy Hòa AI: “Thầy khá chắc đáp án là "+"ABCD"[pick]+".”"; updLL(); }
+
+// ===== Phần thưởng: XP, cấp độ, danh hiệu, huy hiệu, lưu tiến bộ =====
+const BADGES=[["🔔","Chuông vàng",g=>g.lives>0],["🎯","Thiện xạ",g=>g.mcN>0&&g.mcOk===g.mcN],["🔥","Combo 5",g=>g.bestCombo>=5],["🧗","Vượt chướng ngại",g=>g.gates===SAN],["🏆","Triệu phú Toán học",g=>g.pts>=MAXPT]];
+const TITLES=[[0,"Tân binh"],[150,"Học sĩ"],[350,"Chiến binh"],[600,"Cao thủ"],[900,"Triệu phú Toán học"]];
+function loadProg(){ try{ return JSON.parse(localStorage.getItem("thayhoa_prog")||"{}"); }catch(e){ return {}; } }
+function saveProg(p){ try{ localStorage.setItem("thayhoa_prog",JSON.stringify(p)); }catch(e){} }
+function titleOf(xp){ let t=TITLES[0][1]; TITLES.forEach(x=>{ if(xp>=x[0]) t=x[1]; }); return t; }
+function paintProg(){ const p=loadProg(), xp=p.xp||0;
+  $("progLine").textContent = xp ? "🎖 "+titleOf(xp)+" · Cấp "+(Math.floor(xp/100)+1)+" · "+xp+" XP · Kỷ lục: "+fmt(p.best||0)+" điểm" : "🎖 Hoàn thành một lượt chơi để nhận XP, huy hiệu và danh hiệu!"; }
+function reward(){ if(G.rew) return; G.rew=true;
+  const xp=Math.floor(G.pts/10000)+G.bestCombo*5, p=loadProg(), prev=p.xp||0, last=(p.hist||[]).slice(-1)[0], got=BADGES.filter(b=>b[2](G));
+  let t="⭐ +"+xp+" XP · Cấp "+(Math.floor((prev+xp)/100)+1)+" · Danh hiệu: "+titleOf(prev+xp)+"\n";
+  t+= got.length ? "Huy hiệu: "+got.map(b=>b[0]+" "+b[1]).join("   ") : "Huy hiệu: chưa có — chơi lại để mở khóa!";
+  if(last) t+="\n"+(G.pts>last.s?"📈 Tiến bộ: tăng "+fmt(G.pts-last.s)+" điểm so với lần trước":G.pts<last.s?"📉 Thấp hơn lần trước "+fmt(last.s-G.pts)+" điểm — cố lên!":"Bằng điểm lần trước");
+  p.xp=prev+xp; p.best=Math.max(p.best||0,G.pts); p.hist=(p.hist||[]).concat([{s:G.pts}]).slice(-10); saveProg(p);
+  $("endRew").textContent=t; }
+
+// ===== Kết thúc & bảng xếp hạng =====
+function endGame(){
+  G.fin=true; const sec=Math.round((Date.now()-G.t0)/1000), tstr=mmss(sec);
+  G.sec=sec; G.tstr=tstr;
+  const full=G.lives>0;
+  $("endT").textContent = full ? "🏆 VINH DANH NHÀ CHINH PHỤC TOÁN HỌC! 🏆" : "💔 HẾT MẠNG – TRÒ CHƠI KẾT THÚC";
+  $("endName").textContent=G.name+" · Lớp "+G.cls;
+  $("endScore").textContent=fmt(G.pts)+" / "+fmt(MAXPT);
+  $("endOk").textContent=G.ok+"/"+QS.length; $("endTime").textContent=tstr;
+  const r=G.pts/MAXPT;
+  $("endMsg").textContent = r>=0.9?"Xuất sắc! Bạn là Nhà chinh phục Toán học!":r>=0.7?"Rất tốt! Bạn nắm vững kiến thức.":r>=0.5?"Khá ổn! Hãy xem lại các câu đã sai.":"Cố gắng thêm nhé! Ôn lại mệnh đề – tập hợp, miền nghiệm của bất phương trình và các hệ thức lượng trong tam giác.";
+  $("endSave").textContent=""; reward(); show("end"); if(full){ confetti(); applause(); } sendResult();
+}
+async function sendResult(){
+  if(G.saved) return; G.saved=true;
+  if(!APPS_SCRIPT_URL){ renderLB(); return; }
+  $("endSave").textContent="Đang gửi kết quả…";
+  try{
+    await fetch(APPS_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({"Họ tên":G.name,"Lớp":G.cls,"Điểm số":G.pts,"Thời gian làm bài":G.tstr})});
+    $("endSave").textContent="✔ Đã ghi nhận kết quả của bạn.";
+    setTimeout(fetchLB,1500);
+  }catch(e){ $("endSave").textContent="Chưa gửi được kết quả lên bảng xếp hạng."; }
+}
+let LB=[];
+function secOf(t){ const p=String(t||"").split(":").map(Number); return p.length===2&&!p.some(isNaN)?p[0]*60+p[1]:99999; }
+async function fetchLB(){
+  if(!APPS_SCRIPT_URL){ renderLB(); return; }
+  try{
+    const r=await fetch(APPS_SCRIPT_URL+(APPS_SCRIPT_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now());
+    const j=await r.json(); if(j&&j.status==="ok"&&Array.isArray(j.data)) LB=j.data;
+  }catch(e){}
+  renderLB();
+}
+function renderLB(){
+  const rows=LB.slice().sort((a,b)=>(Number(b["Điểm số"])||0)-(Number(a["Điểm số"])||0)||secOf(a["Thời gian làm bài"])-secOf(b["Thời gian làm bài"])).slice(0,10);
+  document.querySelectorAll(".lbBody").forEach(el=>{
+    el.innerHTML="";
+    if(!rows.length){ const p=document.createElement("div"); p.textContent="Chưa có dữ liệu xếp hạng."; el.appendChild(p); return; }
+    const tb=document.createElement("table"), hr=tb.insertRow();
+    ["#","Họ tên","Lớp","Điểm","Thời gian"].forEach(h=>{const th=document.createElement("th"); th.textContent=h; hr.appendChild(th);});
+    rows.forEach((r,i)=>{ const tr=tb.insertRow();
+      [(i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1),r["Họ tên"],r["Lớp"],(Number(r["Điểm số"])||0).toLocaleString("vi-VN"),r["Thời gian làm bài"]]
+        .forEach(v=>{ tr.insertCell().textContent=(v===undefined||v===null)?"":v; }); });
+    el.appendChild(tb);
+  });
+}
+
+// ===== Khởi tạo (mỗi sự kiện chỉ gắn một lần) =====
+$("btnStart").onclick=()=>{
+  const n=$("inName").value.trim(), c=$("inClass").value.trim();
+  if(!n||!c){ $("err").textContent="Vui lòng nhập đầy đủ Họ tên và Lớp."; return; }
+  $("err").textContent=""; initAudio(); stopTimer();
+  G=newGame(n,c); show("game"); showQ();
+};
+$("btnNext").onclick=next;
+$("ll50").onclick=lifeline50;
+$("llAud").onclick=lifelineExp;
+$("btnAgain").onclick=()=>{ stopTimer(); G=null; $("cf").innerHTML=""; $("fx").className=""; show("start"); $("intro").className=""; paintProg(); fetchLB(); };
+$("btnClass").onclick=()=>show("teacher");
+$("btnTBack").onclick=()=>show("start");
+$("bellBig").innerHTML=BELL; $("bellSm").innerHTML=BELL;
+$("inGo").onclick=()=>$("intro").classList.remove("show");
+paintProg();
+$("mute").onclick=()=>{ muted=!muted; $("mute").textContent=muted?"🔇":"🔊"; };
+renderLB(); fetchLB();
+setInterval(fetchLB,5000);
+</script>
+</body></html>
