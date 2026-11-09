@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Chinh phục Toán học – Thầy Hòa AI</title>
+<title>Chinh phục Toán học – Thầy Hòa</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
@@ -85,7 +85,7 @@ th{color:#ffd84a}
       <h2>Luật chơi</h2>
       <ul>
         <li><b>44 câu, 3 vòng</b>: ① Ai là triệu phú (18 câu trắc nghiệm) → ② Đấu trường (16 nhận định Đúng/Sai) → ③ Vượt chướng ngại vật (10 câu trả lời ngắn). Mục tiêu: chạm mốc <b>10.000.000 điểm</b>.</li>
-        <li>Có <b>5 mạng ❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
+        <li>Có <b>22 mạng ❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
         <li><b>Không giới hạn thời gian</b> cho mỗi câu; đồng hồ chỉ ghi tổng thời gian làm bài để xếp hạng.</li>
         <li>Quyền trợ giúp ở Vòng 1 (mỗi loại 1 lần): <b>50:50</b> và <b>Hỏi chuyên gia</b>. Nhận <b>XP, huy hiệu, cấp độ, danh hiệu</b>; tiến bộ được lưu trên máy này.</li>
         <li>Sau mỗi câu có giải thích. Xếp hạng: điểm cao hơn trước; bằng điểm thì thời gian ngắn hơn.</li>
@@ -131,12 +131,12 @@ th{color:#ffd84a}
       <div class="lbl" id="endSave" style="margin-top:8px"></div>
       <p><button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></p>
     </div>
-    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+    <div class="panel"><h2>Bảng xếp hạng</h2><div class="lbBody"></div></div>
   </div>
 </section>
 
 <section id="teacher" class="screen">
-  <h1>👩‍🏫 BẢNG ĐIỀU KHIỂN GIÁO VIÊN</h1>
+  <h1>BẢNG ĐIỀU KHIỂN GIÁO VIÊN</h1>
   <div class="wrap"><div class="panel">
     <h2>Chế độ Cả lớp</h2>
     <p>Chế độ này cần một máy chủ đồng bộ (ví dụ Firebase hoặc WebSocket) để nhiều thiết bị cùng nhận câu hỏi. <b>Hiện chưa kết nối máy chủ</b>, nên các nút điều khiển bên dưới đang bị khóa. Cấu trúc đối tượng <code>SYNC</code> trong mã nguồn đã được chuẩn bị sẵn để tích hợp sau.</p>
@@ -146,7 +146,7 @@ th{color:#ffd84a}
   </div></div>
 </section>
 <div id="fx"></div><div id="cf"></div>
-<div id="intro"><div class="panel" style="flex:none;max-width:900px"><div id="inMasc">🧑‍🏫</div><h1 id="inT"></h1><div class="sub" id="inD"></div><p><button class="btn" id="inGo">▶ VÀO VÒNG</button></p></div></div>
+<div id="intro"><div class="panel" style="flex:none;max-width:900px"><div id="inMasc"></div><h1 id="inT"></h1><div class="sub" id="inD"></div><p><button class="btn" id="inGo">▶ VÀO VÒNG</button></p></div></div>
 <script>
 // ===== Cấu hình (ẩn khỏi giao diện): điền URL Web App của Apps Script vào đây =====
 const APPS_SCRIPT_URL = "";
@@ -329,7 +329,7 @@ function answer(c){
   } else { G.lives--; G.combo=0;
     const mine = q.k==="mc" ? "Lựa chọn của bạn chưa đúng." : q.k==="tf" ? "Bạn chọn "+(c?"ĐÚNG":"SAI")+" nhưng nhận định này là "+(q.ok?"ĐÚNG":"SAI")+"." : "Đáp án bạn nhập chưa đúng.";
     $("fbT").textContent="✘ CHƯA ĐÚNG! Đáp án: "+corr;
-    $("fbE").textContent=mine+" 💡 Định hướng giải: "+q.ex+" (Bạn mất 1 mạng.)"; sad(); fx("no",G.lives<=0?"✘ BỊ LOẠI":"✘ SAI RỒI"); }
+    $("fbE").textContent=mine+" Định hướng giải: "+q.ex+" (Bạn mất 1 mạng.)"; sad(); fx("no",G.lives<=0?"✘ BỊ LOẠI":"✘ SAI RỒI"); }
   $("score").textContent=fmt(G.pts); paintLives(); paintGates();
   const last = G.lives<=0 || G.i>=QS.length-1;
   $("btnNext").textContent = last ? "Xem kết quả ▶" : "Câu tiếp theo ▶";
@@ -349,7 +349,7 @@ function lifelineExp(){ if(!G||G.locked||G.uExp||QS[G.i].k!=="mc") return; const
   const opts=[...$("opts").children], okIdx=q.sh.indexOf(q.ok);
   const wrong=opts.map((b,j)=>j).filter(j=>j!==okIdx&&!opts[j].classList.contains("gone"));
   let pick=okIdx; if(wrong.length&&Math.random()>0.8) pick=wrong[Math.floor(Math.random()*wrong.length)];   // chuyên gia đúng khoảng 80%
-  $("expert").textContent="🎓 Thầy Hòa AI: “Thầy khá chắc đáp án là "+"ABCD"[pick]+".”"; updLL(); }
+  $("expert").textContent="Thầy Hòa: “Thầy khá chắc đáp án là "+"ABCD"[pick]+".”"; updLL(); }
 
 // ===== Phần thưởng: XP, cấp độ, danh hiệu, huy hiệu, lưu tiến bộ =====
 const BADGES=[["🔔","Chuông vàng",g=>g.lives>0],["🎯","Thiện xạ",g=>g.mcN>0&&g.mcOk===g.mcN],["🔥","Combo 5",g=>g.bestCombo>=5],["🧗","Vượt chướng ngại",g=>g.gates===SAN],["🏆","Triệu phú Toán học",g=>g.pts>=MAXPT]];
