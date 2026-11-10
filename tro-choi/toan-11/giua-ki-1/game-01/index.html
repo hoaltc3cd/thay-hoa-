@@ -100,12 +100,12 @@ math{font-size:1.1em}
 <div class="brand">THẦY HÒA</div><div class="fx" id="fx"></div>
 
 <section id="start" class="screen active">
-  <div class="bell">🔔</div><h1>ĐẤU TRƯỜNG TOÁN HỌC</h1>
+  <div class="bell"></div><h1>ĐẤU TRƯỜNG TOÁN HỌC</h1>
   <div class="sub">GAME SHOW · CHINH PHỤC TOÁN HỌC · <b>THẦY HÒA</b> · Toán 11</div>
   <div class="wrap">
     <div class="panel">
       <h2>Chế độ chơi</h2>
-      <div class="ll" style="justify-content:flex-start"><button class="btn" id="mInd">👤 Cá nhân</button><button class="btn off" id="mCls">👥 Cả lớp</button><button class="btn off" id="btnTeacher">🎓 Giáo viên</button></div>
+      <div class="ll" style="justify-content:flex-start"><button class="btn" id="mInd"> Cá nhân</button><button class="btn off" id="mCls">👥 Cả lớp</button><button class="btn off" id="btnTeacher">🎓 Giáo viên</button></div>
       <div class="lbl" id="mDesc" style="text-align:left"></div><div class="lbl" id="lastR" style="text-align:left"></div>
       <h2>Thông tin người chơi</h2>
       <input id="inName" placeholder="Họ và tên" maxlength="40" autocomplete="off">
@@ -123,7 +123,7 @@ math{font-size:1.1em}
       </ul>
       <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ BẮT ĐẦU</button></p>
     </div>
-    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+    <div class="panel"><h2> Bảng xếp hạng</h2><div class="lbBody"></div></div>
   </div>
 </section>
 
@@ -131,11 +131,11 @@ math{font-size:1.1em}
   <div class="top">
     <span class="chip" id="stg"></span>
     <span class="chip" id="qno"></span>
-    <span class="chip">💰 <span id="score">0</span></span>
+    <span class="chip"> <span id="score">0</span></span>
     <span class="chip">XP <span id="xp">0</span></span>
-    <span class="chip">⏱ <span id="clock">00:00</span></span>
+    <span class="chip"> <span id="clock">00:00</span></span>
     <span class="chip" id="remain" style="display:none"></span>
-    <span id="mascot" class="mas">🤔</span>
+    <span id="mascot" class="mas"></span>
     <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff">🔊</button>
   </div>
   <div class="progress"><div id="bar"></div></div>
@@ -147,21 +147,21 @@ math{font-size:1.1em}
     <div id="saBox"><input id="saIn" placeholder="Nhập đáp số" autocomplete="off" inputmode="decimal"><button class="btn" id="saBtn">Trả lời</button></div>
     <div class="lbl" id="hint"></div>
   </div>
-  <div class="ll" id="llBox"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llExp">🎓 Hỏi chuyên gia</button></div>
+  <div class="ll" id="llBox"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llExp"> Hỏi chuyên gia</button></div>
   <div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp theo ▶</button></div>
 </section>
 
 <section id="teacher" class="screen">
-  <h1>🎓 MÀN HÌNH GIÁO VIÊN</h1>
+  <h1>MÀN HÌNH GIÁO VIÊN</h1>
   <div class="wrap">
     <div class="panel"><h2>Tình hình cả lớp</h2><div class="sub" id="tCnt"></div><div class="lbl" id="tNote"></div>
-      <p style="text-align:center"><button class="btn" id="tBack">⬅ Quay lại</button></p></div>
-    <div class="panel"><h2>🏆 Bảng xếp hạng trực tiếp</h2><div class="lbBody"></div></div>
+      <p style="text-align:center"><button class="btn" id="tBack">Quay lại</button></p></div>
+    <div class="panel"><h2>Bảng xếp hạng trực tiếp</h2><div class="lbBody"></div></div>
   </div>
 </section>
 
 <section id="end" class="screen">
-  <div class="bell">🔔</div><h1 id="endT">HOÀN THÀNH!</h1>
+  <div class="bell"></div><h1 id="endT">HOÀN THÀNH!</h1>
   <div class="wrap">
     <div class="panel" style="text-align:center">
       <div id="endName" class="sub"></div>
@@ -170,9 +170,9 @@ math{font-size:1.1em}
       <div class="sub" id="endMsg" style="margin-top:8px"></div>
       <div class="lbl" id="endBadges" style="margin-top:8px"></div><div class="lbl" id="endProg" style="margin-top:8px"></div>
       <div class="lbl" id="endSave" style="margin-top:8px"></div>
-      <p><button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></p>
+      <p><button class="btn" id="btnAgain">CHƠI LẠI</button></p>
     </div>
-    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+    <div class="panel"><h2>Bảng xếp hạng</h2><div class="lbBody"></div></div>
   </div>
 </section>
 
@@ -361,7 +361,7 @@ function lifelineExp(){ if(!G||G.locked||G.uExp||cur().k!=="mc") return; const q
   const btns=[...$("opts").children], okIdx=q.sh.indexOf(q.ok);
   const live=btns.map((_,j)=>j).filter(j=>!btns[j].classList.contains("gone"));
   let pick=okIdx; if(Math.random()<0.15){ const w=live.filter(j=>j!==okIdx); if(w.length) pick=w[Math.floor(Math.random()*w.length)]; }
-  $("hint").textContent="🎓 Chuyên gia nghiêng về đáp án "+"ABCD"[pick]+" (độ tin cậy khoảng 85%)."; updLL(); }
+  $("hint").textContent="Chuyên gia nghiêng về đáp án "+"ABCD"[pick]+" (độ tin cậy khoảng 85%)."; updLL(); }
 
 // ===== Kết thúc: danh hiệu, huy hiệu, tiến bộ =====
 const TITLES=[[GOAL,"👑 Triệu phú Toán học"],[9000000,"🏅 Bậc thầy Toán học"],[6000000,"🎖️ Chuyên gia"],[3000000,"⚔️ Cao thủ"],[1000000,"🛡️ Chiến binh"],[0,"🌱 Tân binh"]];
@@ -371,7 +371,7 @@ function saveHist(){ let h=[]; try{ h=JSON.parse(localStorage.getItem("thayhoa_h
 function endGame(){
   stopTimer(); susOff(); const sec=Math.round((Date.now()-G.t0)/1000), tstr=mmss(sec); G.tstr=tstr;
   const title=TITLES.find(t=>G.pts>=t[0])[1], full=G.pts>=GOAL;
-  $("endT").textContent=full?"👑 CHẠM MỐC 10 TRIỆU ĐIỂM – TRIỆU PHÚ TOÁN HỌC!":"🎉 HOÀN THÀNH TRÒ CHƠI! 🎉";
+  $("endT").textContent=full?"CHẠM MỐC 10 TRIỆU ĐIỂM – TRIỆU PHÚ TOÁN HỌC!":"🎉 HOÀN THÀNH TRÒ CHƠI! ";
   $("endName").textContent=G.name+" · Lớp "+G.cls;
   $("endScore").textContent=pf(G.pts)+" / "+pf(GOAL);
   $("endOk").textContent=G.ok+"/"+ITEMS.length; $("endTime").textContent=tstr;
