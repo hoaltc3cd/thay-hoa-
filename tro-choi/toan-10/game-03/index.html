@@ -285,7 +285,7 @@ const QS = MC.map(m=>({k:"mc",lv:m[0],q:m[1],ok:m[2],bad:m[3],ex:m[4],fig:m[5]||
   .concat(SA.map(s=>({k:"sa",lv:s[0],q:s[1],val:s[2],acc:s[3],show:s[4],ex:s[5],fig:s[6]||""})));
 const MAXPT = QS.reduce((s,q)=>s+PTS[q.k],0)+BONUS;   // 10.000.000 điểm — mốc chinh phục
 const SAN = QS.filter(q=>q.k==="sa").length;          // số cổng ở vòng 3
-const LIVES = 5;                                      // số mạng
+const LIVES = 15;                                      // số mạng
 const ROUND = {
   mc:["VÒNG 1","AI LÀ TRIỆU PHÚ","Chọn 1 trong 4 đáp án. Có quyền trợ giúp 50:50 và Hỏi chuyên gia (mỗi loại 1 lần)."],
   tf:["VÒNG 2","ĐẤU TRƯỜNG TOÁN HỌC","Chọn ĐÚNG hoặc SAI cho từng nhận định. Trả lời đúng liên tiếp tạo combo và thêm XP."],
@@ -392,7 +392,7 @@ function answer(c){
   } else { G.lives--; G.combo=0;
     const mine = q.k==="mc" ? "Lựa chọn của bạn chưa đúng." : q.k==="tf" ? "Bạn chọn "+(c?"ĐÚNG":"SAI")+" nhưng nhận định này là "+(q.ok?"ĐÚNG":"SAI")+"." : "Đáp án bạn nhập chưa đúng.";
     $("fbT").textContent="✘ CHƯA ĐÚNG! Đáp án: "+corr;
-    $("fbE").textContent=mine+" 💡 Định hướng giải: "+q.ex+" (Bạn mất 1 mạng.)"; sad(); fx("no",G.lives<=0?"✘ BỊ LOẠI":"✘ SAI RỒI"); }
+    $("fbE").textContent=mine+" Định hướng giải: "+q.ex+" (Bạn mất 1 mạng.)"; sad(); fx("no",G.lives<=0?"✘ BỊ LOẠI":"✘ SAI RỒI"); }
   $("score").textContent=fmt(G.pts); paintLives(); paintGates();
   const last = G.lives<=0 || G.i>=QS.length-1;
   $("btnNext").textContent = last ? "Xem kết quả ▶" : "Câu tiếp theo ▶";
@@ -412,7 +412,7 @@ function lifelineExp(){ if(!G||G.locked||G.uExp||QS[G.i].k!=="mc") return; const
   const opts=[...$("opts").children], okIdx=q.sh.indexOf(q.ok);
   const wrong=opts.map((b,j)=>j).filter(j=>j!==okIdx&&!opts[j].classList.contains("gone"));
   let pick=okIdx; if(wrong.length&&Math.random()>0.8) pick=wrong[Math.floor(Math.random()*wrong.length)];   // chuyên gia đúng khoảng 80%
-  $("expert").textContent="🎓 Thầy Hòa AI: “Thầy khá chắc đáp án là "+"ABCD"[pick]+".”"; updLL(); }
+  $("expert").textContent=" Thầy Hòa: “Thầy khá chắc đáp án là "+"ABCD"[pick]+".”"; updLL(); }
 
 // ===== Phần thưởng: XP, cấp độ, danh hiệu, huy hiệu, lưu tiến bộ =====
 const BADGES=[["🔔","Chuông vàng",g=>g.lives>0],["🎯","Thiện xạ",g=>g.mcN>0&&g.mcOk===g.mcN],["🔥","Combo 5",g=>g.bestCombo>=5],["🧗","Vượt chướng ngại",g=>g.gates===SAN],["🏆","Triệu phú Toán học",g=>g.pts>=MAXPT]];
@@ -421,7 +421,7 @@ function loadProg(){ try{ return JSON.parse(localStorage.getItem("thayhoa_prog")
 function saveProg(p){ try{ localStorage.setItem("thayhoa_prog",JSON.stringify(p)); }catch(e){} }
 function titleOf(xp){ let t=TITLES[0][1]; TITLES.forEach(x=>{ if(xp>=x[0]) t=x[1]; }); return t; }
 function paintProg(){ const p=loadProg(), xp=p.xp||0;
-  $("progLine").textContent = xp ? "🎖 "+titleOf(xp)+" · Cấp "+(Math.floor(xp/100)+1)+" · "+xp+" XP · Kỷ lục: "+fmt(p.best||0)+" điểm" : "🎖 Hoàn thành một lượt chơi để nhận XP, huy hiệu và danh hiệu!"; }
+  $("progLine").textContent = xp ? "🎖 "+titleOf(xp)+" · Cấp "+(Math.floor(xp/100)+1)+" · "+xp+" XP · Kỷ lục: "+fmt(p.best||0)+" điểm" : " Hoàn thành một lượt chơi để nhận XP, huy hiệu và danh hiệu!"; }
 function reward(){ if(G.rew) return; G.rew=true;
   const xp=Math.floor(G.pts/10000)+G.bestCombo*5, p=loadProg(), prev=p.xp||0, last=(p.hist||[]).slice(-1)[0], got=BADGES.filter(b=>b[2](G));
   let t="⭐ +"+xp+" XP · Cấp "+(Math.floor((prev+xp)/100)+1)+" · Danh hiệu: "+titleOf(prev+xp)+"\n";
@@ -435,7 +435,7 @@ function endGame(){
   G.fin=true; const sec=Math.round((Date.now()-G.t0)/1000), tstr=mmss(sec);
   G.sec=sec; G.tstr=tstr;
   const full=G.lives>0;
-  $("endT").textContent = full ? "🏆 VINH DANH NHÀ CHINH PHỤC TOÁN HỌC! 🏆" : "💔 HẾT MẠNG – TRÒ CHƠI KẾT THÚC";
+  $("endT").textContent = full ?  VINH DANH NHÀ CHINH PHỤC TOÁN HỌC! 🏆" : " HẾT MẠNG – TRÒ CHƠI KẾT THÚC";
   $("endName").textContent=G.name+" · Lớp "+G.cls;
   $("endScore").textContent=fmt(G.pts)+" / "+fmt(MAXPT);
   $("endOk").textContent=G.ok+"/"+QS.length; $("endTime").textContent=tstr;
@@ -498,4 +498,5 @@ $("mute").onclick=()=>{ muted=!muted; $("mute").textContent=muted?"🔇":"🔊";
 renderLB(); fetchLB();
 setInterval(fetchLB,5000);
 </script>
-</body></html>
+</body>
+</html>
