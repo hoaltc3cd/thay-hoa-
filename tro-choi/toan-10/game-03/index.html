@@ -146,10 +146,10 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
 </style>
 </head>
 <body>
- 
+
 <section id="start" class="screen active">
   <h1>CHINH PHỤC TOÁN HỌC</h1><div class="bellBox" id="bellBig"></div>
-  <div class="sub"><b>THẦY HÒA</b> · Toán 10 · Đề thi thử lần I : Triệu phú – Đấu trường – Vượt chướng ngại</div>
+  <div class="sub"><b>THẦY HÒA AI</b> • Toán 10 • Giữa kì I (THPT Lạng Giang số 1): Triệu phú – Đấu trường – Vượt chướng ngại</div>
   <div class="wrap">
     <div class="panel">
       <h2>Thông tin người chơi</h2>
@@ -159,27 +159,27 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
       <div class="lbl" id="progLine" style="text-align:left"></div>
       <h2>Luật chơi</h2>
       <ul>
-        <li><b>27 câu, 3 vòng</b>: ① Ai là triệu phú (12 câu trắc nghiệm) → ② Đấu trường (12 nhận định Đúng/Sai) → ③ Vượt chướng ngại vật (6 câu trả lời ngắn, mở hết cổng được thưởng). Mục tiêu: chạm mốc <b>10.000.000 điểm</b>.</li>
-        <li>Có <b>25 mạng❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
+        <li><b>27 câu, 3 vòng</b>: ① Ai là triệu phú (9 câu trắc nghiệm) → ② Đấu trường (12 nhận định Đúng/Sai) → ③ Vượt chướng ngại vật (6 câu trả lời ngắn, mở hết cổng được thưởng). Mục tiêu: chạm mốc <b>10.000.000 điểm</b>.</li>
+        <li>Có <b>5 mạng ❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
         <li><b>Không giới hạn thời gian</b> cho mỗi câu; đồng hồ chỉ ghi tổng thời gian làm bài để xếp hạng.</li>
         <li>Quyền trợ giúp ở Vòng 1 (mỗi loại 1 lần): <b>50:50</b> và <b>Hỏi chuyên gia</b>. Nhận <b>XP, huy hiệu, cấp độ, danh hiệu</b>; tiến bộ được lưu trên máy này.</li>
         <li>Sau mỗi câu có giải thích. Xếp hạng: điểm cao hơn trước; bằng điểm thì thời gian ngắn hơn.</li>
       </ul>
-      <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ CHẾ ĐỘ CÁ NHÂN</button> <button class="btn" id="btnClass" style="background:#2a7fc9;color:#fff">👩‍🏫 CHẾ ĐỘ CẢ LỚP</button></p>
+      <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ CHẾ ĐỘ CÁ NHÂN</button> <button class="btn" id="btnClass" style="background:#2a7fc9;color:#fff">CHẾ ĐỘ CẢ LỚP</button></p>
     </div>
-    <div class="panel"><h2>Bảng xếp hạng</h2><div class="lbBody"></div></div>
+    <div class="panel"><h2> Bảng xếp hạng</h2><div class="lbBody"></div></div>
   </div>
 </section>
 
 <section id="game" class="screen">
   <div class="top">
     <span class="bellBox sm" id="bellSm"></span><span class="chip brand">THẦY HÒA</span>
-    <span class="chip" id="remain" style="display:none">Còn lại: <span id="remainN">—</span></span>
+    <span class="chip" id="remain" style="display:none">👥 Còn lại: <span id="remainN">—</span></span>
     <span class="chip">Câu <span id="qno"></span></span>
     <span class="chip">Điểm: <span id="score">0</span></span>
     <span class="chip" id="lives"></span>
-    <span class="chip"> <span id="timer">00:00</span></span>
-    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff"></button>
+    <span class="chip">⏱ <span id="timer">00:00</span></span>
+    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff">🔊</button>
   </div>
   <div class="progress"><div id="bar"></div></div>
   <div class="lbl" id="lv"></div>
@@ -190,7 +190,7 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
     <div class="lbl" id="expert"></div>
     <div class="lbl" id="gates" style="font-size:clamp(24px,3vw,44px)"></div>
   </div>
-  <div class="ll"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llAud"> Hỏi chuyên gia</button></div>
+  <div class="ll"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llAud">🎓 Hỏi chuyên gia</button></div>
   <div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp theo ▶</button></div>
 </section>
 
@@ -200,7 +200,7 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
     <div class="panel" style="text-align:center">
       <div id="endName" class="sub"></div>
       <div class="big" id="endScore"></div>
-      <div class="sub">Số câu đúng: <b id="endOk"></b> · Thời gian: <b id="endTime"></b></div>
+      <div class="sub">Số câu đúng: <b id="endOk"></b> • Thời gian: <b id="endTime"></b></div>
       <div class="sub" id="endMsg" style="margin-top:8px"></div>
       <div class="sub" id="endRew" style="margin-top:8px;white-space:pre-line"></div>
       <div class="lbl" id="endSave" style="margin-top:8px"></div>
@@ -221,7 +221,7 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
   </div></div>
 </section>
 <div id="fx"></div><div id="cf"></div>
-<div id="intro"><div class="panel" style="flex:none;max-width:900px"><div id="inMasc"></div><h1 id="inT"></h1><div class="sub" id="inD"></div><p><button class="btn" id="inGo">▶ VÀO VÒNG</button></p></div></div>
+<div id="intro"><div class="panel" style="flex:none;max-width:900px"><div id="inMasc">🧑🏫</div><h1 id="inT"></h1><div class="sub" id="inD"></div><p><button class="btn" id="inGo">▶ VÀO VÒNG</button></p></div></div>
 <script>
 // ===== Cấu hình (ẩn khỏi giao diện): điền URL Web App của Apps Script vào đây =====
 const APPS_SCRIPT_URL = "";
@@ -285,7 +285,7 @@ const QS = MC.map(m=>({k:"mc",lv:m[0],q:m[1],ok:m[2],bad:m[3],ex:m[4],fig:m[5]||
   .concat(SA.map(s=>({k:"sa",lv:s[0],q:s[1],val:s[2],acc:s[3],show:s[4],ex:s[5],fig:s[6]||""})));
 const MAXPT = QS.reduce((s,q)=>s+PTS[q.k],0)+BONUS;   // 10.000.000 điểm — mốc chinh phục
 const SAN = QS.filter(q=>q.k==="sa").length;          // số cổng ở vòng 3
-const LIVES = 15;                                      // số mạng
+const LIVES = 5;                                      // số mạng
 const ROUND = {
   mc:["VÒNG 1","AI LÀ TRIỆU PHÚ","Chọn 1 trong 4 đáp án. Có quyền trợ giúp 50:50 và Hỏi chuyên gia (mỗi loại 1 lần)."],
   tf:["VÒNG 2","ĐẤU TRƯỜNG TOÁN HỌC","Chọn ĐÚNG hoặc SAI cho từng nhận định. Trả lời đúng liên tiếp tạo combo và thêm XP."],
@@ -341,7 +341,7 @@ window.addEventListener("load",()=>renderMath(document.body));
 function paintLives(){ $("lives").textContent="❤".repeat(G.lives)+"🖤".repeat(LIVES-G.lives); }
 function paintGates(){ $("gates").textContent = QS[G.i].k==="sa" ? "🔓".repeat(G.gates)+"🚧".repeat(SAN-G.gates) : ""; }
 function updLL(){ const mc=QS[G.i].k==="mc"&&!G.locked; $("ll50").disabled=G.u50||!mc; $("llAud").disabled=G.uExp||!mc; }
-function showIntro(k){ $("inT").textContent=ROUND[k][0]+" · "+ROUND[k][1]; $("inD").textContent=ROUND[k][2]; $("intro").classList.add("show"); }
+function showIntro(k){ $("inT").textContent=ROUND[k][0]+" • "+ROUND[k][1]; $("inD").textContent=ROUND[k][2]; $("intro").classList.add("show"); }
 // ===== Chấm câu trả lời ngắn =====
 function normSA(s){ return String(s).toLowerCase().replace(/\s+/g,"").replace(/−/g,"-").replace(/√/g,"sqrt").replace(/,/g,"."); }
 function checkSA(q,raw){ const n=normSA(raw); if((q.acc||[]).includes(n)) return true;
@@ -351,7 +351,7 @@ function showQ(){
   const q=QS[G.i]; G.locked=false; $("fb").classList.remove("show"); $("expert").textContent="";
   $("remain").style.display=SYNC.ready?"":"none";
   $("qno").textContent=(G.i+1)+"/"+QS.length; $("score").textContent=fmt(G.pts); paintLives(); paintGates();
-  $("lv").textContent=ROUND[q.k][0]+" · "+ROUND[q.k][1]+" · "+LV[q.lv]+" · +"+fmt(PTS[q.k])+" điểm · Còn "+fmt(Math.max(0,MAXPT-G.pts))+" điểm tới mốc 10 triệu";
+  $("lv").textContent=ROUND[q.k][0]+" • "+ROUND[q.k][1]+" • "+LV[q.lv]+" • +"+fmt(PTS[q.k])+" điểm • Còn "+fmt(Math.max(0,MAXPT-G.pts))+" điểm tới mốc 10 triệu";
   $("bar").style.width=(G.i/QS.length*100)+"%";
   $("fig").innerHTML=q.fig||"";
   const box=$("opts"); box.innerHTML=""; box.className="opts "+q.k;
@@ -387,8 +387,8 @@ function answer(c){
   else { const inp=$("saIn"); inp.disabled=true; inp.style.borderColor=right?"#51e57a":"#ff6b6b"; $("saGo").disabled=true; }
   const fb=$("fb"); fb.className="show "+(right?"ok":"no");
   if(right){ G.pts+=PTS[q.k]; G.ok++; G.combo++; G.bestCombo=Math.max(G.bestCombo,G.combo); if(q.k==="sa"){ G.gates++; if(G.gates===SAN) G.pts+=BONUS; }
-    $("fbT").textContent="✔ CHÍNH XÁC! +"+fmt(PTS[q.k])+" điểm"+(G.combo>=3?" · 🔥 Combo ×"+G.combo:"")+(q.k==="sa"&&G.gates===SAN?" · 🎁 Thưởng mở hết cổng +"+fmt(BONUS):"");
-    $("fbE").textContent="💡 Định hướng giải: "+q.ex; applause(); speak("Chính xác!"); fx("ok","✔ CHÍNH XÁC!");
+    $("fbT").textContent="✔ CHÍNH XÁC! +"+fmt(PTS[q.k])+" điểm"+(G.combo>=3?" • 🔥 Combo ×"+G.combo:"")+(q.k==="sa"&&G.gates===SAN?" • Thưởng mở hết cổng +"+fmt(BONUS):"");
+    $("fbE").textContent=" Định hướng giải: "+q.ex; applause(); speak("Chính xác!"); fx("ok","✔ CHÍNH XÁC!");
   } else { G.lives--; G.combo=0;
     const mine = q.k==="mc" ? "Lựa chọn của bạn chưa đúng." : q.k==="tf" ? "Bạn chọn "+(c?"ĐÚNG":"SAI")+" nhưng nhận định này là "+(q.ok?"ĐÚNG":"SAI")+"." : "Đáp án bạn nhập chưa đúng.";
     $("fbT").textContent="✘ CHƯA ĐÚNG! Đáp án: "+corr;
@@ -412,7 +412,7 @@ function lifelineExp(){ if(!G||G.locked||G.uExp||QS[G.i].k!=="mc") return; const
   const opts=[...$("opts").children], okIdx=q.sh.indexOf(q.ok);
   const wrong=opts.map((b,j)=>j).filter(j=>j!==okIdx&&!opts[j].classList.contains("gone"));
   let pick=okIdx; if(wrong.length&&Math.random()>0.8) pick=wrong[Math.floor(Math.random()*wrong.length)];   // chuyên gia đúng khoảng 80%
-  $("expert").textContent=" Thầy Hòa: “Thầy khá chắc đáp án là "+"ABCD"[pick]+".”"; updLL(); }
+  $("expert").textContent="🎓 Thầy Hòa AI: “Thầy khá chắc đáp án là "+"ABCD"[pick]+".”"; updLL(); }
 
 // ===== Phần thưởng: XP, cấp độ, danh hiệu, huy hiệu, lưu tiến bộ =====
 const BADGES=[["🔔","Chuông vàng",g=>g.lives>0],["🎯","Thiện xạ",g=>g.mcN>0&&g.mcOk===g.mcN],["🔥","Combo 5",g=>g.bestCombo>=5],["🧗","Vượt chướng ngại",g=>g.gates===SAN],["🏆","Triệu phú Toán học",g=>g.pts>=MAXPT]];
@@ -421,10 +421,10 @@ function loadProg(){ try{ return JSON.parse(localStorage.getItem("thayhoa_prog")
 function saveProg(p){ try{ localStorage.setItem("thayhoa_prog",JSON.stringify(p)); }catch(e){} }
 function titleOf(xp){ let t=TITLES[0][1]; TITLES.forEach(x=>{ if(xp>=x[0]) t=x[1]; }); return t; }
 function paintProg(){ const p=loadProg(), xp=p.xp||0;
-  $("progLine").textContent = xp ? "🎖 "+titleOf(xp)+" · Cấp "+(Math.floor(xp/100)+1)+" · "+xp+" XP · Kỷ lục: "+fmt(p.best||0)+" điểm" : " Hoàn thành một lượt chơi để nhận XP, huy hiệu và danh hiệu!"; }
+  $("progLine").textContent = xp ? "🎖 "+titleOf(xp)+" • Cấp "+(Math.floor(xp/100)+1)+" • "+xp+" XP • Kỷ lục: "+fmt(p.best||0)+" điểm" : "🎖 Hoàn thành một lượt chơi để nhận XP, huy hiệu và danh hiệu!"; }
 function reward(){ if(G.rew) return; G.rew=true;
   const xp=Math.floor(G.pts/10000)+G.bestCombo*5, p=loadProg(), prev=p.xp||0, last=(p.hist||[]).slice(-1)[0], got=BADGES.filter(b=>b[2](G));
-  let t="⭐ +"+xp+" XP · Cấp "+(Math.floor((prev+xp)/100)+1)+" · Danh hiệu: "+titleOf(prev+xp)+"\n";
+  let t="⭐ +"+xp+" XP • Cấp "+(Math.floor((prev+xp)/100)+1)+" • Danh hiệu: "+titleOf(prev+xp)+"\n";
   t+= got.length ? "Huy hiệu: "+got.map(b=>b[0]+" "+b[1]).join("   ") : "Huy hiệu: chưa có — chơi lại để mở khóa!";
   if(last) t+="\n"+(G.pts>last.s?"📈 Tiến bộ: tăng "+fmt(G.pts-last.s)+" điểm so với lần trước":G.pts<last.s?"📉 Thấp hơn lần trước "+fmt(last.s-G.pts)+" điểm — cố lên!":"Bằng điểm lần trước");
   p.xp=prev+xp; p.best=Math.max(p.best||0,G.pts); p.hist=(p.hist||[]).concat([{s:G.pts}]).slice(-10); saveProg(p);
@@ -435,8 +435,8 @@ function endGame(){
   G.fin=true; const sec=Math.round((Date.now()-G.t0)/1000), tstr=mmss(sec);
   G.sec=sec; G.tstr=tstr;
   const full=G.lives>0;
-  $("endT").textContent = full ?  VINH DANH NHÀ CHINH PHỤC TOÁN HỌC! 🏆" : " HẾT MẠNG – TRÒ CHƠI KẾT THÚC";
-  $("endName").textContent=G.name+" · Lớp "+G.cls;
+  $("endT").textContent = full ? " VINH DANH NHÀ CHINH PHỤC TOÁN HỌC! " : " HẾT MẠNG – TRÒ CHƠI KẾT THÚC";
+  $("endName").textContent=G.name+" • Lớp "+G.cls;
   $("endScore").textContent=fmt(G.pts)+" / "+fmt(MAXPT);
   $("endOk").textContent=G.ok+"/"+QS.length; $("endTime").textContent=tstr;
   const r=G.pts/MAXPT;
