@@ -160,26 +160,26 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
       <h2>Luật chơi</h2>
       <ul>
         <li><b>27 câu, 3 vòng</b>: ① Ai là triệu phú (9 câu trắc nghiệm) → ② Đấu trường (12 nhận định Đúng/Sai) → ③ Vượt chướng ngại vật (6 câu trả lời ngắn, mở hết cổng được thưởng). Mục tiêu: chạm mốc <b>10.000.000 điểm</b>.</li>
-        <li>Có <b>5 mạng ❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
+        <li>Có <b>15 mạng ❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
         <li><b>Không giới hạn thời gian</b> cho mỗi câu; đồng hồ chỉ ghi tổng thời gian làm bài để xếp hạng.</li>
         <li>Quyền trợ giúp ở Vòng 1 (mỗi loại 1 lần): <b>50:50</b> và <b>Hỏi chuyên gia</b>. Nhận <b>XP, huy hiệu, cấp độ, danh hiệu</b>; tiến bộ được lưu trên máy này.</li>
         <li>Sau mỗi câu có giải thích. Xếp hạng: điểm cao hơn trước; bằng điểm thì thời gian ngắn hơn.</li>
       </ul>
-      <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ CHẾ ĐỘ CÁ NHÂN</button> <button class="btn" id="btnClass" style="background:#2a7fc9;color:#fff">CHẾ ĐỘ CẢ LỚP</button></p>
+      <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶CHẾ ĐỘ CÁ NHÂN</button> <button class="btn" id="btnClass" style="background:#2a7fc9;color:#fff">CHẾ ĐỘ CẢ LỚP</button></p>
     </div>
-    <div class="panel"><h2> Bảng xếp hạng</h2><div class="lbBody"></div></div>
+    <div class="panel"><h2>Bảng xếp hạng</h2><div class="lbBody"></div></div>
   </div>
 </section>
 
 <section id="game" class="screen">
   <div class="top">
     <span class="bellBox sm" id="bellSm"></span><span class="chip brand">THẦY HÒA</span>
-    <span class="chip" id="remain" style="display:none">👥 Còn lại: <span id="remainN">—</span></span>
+    <span class="chip" id="remain" style="display:none">Còn lại: <span id="remainN">—</span></span>
     <span class="chip">Câu <span id="qno"></span></span>
     <span class="chip">Điểm: <span id="score">0</span></span>
     <span class="chip" id="lives"></span>
-    <span class="chip">⏱ <span id="timer">00:00</span></span>
-    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff">🔊</button>
+    <span class="chip"> <span id="timer">00:00</span></span>
+    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff"></button>
   </div>
   <div class="progress"><div id="bar"></div></div>
   <div class="lbl" id="lv"></div>
