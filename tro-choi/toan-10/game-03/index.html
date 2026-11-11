@@ -146,6 +146,7 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
 </style>
 </head>
 <body>
+ 
 <section id="start" class="screen active">
   <h1>CHINH PHỤC TOÁN HỌC</h1><div class="bellBox" id="bellBig"></div>
   <div class="sub"><b>THẦY HÒA</b> · Toán 10 · Đề thi thử lần I : Triệu phú – Đấu trường – Vượt chướng ngại</div>
@@ -159,26 +160,26 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
       <h2>Luật chơi</h2>
       <ul>
         <li><b>27 câu, 3 vòng</b>: ① Ai là triệu phú (12 câu trắc nghiệm) → ② Đấu trường (12 nhận định Đúng/Sai) → ③ Vượt chướng ngại vật (6 câu trả lời ngắn, mở hết cổng được thưởng). Mục tiêu: chạm mốc <b>10.000.000 điểm</b>.</li>
-        <li>Có <b>25 mạng ❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
+        <li>Có <b>25 mạng❤</b>. Trả lời sai mất 1 mạng; hết mạng hoặc hoàn thành câu cuối thì trò chơi kết thúc.</li>
         <li><b>Không giới hạn thời gian</b> cho mỗi câu; đồng hồ chỉ ghi tổng thời gian làm bài để xếp hạng.</li>
         <li>Quyền trợ giúp ở Vòng 1 (mỗi loại 1 lần): <b>50:50</b> và <b>Hỏi chuyên gia</b>. Nhận <b>XP, huy hiệu, cấp độ, danh hiệu</b>; tiến bộ được lưu trên máy này.</li>
         <li>Sau mỗi câu có giải thích. Xếp hạng: điểm cao hơn trước; bằng điểm thì thời gian ngắn hơn.</li>
       </ul>
       <p style="text-align:center;margin:12px 0 0"><button class="btn" id="btnStart">▶ CHẾ ĐỘ CÁ NHÂN</button> <button class="btn" id="btnClass" style="background:#2a7fc9;color:#fff">👩‍🏫 CHẾ ĐỘ CẢ LỚP</button></p>
     </div>
-    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+    <div class="panel"><h2>Bảng xếp hạng</h2><div class="lbBody"></div></div>
   </div>
 </section>
 
 <section id="game" class="screen">
   <div class="top">
     <span class="bellBox sm" id="bellSm"></span><span class="chip brand">THẦY HÒA</span>
-    <span class="chip" id="remain" style="display:none">👥 Còn lại: <span id="remainN">—</span></span>
+    <span class="chip" id="remain" style="display:none">Còn lại: <span id="remainN">—</span></span>
     <span class="chip">Câu <span id="qno"></span></span>
     <span class="chip">Điểm: <span id="score">0</span></span>
     <span class="chip" id="lives"></span>
-    <span class="chip">⏱ <span id="timer">00:00</span></span>
-    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff">🔊</button>
+    <span class="chip"> <span id="timer">00:00</span></span>
+    <button class="btn" id="mute" style="font-size:20px;padding:2px 12px;background:#fff"></button>
   </div>
   <div class="progress"><div id="bar"></div></div>
   <div class="lbl" id="lv"></div>
@@ -189,7 +190,7 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
     <div class="lbl" id="expert"></div>
     <div class="lbl" id="gates" style="font-size:clamp(24px,3vw,44px)"></div>
   </div>
-  <div class="ll"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llAud">🎓 Hỏi chuyên gia</button></div>
+  <div class="ll"><button class="btn" id="ll50">50 : 50</button><button class="btn" id="llAud"> Hỏi chuyên gia</button></div>
   <div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp theo ▶</button></div>
 </section>
 
@@ -203,14 +204,14 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
       <div class="sub" id="endMsg" style="margin-top:8px"></div>
       <div class="sub" id="endRew" style="margin-top:8px;white-space:pre-line"></div>
       <div class="lbl" id="endSave" style="margin-top:8px"></div>
-      <p><button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></p>
+      <p><button class="btn" id="btnAgain">CHƠI LẠI</button></p>
     </div>
-    <div class="panel"><h2>🏆 Bảng xếp hạng</h2><div class="lbBody"></div></div>
+    <div class="panel"><h2>Bảng xếp hạng</h2><div class="lbBody"></div></div>
   </div>
 </section>
 
 <section id="teacher" class="screen">
-  <h1>👩‍🏫 BẢNG ĐIỀU KHIỂN GIÁO VIÊN</h1>
+  <h1>BẢNG ĐIỀU KHIỂN GIÁO VIÊN</h1>
   <div class="wrap"><div class="panel">
     <h2>Chế độ Cả lớp</h2>
     <p>Chế độ này cần một máy chủ đồng bộ (ví dụ Firebase hoặc WebSocket) để nhiều thiết bị cùng nhận câu hỏi. <b>Hiện chưa kết nối máy chủ</b>, nên các nút điều khiển bên dưới đang bị khóa. Cấu trúc đối tượng <code>SYNC</code> trong mã nguồn đã được chuẩn bị sẵn để tích hợp sau.</p>
@@ -220,7 +221,7 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
   </div></div>
 </section>
 <div id="fx"></div><div id="cf"></div>
-<div id="intro"><div class="panel" style="flex:none;max-width:900px"><div id="inMasc">🧑‍🏫</div><h1 id="inT"></h1><div class="sub" id="inD"></div><p><button class="btn" id="inGo">▶ VÀO VÒNG</button></p></div></div>
+<div id="intro"><div class="panel" style="flex:none;max-width:900px"><div id="inMasc"></div><h1 id="inT"></h1><div class="sub" id="inD"></div><p><button class="btn" id="inGo">▶ VÀO VÒNG</button></p></div></div>
 <script>
 // ===== Cấu hình (ẩn khỏi giao diện): điền URL Web App của Apps Script vào đây =====
 const APPS_SCRIPT_URL = "";
