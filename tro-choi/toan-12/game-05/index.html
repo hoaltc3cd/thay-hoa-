@@ -270,16 +270,16 @@ function lifelineExp(){if(!G||G.locked||G.uExp||QS[G.i].t!=="mc")return;const q=
 function endGame(){
  stopClock();stopSusp();G.sec=Math.round((Date.now()-G.t0)/1000);G.tstr=mmss(G.sec);
  const win=G.lives>0,ra=G.u/MAXU,lvl=Math.min(TITLES.length,Math.floor(G.xp/200)+1);
- $("endT").textContent=win?" VINH DANH NGƯỜI CHIẾN THẮNG! ":" BẠN ĐÃ BỊ LOẠI – CẢM ƠN ĐÃ THAM GIA";
+ $("endT").textContent=win?"VINH DANH NGƯỜI CHIẾN THẮNG! ":" BẠN ĐÃ BỊ LOẠI – CẢM ƠN ĐÃ THAM GIA";
  $("endName").textContent=G.name+" • Lớp "+G.cls;$("endScore").textContent=fmt(G.u)+" / "+fmt(MAXU);
  $("endRw").textContent=money(reward(G.u));$("endOk").textContent=G.ok+"/"+QS.length;$("endTime").textContent=G.tstr;
  $("endXp").textContent=G.xp;$("endLv").textContent=lvl;$("endTitle").textContent=TITLES[lvl-1];
- const bd=[];if(win)bd.push("🏅 Vượt qua câu cuối");if(ra>=.9)bd.push("🎖 Chuyên gia Toán 12");if(G.lives===LIVES)bd.push("❤ Không mất mạng");if(G.uses===0&&win)bd.push("🧠 Không dùng trợ giúp");if(reward(G.u)>=TARGET)bd.push("💎 Chinh phục 10 triệu điểm");
+ const bd=[];if(win)bd.push("🏅 Vượt qua câu cuối");if(ra>=.9)bd.push(" Chuyên gia Toán 12");if(G.lives===LIVES)bd.push("❤ Không mất mạng");if(G.uses===0&&win)bd.push("🧠 Không dùng trợ giúp");if(reward(G.u)>=TARGET)bd.push("💎 Chinh phục 10 triệu điểm");
  $("endBadges").innerHTML="";bd.forEach(t=>{const s=document.createElement("span");s.className="badge";s.textContent=t;$("endBadges").appendChild(s);});
  $("endMsg").textContent=ra>=.9?"Xuất sắc! Bạn thật sự là triệu phú Toán học!":ra>=.6?"Rất tốt! Hãy xem lại các câu đã sai.":"Cố gắng thêm nhé! Ôn lại khảo sát hàm số, tiệm cận, vectơ và tọa độ trong không gian.";
  let prev=null;try{const h=JSON.parse(localStorage.getItem("thayhoa_hist_gb1")||"[]");prev=h.length?h[h.length-1]:null;h.push(G.u/4);localStorage.setItem("thayhoa_hist_gb1",JSON.stringify(h.slice(-20)));}catch(e){}
  const f=x=>x.toString().replace(".",",");
- $("endProg").textContent=prev==null?"Đây là lần chơi đầu tiên của bạn trên thiết bị này.":(G.u/4>prev?"📈 Tiến bộ! Lần trước: "+f(prev)+" điểm.":"Lần trước: "+f(prev)+" điểm – hãy thử vượt qua nhé!");
+ $("endProg").textContent=prev==null?"Đây là lần chơi đầu tiên của bạn trên thiết bị này.":(G.u/4>prev?" Tiến bộ! Lần trước: "+f(prev)+" điểm.":"Lần trước: "+f(prev)+" điểm – hãy thử vượt qua nhé!");
  $("endSave").textContent="";show("end");if(win){fx("good");confetti();fanfare();say("Chúc mừng người chiến thắng!");}sendResult();}
 async function sendResult(){
  if(G.saved)return;G.saved=true;if(!APPS_SCRIPT_URL){renderLB();return;}
