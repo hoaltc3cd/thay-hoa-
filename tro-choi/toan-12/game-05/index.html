@@ -74,7 +74,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:3px 6px;text-align:left;
 <li><b>Chặng 2 – Đấu trường Toán học:</b> 4 câu Đúng/Sai, mỗi câu 4 ý, một ý đúng 0,1 điểm,  hai ý đúng 0,25 diểm , ba ý đúng 0,5 điểm, bốn ý đúng 1,0 điểm; đúng liên tiếp được thưởng XP.</li>
 <li><b>Chặng 3 – Vượt chướng ngại vật:</b> 6 chướng ngại, nhập đáp số (0,5 điểm/câu), có 2 lượt thử mỗi chướng ngại.</li>
 <li><b>Không giới hạn thời gian</b> mỗi câu; đồng hồ chỉ tính tổng thời gian để xếp hạng.</li>
-<li>15mạng ❤: sai ở Chặng 1 hoặc không vượt được chướng ngại ở Chặng 3 mất 1 mạng; hết mạng thì bị loại. Mốc <b>10 triệu điểm thưởng</b> = 10 điểm.</li></ul>
+<li>25mạng ❤: không vượt được chướng ngại ở Chặng 3 mất 1 mạng; hết mạng thì bị loại. Mốc <b>10 triệu điểm thưởng</b> = 10 điểm.</li></ul>
 </div><div class="panel"><h2> Bảng xếp hạng</h2><div class="lbBody"></div></div></div>
 </section>
 
@@ -270,7 +270,7 @@ function lifelineExp(){if(!G||G.locked||G.uExp||QS[G.i].t!=="mc")return;const q=
 function endGame(){
  stopClock();stopSusp();G.sec=Math.round((Date.now()-G.t0)/1000);G.tstr=mmss(G.sec);
  const win=G.lives>0,ra=G.u/MAXU,lvl=Math.min(TITLES.length,Math.floor(G.xp/200)+1);
- $("endT").textContent=win?"🏆 VINH DANH NGƯỜI CHIẾN THẮNG! 🏆":"💔 BẠN ĐÃ BỊ LOẠI – CẢM ƠN ĐÃ THAM GIA";
+ $("endT").textContent=win?" VINH DANH NGƯỜI CHIẾN THẮNG! ":" BẠN ĐÃ BỊ LOẠI – CẢM ƠN ĐÃ THAM GIA";
  $("endName").textContent=G.name+" • Lớp "+G.cls;$("endScore").textContent=fmt(G.u)+" / "+fmt(MAXU);
  $("endRw").textContent=money(reward(G.u));$("endOk").textContent=G.ok+"/"+QS.length;$("endTime").textContent=G.tstr;
  $("endXp").textContent=G.xp;$("endLv").textContent=lvl;$("endTitle").textContent=TITLES[lvl-1];
