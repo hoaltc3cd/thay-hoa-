@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -176,7 +174,7 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
 <section id="game" class="screen">
   <div class="top">
     <span class="bellBox sm" id="bellSm"></span><span class="chip brand">THẦY HÒA</span>
-    <span class="chip" id="remain" style="display:none">Còn lại: <span id="remainN">—</span></span>
+    <span class="chip" id="remain" style="display:none">👥 Còn lại: <span id="remainN">—</span></span>
     <span class="chip">Câu <span id="qno"></span></span>
     <span class="chip">Điểm: <span id="score">0</span></span>
     <span class="chip" id="lives"></span>
@@ -206,7 +204,7 @@ body{min-height:100dvh;height:auto;overflow-x:hidden;overflow-y:auto;overscroll-
       <div class="sub" id="endMsg" style="margin-top:8px"></div>
       <div class="sub" id="endRew" style="margin-top:8px;white-space:pre-line"></div>
       <div class="lbl" id="endSave" style="margin-top:8px"></div>
-      <p><button class="btn" id="btnAgain"> CHƠI LẠI</button></p>
+      <p><button class="btn" id="btnAgain">CHƠI LẠI</button></p>
     </div>
     <div class="panel"><h2>Bảng xếp hạng</h2><div class="lbBody"></div></div>
   </div>
@@ -232,7 +230,7 @@ const $ = id => document.getElementById(id);
 const LV = {NB:"Nhận biết",TH:"Thông hiểu",VD:"Vận dụng",VDC:"Vận dụng cao"};
 
 // ===== NGÂN HÀNG CÂU HỎI — chuyển từ tài liệu "Buổi 8 – Bài: Khái niệm vectơ" (Dạng 1, 2, 3) =====
-// Công thức viết bằng LaTeX trong dấu $...$ (KaTeX tự hiển thị); \v{AB} là lối viết tắt của \overrightarrow{AB}.
+// Công thức viết bằng LaTeX trong dấu $...$ (KaTeX tự hiển thị), vectơ viết \overrightarrow{AB}.
 // Giáo viên có thể thêm/sửa câu hỏi tại đây.
 // --- Hình vẽ SVG (vẽ lại theo tài liệu) ---
 const FIGHEX='<svg viewBox="0 0 200 190" width="200" height="190" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="190" fill="#fff"/><polygon points="170,95 135,34.4 65,34.4 30,95 65,155.6 135,155.6" fill="#f0f0f0" stroke="#000" stroke-width="2"/><g stroke="#000" stroke-width="1"><line x1="30" y1="95" x2="170" y2="95"/><line x1="65" y1="34.4" x2="135" y2="155.6"/><line x1="135" y1="34.4" x2="65" y2="155.6"/></g><circle cx="100" cy="95" r="2.5"/><g font-size="14" font-style="italic" font-family="serif"><text x="176" y="100">F</text><text x="138" y="28">E</text><text x="56" y="28">D</text><text x="12" y="100">C</text><text x="56" y="173">B</text><text x="138" y="173">A</text><text x="104" y="112">O</text></g></svg>';
@@ -241,26 +239,26 @@ const FIGPLANE='<svg viewBox="0 0 230 190" width="230" height="190" xmlns="http:
 const FIGSHIP='<svg viewBox="0 0 230 190" width="230" height="190" xmlns="http://www.w3.org/2000/svg"><rect width="230" height="190" fill="#fff"/><defs><marker id="ar2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#000"/></marker></defs><g stroke="#000" stroke-width="2" marker-end="url(#ar2)"><line x1="40" y1="30" x2="170" y2="30"/><line x1="170" y1="30" x2="170" y2="160"/></g><line x1="40" y1="30" x2="170" y2="160" stroke="#000" stroke-width="1.3" stroke-dasharray="5 4"/><g font-size="14" font-style="italic" font-family="serif"><text x="26" y="26">A</text><text x="176" y="170">B</text><text x="170" y="22">H</text></g><g font-size="12" font-family="sans-serif"><text x="90" y="22">10 km (hướng đông)</text><text x="176" y="100">10 km</text><text x="176" y="114">(nam)</text></g></svg>';
 // --- VÒNG 1: AI LÀ TRIỆU PHÚ. [mức độ, câu hỏi, đáp án đúng, [3 đáp án sai], lời giải/định hướng, hình (tuỳ chọn)] ---
 const MC = [
-["NB","Vectơ có điểm đầu là $A$, điểm cuối là $B$ được kí hiệu là:","$\\v{AB}$",["$AB$","$|\\v{AB}|$","$\\v{BA}$"],"Vectơ có điểm đầu $A$, điểm cuối $B$ kí hiệu là $\\v{AB}$. $AB$ là độ dài đoạn thẳng, $|\\v{AB}|$ là độ dài vectơ, còn $\\v{BA}$ là vectơ ngược lại."],
+["NB","Vectơ có điểm đầu là $A$, điểm cuối là $B$ được kí hiệu là:","$\\overrightarrow{AB}$",["$AB$","$|\\overrightarrow{AB}|$","$\\overrightarrow{BA}$"],"Vectơ có điểm đầu $A$, điểm cuối $B$ kí hiệu là $\\overrightarrow{AB}$. $AB$ là độ dài đoạn thẳng, $|\\overrightarrow{AB}|$ là độ dài vectơ, còn $\\overrightarrow{BA}$ là vectơ ngược lại."],
 ["NB","Mệnh đề nào sau đây đúng?","Có duy nhất một vectơ cùng phương với mọi vectơ.",["Có ít nhất hai vectơ có cùng phương với mọi vectơ.","Có vô số vectơ cùng phương với mọi vectơ.","Không có vectơ nào cùng phương với mọi vectơ."],"Vectơ-không $\\vec0$ cùng phương với mọi vectơ, và chỉ có vectơ-không có tính chất đó."],
-["NB","Cho ba điểm $A,B,C$ cùng nằm trên một đường thẳng. Các vectơ $\\v{AB},\\v{BC}$ cùng hướng khi và chỉ khi:","điểm $B$ thuộc đoạn $AC$",["điểm $A$ thuộc đoạn $BC$","điểm $C$ thuộc đoạn $AB$","điểm $A$ nằm ngoài đoạn $BC$"],"Đi từ $A$ đến $B$ rồi tiếp tục từ $B$ đến $C$ theo cùng một chiều thì $B$ phải nằm giữa $A$ và $C$."],
-["NB","Cho ba điểm $M,N,P$ thẳng hàng, trong đó $N$ nằm giữa $M$ và $P$. Cặp vectơ nào sau đây cùng hướng?","$\\v{MN}$ và $\\v{MP}$",["$\\v{MP}$ và $\\v{PN}$","$\\v{MN}$ và $\\v{PN}$","$\\v{NM}$ và $\\v{NP}$"],"$\\v{MN}$ và $\\v{MP}$ cùng xuất phát từ $M$ về phía $P$. Ba cặp còn lại đều ngược hướng."],
-["NB","Gọi $C$ là trung điểm của đoạn $AB$. Khẳng định nào sau đây đúng?","$\\v{AB}$ và $\\v{AC}$ cùng hướng",["$\\v{CA}=\\v{CB}$","$\\v{AB}$ và $\\v{CB}$ ngược hướng","$|\\v{AB}|=|\\v{CB}|$"],"$C$ nằm giữa $A$ và $B$ nên $\\v{AB},\\v{AC}$ cùng hướng. Còn $\\v{CA},\\v{CB}$ ngược hướng; $\\v{AB},\\v{CB}$ cùng hướng; $AB=2CB$."],
-["NB","Cho hình vuông $ABCD$. Khẳng định nào sau đây đúng?","$|\\v{AB}|=|\\v{BC}|$",["$\\v{AC}=\\v{BD}$","$\\v{AB}=\\v{CD}$","$\\v{AB}$ và $\\v{AC}$ cùng hướng"],"Hình vuông có bốn cạnh bằng nhau nên $|\\v{AB}|=|\\v{BC}|$. Hai đường chéo không cùng hướng; $\\v{AB},\\v{CD}$ ngược hướng; $\\v{AB},\\v{AC}$ không cùng phương."],
+["NB","Cho ba điểm $A,B,C$ cùng nằm trên một đường thẳng. Các vectơ $\\overrightarrow{AB},\\overrightarrow{BC}$ cùng hướng khi và chỉ khi:","điểm $B$ thuộc đoạn $AC$",["điểm $A$ thuộc đoạn $BC$","điểm $C$ thuộc đoạn $AB$","điểm $A$ nằm ngoài đoạn $BC$"],"Đi từ $A$ đến $B$ rồi tiếp tục từ $B$ đến $C$ theo cùng một chiều thì $B$ phải nằm giữa $A$ và $C$."],
+["NB","Cho ba điểm $M,N,P$ thẳng hàng, trong đó $N$ nằm giữa $M$ và $P$. Cặp vectơ nào sau đây cùng hướng?","$\\overrightarrow{MN}$ và $\\overrightarrow{MP}$",["$\\overrightarrow{MP}$ và $\\overrightarrow{PN}$","$\\overrightarrow{MN}$ và $\\overrightarrow{PN}$","$\\overrightarrow{NM}$ và $\\overrightarrow{NP}$"],"$\\overrightarrow{MN}$ và $\\overrightarrow{MP}$ cùng xuất phát từ $M$ về phía $P$. Ba cặp còn lại đều ngược hướng."],
+["NB","Gọi $C$ là trung điểm của đoạn $AB$. Khẳng định nào sau đây đúng?","$\\overrightarrow{AB}$ và $\\overrightarrow{AC}$ cùng hướng",["$\\overrightarrow{CA}=\\overrightarrow{CB}$","$\\overrightarrow{AB}$ và $\\overrightarrow{CB}$ ngược hướng","$|\\overrightarrow{AB}|=|\\overrightarrow{CB}|$"],"$C$ nằm giữa $A$ và $B$ nên $\\overrightarrow{AB},\\overrightarrow{AC}$ cùng hướng. Còn $\\overrightarrow{CA},\\overrightarrow{CB}$ ngược hướng; $\\overrightarrow{AB},\\overrightarrow{CB}$ cùng hướng; $AB=2CB$."], 
+["NB","Cho hình vuông $ABCD$. Khẳng định nào sau đây đúng?","$|\\overrightarrow{AB}|=|\\overrightarrow{BC}|$",["$\\overrightarrow{AC}=\\overrightarrow{BD}$","$\\overrightarrow{AB}=\\overrightarrow{CD}$","$\\overrightarrow{AB}$ và $\\overrightarrow{AC}$ cùng hướng"],"Hình vuông có bốn cạnh bằng nhau nên $|\\overrightarrow{AB}|=|\\overrightarrow{BC}|$. Hai đường chéo không cùng hướng; $\\overrightarrow{AB},\\overrightarrow{CD}$ ngược hướng; $\\overrightarrow{AB},\\overrightarrow{AC}$ không cùng phương."],
 ["TH","Cho tứ giác $ABCD$. Có bao nhiêu vectơ khác vectơ-không có điểm đầu và điểm cuối là các đỉnh của tứ giác?","12",["4","6","8"],"Mỗi điểm đầu có 3 điểm cuối khác nó: $4\\cdot3=12$ vectơ."],
-["TH","Cho tam giác $ABC$. Có thể xác định được bao nhiêu vectơ khác vectơ-không có điểm đầu và điểm cuối là các đỉnh $A,B,C$?","6",["3","4","9"],"Mỗi điểm đầu có 2 điểm cuối khác nó: $3\\cdot2=6$ vectơ $\\v{AB},\\v{BA},\\v{BC},\\v{CB},\\v{CA},\\v{AC}$."],
-["TH","Cho hình bình hành $ABCD$. Số vectơ khác $\\vec0$ (không kể chính $\\v{AB}$), cùng phương với $\\v{AB}$ và có điểm đầu, điểm cuối là đỉnh của hình bình hành là:","3",["1","2","4"],"Vectơ cùng phương với $\\v{AB}$ nằm trên $AB$ hoặc $CD$ (vì $AB\\parallel CD$): $\\v{BA},\\v{CD},\\v{DC}$ — có 3 vectơ."],
-["TH","Gọi $M,N$ lần lượt là trung điểm các cạnh $AB,AC$ của tam giác đều $ABC$. Cặp vectơ nào sau đây cùng hướng?","$\\v{AB}$ và $\\v{MB}$",["$\\v{MN}$ và $\\v{CB}$","$\\v{MA}$ và $\\v{MB}$","$\\v{AN}$ và $\\v{CA}$"],"$M$ nằm giữa $A$ và $B$ nên $\\v{AB},\\v{MB}$ cùng hướng. $\\v{MN}$ cùng hướng $\\v{BC}$ (ngược $\\v{CB}$); $\\v{MA},\\v{MB}$ ngược hướng; $\\v{AN},\\v{CA}$ ngược hướng."],
-["TH","Cho hình vuông $ABCD$ có cạnh bằng $a$. Độ dài vectơ $\\v{AC}$ bằng:","$a\\sqrt2$",["$a$","$a\\sqrt3$","$2a$"],"$|\\v{AC}|=AC$ là đường chéo: $AC^2=AB^2+BC^2=2a^2$, nên $AC=a\\sqrt2$."],
-["TH","Cho hình bình hành $ABCD$ có $O$ là giao điểm hai đường chéo. Đẳng thức nào sau đây SAI?","$\\v{OA}=\\v{OC}$",["$\\v{AB}=\\v{DC}$","$\\v{OB}=\\v{DO}$","$\\v{CB}=\\v{DA}$"],"$O$ là trung điểm $AC$ nên $\\v{OA}$ và $\\v{OC}$ ngược hướng (chỉ bằng nhau về độ dài). Ba đẳng thức còn lại đúng theo tính chất hình bình hành."],
-["TH","Cho hình bình hành $ABCD$. Đẳng thức nào sau đây SAI?","$|\\v{AC}|=|\\v{BD}|$",["$|\\v{AD}|=|\\v{BC}|$","$|\\v{BC}|=|\\v{DA}|$","$|\\v{AB}|=|\\v{CD}|$"],"Hình bình hành có các cạnh đối bằng nhau; hai đường chéo chỉ bằng nhau khi nó là hình chữ nhật."],
-["TH","Gọi $M,N$ lần lượt là trung điểm các cạnh $AB,AC$ của tam giác đều $ABC$. Đẳng thức nào sau đây đúng?","$|\\v{BC}|=2|\\v{MN}|$",["$\\v{MA}=\\v{MB}$","$\\v{AB}=\\v{AC}$","$\\v{MN}=\\v{BC}$"],"$MN$ là đường trung bình nên $MN=\\frac12BC$, tức $|\\v{BC}|=2|\\v{MN}|$. Ba đẳng thức còn lại sai vì khác hướng hoặc khác độ dài."],
-["VD","Cho tam giác đều $ABC$ có cạnh bằng $a\\sqrt3$. Gọi $M$ là trung điểm của $AC$. Độ dài vectơ $\\v{BM}$ bằng:","$\\dfrac{3a}{2}$",["$3a$","$a\\sqrt3$","$\\dfrac{a\\sqrt3}{2}$"],"$BM$ vừa là trung tuyến vừa là đường cao: $BM^2=AB^2-AM^2=3a^2-\\frac{3a^2}{4}=\\frac{9a^2}{4}$, nên $BM=\\frac{3a}{2}$."],
-["VD","Cho hình thoi $ABCD$ có cạnh bằng $a\\sqrt2$ và góc $\\widehat{ABC}=60^\\circ$. Độ dài vectơ $\\v{AC}$ bằng:","$a\\sqrt2$",["$a$","$a\\sqrt3$","$2a$"],"$BA=BC$ và $\\widehat{ABC}=60^\\circ$ nên tam giác $ABC$ đều, do đó $AC=a\\sqrt2$."],
-["VD","Cho hình thoi $ABCD$ có cạnh bằng $a$ và góc $\\widehat{ABC}=60^\\circ$. Khẳng định nào sau đây đúng?","$|\\v{BD}|=a\\sqrt3$",["$|\\v{AC}|=a\\sqrt3$","$\\v{AC}=\\v{AD}$","$|\\v{BD}|=a$"],"Tam giác $ABC$ đều nên $AC=a$, $OC=\\frac a2$. Khi đó $BD=2BO=2\\sqrt{a^2-\\frac{a^2}{4}}=a\\sqrt3$."],
-["VD","Cho lục giác đều $ABCDEF$ tâm $O$ (như hình vẽ). Các vectơ nào sau đây đều bằng $\\v{AB}$?","$\\v{FO},\\v{OC},\\v{ED}$",["$\\v{BC},\\v{CD},\\v{DE},\\v{EF},\\v{FA}$","$\\v{FO},\\v{AF},\\v{BC}$","$\\v{BA},\\v{FO},\\v{OF},\\v{OC},\\v{CO},\\v{ED},\\v{DE}$"],"Hai vectơ bằng nhau phải cùng hướng và cùng độ dài. Trong lục giác đều: $\\v{AB}=\\v{FO}=\\v{OC}=\\v{ED}$. Các lựa chọn khác chứa vectơ ngược hướng hoặc khác hướng.",FIGHEX],
-["VD","Cho hình thang $ABCD$ vuông tại $A$ và $B$. Biết $AD=2a$, $AB=BC=a$. Gọi $M$ là trung điểm của $AD$. Khẳng định nào sau đây đúng?","$\\v{BM}=\\v{CD}$",["$|\\v{BM}|=a\\sqrt3$","$\\v{AC}=\\v{CD}$","$|\\v{CD}|=2a$"],"$ABCM$ là hình vuông nên $BM=a\\sqrt2$. $BMDC$ có $MD=BC$ và $MD\\parallel BC$ nên là hình bình hành, suy ra $\\v{BM}=\\v{CD}$ (độ dài $a\\sqrt2$).",FIGTRAP],
-["VD","Cho tam giác $ABC$ và điểm $M$ nằm trong tam giác. Gọi $A',B',C'$ lần lượt là trung điểm của $BC,CA,AB$; $N,P,Q$ lần lượt là các điểm đối xứng với $M$ qua $A',B',C'$. Khẳng định nào sau đây đúng?","$\\v{AC}=\\v{QN}$ và $\\v{AM}=\\v{PC}$",["$\\v{AM}=\\v{PC}$ và $\\v{QB}=\\v{NC}$","$\\v{AB}=\\v{CN}$ và $\\v{AP}=\\v{QN}$","$\\v{AB'}=\\v{BN}$ và $\\v{MN}=\\v{BC}$"],"$AMCP$ có hai đường chéo $AC$, $MP$ cắt nhau tại trung điểm $B'$ nên là hình bình hành: $\\v{AM}=\\v{PC}$. Tương tự $AQNC$ là hình bình hành nên $\\v{AC}=\\v{QN}$."]
+["TH","Cho tam giác $ABC$. Có thể xác định được bao nhiêu vectơ khác vectơ-không có điểm đầu và điểm cuối là các đỉnh $A,B,C$?","6",["3","4","9"],"Mỗi điểm đầu có 2 điểm cuối khác nó: $3\\cdot2=6$ vectơ $\\overrightarrow{AB},\\overrightarrow{BA},\\overrightarrow{BC},\\overrightarrow{CB},\\overrightarrow{CA},\\overrightarrow{AC}$."],
+["TH","Cho hình bình hành $ABCD$. Số vectơ khác $\\vec0$ (không kể chính $\\overrightarrow{AB}$), cùng phương với $\\overrightarrow{AB}$ và có điểm đầu, điểm cuối là đỉnh của hình bình hành là:","3",["1","2","4"],"Vectơ cùng phương với $\\overrightarrow{AB}$ nằm trên $AB$ hoặc $CD$ (vì $AB\\parallel CD$): $\\overrightarrow{BA},\\overrightarrow{CD},\\overrightarrow{DC}$ — có 3 vectơ."],
+["TH","Gọi $M,N$ lần lượt là trung điểm các cạnh $AB,AC$ của tam giác đều $ABC$. Cặp vectơ nào sau đây cùng hướng?","$\\overrightarrow{AB}$ và $\\overrightarrow{MB}$",["$\\overrightarrow{MN}$ và $\\overrightarrow{CB}$","$\\overrightarrow{MA}$ và $\\overrightarrow{MB}$","$\\overrightarrow{AN}$ và $\\overrightarrow{CA}$"],"$M$ nằm giữa $A$ và $B$ nên $\\overrightarrow{AB},\\overrightarrow{MB}$ cùng hướng. $\\overrightarrow{MN}$ cùng hướng $\\overrightarrow{BC}$ (ngược $\\overrightarrow{CB}$); $\\overrightarrow{MA},\\overrightarrow{MB}$ ngược hướng; $\\overrightarrow{AN},\\overrightarrow{CA}$ ngược hướng."],
+["TH","Cho hình vuông $ABCD$ có cạnh bằng $a$. Độ dài vectơ $\\overrightarrow{AC}$ bằng:","$a\\sqrt2$",["$a$","$a\\sqrt3$","$2a$"],"$|\\overrightarrow{AC}|=AC$ là đường chéo: $AC^2=AB^2+BC^2=2a^2$, nên $AC=a\\sqrt2$."],
+["TH","Cho hình bình hành $ABCD$ có $O$ là giao điểm hai đường chéo. Đẳng thức nào sau đây SAI?","$\\overrightarrow{OA}=\\overrightarrow{OC}$",["$\\overrightarrow{AB}=\\overrightarrow{DC}$","$\\overrightarrow{OB}=\\overrightarrow{DO}$","$\\overrightarrow{CB}=\\overrightarrow{DA}$"],"$O$ là trung điểm $AC$ nên $\\overrightarrow{OA}$ và $\\overrightarrow{OC}$ ngược hướng (chỉ bằng nhau về độ dài). Ba đẳng thức còn lại đúng theo tính chất hình bình hành."],
+["TH","Cho hình bình hành $ABCD$. Đẳng thức nào sau đây SAI?","$|\\overrightarrow{AC}|=|\\overrightarrow{BD}|$",["$|\\overrightarrow{AD}|=|\\overrightarrow{BC}|$","$|\\overrightarrow{BC}|=|\\overrightarrow{DA}|$","$|\\overrightarrow{AB}|=|\\overrightarrow{CD}|$"],"Hình bình hành có các cạnh đối bằng nhau; hai đường chéo chỉ bằng nhau khi nó là hình chữ nhật."],
+["TH","Gọi $M,N$ lần lượt là trung điểm các cạnh $AB,AC$ của tam giác đều $ABC$. Đẳng thức nào sau đây đúng?","$|\\overrightarrow{BC}|=2|\\overrightarrow{MN}|$",["$\\overrightarrow{MA}=\\overrightarrow{MB}$","$\\overrightarrow{AB}=\\overrightarrow{AC}$","$\\overrightarrow{MN}=\\overrightarrow{BC}$"],"$MN$ là đường trung bình nên $MN=\\frac12BC$, tức $|\\overrightarrow{BC}|=2|\\overrightarrow{MN}|$. Ba đẳng thức còn lại sai vì khác hướng hoặc khác độ dài."],
+["VD","Cho tam giác đều $ABC$ có cạnh bằng $a\\sqrt3$. Gọi $M$ là trung điểm của $AC$. Độ dài vectơ $\\overrightarrow{BM}$ bằng:","$\\dfrac{3a}{2}$",["$3a$","$a\\sqrt3$","$\\dfrac{a\\sqrt3}{2}$"],"$BM$ vừa là trung tuyến vừa là đường cao: $BM^2=AB^2-AM^2=3a^2-\\frac{3a^2}{4}=\\frac{9a^2}{4}$, nên $BM=\\frac{3a}{2}$."],
+["VD","Cho hình thoi $ABCD$ có cạnh bằng $a\\sqrt2$ và góc $\\widehat{ABC}=60^\\circ$. Độ dài vectơ $\\overrightarrow{AC}$ bằng:","$a\\sqrt2$",["$a$","$a\\sqrt3$","$2a$"],"$BA=BC$ và $\\widehat{ABC}=60^\\circ$ nên tam giác $ABC$ đều, do đó $AC=a\\sqrt2$."],
+["VD","Cho hình thoi $ABCD$ có cạnh bằng $a$ và góc $\\widehat{ABC}=60^\\circ$. Khẳng định nào sau đây đúng?","$|\\overrightarrow{BD}|=a\\sqrt3$",["$|\\overrightarrow{AC}|=a\\sqrt3$","$\\overrightarrow{AC}=\\overrightarrow{AD}$","$|\\overrightarrow{BD}|=a$"],"Tam giác $ABC$ đều nên $AC=a$, $OC=\\frac a2$. Khi đó $BD=2BO=2\\sqrt{a^2-\\frac{a^2}{4}}=a\\sqrt3$."],
+["VD","Cho lục giác đều $ABCDEF$ tâm $O$ (như hình vẽ). Các vectơ nào sau đây đều bằng $\\overrightarrow{AB}$?","$\\overrightarrow{FO},\\overrightarrow{OC},\\overrightarrow{ED}$",["$\\overrightarrow{BC},\\overrightarrow{CD},\\overrightarrow{DE},\\overrightarrow{EF},\\overrightarrow{FA}$","$\\overrightarrow{FO},\\overrightarrow{AF},\\overrightarrow{BC}$","$\\overrightarrow{BA},\\overrightarrow{FO},\\overrightarrow{OF},\\overrightarrow{OC},\\overrightarrow{CO},\\overrightarrow{ED},\\overrightarrow{DE}$"],"Hai vectơ bằng nhau phải cùng hướng và cùng độ dài. Trong lục giác đều: $\\overrightarrow{AB}=\\overrightarrow{FO}=\\overrightarrow{OC}=\\overrightarrow{ED}$. Các lựa chọn khác chứa vectơ ngược hướng hoặc khác hướng.",FIGHEX],
+["VD","Cho hình thang $ABCD$ vuông tại $A$ và $B$. Biết $AD=2a$, $AB=BC=a$. Gọi $M$ là trung điểm của $AD$. Khẳng định nào sau đây đúng?","$\\overrightarrow{BM}=\\overrightarrow{CD}$",["$|\\overrightarrow{BM}|=a\\sqrt3$","$\\overrightarrow{AC}=\\overrightarrow{CD}$","$|\\overrightarrow{CD}|=2a$"],"$ABCM$ là hình vuông nên $BM=a\\sqrt2$. $BMDC$ có $MD=BC$ và $MD\\parallel BC$ nên là hình bình hành, suy ra $\\overrightarrow{BM}=\\overrightarrow{CD}$ (độ dài $a\\sqrt2$).",FIGTRAP],
+["VD","Cho tam giác $ABC$ và điểm $M$ nằm trong tam giác. Gọi $A',B',C'$ lần lượt là trung điểm của $BC,CA,AB$; $N,P,Q$ lần lượt là các điểm đối xứng với $M$ qua $A',B',C'$. Khẳng định nào sau đây đúng?","$\\overrightarrow{AC}=\\overrightarrow{QN}$ và $\\overrightarrow{AM}=\\overrightarrow{PC}$",["$\\overrightarrow{AM}=\\overrightarrow{PC}$ và $\\overrightarrow{QB}=\\overrightarrow{NC}$","$\\overrightarrow{AB}=\\overrightarrow{CN}$ và $\\overrightarrow{AP}=\\overrightarrow{QN}$","$\\overrightarrow{AB'}=\\overrightarrow{BN}$ và $\\overrightarrow{MN}=\\overrightarrow{BC}$"],"$AMCP$ có hai đường chéo $AC$, $MP$ cắt nhau tại trung điểm $B'$ nên là hình bình hành: $\\overrightarrow{AM}=\\overrightarrow{PC}$. Tương tự $AQNC$ là hình bình hành nên $\\overrightarrow{AC}=\\overrightarrow{QN}$."]
 ];
 MC.sort((a,b)=>({NB:0,TH:1,VD:2,VDC:3}[a[0]]-{NB:0,TH:1,VD:2,VDC:3}[b[0]]));
 // --- VÒNG 2: ĐẤU TRƯỜNG TOÁN HỌC (Đúng/Sai). [mức độ, ngữ cảnh, nhận định, đúng?, lời giải] ---
@@ -269,32 +267,32 @@ const C2="Cho hình thang $ABCD$ với hai đáy là $AB$ và $CD$, $AB<CD$.";
 const C3="Cho hình thang $ABCD$ có hai cạnh đáy là $AD$ và $BC$ $(AD<BC)$, biết $AB=4$, $\\widehat{BAD}=120^\\circ$ và tam giác $ABC$ có diện tích $S=7\\sqrt3$.";
 const C4="Cho tam giác đều $ABC$ có cạnh $a$, trực tâm $H$.";
 const TF = [
-["NB",C1,"$\\v{MN}$ và $\\v{BC}$ cùng phương.",true,"$MN$ là đường trung bình của tam giác $ABC$ nên $MN\\parallel BC$."],
-["NB",C2,"$|\\v{AB}|<|\\v{CD}|$.",true,"Đề cho $AB<CD$, mà độ dài vectơ chính là độ dài đoạn thẳng."],
-["NB",C2,"$\\v{AD}=\\v{BC}$.",false,"$\\v{AD}$ và $\\v{BC}$ là hai cạnh bên, không cùng hướng nên không bằng nhau."],
-["NB",C3,"$\\v{AD}$ là vectơ có điểm đầu $A$, điểm cuối $D$.",true,"Đúng theo định nghĩa: kí hiệu $\\v{AD}$ có điểm đầu $A$, điểm cuối $D$."],
-["TH",C1,"$|\\v{MP}|=|\\v{BC}|$.",true,"$N$ là trung điểm $MP$ nên $MP=2MN=BC$."],
-["TH",C1,"$\\v{MN}$ và $\\v{BC}$ ngược hướng.",false,"$M$ ở phía $B$, $N$ ở phía $C$ nên $\\v{MN}$ cùng hướng với $\\v{BC}$."],
-["TH",C1,"$\\v{MP}=\\v{BC}$.",true,"$\\v{MP}$ cùng hướng $\\v{MN}$, mà $\\v{MN}$ cùng hướng $\\v{BC}$; lại có $MP=BC$ nên hai vectơ bằng nhau."],
-["TH",C2,"$\\v{AB}$ và $\\v{DC}$ cùng hướng.",true,"$AB\\parallel DC$ và hai vectơ cùng chiều theo thứ tự đỉnh $A,B,C,D$ của hình thang."],
-["TH",C3,"$\\v{AD}$ cùng hướng với $\\v{BC}$.",true,"$AD\\parallel BC$ nên hai vectơ cùng phương; theo thứ tự đỉnh hình thang chúng cùng chiều."],
-["TH",C3,"Có 2 vectơ khác $\\vec0$ cùng phương với $\\v{AD}$ mà giá của vectơ đó không trùng với giá của $\\v{AD}$.",true,"Đó là $\\v{BC}$ và $\\v{CB}$ (nằm trên đường thẳng $BC\\parallel AD$)."],
+["NB",C1,"$\\overrightarrow{MN}$ và $\\overrightarrow{BC}$ cùng phương.",true,"$MN$ là đường trung bình của tam giác $ABC$ nên $MN\\parallel BC$."],
+["NB",C2,"$|\\overrightarrow{AB}|<|\\overrightarrow{CD}|$.",true,"Đề cho $AB<CD$, mà độ dài vectơ chính là độ dài đoạn thẳng."],
+["NB",C2,"$\\overrightarrow{AD}=\\overrightarrow{BC}$.",false,"$\\overrightarrow{AD}$ và $\\overrightarrow{BC}$ là hai cạnh bên, không cùng hướng nên không bằng nhau."],
+["NB",C3,"$\\overrightarrow{AD}$ là vectơ có điểm đầu $A$, điểm cuối $D$.",true,"Đúng theo định nghĩa: kí hiệu $\\overrightarrow{AD}$ có điểm đầu $A$, điểm cuối $D$."],
+["TH",C1,"$|\\overrightarrow{MP}|=|\\overrightarrow{BC}|$.",true,"$N$ là trung điểm $MP$ nên $MP=2MN=BC$."],
+["TH",C1,"$\\overrightarrow{MN}$ và $\\overrightarrow{BC}$ ngược hướng.",false,"$M$ ở phía $B$, $N$ ở phía $C$ nên $\\overrightarrow{MN}$ cùng hướng với $\\overrightarrow{BC}$."],
+["TH",C1,"$\\overrightarrow{MP}=\\overrightarrow{BC}$.",true,"$\\overrightarrow{MP}$ cùng hướng $\\overrightarrow{MN}$, mà $\\overrightarrow{MN}$ cùng hướng $\\overrightarrow{BC}$; lại có $MP=BC$ nên hai vectơ bằng nhau."],
+["TH",C2,"$\\overrightarrow{AB}$ và $\\overrightarrow{DC}$ cùng hướng.",true,"$AB\\parallel DC$ và hai vectơ cùng chiều theo thứ tự đỉnh $A,B,C,D$ của hình thang."],
+["TH",C3,"$\\overrightarrow{AD}$ cùng hướng với $\\overrightarrow{BC}$.",true,"$AD\\parallel BC$ nên hai vectơ cùng phương; theo thứ tự đỉnh hình thang chúng cùng chiều."],
+["TH",C3,"Có 2 vectơ khác $\\vec0$ cùng phương với $\\overrightarrow{AD}$ mà giá của vectơ đó không trùng với giá của $\\overrightarrow{AD}$.",true,"Đó là $\\overrightarrow{BC}$ và $\\overrightarrow{CB}$ (nằm trên đường thẳng $BC\\parallel AD$)."],
 ["TH",C4,"$AH\\perp BC$.",true,"$H$ là trực tâm nên $AH$ là đường cao ứng với cạnh $BC$."],
-["TH",C4,"$\\v{HA}=\\v{HB}=\\v{HC}$.",false,"Ba vectơ có cùng độ dài nhưng khác hướng nên không bằng nhau."],
-["VD",C2,"Nếu $|\\v{BC}|=|\\v{AD}|$ thì $|\\v{AC}|=|\\v{BD}|$.",true,"Vì $AB<CD$ nên $ABCD$ không phải hình bình hành; hai cạnh bên bằng nhau thì là hình thang cân, hai đường chéo bằng nhau."],
-["VD",C3,"$|\\v{BC}|=7$.",true,"$\\widehat{ABC}=180^\\circ-120^\\circ=60^\\circ$. Từ $S=\\frac12\\cdot BA\\cdot BC\\cdot\\sin60^\\circ$ suy ra $BC=\\frac{2S}{BA\\sin60^\\circ}=\\frac{14\\sqrt3}{4\\cdot\\frac{\\sqrt3}{2}}=7$."],
+["TH",C4,"$\\overrightarrow{HA}=\\overrightarrow{HB}=\\overrightarrow{HC}$.",false,"Ba vectơ có cùng độ dài nhưng khác hướng nên không bằng nhau."],
+["VD",C2,"Nếu $|\\overrightarrow{BC}|=|\\overrightarrow{AD}|$ thì $|\\overrightarrow{AC}|=|\\overrightarrow{BD}|$.",true,"Vì $AB<CD$ nên $ABCD$ không phải hình bình hành; hai cạnh bên bằng nhau thì là hình thang cân, hai đường chéo bằng nhau."],
+["VD",C3,"$|\\overrightarrow{BC}|=7$.",true,"$\\widehat{ABC}=180^\\circ-120^\\circ=60^\\circ$. Từ $S=\\frac12\\cdot BA\\cdot BC\\cdot\\sin60^\\circ$ suy ra $BC=\\frac{2S}{BA\\sin60^\\circ}=\\frac{14\\sqrt3}{4\\cdot\\frac{\\sqrt3}{2}}=7$."],
 ["VD",C4,"$AH=\\dfrac{a\\sqrt3}{2}$.",false,"$\\frac{a\\sqrt3}{2}$ là độ dài đường cao; $H$ cũng là trọng tâm nên $AH=\\frac23\\cdot\\frac{a\\sqrt3}{2}=\\frac{a\\sqrt3}{3}$."],
-["VD",C4,"$|\\v{HA}|=|\\v{HB}|=|\\v{HC}|=\\dfrac{a\\sqrt3}{3}$.",true,"$H$ là tâm đường tròn ngoại tiếp tam giác đều nên cách đều ba đỉnh, mỗi khoảng $\\frac{a\\sqrt3}{3}$."]
+["VD",C4,"$|\\overrightarrow{HA}|=|\\overrightarrow{HB}|=|\\overrightarrow{HC}|=\\dfrac{a\\sqrt3}{3}$.",true,"$H$ là tâm đường tròn ngoại tiếp tam giác đều nên cách đều ba đỉnh, mỗi khoảng $\\frac{a\\sqrt3}{3}$."]
 ];
 // --- VÒNG 3: VƯỢT CHƯỚNG NGẠI VẬT (trả lời ngắn). [mức độ, câu hỏi, giá trị số, [đáp án dạng chữ chấp nhận], đáp án hiển thị, lời giải, hình, sai số] ---
 TF.sort((a,b)=>({NB:0,TH:1,VD:2,VDC:3}[a[0]]-{NB:0,TH:1,VD:2,VDC:3}[b[0]]));
 const SA = [
-["NB","Trên biển Đông, một tàu chuyển động đều từ vị trí $A$ theo hướng $N20^\\circ E$ với vận tốc 20 km/h. Sau 2 giờ, tàu đến được vị trí $B$. Hỏi $A$ cách $B$ bao nhiêu kilômét?",40,[],"40","Quãng đường bằng vận tốc nhân thời gian: $AB=|\\v{AB}|=2\\cdot20=40$ km."],
+["NB","Trên biển Đông, một tàu chuyển động đều từ vị trí $A$ theo hướng $N20^\\circ E$ với vận tốc 20 km/h. Sau 2 giờ, tàu đến được vị trí $B$. Hỏi $A$ cách $B$ bao nhiêu kilômét?",40,[],"40","Quãng đường bằng vận tốc nhân thời gian: $AB=|\\overrightarrow{AB}|=2\\cdot20=40$ km."],
 ["NB","Máy bay $A$ đang bay về hướng Đông Bắc với tốc độ 600 km/h. Cùng lúc đó, máy bay $B$ đang bay về hướng Tây Nam với tốc độ 800 km/h. Gọi $\\vec a,\\vec b$ là vectơ vận tốc của hai máy bay. Tính $\\dfrac{|\\vec b|}{|\\vec a|}$ (làm tròn đến hai chữ số sau dấu phẩy).",1.3333333,["4/3"],"4/3 ≈ 1,33","Độ lớn vectơ vận tốc chính là tốc độ: $\\frac{|\\vec b|}{|\\vec a|}=\\frac{800}{600}=\\frac43\\approx1{,}33$ (hướng ngược nhau không ảnh hưởng độ dài)."],
-["TH","Cho tam giác $ABC$ vuông tại $A$ có $AB=5$, $BC=8$. Gọi $G$ là trọng tâm tam giác $ABC$. Tính độ dài của vectơ $\\vec a=3\\v{AG}$.",8,[],"8","Gọi $M$ là trung điểm $BC$: $AM=\\frac{BC}{2}=4$ (trung tuyến ứng với cạnh huyền). $AG=\\frac23AM$ nên $|3\\v{AG}|=3\\cdot\\frac23\\cdot4=8$."],
-["TH","Một máy bay có vectơ vận tốc chỉ theo hướng bắc với độ lớn 200 km/h; vận tốc gió là một vectơ theo hướng đông với độ lớn 60 km/h (như hình vẽ). Biết $\\v{AB}+\\v{BC}=\\v{AC}$. Tính độ dài vectơ $\\v{AB}+\\v{BC}$ (làm tròn đến hàng đơn vị, đơn vị km/h).",209,[],"209","$AB\\perp BC$ nên theo Pytago: $AC=\\sqrt{200^2+60^2}=\\sqrt{43600}\\approx209$ km/h.",FIGPLANE],
+["TH","Cho tam giác $ABC$ vuông tại $A$ có $AB=5$, $BC=8$. Gọi $G$ là trọng tâm tam giác $ABC$. Tính độ dài của vectơ $\\vec a=3\\overrightarrow{AG}$.",8,[],"8","Gọi $M$ là trung điểm $BC$: $AM=\\frac{BC}{2}=4$ (trung tuyến ứng với cạnh huyền). $AG=\\frac23AM$ nên $|3\\overrightarrow{AG}|=3\\cdot\\frac23\\cdot4=8$."],
+["TH","Một máy bay có vectơ vận tốc chỉ theo hướng bắc với độ lớn 200 km/h; vận tốc gió là một vectơ theo hướng đông với độ lớn 60 km/h (như hình vẽ). Biết $\\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}$. Tính độ dài vectơ $\\overrightarrow{AB}+\\overrightarrow{BC}$ (làm tròn đến hàng đơn vị, đơn vị km/h).",209,[],"209","$AB\\perp BC$ nên theo Pytago: $AC=\\sqrt{200^2+60^2}=\\sqrt{43600}\\approx209$ km/h.",FIGPLANE],
 ["VD","Một con tàu khởi hành từ đảo $A$, đi thẳng về hướng đông 10 km rồi đi thẳng tiếp 10 km về hướng nam thì tới đảo $B$. Nếu từ đảo $A$ tàu đi thẳng (không đổi hướng) tới đảo $B$ thì quãng đường phải dài bao nhiêu kilômét? (làm tròn đến một chữ số sau dấu phẩy)",14.142136,["10sqrt2","10sqrt(2)"],"10√2 ≈ 14,1","Hướng đông và hướng nam vuông góc nên tam giác $AHB$ vuông cân tại $H$: $AB=\\sqrt{10^2+10^2}=10\\sqrt2\\approx14{,}1$ km (hướng đông nam).",FIGSHIP,0.05],
-["VD","Cho hình vuông $ABCD$ tâm $O$ cạnh $\\sqrt{13}$. Gọi $M$ là trung điểm của $AB$, $N$ là điểm đối xứng với $C$ qua $D$. Hãy tính độ dài của vectơ $\\v{MN}$.",6.5,["13/2"],"13/2 = 6,5","Chọn $A(0;0)$, $B(\\sqrt{13};0)$, $C(\\sqrt{13};\\sqrt{13})$, $D(0;\\sqrt{13})$: $M\\left(\\frac{\\sqrt{13}}2;0\\right)$, $N(-\\sqrt{13};\\sqrt{13})$. Khi đó $\\v{MN}=\\left(-\\frac{3\\sqrt{13}}2;\\sqrt{13}\\right)$, $MN^2=\\frac{117}4+13=\\frac{169}4$, nên $MN=\\frac{13}2$."]
+["VD","Cho hình vuông $ABCD$ tâm $O$ cạnh $\\sqrt{13}$. Gọi $M$ là trung điểm của $AB$, $N$ là điểm đối xứng với $C$ qua $D$. Hãy tính độ dài của vectơ $\\overrightarrow{MN}$.",6.5,["13/2"],"13/2 = 6,5","Chọn $A(0;0)$, $B(\\sqrt{13};0)$, $C(\\sqrt{13};\\sqrt{13})$, $D(0;\\sqrt{13})$: $M\\left(\\frac{\\sqrt{13}}2;0\\right)$, $N(-\\sqrt{13};\\sqrt{13})$. Khi đó $\\overrightarrow{MN}=\\left(-\\frac{3\\sqrt{13}}2;\\sqrt{13}\\right)$, $MN^2=\\frac{117}4+13=\\frac{169}4$, nên $MN=\\frac{13}2$."]
 ];
 // --- Điểm: 20×200.000 + 16×200.000 + 6×300.000 + thưởng mở hết cổng 1.000.000 = 10.000.000 điểm ---
 const PTS={mc:200000, tf:200000, sa:300000};
@@ -353,10 +351,37 @@ function tick(){ if(G&&!G.fin) $("timer").textContent=mmss(Math.round((Date.now(
 setInterval(tick,1000);
 // ===== Hiển thị công thức KaTeX (có chốt chặn, không đệ quy) =====
 let mathBusy=false;
-function renderMath(el){ if(mathBusy||!window.renderMathInElement) return; mathBusy=true;
-  try{ renderMathInElement(el||document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false,strict:false,maxExpand:1000,macros:{"\\v":"\\overrightarrow{#1}"}}); }catch(e){}
+function renderMath(el){
+  if(!window.renderMathInElement){ if(mathFallback) plainMath(el||document.body); return; }
+  if(mathBusy) return; mathBusy=true;
+  try{ renderMathInElement(el||document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false,strict:false,maxExpand:1000}); }catch(e){}
   mathBusy=false; }
-window.addEventListener("load",()=>renderMath(document.body));
+// --- Dự phòng khi không tải được KaTeX: đổi LaTeX sang chữ Unicode dễ đọc ---
+let mathFallback=false;
+function plainTeX(t){
+  let r=t, p;
+  const arg=x=>{ x=x.replace(/^\{|\}$/g,""); return x.length>1?"("+x+")":x; };
+  r=r.replace(/\\begin\{cases\}/g,"{ ").replace(/\\end\{cases\}/g,"").replace(/\\\\/g,"; ");
+  r=r.replace(/\\overrightarrow\{([^{}]*)\}/g,"$1\u20D7").replace(/\\vec\s*\{?(\w)\}?/g,"$1\u20D7");
+  do{ p=r; r=r.replace(/\\sqrt\{([^{}]*)\}/g,"√($1)"); }while(r!==p);
+  r=r.replace(/\\sqrt\s*(\w)/g,"√$1");
+  do{ p=r; r=r.replace(/\\d?frac\s*(\{[^{}]*\}|\w)\s*(\{[^{}]*\}|\w)/g,(m,x,y)=>arg(x)+"/"+arg(y)); }while(r!==p);
+  r=r.replace(/\\widehat\{([^{}]*)\}/g,"∠$1").replace(/\\circ/g,"°").replace(/\\cdot/g,"•").replace(/\\approx/g,"≈")
+   .replace(/\\leq?\b/g,"≤").replace(/\\geq?\b/g,"≥").replace(/\\neq?\b/g,"≠").replace(/\\parallel/g,"∥").replace(/\\perp/g,"⊥")
+   .replace(/\\in\b/g,"∈").replace(/\\mathbb\s*\{?R\}?/g,"ℝ").replace(/\\mathbb\s*\{?N\}?/g,"ℕ").replace(/\\cap/g,"∩").replace(/\\cup/g,"∪")
+   .replace(/\\mid/g,"|").replace(/\\left|\\right/g,"").replace(/\\\{/g,"{").replace(/\\\}/g,"}").replace(/\\[,; ]/g," ")
+   .replace(/\^\{?°\}?/g,"°").replace(/\^2/g,"²").replace(/\^3/g,"³").replace(/\\([a-zA-Z]+)/g,"$1").replace(/[{}]/g,"");
+  return r; }
+function plainMath(root){
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null), L=[]; let n;
+  while((n=w.nextNode())) if(n.nodeValue.indexOf("$")>-1) L.push(n);
+  L.forEach(x=>{ x.nodeValue=x.nodeValue.replace(/\$([^$]+)\$/g,(m,t)=>plainTeX(t)); }); }
+function loadJs(u,cb){ const s=document.createElement("script"); s.src=u; s.onload=()=>cb(false); s.onerror=()=>cb(true); document.head.appendChild(s); }
+function ensureKatex(){ if(window.renderMathInElement) return;
+  const B="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/", l=document.createElement("link"); l.rel="stylesheet"; l.href=B+"katex.min.css"; document.head.appendChild(l);
+  loadJs(B+"katex.min.js",e=>{ if(e||!window.katex){ mathFallback=true; renderMath(document.body); return; }
+    loadJs(B+"contrib/auto-render.min.js",e2=>{ if(e2||!window.renderMathInElement) mathFallback=true; renderMath(document.body); }); }); }
+window.addEventListener("load",()=>{ ensureKatex(); renderMath(document.body); });
 function paintLives(){ $("lives").textContent="❤".repeat(G.lives)+"🖤".repeat(LIVES-G.lives); }
 function paintGates(){ $("gates").textContent = QS[G.i].k==="sa" ? "🔓".repeat(G.gates)+"🚧".repeat(SAN-G.gates) : ""; }
 function updLL(){ const mc=QS[G.i].k==="mc"&&!G.locked; $("ll50").disabled=G.u50||!mc; $("llAud").disabled=G.uExp||!mc; }
