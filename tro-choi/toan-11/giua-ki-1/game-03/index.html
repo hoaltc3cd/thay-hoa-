@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Show Toán học – THẦY HÒA</title>
+<!-- KaTeX: hiển thị công thức toán đúng như đề gốc -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+/* ===== SÂN KHẤU: phông xanh nhạt, bảng xanh lá cây đậm chữ trắng ===== */
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#fff;background:radial-gradient(ellipse at 50% 15%,#e3f5ff,#9fd6f7 55%,#5aa9e6);overflow:hidden}
+.screen{display:none;flex-direction:column;height:100dvh;padding:8px 14px;gap:8px}.screen.active{display:flex}
+.brand{font-weight:900;letter-spacing:2px;color:#ffd84a;text-shadow:2px 2px 0 #0b3a6b;font-size:clamp(18px,2.4vw,32px)}
+h1{margin:0;text-align:center;font-size:clamp(24px,3.6vw,50px);color:#0b3a6b;text-shadow:0 2px 0 #fff}
+h2{margin:0;font-size:clamp(20px,2.4vw,32px);color:#ffd84a}
+.panel{background:linear-gradient(#0f4c8a,#0b3a6b);border:3px solid #ffd84a;border-radius:16px;padding:12px 16px;font-size:clamp(16px,1.8vw,25px);line-height:1.4;overflow:auto;box-shadow:0 6px 18px rgba(0,40,90,.35)}
+.panel ul{margin:6px 0 0;padding-left:22px}.wrap{display:flex;gap:14px;flex:1;min-height:0}.wrap>.panel{flex:1;min-width:0}
+input{width:100%;font-size:clamp(18px,2.1vw,26px);padding:8px 12px;margin:6px 0;border-radius:10px;border:2px solid #fff;background:#fff;color:#111}
+.btn{font-size:clamp(17px,2.2vw,30px);font-weight:700;padding:9px 20px;border-radius:12px;border:3px solid #fff;background:#e0a100;color:#111;cursor:pointer;margin:3px}
+.btn:hover{background:#ffc928}.btn:disabled{opacity:.35;cursor:not-allowed}.btn.blue{background:#2a7fc9;color:#fff}
+.err{color:#ffb3b3;min-height:1.3em}.row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}.center{text-align:center}
+.top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:space-between;font-weight:700;font-size:clamp(14px,1.9vw,26px)}
+.chip{background:#0b3a6b;border:2px solid #ffd84a;border-radius:10px;padding:2px 12px;white-space:nowrap}
+.meter{height:14px;background:rgba(11,58,107,.35);border-radius:8px;overflow:hidden;border:2px solid #0b3a6b}#bar{height:100%;width:0;background:linear-gradient(90deg,#ffd84a,#ff9f1c);transition:width .5s}
+.stage{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:8px;overflow:auto}
+.bellbox{display:flex;align-items:center;justify-content:center;gap:12px}
+.bell{width:clamp(48px,8vh,96px);height:auto;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35));transform-origin:50% 5%}.bell.ring{animation:ring .9s}
+@keyframes ring{20%{transform:rotate(18deg)}40%{transform:rotate(-16deg)}60%{transform:rotate(10deg)}80%{transform:rotate(-6deg)}}
+.mascot{font-size:clamp(30px,6vh,56px);animation:bob 2s infinite}@keyframes bob{50%{transform:translateY(-6px)}}
+.say{background:#fff;color:#0b3a6b;border-radius:14px;padding:5px 12px;font-weight:700;font-size:clamp(14px,1.6vw,20px);max-width:44ch}
+#stem{background:rgba(11,58,107,.92);border:2px dashed #ffd84a;border-radius:12px;padding:8px 14px;font-size:clamp(17px,2.2vw,31px);text-align:center;display:none}
+#qimg{text-align:center;display:none}#qimg table{width:auto;margin:0 auto;background:#fff;color:#111;font-size:clamp(14px,1.9vw,26px)}#qimg th,#qimg td{border:1px solid #333;padding:4px 10px;text-align:center;color:#111}#qimg img{max-width:100%;max-height:30vh;background:#fff;border-radius:8px;padding:4px}
+#qtext{background:linear-gradient(#0f4c8a,#0b3a6b);border:4px solid #ffd84a;border-radius:18px;padding:12px 20px;text-align:center;font-size:clamp(20px,2.7vw,40px);font-weight:600;line-height:1.45}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{font-size:clamp(18px,2.4vw,36px);text-align:left;padding:10px 18px;border-radius:40px;border:3px solid #ffd84a;background:#0b3a6b;color:#fff;cursor:pointer;font-family:inherit}
+.opt:hover{background:#1c63b0}.opt b{color:#ffd84a;margin-right:6px}.opt.hint{outline:4px solid #7dff9b}
+.opt.good{background:#1b9a42;animation:glow 1s 2}.opt.bad{background:#c62828}.opt.gone{visibility:hidden}.opt.locked{pointer-events:none}
+@keyframes glow{50%{box-shadow:0 0 30px 10px #fff7a0}}
+.opts.tf .opt{text-align:center;font-weight:800;font-size:clamp(24px,3.4vw,50px);border-radius:20px;padding:14px}
+#sa{display:none;gap:10px;justify-content:center;align-items:center}#sa input{max-width:360px;font-size:clamp(22px,3vw,40px);text-align:center;margin:0}
+#track{display:none;justify-content:center;gap:6px;font-size:clamp(18px,2.4vw,34px)}
+#fb{display:none;border-radius:14px;padding:8px 16px;gap:12px;align-items:center;border:3px solid #fff;background:#0b3a6b;max-height:34vh;overflow:auto}
+#fb.show{display:flex}#fb.ok{border-color:#51e57a}#fb.no{border-color:#ff6b6b}
+#fbT{font-size:clamp(20px,2.5vw,36px);font-weight:800}#fb.ok #fbT{color:#7dff9b}#fb.no #fbT{color:#ff9a9a}
+#fbE{font-size:clamp(15px,1.8vw,26px);line-height:1.4;margin-top:3px}
+/* hiệu ứng chỉ là ánh sáng/đỏ mờ ngắn, không che đề bài */
+#fx{position:fixed;inset:0;pointer-events:none;z-index:9;display:flex;align-items:center;justify-content:center;font-size:22vmin;font-weight:900;opacity:0}
+#fx.good{animation:fg 1s}#fx.bad{animation:fb .8s;color:rgba(255,60,60,.8)}
+@keyframes fg{0%{background:radial-gradient(circle,rgba(255,247,160,.55) 0,transparent 70%);opacity:1}100%{opacity:0}}
+@keyframes fb{0%{background:rgba(200,0,0,.25);opacity:1}100%{opacity:0}}
+.conf{position:fixed;top:-5vh;width:10px;height:16px;z-index:8;animation:fall linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+table{width:100%;border-collapse:collapse}td,th{padding:3px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25)}th{color:#ffd84a}
+.big{font-size:clamp(34px,6vw,80px);color:#ffd84a;font-weight:800;text-align:center}
+.badge{display:inline-block;background:#ffd84a;color:#0b3a6b;border-radius:20px;padding:2px 12px;margin:3px;font-weight:700}
+@media(max-width:760px){.wrap{flex-direction:column}.opts{grid-template-columns:1fr}.opt{border-radius:22px}}
+</style></head><body>
+<div id="fx"></div>
+
+<!-- ===== MÀN HÌNH BẮT ĐẦU ===== -->
+<section id="start" class="screen active">
+<div class="row"><span class="brand">★ THẦY HÒA ★</span></div>
+<div class="bellbox"><svg class="bell" style="width:clamp(70px,13vh,130px)" viewBox="0 0 100 100"><path d="M50 6c-3 0-5 2-5 5-14 4-22 16-22 32v14l-8 12h70l-8-12V43c0-16-8-28-22-32 0-3-2-5-5-5z" fill="#ffc928" stroke="#a66b00" stroke-width="3"/><circle cx="50" cy="88" r="8" fill="#e0a100"/></svg></div>
+<h1>GAME SHOW TOÁN HỌC 11</h1>
+<div class="center" style="color:#0b3a6b;font-weight:700;font-size:clamp(15px,2vw,28px)">Ai là triệu phú · Đấu trường Toán học · Vượt chướng ngại vật</div>
+<div class="wrap"><div class="panel">
+<h2>Người chơi</h2>
+<input id="inName" placeholder="Họ và tên" maxlength="40" autocomplete="off">
+<input id="inClass" placeholder="Lớp (ví dụ: 11A1)" maxlength="12" autocomplete="off">
+<div class="err" id="err"></div>
+<div class="row"><button class="btn" id="btnSolo">▶ CHƠI CÁ NHÂN</button><button class="btn blue" id="btnClass">CẢ LỚP (HỌC SINH)</button><button class="btn blue" id="btnTeacher">MÀN HÌNH GIÁO VIÊN</button></div>
+<h2>Luật chơi – 3 chặng, <span id="nq"></span> câu, tối đa 10 điểm</h2>
+<ul>
+<li><b>Chặng 1 – Ai là triệu phú:</b> 12 câu trắc nghiệm (0,25 điểm/câu), có 50:50 và Hỏi chuyên gia (mỗi loại 1 lần).</li>
+<li><b>Chặng 2 – Đấu trường Toán học:</b> 2 câu Đúng/Sai (mỗi câu 4 ý), mỗi ý đúng 0,25 điểm; chuỗi đúng liên tiếp được thưởng XP.</li>
+<li><b>Chặng 3 – Vượt chướng ngại vật:</b> 7 chướng ngại, nhập đáp số (0,5 điểm/câu ở 4 câu đầu, 1 điểm/câu ở 3 câu cuối), có 2 lượt thử mỗi chướng ngại.</li>
+<li><b>Không giới hạn thời gian</b> mỗi câu; đồng hồ chỉ tính tổng thời gian để xếp hạng.</li>
+<li>15 mạng ❤: sai ở Chặng 1 hoặc không vượt được chướng ngại ở Chặng 3 mất 1 mạng; hết mạng thì bị loại. Mốc <b>10 triệu điểm thưởng</b> = 10 điểm.</li></ul>
+</div><div class="panel"><h2>Bảng xếp hạng</h2><div class="lbBody"></div></div></div>
+</section>
+
+<!-- ===== MÀN HÌNH CHƠI ===== -->
+<section id="game" class="screen">
+<div class="top"><span class="brand">THẦY HÒA</span><span class="chip">Câu <span id="qno"></span></span><span class="chip">Điểm: <span id="score">0</span></span><span class="chip" id="lives"></span><span class="chip">⏱ <span id="clock">00:00</span></span><span class="chip" id="left" style="display:none"></span><button class="btn" id="mute" style="padding:2px 10px;background:#fff">🔊</button></div>
+<div class="meter"><div id="bar"></div></div>
+<div class="center" id="lv" style="color:#0b3a6b;font-weight:700;font-size:clamp(14px,1.7vw,23px)"></div>
+<div id="track"></div>
+<div class="stage">
+<div class="bellbox"><span class="mascot"></span><svg class="bell" id="bell" viewBox="0 0 100 100"><path d="M50 6c-3 0-5 2-5 5-14 4-22 16-22 32v14l-8 12h70l-8-12V43c0-16-8-28-22-32 0-3-2-5-5-5z" fill="#ffc928" stroke="#a66b00" stroke-width="3"/><circle cx="50" cy="88" r="8" fill="#e0a100"/></svg><div class="say" id="say"></div></div>
+<div id="stem"></div><div id="qimg"></div><div id="qtext"></div><div class="opts" id="opts"></div>
+<div id="sa"><input id="saIn" inputmode="decimal" placeholder="Nhập đáp số" autocomplete="off"><button class="btn" id="saGo">Trả lời</button></div></div>
+<div class="row" id="ll"><button class="btn blue" id="ll50">50 : 50</button><button class="btn blue" id="llExp">Hỏi chuyên gia</button></div>
+<div id="fb"><div style="flex:1"><div id="fbT"></div><div id="fbE"></div></div><button class="btn" id="btnNext">Câu tiếp ▶</button></div>
+</section>
+
+<!-- ===== KẾT THÚC / VINH DANH ===== -->
+<section id="end" class="screen">
+<div class="row"><span class="brand">★ THẦY HÒA ★</span></div><h1 id="endT"></h1>
+<div class="wrap"><div class="panel center">
+<div id="endName" style="font-size:clamp(18px,2.4vw,32px)"></div><div class="big" id="endScore"></div>
+<div>Điểm thưởng: <b id="endRw"></b> / 10.000.000</div>
+<div>Đúng: <b id="endOk"></b> · Thời gian: <b id="endTime"></b></div>
+<div>XP: <b id="endXp"></b> · Cấp <b id="endLv"></b> – <b id="endTitle"></b></div>
+<div id="endBadges"></div><div id="endProg"></div><div id="endMsg"></div><div id="endSave"></div>
+<button class="btn" id="btnAgain">🔄 CHƠI LẠI</button></div>
+<div class="panel"><h2>Vinh danh · Bảng xếp hạng</h2><div class="lbBody"></div></div></div>
+</section>
+
+<!-- ===== MÀN HÌNH GIÁO VIÊN (chế độ Cả lớp) ===== -->
+<section id="teacher" class="screen">
+<div class="row"><span class="brand">★ THẦY HÒA ★</span></div><h1>Bảng điều khiển giáo viên</h1>
+<div class="wrap"><div class="panel"><h2>Điều khiển lớp</h2><p id="syncState"></p>
+<div class="row"><button class="btn" data-cmd="start">▶ Bắt đầu</button><button class="btn" data-cmd="next">Câu tiếp</button><button class="btn" data-cmd="reveal">Hiện đáp án</button><button class="btn" data-cmd="end">⏹ Kết thúc</button></div>
+<p>Số người còn trong cuộc: <b id="alive">—</b></p><button class="btn blue" id="tBack">Quay lại</button></div>
+<div class="panel"><h2>Bảng xếp hạng</h2><div class="lbBody"></div></div></div>
+</section>
+
+<script>
+/* ===================== CẤU HÌNH (ẩn khỏi giao diện) ===================== */
+const APPS_SCRIPT_URL = "";   // ← dán URL Web App của Google Apps Script vào đây
+const LIVES = 3;
+const IMG={"f1":"data:image/jpeg;base64,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"};  // ảnh hình vẽ / bảng biến thiên cắt từ đề gốc (tự động chèn)
+
+/* ===================== KHU VỰC DỮ LIỆU CÂU HỎI (giáo viên chỉnh sửa) =====================
+   Nội dung toán học giữ nguyên từ Đề kiểm tra giữa kì I Toán 11 – THPT Cờ Đỏ (năm học 2026-2027).
+   Công thức viết bằng LaTeX trong cặp dấu $...$. img: tên ảnh trong IMG (hoặc null). */
+const r=String.raw;
+// ---- Phần I → Chặng 1 (R1) · Phần II → Chặng 2 (R2) · Phần III và IV → Chặng 3 (R3) ----
+// ---- Bảng số liệu dựng bằng HTML (giữ nguyên số liệu của đề) ----
+const mk=(h1,cols,h2,vals)=>'<table><tr><th>'+h1+'</th>'+cols.map(c=>'<td>'+c+'</td>').join('')+'</tr><tr><th>'+h2+'</th>'+vals.map(v=>'<td>'+v+'</td>').join('')+'</tr></table>';
+const TBL={
+t10:mk("Thời gian (phút)",["[0; 20)","[20; 40)","[40; 60)","[60; 80)","[80; 100)"],"Số học sinh",[5,9,12,10,6]),
+t11:mk("Chiều cao",["[145;150)","[150;155)","[155;160)","[160;165)","[165;170)","[170;175)"],"Số học sinh nữ",[20,45,34,27,15,4]),
+t12:mk("Tuổi thọ (ngày)",["[0; 20)","[20; 40)","[40; 60)","[60; 80)","[80; 100)"],"Số lượng",[5,12,23,31,29]),
+t15:mk("Điểm",["[10;20)","[20;30)","[30;40)","[40;50)","[50;60)","[60;70)"],"Số trường",[4,19,6,2,3,1]),
+t19:mk("Mức chi tiêu (triệu đồng)",["[5; 10)","[10; 15)","[15; 20)","[20; 25)","[25; 30)"],"Số khách hàng",[80,140,210,120,50])
+};
+const R1=[
+{lv:"NB",q:r`Tập giá trị của hàm số $y=\sin x$ là:`,img:null,o:[r`$[-1;1]$`,r`$[-1;2]$`,r`$[-2;1]$`,r`$\left[-\frac{\pi}{4};\frac{\pi}{4}\right]$`],k:0,ex:r`Với mọi $x$ ta có $-1\le\sin x\le1$ (tung độ của điểm trên đường tròn lượng giác), và $\sin x$ nhận mọi giá trị trong đoạn đó. Vậy tập giá trị là $[-1;1]$.`},
+{lv:"NB",q:r`Khảo sát thời gian tập thể dục trong ngày của một số học sinh khối $11$ thu được mẫu số liệu ghép nhóm sau:`,img:"t10",q2:r`Giá trị đại diện của nhóm $[20;40)$ là`,o:[r`$10$`,r`$20$`,r`$30$`,r`$40$`],k:2,ex:r`Giá trị đại diện của một nhóm là trung điểm của hai đầu mút: $\dfrac{20+40}{2}=30$.`},
+{lv:"NB",q:r`Cho mẫu số liệu về chiều cao (cm) của các học sinh nữ trong khối $11$ của một trường như sau:`,img:"t11",q2:r`Số học sinh nữ cao từ $150$ cm đến $155$ cm là:`,o:[r`$20$`,r`$65$`,r`$34$`,r`$45$`],k:3,ex:r`Học sinh nữ cao từ $150$ cm đến $155$ cm thuộc nhóm $[150;155)$ nên số học sinh là tần số của nhóm đó: $45$.`},
+{lv:"NB",q:r`Người ta ghi lại tuổi thọ của một số con ong cho kết quả như sau:`,img:"t12",q2:r`Nhóm chứa mốt của mẫu số liệu này là`,o:[r`$[20;40)$`,r`$[40;60)$`,r`$[60;80)$`,r`$[80;100)$`],k:2,ex:r`Nhóm chứa mốt là nhóm có tần số lớn nhất. Các tần số là $5;12;23;31;29$ nên lớn nhất là $31$, thuộc nhóm $[60;80)$.`},
+{lv:"NB",q:r`Cho điểm $M(x_M;y_M)$ trên đường tròn lượng giác như hình vẽ sao cho $(OA,OM)=\alpha$. Khẳng định nào sau đây đúng?`,img:"f1",o:[r`$\sin\alpha=x_M$`,r`$\sin\alpha=-x_M$`,r`$\sin\alpha=y_M$`,r`$\sin\alpha=-y_M$`],k:2,ex:r`Trên đường tròn lượng giác, hoành độ của $M$ là $\cos\alpha$ và tung độ của $M$ là $\sin\alpha$. Vậy $\sin\alpha=y_M$.`},
+{lv:"NB",q:r`Công thức nào sau đây là công thức tính số hạng thứ $2026$ của cấp số nhân có số hạng đầu $u_1$ và công bội $q$?`,img:null,o:[r`$u_{2026}=u_1\cdot q^{2026}$`,r`$u_{2026}=u_1\cdot q$`,r`$u_{2026}=u_1+2025q$`,r`$u_{2026}=u_1\cdot q^{2025}$`],k:3,ex:r`Số hạng tổng quát của cấp số nhân là $u_n=u_1q^{n-1}$, nên $u_{2026}=u_1q^{2025}$. ($u_1+2025q$ không đúng vì là công thức dạng cấp số cộng.)`},
+{lv:"NB",q:r`Trong các dãy số cho dưới đây, dãy số nào là một cấp số cộng?`,img:null,o:[r`$1;\ 3;\ 6;\ 10;\ 15$`,r`$-3;1;5;9;13$`,r`$2;\ 4;\ 8;\ 16;\ 32$`,r`$5;\ 5;\ 6;\ 6;\ 7$`],k:1,ex:r`Cấp số cộng có hiệu hai số hạng liên tiếp không đổi. Dãy $-3;1;5;9;13$ có hiệu luôn bằng $4$. Dãy A có hiệu $2,3,4,5$; dãy C là cấp số nhân (công bội $2$); dãy D có hiệu $0,1,0,1$.`},
+{lv:"NB",q:r`Công thức nghiệm của phương trình $\tan x=\tan\alpha$ là`,img:null,o:[r`$x=\alpha+k2\pi;\ k\in\mathbb Z$`,r`$x=\pi-\alpha+k\pi;\ k\in\mathbb Z$`,r`$x=\alpha+k\pi;\ k\in\mathbb Z$`,r`$x=-\alpha+k\pi;\ k\in\mathbb Z$`],k:2,ex:r`Hàm $\tan$ tuần hoàn với chu kỳ $\pi$ nên $\tan x=\tan\alpha\Leftrightarrow x=\alpha+k\pi$, $k\in\mathbb Z$.`},
+{lv:"TH",q:r`Cho dãy số $(u_n)$, biết $u_n=\dfrac{5n+1}{n+2}$. Hãy xác định số hạng thứ $3$ của dãy số?`,img:null,o:[r`$u_3=-\frac{16}{5}$`,r`$u_3=\frac{16}{5}$`,r`$u_3=\frac{16}{3}$`,r`$u_3=5$`],k:1,ex:r`Thay $n=3$: $u_3=\dfrac{5\cdot3+1}{3+2}=\dfrac{16}{5}$.`},
+{lv:"TH",q:r`Cho cấp số nhân $(u_n)$ có $u_4=24$ và $u_5=48$. Công bội $q$ của cấp số nhân bằng`,img:null,o:[r`$2$`,r`$\frac12$`,r`$24$`,r`$4$`],k:0,ex:r`Trong cấp số nhân, $u_5=u_4\cdot q\Rightarrow q=\dfrac{u_5}{u_4}=\dfrac{48}{24}=2$.`},
+{lv:"TH",q:r`Trong các công thức sau, công thức nào sai?`,img:null,o:[r`$\cos2a=\cos^2a-\sin^2a$`,r`$\cos2a=\cos^2a+\sin^2a$`,r`$\cos2a=2\cos^2a-1$`,r`$\cos2a=1-2\sin^2a$`],k:1,ex:r`Công thức nhân đôi: $\cos2a=\cos^2a-\sin^2a=2\cos^2a-1=1-2\sin^2a$. Công thức B sai vì $\cos^2a+\sin^2a=1$ (không phải $\cos2a$).`},
+{lv:"TH",q:r`Sử dụng máy tính cầm tay, giá trị của biểu thức $\cot(-75^\circ)$ (làm tròn kết quả đến hàng phần trăm) bằng:`,img:null,o:[r`$-0{,}27$`,r`$0{,}27$`,r`$-3{,}73$`,r`$3{,}73$`],k:0,ex:r`$\cot$ là hàm lẻ: $\cot(-75^\circ)=-\cot75^\circ=-\tan15^\circ\approx-0{,}2679$. Làm tròn đến hàng phần trăm được $-0{,}27$ (chú ý dấu âm; $3{,}73$ là $\tan75^\circ$).`}
+];
+const R2=[
+{stem:r`Cho hàm số $y=f(x)=\sqrt2\sin\left(x-\dfrac{\pi}{4}\right)+2$.`,img:null,items:[
+{lv:"NB",q:r`Tập xác định của hàm số $y=f(x)$ là $D=\mathbb R$.`,d:true,ex:r`Hàm $\sin$ xác định với mọi số thực nên $y=f(x)$ xác định trên $\mathbb R$.`},
+{lv:"TH",q:r`$f\left(\dfrac{\pi}{3}\right)=\dfrac{\sqrt3+5}{2}$.`,d:false,ex:r`$f\left(\frac{\pi}3\right)=\sqrt2\sin\frac{\pi}{12}+2$ với $\sin\frac{\pi}{12}=\frac{\sqrt6-\sqrt2}{4}$ nên $\sqrt2\sin\frac{\pi}{12}=\frac{\sqrt3-1}{2}$. Vậy $f\left(\frac{\pi}3\right)=\frac{\sqrt3-1}{2}+2=\frac{\sqrt3+3}{2}$, không phải $\frac{\sqrt3+5}{2}$.`},
+{lv:"TH",q:r`Giá trị lớn nhất của hàm số $y=f(x)$ là $3$.`,d:false,ex:r`$\sin\left(x-\frac{\pi}4\right)\le1$ nên $f(x)\le\sqrt2+2\approx3{,}41$. Giá trị lớn nhất là $2+\sqrt2$, không phải $3$.`},
+{lv:"VD",q:r`Phương trình $f(x)=1$ có $2$ nghiệm thuộc đoạn $[0;\pi]$.`,d:false,ex:r`$f(x)=1\Leftrightarrow\sin\left(x-\frac{\pi}4\right)=-\frac{\sqrt2}2\Leftrightarrow x=k2\pi$ hoặc $x=-\frac{\pi}2+k2\pi$. Trong $[0;\pi]$ chỉ có $x=0$, tức chỉ có $1$ nghiệm.`}]},
+{stem:r`Cho dãy số $(u_n)$, biết $u_n=3n+5$.`,img:null,items:[
+{lv:"NB",q:r`Dãy số trên là một cấp số nhân có công bội $q=3$.`,d:false,ex:r`$u_{n+1}-u_n=3(n+1)+5-(3n+5)=3$ không đổi nên đây là cấp số cộng, không phải cấp số nhân (thương $\frac{u_{n+1}}{u_n}=\frac{3n+8}{3n+5}$ thay đổi theo $n$).`},
+{lv:"NB",q:r`Dãy số trên là một cấp số cộng có công sai $d=3$.`,d:true,ex:r`$u_{n+1}-u_n=3$ với mọi $n$ nên $(u_n)$ là cấp số cộng công sai $d=3$.`},
+{lv:"TH",q:r`$15$ là số hạng thứ $5$ của dãy số.`,d:false,ex:r`$u_5=3\cdot5+5=20\ne15$. (Thực ra $3n+5=15\Leftrightarrow n=\frac{10}3\notin\mathbb N^*$, nên $15$ không là số hạng nào của dãy.)`},
+{lv:"VD",q:r`Tổng các số hạng từ số hạng thứ $10$ đến số hạng thứ $20$ của dãy số bằng $451$.`,d:false,ex:r`Từ $u_{10}=35$ đến $u_{20}=65$ có $20-10+1=11$ số hạng. Tổng $=\dfrac{11\,(35+65)}{2}=550$, không phải $451$.`}]}
+];
+const R3=[
+{lv:"NB",u:2,q:r`Cho cấp số nhân $(u_n)$ có số hạng đầu $u_1=3$ và công bội $q=2$. Tính tổng $5$ số hạng đầu tiên của cấp số nhân đó.`,img:null,ans:93,ex:r`$S_5=u_1\cdot\dfrac{q^5-1}{q-1}=3\cdot\dfrac{2^5-1}{2-1}=3\cdot31=93$ (hoặc cộng trực tiếp $3+6+12+24+48=93$).`},
+{lv:"TH",u:2,q:r`Một bảng xếp hạng đã tính điểm chuẩn hoá cho chỉ số nghiên cứu của một số trường đại học ở Việt Nam và thu được kết quả sau:`,img:"t15",q2:r`Tính $Q_1$ (kết quả làm tròn đến hàng phần mười)?`,ans:22.5,ex:r`$n=4+19+6+2+3+1=35$, $\frac n4=8{,}75$. Tần số tích lũy: $4;\ 23;\dots$ nên $Q_1$ thuộc nhóm $[20;30)$: $Q_1=20+\dfrac{8{,}75-4}{19}\cdot10=20+2{,}5=22{,}5$.`},
+{lv:"TH",u:2,q:r`Tại một cửa cảng, mực nước biển thay đổi theo chu kỳ. Qua theo dõi, người ta xác định mực nước tại thời điểm $t$ giờ trong ngày được mô hình hoá bởi hàm số $h(t)=3+1{,}2\cos\dfrac{\pi t}{6}$. Trong đó $h(t)$ tính bằng mét và $0\le t\le24$. Hỏi có mấy thời điểm trong ngày mà mực nước đúng bằng $3{,}6$ mét.`,img:null,ans:4,ex:r`$h(t)=3{,}6\Leftrightarrow\cos\dfrac{\pi t}6=\dfrac12\Leftrightarrow\dfrac{\pi t}6=\pm\dfrac{\pi}3+k2\pi\Leftrightarrow t=\pm2+12k$. Với $0\le t\le24$: $t=2;\ 10;\ 14;\ 22$. Có $4$ thời điểm.`},
+{lv:"VD",u:2,q:r`Cho góc $\alpha$ thỏa mãn $\dfrac{\pi}{2}<\alpha<\pi$, $\cos\alpha=\dfrac{-1}{\sqrt3}$. Tính chính xác đến hàng phần trăm giá trị biểu thức $\sin\left(\alpha+\dfrac{\pi}{6}\right)$.`,img:null,ans:0.42,ex:r`Vì $\alpha$ ở góc phần tư thứ hai nên $\sin\alpha>0$: $\sin\alpha=\sqrt{1-\frac13}=\frac{\sqrt6}3$. Khi đó $\sin\left(\alpha+\frac{\pi}6\right)=\sin\alpha\cos\frac{\pi}6+\cos\alpha\sin\frac{\pi}6=\frac{\sqrt6}3\cdot\frac{\sqrt3}2-\frac1{\sqrt3}\cdot\frac12=\frac{3\sqrt2-\sqrt3}{6}\approx0{,}42$.`},
+{lv:"VD",u:4,q:r`Trong một tuần lễ văn hóa đọc, một học sinh đặt ra mục tiêu rèn luyện đọc sách: ngày thứ nhất đọc được $5$ trang sách, mỗi ngày tiếp theo số trang sách đọc được gấp đôi số trang của ngày liền trước. Tính tổng số trang sách mà học sinh đó đã đọc được sau $7$ ngày?`,img:null,ans:635,ex:r`Số trang mỗi ngày lập thành cấp số nhân $u_1=5$, $q=2$. Tổng $7$ ngày: $S_7=5\cdot\dfrac{2^7-1}{2-1}=5\cdot127=635$ (trang).`},
+{lv:"VD",u:4,tol:0.01,q:r`Một tập đoàn bán lẻ tiến hành khảo sát $600$ khách hàng về mức chi tiêu hàng tháng (đơn vị: triệu đồng) để lập kế hoạch kinh doanh. Kết quả khảo sát được ghi lại ở bảng số liệu ghép nhóm sau:`,img:"t19",q2:r`Tập đoàn nên định hướng phân khúc khách hàng có mức chi tiêu phổ biến nhất là bao nhiêu triệu đồng? (làm tròn đến hàng phần trăm)`,ans:17.19,ex:r`Mức chi tiêu phổ biến nhất chính là mốt của mẫu số liệu. Nhóm chứa mốt là nhóm có tần số lớn nhất $[15;20)$ ($210$ khách): $M_O=15+\dfrac{210-140}{(210-140)+(210-120)}\cdot5=15+\dfrac{70}{160}\cdot5\approx17{,}19$ (triệu đồng).`},
+{lv:"VDC",u:4,q:r`Trong quá trình thử nghiệm độ bền của một chi tiết máy, các kỹ sư ghi nhận độ lệch $x$ (tính bằng mm) của chi tiết máy này so với vị trí cân bằng tại thời điểm $t$ (giây) được mô hình hóa bởi hàm số: $x(t)=\sin(4\pi t)-\sqrt2\cos(\pi t)+\sin(2\pi t)$. Một cảm biến được lập trình để phát tín hiệu cảnh báo mỗi khi chi tiết máy quay trở lại đúng vị trí cân bằng ($x=0$). Hỏi trong $2$ giây đầu tiên kể từ lúc bắt đầu thử nghiệm ($0\le t\le2$), cảm biến sẽ phát ra bao nhiêu tín hiệu cảnh báo?`,img:null,ans:8,ex:r`Dùng $\sin4\pi t+\sin2\pi t=2\sin3\pi t\cos\pi t$ nên $x(t)=\cos\pi t\,(2\sin3\pi t-\sqrt2)$. $x=0\Leftrightarrow\cos\pi t=0$ hoặc $\sin3\pi t=\frac{\sqrt2}2$. Với $t\in[0;2]$: $\cos\pi t=0\Rightarrow t=\frac12,\frac32$ ($2$ giá trị); $\sin3\pi t=\frac{\sqrt2}2\Rightarrow t=\frac1{12}+\frac{2k}3$ ($t=\frac1{12},\frac34,\frac{17}{12}$) hoặc $t=\frac14+\frac{2k}3$ ($t=\frac14,\frac{11}{12},\frac{19}{12}$): $6$ giá trị, đều phân biệt. Tổng cộng $8$ tín hiệu.`}
+];
+/* ===================== HẾT KHU VỰC DỮ LIỆU ===================== */
+
+const $=id=>document.getElementById(id);
+const LV={NB:"Nhận biết",TH:"Thông hiểu",VD:"Vận dụng",VDC:"Vận dụng cao"};
+const TITLES=["Tân binh","Học trò chăm chỉ","Nhà thám hiểm Toán","Chuyên gia Toán 11","Thiên tài Toán học"];
+const TARGET=10000000, U1=1, U2=1, U3=2; // điểm theo đơn vị 0,25: câu TN=1, mỗi ý Đ/S=1, đáp số ngắn=2
+const QS=[]; // danh sách câu hỏi phẳng theo thứ tự chơi
+R1.forEach(x=>QS.push({t:"mc",rd:1,...x,u:U1}));
+R2.forEach(c=>c.items.forEach((it,ii)=>QS.push({t:"tf",rd:2,stem:c.stem,img:c.img,lab:"abcd"[ii],first:ii===0,...it,u:U2})));
+R3.forEach(x=>QS.push({t:"sa",rd:3,...x,u:x.u||U3}));
+const MAXU=QS.reduce((s,q)=>s+q.u,0), RDN={1:"CHẶNG 1 · AI LÀ TRIỆU PHÚ",2:"CHẶNG 2 · ĐẤU TRƯỜNG TOÁN HỌC",3:"CHẶNG 3 · VƯỢT CHƯỚNG NGẠI VẬT"};
+const SAYR={1:"Chặng 1: Ai là triệu phú – chọn đáp án đúng!",2:"Chặng 2: Đấu trường – Đúng hay Sai?",3:"Chặng 3: Vượt chướng ngại vật – nhập đáp số!"};
+const fmt=u=>(u/4).toString().replace(".",","), reward=u=>Math.round(u/MAXU*TARGET);
+const money=n=>n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,".");
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const mmss=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+const show=id=>document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));
+function math(el){try{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:"$",right:"$",display:false}],throwOnError:false});}catch(e){}}
+$("nq").textContent=QS.length;
+
+/* ===== BỘ ĐỒNG BỘ CHẾ ĐỘ CẢ LỚP: chỉ là khung kết nối, KHÔNG giả lập đồng bộ; sau này nối máy chủ tại đây ===== */
+const ClassSync={connected:false,players:null,send(cmd){if(!this.connected)return false;/* TODO: gửi lệnh */return true;},onUpdate(cb){/* TODO: nhận số người còn lại */}};
+
+/* ===== ÂM THANH ===== */
+let AC=null,muted=false,susp=null;
+function initAudio(){if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(C)AC=new C();}if(AC&&AC.state==="suspended")AC.resume();}
+function tone(f,t,d,ty,g){const o=AC.createOscillator(),n=AC.createGain();o.type=ty;o.frequency.setValueAtTime(f,t);n.gain.setValueAtTime(.0001,t);n.gain.exponentialRampToValueAtTime(g,t+.03);n.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(n).connect(AC.destination);o.start(t);o.stop(t+d+.05);}
+function clap(t,g){const n=Math.floor(AC.sampleRate*.06),b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);const s=AC.createBufferSource();s.buffer=b;const f=AC.createBiquadFilter();f.type="bandpass";f.frequency.value=1500+Math.random()*1500;const n2=AC.createGain();n2.gain.value=g;s.connect(f).connect(n2).connect(AC.destination);s.start(t);}
+function say(t){try{if(muted||!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="vi-VN";speechSynthesis.speak(u);}catch(e){}}
+function bell(){if(muted||!AC)return;const t=AC.currentTime;tone(880,t,1.2,"sine",.25);tone(1320,t,1,"sine",.12);}
+function applause(){if(muted)return;say("Chính xác!");if(!AC)return;bell();const t0=AC.currentTime,D=4.8;for(let i=0;i<150;i++){const x=Math.random()*D,e=Math.min(1,x/.5)*Math.min(1,(D-x)/1.5);clap(t0+x,.5*e+.04);}[523,659,784,1047,1319].forEach((f,i)=>tone(f,t0+i*.13,.5,"triangle",.18));}
+function sad(){if(muted||!AC)return;const t0=AC.currentTime;[392,349,311,262].forEach((f,i)=>tone(f,t0+i*.32,.45,"sawtooth",.12));tone(98,t0+1.2,.8,"sawtooth",.15);}
+function fanfare(){if(muted||!AC)return;const t0=AC.currentTime;[523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,t0+i*.18,.5,"triangle",.2));}
+function startSusp(){stopSusp();if(muted||!AC)return;susp=setInterval(()=>{if(AC)tone(70,AC.currentTime,.35,"sine",.18);},900);} // nhạc hồi hộp (nhịp tim)
+function stopSusp(){if(susp){clearInterval(susp);susp=null;}}
+function fx(cls,txt){const e=$("fx");e.className="";void e.offsetWidth;e.textContent=txt||"";e.className=cls;}
+function ringBell(){const b=$("bell");b.classList.remove("ring");void b.offsetWidth;b.classList.add("ring");}
+function confetti(){for(let i=0;i<70;i++){const c=document.createElement("div");c.className="conf";c.style.left=Math.random()*100+"vw";c.style.background=["#ffd84a","#ff6b6b","#51e57a","#4da3ff"][i%4];c.style.animationDuration=(2+Math.random()*2.5)+"s";c.style.animationDelay=Math.random()+"s";document.body.appendChild(c);setTimeout(()=>c.remove(),6000);}}
+const setSay=t=>$("say").textContent=t;
+
+/* ===== TRẠNG THÁI TRÒ CHƠI ===== */
+let G=null,clk=null;
+const newGame=(name,cls,mode)=>({name,cls,mode,i:0,u:0,ok:0,xp:0,streak:0,lives:LIVES,uses:0,u50:false,uExp:false,locked:false,tries:0,res:[],t0:Date.now(),sec:0,saved:false});
+const hearts=()=>"❤".repeat(G.lives)+"🖤".repeat(LIVES-G.lives);
+function stopClock(){if(clk){clearInterval(clk);clk=null;}}
+function startClock(){stopClock();clk=setInterval(()=>{G.sec=Math.round((Date.now()-G.t0)/1000);$("clock").textContent=mmss(G.sec);},1000);}
+function updHud(){$("score").textContent=fmt(G.u);$("lives").textContent=hearts();$("bar").style.width=(G.u/MAXU*100)+"%";$("left").textContent="Còn lại: "+(ClassSync.players==null?"—":ClassSync.players);}
+function updLL(){const q=QS[G.i],on=q.t==="mc"&&!G.locked;$("ll").style.display=q.rd===1?"flex":"none";$("ll50").disabled=G.u50||!on;$("llExp").disabled=G.uExp||!on;}
+function drawTrack(){const t=$("track");if(QS[G.i].rd!==3){t.style.display="none";return;}t.style.display="flex";t.textContent="";const base=QS.findIndex(q=>q.rd===3);
+ R3.forEach((x,j)=>{const s=document.createElement("span"),d=G.res[base+j];s.textContent=d!==undefined?(d?"✅":"❌"):(base+j===G.i?"🏃":"🚧");t.appendChild(s);});}
+
+function showQ(){
+ const q=QS[G.i];G.locked=false;G.tries=0;$("fb").classList.remove("show");
+ $("qno").textContent=(G.i+1)+"/"+QS.length;
+ $("lv").textContent=RDN[q.rd]+" · "+LV[q.lv]+" · Mốc "+money(reward(G.u))+" / 10.000.000 điểm thưởng";
+ const st=$("stem"),im=$("qimg");
+ st.style.display=q.t==="tf"?"block":"none";st.innerHTML=q.t==="tf"?q.stem:"";
+ im.style.display=q.img?"block":"none";im.innerHTML=q.img?(typeof TBL!=="undefined"&&TBL[q.img]?TBL[q.img]:'<img alt="Hình vẽ/bảng trong đề" src="'+IMG[q.img]+'">'):"";
+ $("qtext").innerHTML=(q.t==="tf"?"<b>"+q.lab+")</b> ":"")+q.q+(q.q2?"<br>"+q.q2:"");
+ const box=$("opts");box.innerHTML="";box.className="opts "+(q.t==="tf"?"tf":"");$("sa").style.display=q.t==="sa"?"flex":"none";
+ if(q.t==="mc"){q.ord=shuffle([0,1,2,3]); // xáo trộn vị trí đáp án mỗi lần hiển thị
+  q.ord.forEach((oi,j)=>{const b=document.createElement("button");b.className="opt";b.innerHTML="<b>"+"ABCD"[j]+".</b><span>"+q.o[oi]+"</span>";b.onclick=()=>answer(j);box.appendChild(b);});}
+ else if(q.t==="tf")[["ĐÚNG",true],["SAI",false]].forEach(([t,v])=>{const b=document.createElement("button");b.className="opt";b.textContent=t;b.onclick=()=>answer(v);box.appendChild(b);});
+ else{$("saIn").value="";$("saIn").disabled=false;$("saGo").disabled=false;setTimeout(()=>$("saIn").focus(),50);}
+ setSay(q.first===false?"Ý tiếp theo – cố lên!":SAYR[q.rd]);drawTrack();updHud();updLL();math($("game"));startSusp();}
+
+// Chấm điểm và phản hồi chung cho cả 3 chặng (luôn kèm lời giải)
+function judge(right,corrTxt,mine){
+ const q=QS[G.i];G.locked=true;stopSusp();G.res[G.i]=right;
+ $("fb").className="show "+(right?"ok":"no");$("btnNext").textContent="Câu tiếp ▶";
+ if(right){G.u+=q.u;G.ok++;G.streak++;G.xp+=q.rd===1?30:q.rd===2?15+(G.streak>=3?5:0):(G.tries>1?40:60);
+  $("fbT").textContent="✔ CHÍNH XÁC! +"+fmt(q.u)+" điểm"+(q.rd===2&&G.streak>=3?" · Chuỗi "+G.streak+" 🔥":"");$("fbE").innerHTML=q.ex;fx("good");ringBell();setSay("Chính xác! Tuyệt vời!");applause();}
+ else{G.streak=0;if(q.rd!==2)G.lives--;$("fbT").textContent="✘ CHƯA ĐÚNG! Đáp án: "+corrTxt;$("fbE").innerHTML=mine+" "+q.ex+(q.rd!==2?" (Mất 1 mạng.)":"");fx("bad","✖");setSay("Tiếc quá! Hãy xem lời giải nhé.");sad();}
+ if(G.lives<=0||G.i>=QS.length-1)$("btnNext").textContent="Xem kết quả ▶";
+ updHud();updLL();drawTrack();math($("fb"));}
+function answer(c){
+ if(!G||G.locked)return;const q=QS[G.i],btns=[...$("opts").children];
+ if(q.t==="mc"){btns.forEach((b,j)=>{b.classList.remove("hint");b.classList.add("locked");if(q.ord[j]===q.k)b.classList.add("good");else if(j===c)b.classList.add("bad");});
+  judge(q.ord[c]===q.k,"ABCD"[q.ord.indexOf(q.k)]+".","Lựa chọn của bạn chưa đúng.");}
+ else{btns.forEach((b,j)=>{b.classList.add("locked");if((j===0)===q.d)b.classList.add("good");else if(c===(j===0))b.classList.add("bad");});
+  judge(c===q.d,q.d?"ĐÚNG":"SAI","Bạn chọn "+(c?"ĐÚNG":"SAI")+" nhưng nhận định này là "+(q.d?"ĐÚNG":"SAI")+".");}}
+function submitSA(){
+ if(!G||G.locked)return;const q=QS[G.i],v=parseFloat($("saIn").value.replace(",","."));
+ if(isNaN(v)){setSay("Hãy nhập một số nhé!");return;}G.tries++;
+ if(Math.abs(v-q.ans)<(q.tol||1e-6)){$("saIn").disabled=true;$("saGo").disabled=true;judge(true,"","");}
+ else if(G.tries<2){setSay("Chưa đúng, bạn còn 1 lượt thử!");fx("bad","✖");sad();$("saIn").select();}
+ else{$("saIn").disabled=true;$("saGo").disabled=true;judge(false,String(q.ans).replace(".",","),"Bạn đã dùng hết 2 lượt thử.");}}
+function next(){if(!G||!G.locked)return;if(G.lives<=0||G.i>=QS.length-1){endGame();return;}G.i++;showQ();}
+
+/* ===== TRỢ GIÚP (chỉ Chặng 1) ===== */
+function lifeline50(){if(!G||G.locked||G.u50||QS[G.i].t!=="mc")return;const q=QS[G.i];G.u50=true;G.uses++;
+ shuffle([...$("opts").children].filter((b,j)=>q.ord[j]!==q.k)).slice(0,2).forEach(b=>{b.classList.add("gone");b.onclick=null;});updLL();}
+function lifelineExp(){if(!G||G.locked||G.uExp||QS[G.i].t!=="mc")return;const q=QS[G.i];G.uExp=true;G.uses++;
+ const all=[...$("opts").children],okI=q.ord.indexOf(q.k),vis=all.map((b,j)=>j).filter(j=>!all[j].classList.contains("gone"));
+ const pick=(Math.random()<.85)?okI:shuffle(vis.filter(j=>j!==okI))[0]; // chuyên gia đúng khoảng 85%
+ all[pick].classList.add("hint");setSay("Chuyên gia: tôi nghiêng về đáp án "+"ABCD"[pick]+" (độ tin cậy khoảng 85%).");updLL();}
+
+/* ===== KẾT THÚC, XP, HUY HIỆU, TIẾN BỘ ===== */
+function endGame(){
+ stopClock();stopSusp();G.sec=Math.round((Date.now()-G.t0)/1000);G.tstr=mmss(G.sec);
+ const win=G.lives>0,ra=G.u/MAXU,lvl=Math.min(TITLES.length,Math.floor(G.xp/200)+1);
+ $("endT").textContent=win?"🏆 VINH DANH NGƯỜI CHIẾN THẮNG! 🏆":"💔 BẠN ĐÃ BỊ LOẠI – CẢM ƠN ĐÃ THAM GIA";
+ $("endName").textContent=G.name+" · Lớp "+G.cls;$("endScore").textContent=fmt(G.u)+" / "+fmt(MAXU);
+ $("endRw").textContent=money(reward(G.u));$("endOk").textContent=G.ok+"/"+QS.length;$("endTime").textContent=G.tstr;
+ $("endXp").textContent=G.xp;$("endLv").textContent=lvl;$("endTitle").textContent=TITLES[lvl-1];
+ const bd=[];if(win)bd.push("🏅 Vượt qua câu cuối");if(ra>=.9)bd.push("🎖 Chuyên gia Toán 11");if(G.lives===LIVES)bd.push("❤ Không mất mạng");if(G.uses===0&&win)bd.push("🧠 Không dùng trợ giúp");if(reward(G.u)>=TARGET)bd.push("💎 Chinh phục 10 triệu điểm");
+ $("endBadges").innerHTML="";bd.forEach(t=>{const s=document.createElement("span");s.className="badge";s.textContent=t;$("endBadges").appendChild(s);});
+ $("endMsg").textContent=ra>=.9?"Xuất sắc! Bạn thật sự là triệu phú Toán học!":ra>=.6?"Rất tốt! Hãy xem lại các câu đã sai.":"Cố gắng thêm nhé! Ôn lại lượng giác, dãy số – cấp số cộng, cấp số nhân và các số đặc trưng của mẫu số liệu ghép nhóm.";
+ let prev=null;try{const h=JSON.parse(localStorage.getItem("thayhoa_hist_11n")||"[]");prev=h.length?h[h.length-1]:null;h.push(G.u/4);localStorage.setItem("thayhoa_hist_11n",JSON.stringify(h.slice(-20)));}catch(e){}
+ const f=x=>x.toString().replace(".",",");
+ $("endProg").textContent=prev==null?"Đây là lần chơi đầu tiên của bạn trên thiết bị này.":(G.u/4>prev?"📈 Tiến bộ! Lần trước: "+f(prev)+" điểm.":"Lần trước: "+f(prev)+" điểm – hãy thử vượt qua nhé!");
+ $("endSave").textContent="";show("end");if(win){fx("good");confetti();fanfare();say("Chúc mừng người chiến thắng!");}sendResult();}
+async function sendResult(){
+ if(G.saved)return;G.saved=true;if(!APPS_SCRIPT_URL){renderLB();return;}
+ $("endSave").textContent="Đang gửi kết quả…";
+ try{await fetch(APPS_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({"Họ tên":G.name,"Lớp":G.cls,"Điểm số":G.u/4,"Thời gian làm bài":G.tstr})});
+ $("endSave").textContent="✔ Đã ghi nhận kết quả của bạn.";setTimeout(fetchLB,1500);}
+ catch(e){$("endSave").textContent="Chưa gửi được kết quả lên bảng xếp hạng.";}}
+
+/* ===== BẢNG XẾP HẠNG (GET định kỳ) ===== */
+let LB=[];
+const secOf=t=>{const p=String(t||"").split(":").map(Number);return p.length===2&&!p.some(isNaN)?p[0]*60+p[1]:99999;};
+async function fetchLB(){
+ if(!APPS_SCRIPT_URL){renderLB();return;}
+ try{const r2=await fetch(APPS_SCRIPT_URL+(APPS_SCRIPT_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now());const j=await r2.json();if(j&&j.status==="ok"&&Array.isArray(j.data))LB=j.data;}catch(e){}
+ renderLB();}
+function renderLB(){
+ const rows=LB.slice().sort((a,b)=>(Number(b["Điểm số"])||0)-(Number(a["Điểm số"])||0)||secOf(a["Thời gian làm bài"])-secOf(b["Thời gian làm bài"])).slice(0,10);
+ document.querySelectorAll(".lbBody").forEach(el=>{el.innerHTML="";
+  if(!rows.length){const p=document.createElement("div");p.textContent="Chưa có dữ liệu xếp hạng.";el.appendChild(p);return;}
+  const tb=document.createElement("table"),hr=tb.insertRow();
+  ["#","Họ tên","Lớp","Điểm","Thời gian"].forEach(h=>{const th=document.createElement("th");th.textContent=h;hr.appendChild(th);});
+  rows.forEach((x,i)=>{const tr=tb.insertRow();[(i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1),x["Họ tên"],x["Lớp"],String(Number(x["Điểm số"])||0).replace(".",","),x["Thời gian làm bài"]].forEach(v=>{tr.insertCell().textContent=(v==null)?"":v;});});
+  el.appendChild(tb);});}
+
+/* ===== KHỞI TẠO: mỗi sự kiện và mỗi bộ đếm chỉ gắn MỘT lần ===== */
+function begin(mode){
+ const n=$("inName").value.trim(),c=$("inClass").value.trim();
+ if(!n||!c){$("err").textContent="Vui lòng nhập đầy đủ Họ tên và Lớp.";return;}
+ $("err").textContent="";initAudio();stopClock();stopSusp();G=newGame(n,c,mode);
+ $("left").style.display=mode==="class"?"":"none";$("clock").textContent="00:00";show("game");startClock();showQ();}
+$("btnSolo").onclick=()=>begin("solo");$("btnClass").onclick=()=>begin("class");
+$("btnTeacher").onclick=()=>{$("syncState").textContent=ClassSync.connected?"Đã kết nối máy chủ đồng bộ.":"Chưa kết nối máy chủ đồng bộ nên các lệnh điều khiển chưa có tác dụng. Khung điều khiển đã sẵn sàng để tích hợp sau.";show("teacher");fetchLB();};
+document.querySelectorAll("[data-cmd]").forEach(b=>b.onclick=()=>{if(!ClassSync.send(b.dataset.cmd))$("syncState").textContent="Chưa có máy chủ đồng bộ – lệnh '"+b.dataset.cmd+"' chưa được gửi đi.";});
+$("tBack").onclick=()=>show("start");
+$("btnNext").onclick=next;$("ll50").onclick=lifeline50;$("llExp").onclick=lifelineExp;$("saGo").onclick=submitSA;
+$("saIn").onkeydown=e=>{if(e.key==="Enter")submitSA();};
+$("btnAgain").onclick=()=>{stopClock();stopSusp();G=null;show("start");fetchLB();};
+$("mute").onclick=()=>{muted=!muted;$("mute").textContent=muted?"🔇":"🔊";if(muted){stopSusp();if(window.speechSynthesis)speechSynthesis.cancel();}else if(G&&!G.locked&&$("game").classList.contains("active"))startSusp();};
+renderLB();fetchLB();setInterval(fetchLB,5000);
+</script></body></html>
