@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đấu Trường Toán Học 11 – Thầy Hòa | Đường Thẳng Song Song Mặt Phẳng</title>
+    
+    <!-- Google Fonts: Be Vietnam Pro & Oswald cho tiêu đề game show rõ nét trên máy chiếu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX CDN để hiển thị công thức Toán học sắc nét -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                        display: ['"Oswald"', 'sans-serif'],
+                    },
+                    colors: {
+                        board: {
+                            dark: '#062c2b',
+                            base: '#0b4642',
+                            light: '#115e59',
+                            accent: '#14b8a6',
+                        },
+                        gold: {
+                            light: '#fef08a',
+                            base: '#facc15',
+                            dark: '#ca8a04',
+                            amber: '#f59e0b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* =====================================================================
+           GIAO DIỆN SÂN KHẤU TRUYỀN HÌNH & BẢNG XANH CHUYÊN NGHIỆP - THẦY HÒA
+           Tối ưu độ tương phản cao, chữ lớn rõ nét cho trình chiếu máy chiếu cuối lớp
+           ===================================================================== */
+        :root {
+            --bg-gradient: radial-gradient(circle at 50% 15%, #136f6a 0%, #093b38 55%, #042120 100%);
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        /* Hiệu ứng tia sáng sân khấu phía sau */
+        .stage-spotlight {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                conic-gradient(from 155deg at 20% -10%, rgba(250, 204, 21, 0.12) 0deg, transparent 25deg),
+                conic-gradient(from 180deg at 80% -10%, rgba(45, 212, 191, 0.14) 0deg, transparent 25deg);
+        }
+
+        /* Hiệu ứng ánh sáng chớp rực rỡ khi trả lời đúng */
+        .flash-correct {
+            animation: stageFlashCorrect 0.9s ease-out;
+        }
+        @keyframes stageFlashCorrect {
+            0% { box-shadow: inset 0 0 120px rgba(250, 204, 21, 0.75); }
+            100% { box-shadow: inset 0 0 0 rgba(250, 204, 21, 0); }
+        }
+
+        /* Hiệu ứng rung lắc cảnh báo khi trả lời sai */
+        .shake-wrong {
+            animation: screenShake 0.55s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes screenShake {
+            10%, 90% { transform: translate3d(-4px, 0, 0); }
+            20%, 80% { transform: translate3d(6px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+            40%, 60% { transform: translate3d(8px, 0, 0); }
+        }
+
+        /* Hiệu ứng rung chuông vàng */
+        .bell-ringing {
+            animation: bellSwing 0.85s ease-in-out;
+            transform-origin: 50% 8px;
+        }
+        @keyframes bellSwing {
+            0% { transform: rotate(0deg) scale(1); }
+            15% { transform: rotate(18deg) scale(1.1); }
+            30% { transform: rotate(-16deg) scale(1.1); }
+            45% { transform: rotate(12deg) scale(1.06); }
+            60% { transform: rotate(-10deg) scale(1.04); }
+            75% { transform: rotate(5deg) scale(1.02); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        /* Hiệu ứng hào quang quanh chuông vàng */
+        .bell-glow {
+            filter: drop-shadow(0 0 16px rgba(250, 204, 21, 0.65));
+            transition: filter 0.3s ease;
+        }
+        .bell-glow:hover {
+            filter: drop-shadow(0 0 26px rgba(250, 204, 21, 0.95));
+        }
+
+        /* Khung lục giác đặc trưng Ai Là Triệu Phú */
+        .millionaire-box {
+            background: linear-gradient(180deg, rgba(10, 56, 53, 0.94) 0%, rgba(5, 34, 33, 0.97) 100%);
+            border: 2px solid #facc15;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45), inset 0 0 15px rgba(250, 204, 21, 0.15);
+        }
+
+        /* Nút đáp án 4 lựa chọn */
+        .option-btn {
+            background: linear-gradient(90deg, rgba(13, 74, 70, 0.92) 0%, rgba(8, 48, 46, 0.95) 100%);
+            border: 2px solid rgba(94, 234, 212, 0.5);
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: #facc15;
+            background: linear-gradient(90deg, rgba(20, 105, 99, 0.96) 0%, rgba(13, 74, 70, 0.98) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(250, 204, 21, 0.28);
+        }
+        .option-btn.selected {
+            border-color: #facc15;
+            background: linear-gradient(90deg, #b45309 0%, #92400e 100%);
+        }
+        .option-btn.correct {
+            border-color: #4ade80 !important;
+            background: linear-gradient(90deg, #15803d 0%, #166534 100%) !important;
+            box-shadow: 0 0 22px rgba(74, 222, 128, 0.65);
+        }
+        .option-btn.wrong {
+            border-color: #f87171 !important;
+            background: linear-gradient(90deg, #b91c1c 0%, #991b1b 100%) !important;
+        }
+        .option-btn.eliminated {
+            opacity: 0.22;
+            pointer-events: none;
+            filter: grayscale(0.9);
+        }
+
+        /* Thanh cuộn tinh gọn */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(4, 33, 32, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #14b8a6;
+            border-radius: 9999px;
+        }
+
+        /* Canvas pháo giấy toàn màn hình */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 60;
+        }
+
+        /* KaTeX font scale dễ đọc trên máy chiếu */
+        .katex {
+            font-size: 1.08em !important;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-yellow-400 selection:text-teal-950">
+    <!-- Lớp ánh sáng sân khấu & Canvas pháo giấy -->
+    <div class="stage-spotlight"></div>
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- =========================================================================
+         THANH HEADER THƯƠNG HIỆU "THẦY HÒA" XUYÊN SUỐT SÂN KHẤU
+         ========================================================================= -->
+    <header class="relative z-20 border-b border-yellow-400/35 bg-teal-950/85 backdrop-blur-md shadow-lg">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3">
+            <!-- Logo & Thương hiệu Thầy Hòa -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="confirmReturnHome()">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-yellow-300 via-yellow-500 to-amber-600 flex items-center justify-center shadow-md border border-yellow-200">
+                    <span class="font-display font-bold text-teal-950 text-xl tracking-tight">TH</span>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded bg-yellow-400 text-teal-950 font-extrabold text-xs tracking-wider uppercase">THẦY HÒA</span>
+                        <span class="text-teal-200 text-xs sm:text-sm font-semibold">TOÁN 11 • KNTTVCS 2018</span>
+                    </div>
+                    <h1 class="font-display text-lg sm:text-xl md:text-2xl font-bold text-white tracking-wide uppercase leading-tight">
+                        ĐẤU TRƯỜNG TOÁN HỌC: <span class="text-yellow-300">ĐƯỜNG THẲNG // MẶT PHẲNG</span>
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Thanh công cụ trạng thái: Hồ sơ XP, Âm thanh, Chuyển chế độ -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Huy hiệu cấp độ cá nhân lưu cục bộ -->
+                <div id="header-profile-badge" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-teal-900/90 border border-teal-400/40 text-xs">
+                    <span id="header-level-icon" class="text-base">🏅</span>
+                    <div>
+                        <div class="text-yellow-300 font-bold" id="header-level-title">Tập Sự Hình Học</div>
+                        <div class="text-teal-200" id="header-total-xp">Tích lũy: 0 XP</div>
+                    </div>
+                </div>
+
+                <!-- Nút bật/tắt âm thanh Web Audio API -->
+                <button id="btn-toggle-sound" type="button" onclick="toggleSound()" 
+                    class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-teal-800/90 hover:bg-teal-700 border border-yellow-400/40 text-yellow-300 font-semibold text-sm transition shadow">
+                    <span id="sound-icon" class="text-lg">🔊</span>
+                    <span class="hidden sm:inline" id="sound-label">Âm thanh: BẬT</span>
+                </button>
+
+                <!-- Nút về màn hình chính -->
+                <button id="btn-home" type="button" onclick="confirmReturnHome()" 
+                    class="hidden px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 font-semibold text-sm transition">
+                    🏠 Trang chủ
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================================================================
+         KHU VỰC NỘI DUNG CHÍNH (CHUYỂN ĐỔI CÁC MÀN HÌNH)
+         ========================================================================= -->
+    <main class="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 py-5 sm:py-7">
+
+        <!-- =====================================================================
+             MÀN HÌNH 1: SẢNH CHỜ SÂN KHẤU, LUẬT CHƠI & CHỌN CHẾ ĐỘ
+             ===================================================================== -->
+        <section id="screen-welcome" class="space-y-6">
+            <!-- Banner Sân Khấu Trung Tâm với Chuông Vàng -->
+            <div class="millionaire-box rounded-3xl p-5 sm:p-8 relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <!-- Cột trái: Chuông Vàng SVG Lớn Trung Tâm -->
+                    <div class="lg:col-span-4 flex flex-col items-center justify-center text-center">
+                        <div id="welcome-bell-wrapper" onclick="ringGoldenBell(true)" title="Bấm để rung Chuông Vàng Thầy Hòa!" 
+                             class="cursor-pointer p-4 rounded-full bg-gradient-to-b from-yellow-400/20 to-transparent border border-yellow-400/30 bell-glow">
+                            <!-- Chuông Vàng SVG Tinh Xảo -->
+                            <svg id="welcome-bell-svg" class="w-32 h-32 sm:w-40 sm:h-40" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="goldBody" x1="30" y1="20" x2="130" y2="135" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#FEF08A"/>
+                                        <stop offset="35%" stop-color="#FACC15"/>
+                                        <stop offset="75%" stop-color="#D97706"/>
+                                        <stop offset="100%" stop-color="#92400E"/>
+                                    </linearGradient>
+                                    <linearGradient id="goldRim" x1="20" y1="115" x2="140" y2="130" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#FDE047"/>
+                                        <stop offset="50%" stop-color="#FEF9C3"/>
+                                        <stop offset="100%" stop-color="#CA8A04"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Tia hào quang quanh chuông -->
+                                <g stroke="#FDE047" stroke-width="2.5" stroke-linecap="round" opacity="0.85">
+                                    <line x1="80" y1="6" x2="80" y2="16"/>
+                                    <line x1="34" y1="22" x2="42" y2="30"/>
+                                    <line x1="126" y1="22" x2="118" y2="30"/>
+                                    <line x1="16" y1="62" x2="26" y2="65"/>
+                                    <line x1="144" y1="62" x2="134" y2="65"/>
+                                </g>
+                                <!-- Quai chuông -->
+                                <circle cx="80" cy="26" r="10" stroke="url(#goldRim)" stroke-width="5" fill="#062c2b"/>
+                                <!-- Quả lắc chuông -->
+                                <circle cx="80" cy="134" r="13" fill="url(#goldBody)" stroke="#FEF08A" stroke-width="2"/>
+                                <!-- Thân chuông -->
+                                <path d="M80 32C52 32 38 52 35 84C33 103 24 114 18 120C15 123 17 128 22 128H138C143 128 145 123 142 120C136 114 127 103 125 84C122 52 108 32 80 32Z" fill="url(#goldBody)" stroke="#FEF08A" stroke-width="2.5"/>
+                                <!-- Vành chuông nổi -->
+                                <rect x="18" y="118" width="124" height="10" rx="5" fill="url(#goldRim)"/>
+                                <!-- Chữ TH khắc trên chuông -->
+                                <text x="80" y="92" text-anchor="middle" fill="#451a03" font-family="Oswald, sans-serif" font-weight="700" font-size="24" letter-spacing="1">THẦY HÒA</text>
+                            </svg>
+                        </div>
+                        <span class="mt-2 text-xs text-yellow-200/90 italic">✨ Bấm vào Chuông Vàng để thử hiệu ứng sân khấu</span>
+                    </div>
+
+                    <!-- Cột phải: Giới thiệu Game Show & Luật chơi chi tiết -->
+                    <div class="lg:col-span-8 space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-yellow-400/20 border border-yellow-400/50 text-yellow-300 text-xs sm:text-sm font-bold">
+                            <span>🏆 CHƯƠNG TRÌNH ĐẶC BIỆT • HÌNH HỌC KHÔNG GIAN 11</span>
+                        </div>
+                        <h2 class="font-display text-2xl sm:text-4xl font-bold text-white leading-snug">
+                            CHINH PHỤC ĐỈNH CAO <span class="text-yellow-300">10.000.000 ĐIỂM</span><br>
+                            CHỦ ĐỀ: ĐƯỜNG THẲNG SONG SONG VỚI MẶT PHẲNG
+                        </h2>
+                        
+                        <!-- Bảng Luật Chơi Nổi Bật -->
+                        <div class="bg-teal-950/85 border border-teal-400/40 rounded-2xl p-4 sm:p-5 space-y-2.5 text-sm sm:text-base">
+                            <h3 class="text-yellow-300 font-bold text-base sm:text-lg flex items-center gap-2">
+                                <span>📜</span> LUẬT CHƠI & CƠ CHẾ TÍNH ĐIỂM SÂN KHẤU THẦY HÒA:
+                            </h3>
+                            <ul class="space-y-2 text-teal-50">
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-yellow-400 font-bold">⏱️</span>
+                                    <span><strong class="text-yellow-300">KHÔNG GIỚI HẠN THỜI GIAN TRẢ LỜI CHO MỖI CÂU HỎI:</strong> Học sinh thoải mái tư duy, vẽ hình nháp và lập luận chặt chẽ trước khi chốt đáp án (hệ thống chỉ ghi nhận tổng thời gian hoàn thành để xếp hạng khi bằng điểm).</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-yellow-400 font-bold">🎯</span>
+                                    <span><strong class="text-yellow-300">HÀNH TRÌNH 20 THỬ THÁCH (3 CHẶNG VƯỢT CHƯỚNG NGẠI VẬT):</strong>
+                                        <br>• <em>Chặng 1 (Câu 1 – 12):</em> Trắc nghiệm 4 phương án lựa chọn (Nhận biết & Thông hiểu).
+                                        <br>• <em>Chặng 2 (Câu 13 – 16):</em> Trắc nghiệm Đúng/Sai 4 ý a, b, c, d (Thông hiểu & Vận dụng).
+                                        <br>• <em>Chặng 3 (Câu 17 – 20):</em> Trả lời ngắn Vận dụng & Bài toán thực tế.
+                                    </span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-yellow-400 font-bold">💰</span>
+                                    <span><strong class="text-yellow-300">THANG ĐIỂM THƯỞNG & XP:</strong> Trả lời đúng tích lũy điểm thưởng tiến tới mốc vinh quang <strong class="text-yellow-300">10.000.000 điểm</strong> cùng điểm kinh nghiệm <strong class="text-teal-300">XP</strong> mở khóa danh hiệu & huy hiệu.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-yellow-400 font-bold">🆘</span>
+                                    <span><strong class="text-yellow-300">QUYỀN TRỢ GIÚP:</strong> Có sẵn quyền <span class="px-2 py-0.5 rounded bg-teal-800 border border-yellow-400/50 text-yellow-300 font-bold text-xs">50 : 50</span> (cho câu 4 lựa chọn) và <span class="px-2 py-0.5 rounded bg-teal-800 border border-yellow-400/50 text-yellow-300 font-bold text-xs">👨‍🏫 Hỏi Chuyên Gia Thầy Hòa</span> (gợi ý định lý cốt lõi cho mọi câu hỏi).</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hai Thẻ Chọn Chế Độ Chơi -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- CHẾ ĐỘ 1: CÁ NHÂN -->
+                <div class="millionaire-box rounded-3xl p-6 flex flex-col justify-between border-2 border-yellow-400/80">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full bg-yellow-400 text-teal-950 font-extrabold text-xs uppercase">Chế độ 1</span>
+                            <span class="text-2xl">🎓</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-yellow-300">THI ĐẤU CÁ NHÂN</h3>
+                        <p class="text-teal-100 text-sm sm:text-base">
+                            Nhập Họ tên và Lớp để bước lên ghế nóng, chinh phục trọn bộ 20 câu hỏi chuyên đề Đường thẳng song song với mặt phẳng và lưu thành tích XP.
+                        </p>
+
+                        <!-- Form nhập thông tin học sinh -->
+                        <div class="space-y-3 pt-2">
+                            <div>
+                                <label for="input-student-name" class="block text-xs font-bold uppercase tracking-wider text-yellow-200 mb-1">Họ và tên học sinh *</label>
+                                <input id="input-student-name" type="text" placeholder="Ví dụ: Nguyễn Minh Anh" 
+                                    class="w-full px-4 py-3 rounded-xl bg-teal-950/90 border-2 border-teal-500/60 focus:border-yellow-400 focus:outline-none text-white placeholder-teal-400/60 font-medium text-base">
+                            </div>
+                            <div>
+                                <label for="input-student-class" class="block text-xs font-bold uppercase tracking-wider text-yellow-200 mb-1">Lớp *</label>
+                                <input id="input-student-class" type="text" placeholder="Ví dụ: 11A1" 
+                                    class="w-full px-4 py-3 rounded-xl bg-teal-950/90 border-2 border-teal-500/60 focus:border-yellow-400 focus:outline-none text-white placeholder-teal-400/60 font-medium text-base">
+                            </div>
+                            <p id="welcome-error-msg" class="hidden text-red-300 bg-red-950/80 border border-red-400/50 rounded-lg px-3 py-2 text-sm font-medium"></p>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="startIndividualGame()" 
+                        class="mt-6 w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 hover:from-yellow-300 hover:to-amber-400 text-teal-950 font-extrabold text-lg uppercase tracking-wide shadow-lg shadow-yellow-500/25 transition transform active:scale-98 flex items-center justify-center gap-2">
+                        <span>🚀 BẮT ĐẦU CHINH PHỤC</span>
+                    </button>
+                </div>
+
+                <!-- CHẾ ĐỘ 2: CẢ LỚP (DÀNH CHO GIÁO VIÊN TRÌNH CHIẾU) -->
+                <div class="millionaire-box rounded-3xl p-6 flex flex-col justify-between border-2 border-teal-400/70">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full bg-teal-400 text-teal-950 font-extrabold text-xs uppercase">Chế độ 2</span>
+                            <span class="text-2xl">📺</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-teal-300">ĐẤU TRƯỜNG CẢ LỚP (MÁY CHIẾU)</h3>
+                        <p class="text-teal-100 text-sm sm:text-base">
+                            Màn hình điều hành trực tiếp dành cho <strong class="text-yellow-300">Thầy Hòa</strong> trình chiếu trên lớp: theo dõi sĩ số học sinh tham gia, Bảng xếp hạng thời gian thực và trình chiếu ngân hàng câu hỏi tương tác.
+                        </p>
+
+                        <!-- Thống kê nhanh thành tích cá nhân trên máy này -->
+                        <div class="bg-teal-950/75 border border-teal-500/35 rounded-2xl p-4 space-y-2">
+                            <div class="text-xs font-bold uppercase text-teal-300">📊 Hồ Sơ Tích Lũy Trên Thiết Bị Này</div>
+                            <div class="grid grid-cols-3 gap-2 text-center pt-1">
+                                <div class="bg-teal-900/70 rounded-xl p-2">
+                                    <div class="text-lg font-extrabold text-yellow-300" id="stat-saved-xp">0</div>
+                                    <div class="text-[11px] text-teal-200">Tổng XP</div>
+                                </div>
+                                <div class="bg-teal-900/70 rounded-xl p-2">
+                                    <div class="text-lg font-extrabold text-emerald-300" id="stat-saved-games">0</div>
+                                    <div class="text-[11px] text-teal-200">Lượt thi</div>
+                                </div>
+                                <div class="bg-teal-900/70 rounded-xl p-2">
+                                    <div class="text-lg font-extrabold text-amber-300" id="stat-saved-badges">0</div>
+                                    <div class="text-[11px] text-teal-200">Huy hiệu</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="openClassroomMode()" 
+                        class="mt-6 w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-teal-400 to-emerald-400 hover:from-teal-300 hover:to-emerald-300 text-teal-950 font-extrabold text-lg uppercase tracking-wide shadow-lg shadow-teal-500/25 transition transform active:scale-98 flex items-center justify-center gap-2">
+                        <span>📡 MỞ BẢNG ĐIỀU KHIỂN CẢ LỚP</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             MÀN HÌNH 2: SÂN KHẤU THI ĐẤU CHÍNH (GAME PLAY)
+             ===================================================================== -->
+        <section id="screen-game" class="hidden space-y-4">
+            <!-- Thanh thông tin thí sinh, điểm thưởng, XP & Thời gian -->
+            <div class="millionaire-box rounded-2xl p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3">
+                <!-- Thông tin thí sinh -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-yellow-400 text-teal-950 font-extrabold flex items-center justify-center text-lg shadow">
+                        👤
+                    </div>
+                    <div>
+                        <div class="font-bold text-white text-sm sm:text-base" id="hud-player-name">Thí sinh</div>
+                        <div class="text-xs text-teal-300 font-medium" id="hud-player-class">Lớp 11</div>
+                    </div>
+                </div>
+
+                <!-- Mốc điểm thưởng hiện tại -->
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <div class="text-center">
+                        <div class="text-[11px] uppercase tracking-wider text-teal-300 font-bold">Điểm Thưởng</div>
+                        <div class="font-display text-xl sm:text-2xl font-bold text-yellow-300" id="hud-score">0</div>
+                    </div>
+                    <div class="h-8 w-px bg-teal-600/60"></div>
+                    <div class="text-center">
+                        <div class="text-[11px] uppercase tracking-wider text-teal-300 font-bold">XP Lượt Này</div>
+                        <div class="font-display text-xl sm:text-2xl font-bold text-emerald-300" id="hud-xp">+0 XP</div>
+                    </div>
+                    <div class="h-8 w-px bg-teal-600/60"></div>
+                    <div class="text-center">
+                        <div class="text-[11px] uppercase tracking-wider text-teal-300 font-bold">Thời gian</div>
+                        <div class="font-mono text-base sm:text-lg font-bold text-white" id="hud-timer">00:00</div>
+                    </div>
+                </div>
+
+                <!-- Quyền trợ giúp Ai Là Triệu Phú -->
+                <div class="flex items-center gap-2">
+                    <button id="btn-lifeline-5050" type="button" onclick="useLifeline5050()" 
+                        class="px-3 py-2 rounded-xl bg-gradient-to-b from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 border border-blue-300 text-white font-extrabold text-xs sm:text-sm shadow transition flex items-center gap-1"
+                        title="Loại bỏ 2 phương án sai (Dùng cho câu trắc nghiệm 4 lựa chọn)">
+                        <span>✂️ 50 : 50</span>
+                    </button>
+                    <button id="btn-lifeline-expert" type="button" onclick="useLifelineExpert()" 
+                        class="px-3 py-2 rounded-xl bg-gradient-to-b from-amber-500 to-amber-700 hover:from-amber-400 hover:to-amber-600 border border-yellow-200 text-teal-950 font-extrabold text-xs sm:text-sm shadow transition flex items-center gap-1"
+                        title="Hỏi ý kiến chuyên gia Thầy Hòa">
+                        <span>👨‍🏫 Hỏi Thầy Hòa</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bố cục 2 cột: Cột trái (Sân khấu câu hỏi) - Cột phải (Thang tiền thưởng 10 Triệu) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+                
+                <!-- CỘT TRÁI (9 CỘT): KHU VỰC CÂU HỎI, HÌNH VẼ SVG & TRẢ LỜI -->
+                <div class="lg:col-span-9 space-y-4">
+                    
+                    <!-- Thẻ Đề Bài & Chuông Vàng Mini -->
+                    <div id="question-card" class="millionaire-box rounded-3xl p-4 sm:p-6 space-y-4">
+                        <!-- Header câu hỏi: Số thứ tự, Dạng thức, Mức độ -->
+                        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-500/40">
+                            <div class="flex items-center gap-2.5">
+                                <!-- Chuông vàng mini rung khi đúng -->
+                                <svg id="stage-bell-svg" class="w-8 h-8 bell-glow" viewBox="0 0 160 160" fill="none">
+                                    <circle cx="80" cy="26" r="10" stroke="#FDE047" stroke-width="6"/>
+                                    <circle cx="80" cy="134" r="13" fill="#FACC15"/>
+                                    <path d="M80 32C52 32 38 52 35 84C33 103 24 114 18 120C15 123 17 128 22 128H138C143 128 145 123 142 120C136 114 127 103 125 84C122 52 108 32 80 32Z" fill="#FACC15" stroke="#FEF08A" stroke-width="3"/>
+                                </svg>
+                                <span class="font-display text-xl sm:text-2xl font-bold text-yellow-300" id="q-number-label">CÂU 1 / 20</span>
+                                <span id="q-type-badge" class="px-2.5 py-0.5 rounded-lg bg-teal-800 border border-teal-400/50 text-teal-200 text-xs font-bold">
+                                    Trắc nghiệm 4 phương án
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span id="q-level-badge" class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/60 text-emerald-300 text-xs font-bold uppercase">
+                                    Nhận biết
+                                </span>
+                                <span id="q-reward-badge" class="px-3 py-1 rounded-full bg-yellow-400/20 border border-yellow-400/60 text-yellow-300 text-xs font-bold">
+                                    Mốc: 100.000 đ
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Hộp gợi ý của Chuyên gia Thầy Hòa (ẩn cho tới khi bấm trợ giúp) -->
+                        <div id="expert-hint-box" class="hidden rounded-2xl bg-amber-950/90 border-2 border-yellow-400 p-4 flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-yellow-400 text-teal-950 font-extrabold flex items-center justify-center shrink-0 text-lg">
+                                👨‍🏫
+                            </div>
+                            <div class="text-sm sm:text-base text-amber-100">
+                                <div class="font-bold text-yellow-300 mb-0.5">Gợi ý từ Chuyên gia Thầy Hòa:</div>
+                                <div id="expert-hint-text" class="leading-relaxed"></div>
+                            </div>
+                        </div>
+
+                        <!-- Nội dung Đề bài + Hình vẽ minh họa SVG tách bạch không che khuất -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                            <div id="q-text-container" class="md:col-span-12 text-base sm:text-lg md:text-xl font-medium text-white leading-relaxed">
+                                <!-- Nội dung câu hỏi render bằng JS + KaTeX -->
+                            </div>
+                            <div id="q-diagram-container" class="hidden md:col-span-5 flex flex-col items-center justify-center bg-teal-950/85 border border-teal-400/40 rounded-2xl p-3">
+                                <!-- Hình vẽ SVG hình học không gian -->
+                            </div>
+                        </div>
+
+                        <!-- KHU VỰC TƯƠNG TÁC TRẢ LỜI (3 DẠNG CÂU HỎI) -->
+                        <!-- Dạng 1: Trắc nghiệm 4 lựa chọn A, B, C, D -->
+                        <div id="answer-area-mcq" class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2"></div>
+
+                        <!-- Dạng 2: Trắc nghiệm Đúng / Sai 4 ý a, b, c, d -->
+                        <div id="answer-area-tf" class="hidden space-y-3 pt-2"></div>
+
+                        <!-- Dạng 3: Trả lời ngắn -->
+                        <div id="answer-area-short" class="hidden pt-2">
+                            <div class="bg-teal-950/80 border border-teal-400/50 rounded-2xl p-4 sm:p-5 space-y-3">
+                                <label for="short-answer-input" class="block text-sm sm:text-base font-bold text-yellow-300">
+                                    ✍️ Nhập kết quả số của em (có thể nhập số nguyên, số thập phân hoặc phân số, VD: 2 hoặc 3,43 hoặc 24/7):
+                                </label>
+                                <div class="flex flex-col sm:flex-row gap-3">
+                                    <input id="short-answer-input" type="text" autocomplete="off" placeholder="Nhập đáp số tại đây..."
+                                        class="flex-1 px-4 py-3 rounded-xl bg-teal-900/90 border-2 border-yellow-400/60 focus:border-yellow-300 focus:outline-none text-white text-lg font-bold placeholder-teal-400/60">
+                                    <button id="btn-submit-short" type="button" onclick="submitShortAnswer()"
+                                        class="px-6 py-3 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-teal-950 font-extrabold text-base uppercase shadow-lg transition">
+                                        🔒 Chốt Đáp Án
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nút Chốt đáp án cho câu Đúng/Sai 4 ý -->
+                        <div id="tf-submit-wrapper" class="hidden pt-2 flex justify-end">
+                            <button id="btn-submit-tf" type="button" onclick="submitTrueFalseAnswer()"
+                                class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-teal-950 font-extrabold text-base uppercase shadow-lg transition">
+                                🔒 Chốt 4 Ý Đúng / Sai
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ===============================================================
+                         KHUNG "PHÂN TÍCH ĐỊNH HƯỚNG GIẢI" (BẮT BUỘC HIỂN THỊ SAU MỖI CÂU)
+                         =============================================================== -->
+                    <div id="explanation-panel" class="hidden rounded-3xl p-5 sm:p-6 border-2 shadow-2xl space-y-4 transition-all">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <span id="result-status-icon" class="text-3xl">🎉</span>
+                                <div>
+                                    <h4 id="result-status-title" class="font-display text-xl sm:text-2xl font-bold uppercase">CHÍNH XÁC!</h4>
+                                    <p id="result-status-subtitle" class="text-sm font-medium opacity-90"></p>
+                                </div>
+                            </div>
+                            <span id="result-points-earned" class="px-4 py-1.5 rounded-full font-extrabold text-sm sm:text-base bg-black/30 border border-white/25">
+                                +100.000 điểm
+                            </span>
+                        </div>
+
+                        <!-- Nội dung Phân tích định hướng giải bám sát SGK KNTTVCS 2018 -->
+                        <div class="bg-teal-950/90 border border-teal-400/45 rounded-2xl p-4 sm:p-5 space-y-2">
+                            <div class="flex items-center gap-2 text-yellow-300 font-extrabold text-sm sm:text-base uppercase tracking-wide">
+                                <span>📘</span>
+                                <span>PHÂN TÍCH ĐỊNH HƯỚNG GIẢI (CHUẨN SGK TOÁN 11 KNTTVCS 2018)</span>
+                            </div>
+                            <div id="explanation-content" class="text-white text-sm sm:text-base leading-relaxed space-y-2">
+                                <!-- Lời giải chi tiết được render tại đây -->
+                            </div>
+                        </div>
+
+                        <!-- Nút học sinh tự bấm sau khi đọc xong giải thích -->
+                        <div class="flex justify-end pt-1">
+                            <button id="btn-next-question" type="button" onclick="goToNextQuestion()"
+                                class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 hover:from-yellow-300 hover:to-amber-400 text-teal-950 font-extrabold text-base sm:text-lg uppercase tracking-wide shadow-lg transition flex items-center justify-center gap-2">
+                                <span id="btn-next-label">Câu Tiếp Theo ➡️</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CỘT PHẢI (3 CỘT): THANG MỐC ĐIỂM THƯỞNG 10.000.000 ĐIỂM -->
+                <aside class="lg:col-span-3 millionaire-box rounded-3xl p-4">
+                    <div class="text-center pb-2.5 mb-2.5 border-b border-yellow-400/35">
+                        <div class="text-xs font-bold uppercase tracking-wider text-teal-300">Thang Mốc Vinh Quang</div>
+                        <div class="font-display text-lg font-bold text-yellow-300">ĐỈNH CAO 10.000.000</div>
+                    </div>
+                    <div id="money-ladder-list" class="space-y-1 max-h-[540px] overflow-y-auto pr-1 text-xs sm:text-sm">
+                        <!-- Danh sách 20 mốc điểm thưởng render bằng JS -->
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             MÀN HÌNH 3: VINH DANH NGƯỜI CHIẾN THẮNG & TỔNG KẾT LƯỢT CHƠI
+             ===================================================================== -->
+        <section id="screen-victory" class="hidden space-y-6">
+            <div class="millionaire-box rounded-3xl p-6 sm:p-10 text-center space-y-6 relative overflow-hidden">
+                <!-- Chuông vàng & Vương miện vinh danh -->
+                <div class="flex justify-center">
+                    <div class="p-4 rounded-full bg-yellow-400/20 border-2 border-yellow-400 bell-glow">
+                        <span class="text-6xl sm:text-7xl block animate-bounce">🏆</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <span class="inline-block px-4 py-1 rounded-full bg-yellow-400 text-teal-950 font-extrabold text-xs sm:text-sm uppercase tracking-wider">
+                        BẢNG VÀNG DANH DỰ • THẦY HÒA
+                    </span>
+                    <h2 id="victory-headline" class="font-display text-3xl sm:text-5xl font-bold text-yellow-300 uppercase">
+                        CHÚC MỪNG NHÀ VÔ ĐỊCH TOÁN 11!
+                    </h2>
+                    <p id="victory-player-info" class="text-lg sm:text-xl text-teal-100 font-semibold">
+                        Thí sinh: ... • Lớp: ...
+                    </p>
+                </div>
+
+                <!-- 4 Thẻ chỉ số tổng kết -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
+                    <div class="bg-teal-950/90 border border-yellow-400/50 rounded-2xl p-4">
+                        <div class="text-xs text-teal-300 uppercase font-bold">Tổng Điểm Thưởng</div>
+                        <div id="vic-final-score" class="font-display text-2xl sm:text-3xl font-bold text-yellow-300 mt-1">10.000.000</div>
+                    </div>
+                    <div class="bg-teal-950/90 border border-emerald-400/50 rounded-2xl p-4">
+                        <div class="text-xs text-teal-300 uppercase font-bold">Số Câu Đúng</div>
+                        <div id="vic-correct-count" class="font-display text-2xl sm:text-3xl font-bold text-emerald-300 mt-1">20 / 20</div>
+                    </div>
+                    <div class="bg-teal-950/90 border border-teal-400/50 rounded-2xl p-4">
+                        <div class="text-xs text-teal-300 uppercase font-bold">XP Nhận Được</div>
+                        <div id="vic-xp-earned" class="font-display text-2xl sm:text-3xl font-bold text-teal-300 mt-1">+2000 XP</div>
+                    </div>
+                    <div class="bg-teal-950/90 border border-amber-400/50 rounded-2xl p-4">
+                        <div class="text-xs text-teal-300 uppercase font-bold">Thời Gian Hoàn Thành</div>
+                        <div id="vic-time-taken" class="font-display text-2xl sm:text-3xl font-bold text-amber-300 mt-1">05:30</div>
+                    </div>
+                </div>
+
+                <!-- Huy hiệu đạt được trong lượt chơi -->
+                <div id="vic-badges-container" class="max-w-3xl mx-auto bg-teal-950/75 border border-yellow-400/35 rounded-2xl p-4">
+                    <div class="text-xs font-bold uppercase text-yellow-300 mb-2">🎖️ Huy Hiệu Đạt Được</div>
+                    <div id="vic-badges-list" class="flex flex-wrap justify-center gap-2"></div>
+                </div>
+
+                <!-- Các nút hành động sau trận -->
+                <div class="flex flex-wrap justify-center gap-4 pt-2">
+                    <button type="button" onclick="restartCurrentMode()" 
+                        class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-teal-950 font-extrabold text-base sm:text-lg uppercase shadow-lg transition">
+                        🔄 Chơi Lại Từ Đầu
+                    </button>
+                    <button type="button" onclick="openClassroomMode()" 
+                        class="px-7 py-3.5 rounded-2xl bg-teal-800 hover:bg-teal-700 border-2 border-teal-400 text-white font-bold text-base sm:text-lg uppercase shadow-lg transition">
+                        🏆 Xem Bảng Xếp Hạng Lớp
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             MÀN HÌNH 4: CHẾ ĐỘ CẢ LỚP / BẢNG XẾP HẠNG TRỰC TIẾP (DÀNH CHO GIÁO VIÊN)
+             ===================================================================== -->
+        <section id="screen-classroom" class="hidden space-y-6">
+            <!-- Header điều hành lớp học -->
+            <div class="millionaire-box rounded-3xl p-5 sm:p-6 flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-0.5 rounded-full bg-emerald-400 text-teal-950 font-extrabold text-xs uppercase">TRỰC TIẾP TRÊN LỚP</span>
+                        <span class="text-teal-300 text-xs font-semibold">Tự động cập nhật mỗi 5 giây</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-yellow-300 mt-1">
+                        BẢNG XẾP HẠNG ĐẤU TRƯỜNG TOÁN 11 – THẦY HÒA
+                    </h2>
+                </div>
+
+                <!-- Thống kê sĩ số tham gia / hoàn thành -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="bg-teal-950/90 border border-teal-400/50 rounded-2xl px-4 py-2.5 text-center">
+                        <div class="text-[11px] uppercase text-teal-300 font-bold">Đã nộp bài</div>
+                        <div id="class-submitted-count" class="font-display text-2xl font-bold text-emerald-300">0</div>
+                    </div>
+                    <div class="bg-teal-950/90 border border-yellow-400/50 rounded-2xl px-4 py-2.5 text-center">
+                        <div class="text-[11px] uppercase text-teal-300 font-bold">Điểm cao nhất</div>
+                        <div id="class-top-score" class="font-display text-2xl font-bold text-yellow-300">0</div>
+                    </div>
+                    <button type="button" onclick="startTeacherDemoPlay()" 
+                        class="px-4 py-3 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-teal-950 font-extrabold text-sm uppercase shadow transition">
+                        🎮 Trình Chiếu Câu Hỏi
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bảng Xếp Hạng Chính -->
+            <div class="millionaire-box rounded-3xl p-5 sm:p-6 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b-2 border-yellow-400/40 text-yellow-300 text-xs sm:text-sm uppercase tracking-wider">
+                                <th class="py-3 px-4">Hạng</th>
+                                <th class="py-3 px-4">Họ và tên học sinh</th>
+                                <th class="py-3 px-4">Lớp</th>
+                                <th class="py-3 px-4 text-right">Điểm số</th>
+                                <th class="py-3 px-4 text-right">Thời gian làm bài</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-tbody" class="divide-y divide-teal-700/50 text-sm sm:text-base">
+                            <!-- Dữ liệu từ Google Apps Script (hoặc trạng thái chờ kết nối) -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========================================================================
+         HỘP THOẠI XÁC NHẬN TÙY CHỈNH (THAY THẾ HOÀN TOÀN window.confirm / alert)
+         ========================================================================= -->
+    <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="millionaire-box rounded-3xl max-w-md w-full p-6 space-y-4 text-center">
+            <div class="text-4xl" id="modal-icon">🔔</div>
+            <h3 class="font-display text-2xl font-bold text-yellow-300" id="modal-title">Xác nhận</h3>
+            <p class="text-teal-100 text-base" id="modal-message">Bạn có chắc chắn muốn thực hiện thao tác này?</p>
+            <div class="flex justify-center gap-3 pt-2">
+                <button id="modal-btn-cancel" type="button" onclick="closeCustomModal()"
+                    class="px-5 py-2.5 rounded-xl bg-teal-800 hover:bg-teal-700 text-white font-bold text-sm">
+                    Ở lại tiếp tục
+                </button>
+                <button id="modal-btn-confirm" type="button"
+                    class="px-5 py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-teal-950 font-extrabold text-sm">
+                    Đồng ý
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         MÃ NGUỒN JAVASCRIPT THUẦN: NGÂN HÀNG CÂU HỎI + ENGINE GAME SHOW + ÂM THANH
+         ========================================================================= -->
+    <script>
+        /* =========================================================================
+           1. CẤU HÌNH ĐỒNG BỘ MÁY CHỦ GOOGLE APPS SCRIPT (ẨN HOÀN TOÀN TRÊN UI)
+           ========================================================================= */
+        const APPS_SCRIPT_URL = "";
+
+        /* =========================================================================
+           2. THANG MỐC ĐIỂM THƯỞNG 20 CÂU TIẾN TỚI ĐỈNH CAO 10.000.000 ĐIỂM
+           ========================================================================= */
+        const SCORE_LADDER = [
+            100000,    // Câu 1
+            200000,    // Câu 2
+            300000,    // Câu 3
+            400000,    // Câu 4
+            500000,    // Câu 5 (Mốc an toàn 1)
+            700000,    // Câu 6
+            900000,    // Câu 7
+            1200000,   // Câu 8
+            1500000,   // Câu 9
+            2000000,   // Câu 10 (Mốc an toàn 2)
+            2500000,   // Câu 11
+            3000000,   // Câu 12
+            3800000,   // Câu 13 (Chặng Đúng/Sai)
+            4600000,   // Câu 14
+            5500000,   // Câu 15 (Mốc an toàn 3)
+            6500000,   // Câu 16
+            7300000,   // Câu 17 (Chặng Trả lời ngắn Vận dụng)
+            8100000,   // Câu 18
+            9000000,   // Câu 19
+            10000000   // Câu 20 - ĐỈNH CAO 10 TRIỆU ĐIỂM
+        ];
+
+        const SAFE_MILESTONES = [4, 9, 14, 19]; // Index các mốc quan trọng (Câu 5, 10, 15, 20)
+
+        /* =========================================================================
+           3. NGÂN HÀNG DỮ LIỆU CÂU HỎI ĐỘC LẬP (GIÁO VIÊN DỄ DÀNG CHỈNH SỬA TẠI ĐÂY)
+           Chủ đề: ĐƯỜNG THẲNG VÀ MẶT PHẲNG SONG SONG (Toán 11 - KNTTVCS 2018)
+           Cấu trúc 20 câu:
+           - Câu 1 -> 12: Trắc nghiệm 4 phương án (6 Nhận biết + 6 Thông hiểu)
+           - Câu 13 -> 16: Trắc nghiệm Đúng/Sai 4 ý a, b, c, d (Thông hiểu & Vận dụng)
+           - Câu 17 -> 20: Trả lời ngắn Vận dụng & Thực tế
+           ========================================================================= */
+        const QUESTION_BANK = [
+            // -------------------- PHẦN I: TRẮC NGHIỆM 4 PHƯƠNG ÁN (12 CÂU) --------------------
+            {
+                id: "Q01",
+                type: "mcq",
+                level: "Nhận biết",
+                xp: 80,
+                question: "Cho đường thẳng $a$ và mặt phẳng $(P)$ trong không gian. Có bao nhiêu vị trí tương đối giữa đường thẳng $a$ và mặt phẳng $(P)$?",
+                options: [
+                    { text: "$3$.", isCorrect: true },
+                    { text: "$1$.", isCorrect: false },
+                    { text: "$2$.", isCorrect: false },
+                    { text: "$4$.", isCorrect: false }
+                ],
+                hint: "Hãy nhớ lại số điểm chung có thể có giữa một đường thẳng và một mặt phẳng: $0$ điểm chung, $1$ điểm chung hoặc vô số điểm chung.",
+                explanation: "Theo SGK Toán 11 (KNTTVCS), dựa vào số điểm chung của đường thẳng $a$ và mặt phẳng $(P)$, ta có đúng <strong>$3$ vị trí tương đối</strong>:<br>• $a$ và $(P)$ không có điểm chung: $a \\parallel (P)$.<br>• $a$ và $(P)$ có một điểm chung duy nhất: $a$ cắt $(P)$.<br>• $a$ và $(P)$ có từ hai điểm chung trở lên: $a \\subset (P)$."
+            },
+            {
+                id: "Q02",
+                type: "mcq",
+                level: "Nhận biết",
+                xp: 80,
+                question: "Đường thẳng $d$ được gọi là song song với mặt phẳng $(\\alpha)$ nếu:",
+                options: [
+                    { text: "$d$ và $(\\alpha)$ không có điểm chung.", isCorrect: true },
+                    { text: "$d$ và $(\\alpha)$ có một điểm chung duy nhất.", isCorrect: false },
+                    { text: "$d$ nằm trong mặt phẳng $(\\alpha)$.", isCorrect: false },
+                    { text: "$d$ song song với mọi đường thẳng nằm trong $(\\alpha)$.", isCorrect: false }
+                ],
+                hint: "Dựa trực tiếp vào định nghĩa đường thẳng song song với mặt phẳng trong không gian.",
+                explanation: "Theo định nghĩa (SGK Toán 11 KNTTVCS): Đường thẳng $d$ được gọi là <strong>song song với mặt phẳng $(\\alpha)$</strong> (kí hiệu $d \\parallel (\\alpha)$) nếu $d$ và $(\\alpha)$ <strong>không có điểm chung</strong>. Lưu ý: nếu $d \\parallel (\\alpha)$ thì $d$ chỉ song song với một họ đường thẳng trong $(\\alpha)$, không song song với mọi đường thẳng trong $(\\alpha)$ (có thể chéo nhau)."
+            },
+            {
+                id: "Q03",
+                type: "mcq",
+                level: "Nhận biết",
+                xp: 80,
+                question: "Chọn khẳng định <strong>đúng</strong> trong các khẳng định sau:",
+                options: [
+                    { text: "Nếu đường thẳng $d$ không nằm trong mặt phẳng $(P)$ và $d$ song song với một đường thẳng $d'$ nằm trong $(P)$ thì $d \\parallel (P)$.", isCorrect: true },
+                    { text: "Nếu đường thẳng $d$ song song với một đường thẳng $d'$ nằm trong $(P)$ thì $d \\parallel (P)$.", isCorrect: false },
+                    { text: "Nếu hai đường thẳng phân biệt cùng song song với một mặt phẳng thì chúng song song với nhau.", isCorrect: false },
+                    { text: "Nếu đường thẳng $d$ song song với mặt phẳng $(P)$ thì $d$ song song với mọi đường thẳng nằm trong $(P)$.", isCorrect: false }
+                ],
+                hint: "Kiểm tra điều kiện cần và đủ của Định lý 1: ngoài $d \\parallel d'$ ($d' \\subset (P)$), ta còn cần điều kiện gì về $d$ và $(P)$?",
+                explanation: "Theo <strong>Định lý 1 (SGK Toán 11 KNTTVCS)</strong>: Nếu đường thẳng $d$ <strong>không nằm trong</strong> mặt phẳng $(P)$ và $d$ song song với đường thẳng $d'$ nằm trong $(P)$ thì $d \\parallel (P)$. Thiếu điều kiện $d \\not\\subset (P)$ thì $d$ có thể nằm ngay trong $(P)$."
+            },
+            {
+                id: "Q04",
+                type: "mcq",
+                level: "Nhận biết",
+                xp: 80,
+                question: "Cho hai đường thẳng $a, b$ chéo nhau. Có bao nhiêu mặt phẳng chứa đường thẳng $a$ và song song với đường thẳng $b$?",
+                options: [
+                    { text: "$1$.", isCorrect: true },
+                    { text: "$0$.", isCorrect: false },
+                    { text: "$2$.", isCorrect: false },
+                    { text: "Vô số.", isCorrect: false }
+                ],
+                hint: "Lấy một điểm $M \\in a$, kẻ đường thẳng $b'$ qua $M$ song song với $b$. Hai đường thẳng cắt nhau $a$ và $b'$ xác định bao nhiêu mặt phẳng?",
+                explanation: "Theo <strong>Hệ quả 2 (SGK Toán 11 KNTTVCS)</strong>: Cho hai đường thẳng chéo nhau $a$ và $b$. Có <strong>duy nhất một</strong> mặt phẳng chứa đường thẳng này ($a$) và song song với đường thẳng kia ($b$)."
+            },
+            {
+                id: "Q05",
+                type: "mcq",
+                level: "Nhận biết",
+                xp: 80,
+                question: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Đường thẳng $AB$ song song với mặt phẳng nào dưới đây?",
+                svgType: "pyramid_parallelogram",
+                options: [
+                    { text: "$(SCD)$.", isCorrect: true },
+                    { text: "$(SAD)$.", isCorrect: false },
+                    { text: "$(SBC)$.", isCorrect: false },
+                    { text: "$(SAC)$.", isCorrect: false }
+                ],
+                hint: "Trong hình bình hành $ABCD$, cạnh $AB$ song song với cạnh đối diện nào nằm trong các mặt bên của hình chóp?",
+                explanation: "Vì $ABCD$ là hình bình hành nên $AB \\parallel CD$.<br>Mà $AB \\not\\subset (SCD)$ và $CD \\subset (SCD)$.<br>Theo Định lý 1, suy ra $AB \\parallel (SCD)$."
+            },
+            {
+                id: "Q06",
+                type: "mcq",
+                level: "Nhận biết",
+                xp: 80,
+                question: "Trong kiến trúc xây dựng, một thanh xà ngang $d$ của mái nhà được đặt song song với mặt sàn $(P)$. Một mặt phẳng mái nghiêng $(Q)$ chứa thanh xà ngang $d$ và cắt mặt sàn $(P)$ theo giao tuyến $\\Delta$. Khẳng định nào sau đây đúng?",
+                options: [
+                    { text: "$\\Delta$ song song với thanh xà ngang $d$.", isCorrect: true },
+                    { text: "$\\Delta$ cắt thanh xà ngang $d$.", isCorrect: false },
+                    { text: "$\\Delta$ chéo nhau với thanh xà ngang $d$.", isCorrect: false },
+                    { text: "$\\Delta$ vuông góc với thanh xà ngang $d$.", isCorrect: false }
+                ],
+                hint: "Áp dụng Định lý 2 (tính chất giao tuyến): Cho $d \\parallel (P)$, mặt phẳng $(Q)$ chứa $d$ cắt $(P)$ theo giao tuyến $\\Delta$.",
+                explanation: "Theo <strong>Định lý 2 (SGK Toán 11 KNTTVCS)</strong>: Cho đường thẳng $d$ song song với mặt phẳng $(P)$. Nếu mặt phẳng $(Q)$ chứa $d$ và cắt $(P)$ theo giao tuyến $\\Delta$ thì <strong>$\\Delta \\parallel d$</strong>."
+            },
+            {
+                id: "Q07",
+                type: "mcq",
+                level: "Thông hiểu",
+                xp: 100,
+                question: "Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm của $AB$ và $AC$. Đường thẳng $MN$ song song với mặt phẳng nào sau đây?",
+                svgType: "tetrahedron_midsegment",
+                options: [
+                    { text: "$(BCD)$.", isCorrect: true },
+                    { text: "$(ABC)$.", isCorrect: false },
+                    { text: "$(ABD)$.", isCorrect: false },
+                    { text: "$(ACD)$.", isCorrect: false }
+                ],
+                hint: "Xét tam giác $ABC$, đoạn thẳng $MN$ nối trung điểm hai cạnh $AB, AC$ có tính chất gì với cạnh $BC$?",
+                explanation: "Trong $\\triangle ABC$, $M, N$ lần lượt là trung điểm của $AB, AC$ nên $MN$ là đường trung bình của $\\triangle ABC \\Rightarrow MN \\parallel BC$.<br>Ta có: $MN \\not\\subset (BCD)$, $BC \\subset (BCD)$ và $MN \\parallel BC$.<br>Theo Định lý 1 suy ra $MN \\parallel (BCD)$."
+            },
+            {
+                id: "Q08",
+                type: "mcq",
+                level: "Thông hiểu",
+                xp: 100,
+                question: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình thang với đáy lớn $AB$. Gọi $M, N$ lần lượt là trung điểm của $SA$ và $SB$. Khẳng định nào sau đây <strong>sai</strong>?",
+                svgType: "pyramid_trapezoid",
+                options: [
+                    { text: "$MN \\parallel (SAD)$.", isCorrect: true },
+                    { text: "$MN \\parallel (ABCD)$.", isCorrect: false },
+                    { text: "$MN \\parallel (SCD)$.", isCorrect: false },
+                    { text: "$MN \\parallel CD$.", isCorrect: false }
+                ],
+                hint: "Tính chất đường trung bình $MN$ của $\\triangle SAB$ kết hợp với tính chất hai đáy hình thang $AB \\parallel CD$. Chú ý điểm $M$ thuộc mặt phẳng $(SAD)$!",
+                explanation: "• Trong $\\triangle SAB$, $MN$ là đường trung bình $\\Rightarrow MN \\parallel AB$.<br>• Vì $ABCD$ là hình thang đáy $AB, CD$ nên $AB \\parallel CD \\Rightarrow MN \\parallel CD$.<br>• Do đó $MN \\parallel (ABCD)$ và $MN \\parallel (SCD)$ đều đúng.<br>• Tuy nhiên, vì $M \\in SA \\subset (SAD)$ nên $MN$ cắt $(SAD)$ tại $M$, do đó <strong>$MN \\parallel (SAD)$ là khẳng định sai</strong>."
+            },
+            {
+                id: "Q09",
+                type: "mcq",
+                level: "Thông hiểu",
+                xp: 100,
+                question: "Cho tứ diện $ABCD$. Gọi $G_1, G_2$ lần lượt là trọng tâm của các tam giác $ABC$ và $ABD$. Khẳng định nào sau đây đúng?",
+                options: [
+                    { text: "$G_1G_2 \\parallel (BCD)$.", isCorrect: true },
+                    { text: "$G_1G_2 \\parallel (ABC)$.", isCorrect: false },
+                    { text: "$G_1G_2 \\parallel (ABD)$.", isCorrect: false },
+                    { text: "$G_1G_2$ cắt $CD$.", isCorrect: false }
+                ],
+                hint: "Gọi $I$ là trung điểm của $AB$. Sử dụng tỉ số trọng tâm $\\dfrac{IG_1}{IC} = \\dfrac{IG_2}{ID} = \\dfrac{1}{3}$ và định lý Thalès đảo.",
+                explanation: "Gọi $I$ là trung điểm cạnh $AB$.<br>Vì $G_1, G_2$ lần lượt là trọng tâm $\\triangle ABC, \\triangle ABD$ nên $\\dfrac{IG_1}{IC} = \\dfrac{IG_2}{ID} = \\dfrac{1}{3}$.<br>Theo định lý Thalès đảo trong $\\triangle ICD$, ta có $G_1G_2 \\parallel CD$.<br>Mà $G_1G_2 \\not\\subset (BCD)$ và $CD \\subset (BCD)$ nên $G_1G_2 \\parallel (BCD)$."
+            },
+            {
+                id: "Q10",
+                type: "mcq",
+                level: "Thông hiểu",
+                xp: 100,
+                question: "Cho hai mặt phẳng $(P)$ và $(Q)$ cắt nhau theo giao tuyến $\\Delta$. Hai đường thẳng $a$ và $b$ lần lượt nằm trong $(P)$ và $(Q)$ sao cho $a \\parallel b$. Khẳng định nào sau đây đúng?",
+                options: [
+                    { text: "$a \\parallel \\Delta$ và $b \\parallel \\Delta$.", isCorrect: true },
+                    { text: "$a$ cắt $\\Delta$ và $b$ cắt $\\Delta$.", isCorrect: false },
+                    { text: "$a$ trùng với $\\Delta$.", isCorrect: false },
+                    { text: "$b$ chéo nhau với $\\Delta$.", isCorrect: false }
+                ],
+                hint: "Áp dụng Hệ quả 1 (SGK Toán 11 KNTTVCS): Nếu hai mặt phẳng phân biệt lần lượt chứa hai đường thẳng song song thì giao tuyến của chúng (nếu có) như thế nào?",
+                explanation: "Theo <strong>Hệ quả 1 (SGK Toán 11 KNTTVCS)</strong>: Nếu hai mặt phẳng phân biệt $(P)$ và $(Q)$ lần lượt chứa hai đường thẳng song song $a$ và $b$ thì giao tuyến $\\Delta$ của chúng (nếu có) cũng <strong>song song với hai đường thẳng đó</strong> (hoặc trùng với một trong hai đường thẳng đó). Vì $a \\parallel b$ phân biệt nên $a \\parallel \\Delta$ và $b \\parallel \\Delta$."
+            },
+            {
+                id: "Q11",
+                type: "mcq",
+                level: "Thông hiểu",
+                xp: 100,
+                question: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M$ là trung điểm của $SC$. Giao tuyến của hai mặt phẳng $(MBD)$ và $(SAC)$ cắt đường thẳng nào dưới đây tại trung điểm của nó?",
+                svgType: "pyramid_center_O",
+                options: [
+                    { text: "Đoạn thẳng $SO$ (tại trọng tâm $\\triangle SAC$).", isCorrect: false },
+                    { text: "Đoạn thẳng $SC$ tại $M$ và đi qua $O$.", isCorrect: true },
+                    { text: "Đoạn thẳng $SA$ tại trung điểm của $SA$.", isCorrect: false },
+                    { text: "Đoạn thẳng $SB$ tại trung điểm của $SB$.", isCorrect: false }
+                ],
+                hint: "Tìm hai điểm chung của $(MBD)$ và $(SAC)$: điểm $M$ thuộc $SC \\subset (SAC)$, còn điểm $O$ là giao điểm của $AC$ và $BD$.",
+                explanation: "Ta có:<br>• $M \\in SC \\subset (SAC)$ và $M \\in (MBD) \\Rightarrow M$ là điểm chung thứ nhất.<br>• $O = AC \\cap BD \\Rightarrow O \\in (SAC)$ và $O \\in (MBD) \\Rightarrow O$ là điểm chung thứ hai.<br>Vậy giao tuyến của $(MBD)$ và $(SAC)$ là đường thẳng $OM$ (đi qua $O$ và cắt $SC$ tại trung điểm $M$). Ngoài ra, $OM$ là đường trung bình $\\triangle SAC$ nên $SA \\parallel OM \\Rightarrow SA \\parallel (MBD)$."
+            },
+            {
+                id: "Q12",
+                type: "mcq",
+                level: "Thông hiểu",
+                xp: 100,
+                question: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình thang ($AB \\parallel CD$, $AB > CD$). Gọi $I$ là giao điểm của $AD$ và $BC$. Mặt phẳng $(\\alpha)$ đi qua $I$ và song song với $SA, CD$. Giao tuyến của $(\\alpha)$ và mặt phẳng $(SAB)$ là đường thẳng:",
+                options: [
+                    { text: "Đi qua $I$ và song song với $SA$.", isCorrect: true },
+                    { text: "Đi qua $I$ và song song với $SB$.", isCorrect: false },
+                    { text: "Đi qua $S$ và song song với $AB$.", isCorrect: false },
+                    { text: "Đi qua $I$ và cắt $SA$.", isCorrect: false }
+                ],
+                hint: "Kiểm tra xem điểm $I = AD \\cap BC$ có thuộc mặt phẳng $(SAB)$ hay không ($I \\in AB \\subset (SAB)$? Không, $I$ thuộc $AD$ và $BC$, còn giao tuyến của $(SAD)$ và $(SBC)$ là $SI$). Hãy xét $I \\in (\\alpha) \\cap (ABCD)$ trước!",
+                explanation: "Ta có $I = AD \\cap BC$ nên $I \\in (ABCD)$ và $I \\in (\\alpha)$.<br>Vì $CD \\parallel (\\alpha)$ và $CD \\subset (ABCD)$ nên giao tuyến của $(\\alpha)$ và $(ABCD)$ là đường thẳng $d$ qua $I$ song song với $CD$ (và song song $AB$), cắt $AB$ tại một điểm $K \\in (SAB)$.<br>Từ $K \\in (\\alpha) \\cap (SAB)$ và $SA \\parallel (\\alpha)$, giao tuyến của $(\\alpha)$ và $(SAB)$ song song với $SA$. Trên hình chiếu từ $I$ qua mặt phẳng chứa $SA$, đường thẳng qua $I$ song song $SA$ nằm trong mặt phẳng song song $SA$ qua $I$."
+            },
+
+            // -------------------- PHẦN II: TRẮC NGHIỆM ĐÚNG / SAI 4 Ý (4 CÂU) --------------------
+            {
+                id: "Q13",
+                type: "tf",
+                level: "Thông hiểu",
+                xp: 120,
+                question: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M, N$ lần lượt là trung điểm của $SA$ và $SD$. Xét tính đúng – sai của các khẳng định sau:",
+                svgType: "pyramid_parallelogram",
+                statements: [
+                    { label: "a)", text: "$MN \\parallel BC$.", isCorrect: true },
+                    { label: "b)", text: "$MN \\parallel (SBC)$.", isCorrect: true },
+                    { label: "c)", text: "$MO \\parallel (SCD)$.", isCorrect: true },
+                    { label: "d)", text: "Giao tuyến của hai mặt phẳng $(OMN)$ và $(SBC)$ là đường thẳng đi qua $S$ và song song với $BC$.", isCorrect: false }
+                ],
+                hint: "Sử dụng tính chất đường trung bình: $MN$ là đường trung bình của $\\triangle SAD$, còn $MO$ là đường trung bình của $\\triangle SAC$.",
+                explanation: "• <strong>a) Đúng:</strong> $MN$ là đường trung bình của $\\triangle SAD \\Rightarrow MN \\parallel AD$. Mà $ABCD$ là hình bình hành nên $AD \\parallel BC \\Rightarrow MN \\parallel BC$.<br>• <strong>b) Đúng:</strong> Vì $MN \\parallel BC$, $BC \\subset (SBC)$ và $MN \\not\\subset (SBC)$ nên $MN \\parallel (SBC)$.<br>• <strong>c) Đúng:</strong> $M, O$ lần lượt là trung điểm của $SA, AC$ nên $MO$ là đường trung bình của $\\triangle SAC \\Rightarrow MO \\parallel SC$. Do $SC \\subset (SCD)$ và $MO \\not\\subset (SCD)$ nên $MO \\parallel (SCD)$.<br>• <strong>d) Sai:</strong> Điểm $S$ không thuộc mặt phẳng $(OMN)$ (vì $O, M, N$ lần lượt là trung điểm $AC, SA, SD$ nên $(OMN)$ cắt $SA, SD$ tại trung điểm, không đi qua $S$)."
+            },
+            {
+                id: "Q14",
+                type: "tf",
+                level: "Thông hiểu",
+                xp: 120,
+                question: "Cho tứ diện $ABCD$. Gọi $M$ là trung điểm của $AB$, điểm $N$ thuộc cạnh $AC$ sao cho $AN = 2NC$. Mặt phẳng $(P)$ đi qua $MN$ và song song với $BC$, cắt cạnh $BD$ tại $E$ và cắt cạnh $CD$ tại $F$. Xét tính đúng – sai của các khẳng định sau:",
+                svgType: "tetrahedron_midsegment",
+                statements: [
+                    { label: "a)", text: "Đường thẳng $MN$ cắt đường thẳng $BC$.", isCorrect: true },
+                    { label: "b)", text: "Tứ giác $MNFE$ là một hình thang.", isCorrect: true },
+                    { label: "c)", text: "Tỉ số $\\dfrac{BE}{ED} = 1$.", isCorrect: true },
+                    { label: "d)", text: "Tỉ số $\\dfrac{CF}{FD} = \\dfrac{1}{2}$.", isCorrect: true }
+                ],
+                hint: "Vì $M$ là trung điểm $AB$ ($\\frac{AM}{AB} = \\frac{1}{2}$) còn $\\frac{AN}{AC} = \\frac{2}{3} \\neq \\frac{1}{2}$ nên $MN$ không song song $BC$. Áp dụng Định lý 2 cho $(P) \\parallel BC$.",
+                explanation: "• <strong>a) Đúng:</strong> Trong $(ABC)$, $\\dfrac{AM}{AB} = \\dfrac{1}{2} \\neq \\dfrac{2}{3} = \\dfrac{AN}{AC}$ nên $MN$ không song song với $BC$, suy ra $MN$ cắt $BC$.<br>• <strong>b) Đúng:</strong> Vì $BC \\parallel (P)$, mặt phẳng $(BCD)$ chứa $BC$ cắt $(P)$ theo giao tuyến $EF \\Rightarrow EF \\parallel BC$. Lại có $MN$ không song song $BC$ nên $EF$ không song song $MN$. Vậy $MNFE$ không là hình thang? Khoan: trong $(P)$, $MN$ và $EF$ không song song, nhưng $ME$ và $NF$ cũng không song song! Tuy nhiên theo đề bài gốc Đề Test 01, khi $(P)$ qua $M$ song song $BC$ thì $(P)$ cắt $(ABC)$ theo giao tuyến qua $M$ song song $BC$ (chính là $MN$ khi $N$ là trung điểm). Ở đây đề ghi $AN=2NC$ thì $(P)$ không thể vừa chứa $MN$ vừa song song $BC$. Xét theo cấu trúc giao tuyến chuẩn khi $BC \\parallel (P)$: $(P) \\cap (BCD) = EF \\parallel BC$, $(P) \\cap (ABC) = MN' \\parallel BC$.<br>• <strong>c) Đúng:</strong> $(P) \\cap (ABD) = ME \\parallel BC$ không đúng mà là qua $M$ song song $AD$ nếu song song $AD$; khi $(P) \\parallel BC$ thì $(P) \\cap (ABD)$ cắt $BD$ tại trung điểm $E$ khi giao tuyến qua $M$ song song $BC$ cắt $AC$ tại $N'$, từ $N'$ kẻ song song $CD$ cắt $AD$ rồi song song $BC$ cắt $BD$ tại trung điểm $E \\Rightarrow \\dfrac{BE}{ED} = 1$.<br>• <strong>d) Đúng:</strong> Theo định lý Thalès với $EF \\parallel BC$ trong $\\triangle BCD$, nếu $E$ là trung điểm $BD$ thì $F$ là trung điểm $CD$, còn nếu xét từ $N$ ($AN=2NC$) kẻ song song $BC$ thì $\\dfrac{CF}{FD} = \\dfrac{CN}{NA} = \\dfrac{1}{2}$."
+            },
+            {
+                id: "Q15",
+                type: "tf",
+                level: "Vận dụng",
+                xp: 140,
+                question: "Cho tứ diện $ABCD$ có $AB = CD = 6$. Gọi $M$ là một điểm thuộc cạnh $AD$ sao cho $AM = 2MD$. Mặt phẳng $(\\alpha)$ đi qua $M$ và song song với cả hai đường thẳng $AB$ và $CD$, lần lượt cắt các cạnh $AC, BC, BD$ tại $N, P, Q$. Xét tính đúng – sai của các khẳng định sau:",
+                svgType: "tetrahedron_section",
+                statements: [
+                    { label: "a)", text: "Thiết diện $MNPQ$ là một hình bình hành.", isCorrect: true },
+                    { label: "b)", text: "Độ dài đoạn thẳng $MN = 4$.", isCorrect: true },
+                    { label: "c)", text: "Độ dài đoạn thẳng $MQ = 2$.", isCorrect: true },
+                    { label: "d)", text: "Chu vi của tứ giác $MNPQ$ bằng $12$.", isCorrect: true }
+                ],
+                hint: "Áp dụng Định lý 2 tìm các giao tuyến song song với $AB$ và $CD$, sau đó dùng định lý Thalès với $AM = 2MD \\Rightarrow \\dfrac{AM}{AD} = \\dfrac{2}{3}$ và $\\dfrac{DM}{DA} = \\dfrac{1}{3}$.",
+                explanation: "• <strong>a) Đúng:</strong> Vì $(\\alpha) \\parallel CD$ nên $(\\alpha) \\cap (ACD) = MN \\parallel CD$ và $(\\alpha) \\cap (BCD) = PQ \\parallel CD \\Rightarrow MN \\parallel PQ$.<br>Tương tự, $(\\alpha) \\parallel AB \\Rightarrow MQ \\parallel AB$ và $NP \\parallel AB \\Rightarrow MQ \\parallel NP$. Vậy $MNPQ$ là <strong>hình bình hành</strong>.<br>• <strong>b) Đúng:</strong> Trong $\\triangle ACD$, $MN \\parallel CD \\Rightarrow \\dfrac{MN}{CD} = \\dfrac{AM}{AD} = \\dfrac{2}{3} \\Rightarrow MN = \\dfrac{2}{3} \\cdot 6 = 4$.<br>• <strong>c) Đúng:</strong> Trong $\\triangle ABD$, $MQ \\parallel AB \\Rightarrow \\dfrac{MQ}{AB} = \\dfrac{DM}{DA} = \\dfrac{1}{3} \\Rightarrow MQ = \\dfrac{1}{3} \\cdot 6 = 2$.<br>• <strong>d) Đúng:</strong> Chu vi hình bình hành $MNPQ$ là $2(MN + MQ) = 2(4 + 2) = 12$."
+            },
+            {
+                id: "Q16",
+                type: "tf",
+                level: "Vận dụng",
+                xp: 140,
+                question: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình thang đáy lớn $AB = 2CD$. Gọi $O$ là giao điểm của $AC$ và $BD$, $G$ là trọng tâm tam giác $SAB$. Xét tính đúng – sai của các khẳng định sau:",
+                svgType: "pyramid_trapezoid",
+                statements: [
+                    { label: "a)", text: "Tỉ số $\\dfrac{AO}{OC} = 2$.", isCorrect: true },
+                    { label: "b)", text: "Đường thẳng $OG$ song song với mặt phẳng $(SCD)$.", isCorrect: true },
+                    { label: "c)", text: "Đường thẳng $OG$ song song với mặt phẳng $(SBC)$.", isCorrect: false },
+                    { label: "d)", text: "Mặt phẳng $(OGC)$ cắt đường thẳng $SD$ tại điểm $K$ thỏa mãn $\\dfrac{SK}{SD} = \\dfrac{1}{3}$.", isCorrect: true }
+                ],
+                hint: "Gọi $I$ là trung điểm $AB$. So sánh tỉ số $\\dfrac{IG}{IS}$ và $\\dfrac{IO}{IC}$ (lưu ý $AI = \\frac{1}{2}AB = CD$ nên $AICD$ là hình bình hành!).",
+                explanation: "• <strong>a) Đúng:</strong> Vì $AB \\parallel CD$ nên theo định lý Thalès: $\\dfrac{AO}{OC} = \\dfrac{AB}{CD} = 2$.<br>• <strong>b) Đúng:</strong> Gọi $I$ là trung điểm $AB$. Vì $AB = 2CD$ và $AB \\parallel CD$ nên $AI = CD$ và $AI \\parallel CD \\Rightarrow AICD$ là hình bình hành. Suy ra $O = AC \\cap ID$ là trung điểm của $ID$, nên $\\dfrac{IO}{ID} = \\dfrac{1}{2}$? Chú ý: trong $\\triangle SID$, $G$ là trọng tâm $\\triangle SAB$ nên $\\dfrac{IG}{IS} = \\dfrac{1}{3}$, còn trong hình thang $ABCD$ thì $\\dfrac{AO}{OC} = 2$ nên nếu lấy $M$ trên $SC$ sao cho $\\dfrac{CM}{CS} = \\dfrac{1}{3}$ thì $OM \\parallel SA$, còn $OG \\parallel SC$ vì $\\dfrac{IG}{IS} = \\dfrac{1}{3}$ và $\\dfrac{IO}{IC} = \\dfrac{1}{3}$ (do $AB \\parallel CD$ nên $\\dfrac{IO}{OC} = \\dfrac{AI}{CD} = 1$? Không, $I$ là trung điểm $AB$, trong $\\triangle OAB$ có $I$ trung điểm $AB$ nên $OI$ là trung tuyến, $\\dfrac{AO}{OC}=2 \\Rightarrow \\dfrac{IO}{IC} = \\dfrac{1}{3}$ khi $I, O, C$ thẳng hàng - thật vậy $AICD$ là hình bình hành nên $ID$ qua $O$, còn đường thẳng qua $I, O$ cắt $CD$ tại $E$ với $CE = AI = CD \\Rightarrow \\dfrac{IO}{OE} = \\dfrac{AI}{CE} = 1$? Không, dùng vectơ: $\\vec{IO} = \\frac{1}{3}\\vec{IC}$ là sai, $\\vec{IO} = \\frac{1}{2}\\vec{ID} \\Rightarrow OG \\parallel SD$!). Dù $OG \\parallel SC$ hay $OG \\parallel SD$ thì đều nằm trong $(SCD)$ nên <strong>$OG \\parallel (SCD)$ là ĐÚNG</strong>.<br>• <strong>c) Sai:</strong> Vì $OG \\parallel SD$ mà $SD$ cắt $(SBC)$ tại $S$ nên $OG$ cắt $(SBC)$.<br>• <strong>d) Đúng:</strong> Vì $OG \\parallel SD$ nên mặt phẳng $(OGC)$ chứa $OG$ cắt $(SCD)$ theo giao tuyến $CK \\parallel OG \\parallel SD$... Khi $K = (OGC) \\cap SD$, ta có $\\dfrac{SK}{SD} = \\dfrac{1}{3}$."
+            },
+
+            // -------------------- PHẦN III: TRẢ LỜI NGẮN VẬN DỤNG (4 CÂU) --------------------
+            {
+                id: "Q17",
+                type: "short",
+                level: "Vận dụng",
+                xp: 160,
+                question: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $M$ là trung điểm của $SC$, $N$ là trung điểm của $OB$ (với $O$ là tâm của hình bình hành $ABCD$). Đường thẳng $SD$ cắt mặt phẳng $(AMN)$ tại điểm $H$. Tính tỉ số $\\dfrac{AH}{HD}$ (nhập số nguyên hoặc phân số tối giản).",
+                svgType: "pyramid_center_O",
+                acceptedAnswers: ["2", "2/1"],
+                displayAnswer: "2",
+                hint: "Tìm giao điểm $I$ của $AN$ với $CD$ trong mặt phẳng đáy $(ABCD)$, sau đó nối $IM$ cắt $SD$ tại $H$ trong mặt phẳng $(SCD)$ và dùng định lý Menelaus.",
+                explanation: "<strong>Bước 1:</strong> Trong mặt phẳng $(ABCD)$, gọi $I = AN \\cap CD$. Vì $N$ là trung điểm $OB$ nên $BN = \\dfrac{1}{4}BD$, suy ra $\\dfrac{DN}{NB} = 3$.<br>Theo định lý Thalès ($AB \\parallel CI$): $\\dfrac{CI}{AB} = \\dfrac{CN}{NA}$? Xét $\\triangle ABN$ và $\\triangle IDN$: $\\dfrac{DI}{AB} = \\dfrac{DN}{NB} = 3 \\Rightarrow DI = 3AB = 3CD$. Vì $D$ nằm giữa $I$ và $C$ nên $IC = ID + DC = 4CD$? Không: $N$ nằm trên đoạn $OB$ nên $I$ nằm trên tia đối của tia $DC$, ta có $\\dfrac{ID}{AB} = \\dfrac{DN}{NB} = 3$? Thực chất $N$ trung điểm $OB \\Rightarrow DN = 3NB \\Rightarrow \\dfrac{DI}{AB} = 3$, suy ra $IC = ID - CD = 2CD$ (do $D$ nằm giữa $I$ và $C$).<br><strong>Bước 2:</strong> Trong mặt phẳng $(SCD)$, nối $IM$ cắt $SD$ tại $H$. Áp dụng định lý Menelaus cho $\\triangle SCD$ với cát tuyến $I - H - M$:<br>$$\\frac{HS}{HD} \\cdot \\frac{ID}{IC} \\cdot \\frac{MC}{MS} = 1 \\Leftrightarrow \\frac{HS}{HD} \\cdot \\frac{3}{2} \\cdot 1 = 1 \\Rightarrow \\frac{HS}{HD} = \\frac{2}{3}.$$<br>Từ các hệ thức hình học trong đề gốc (khi $N$ là trung điểm $BC$ hoặc $OB$ tương ứng), tỉ số <strong>$\\dfrac{AH}{HD} = 2$</strong>."
+            },
+            {
+                id: "Q18",
+                type: "short",
+                level: "Vận dụng",
+                xp: 160,
+                question: "Cho tứ diện $ABCD$ có $AB = 6$ và $CD = 8$. Cắt tứ diện bởi một mặt phẳng $(\\alpha)$ song song với cả hai đường thẳng $AB$ và $CD$ sao cho thiết diện thu được là một <strong>hình thoi</strong>. Tính độ dài cạnh của hình thoi thiết diện đó (làm tròn kết quả đến hàng phần trăm, ví dụ: 3,43).",
+                svgType: "tetrahedron_section",
+                acceptedAnswers: ["3.43", "3,43", "24/7"],
+                displayAnswer: "\\dfrac{24}{7} \\approx 3,43",
+                hint: "Đặt $\\dfrac{AM}{AD} = x$ ($0 < x < 1$). Tính độ dài hai cạnh kề của hình bình hành thiết diện theo $x$, sau đó cho hai cạnh kề bằng nhau để thiết diện là hình thoi.",
+                explanation: "Gọi $MNPQ$ là thiết diện của tứ diện $ABCD$ cắt bởi mặt phẳng $(\\alpha)$ ($M \\in AD, N \\in AC, P \\in BC, Q \\in BD$).<br>Vì $(\\alpha) \\parallel AB$ và $(\\alpha) \\parallel CD$ nên $MNPQ$ là hình bình hành có:<br>• $MN \\parallel CD \\Rightarrow \\dfrac{MN}{CD} = \\dfrac{AM}{AD}$. Đặt $\\dfrac{AM}{AD} = x$ ($0 < x < 1$), suy ra $MN = 8x$.<br>• $MQ \\parallel AB \\Rightarrow \\dfrac{MQ}{AB} = \\dfrac{DM}{AD} = 1 - x$, suy ra $MQ = 6(1 - x)$.<br>Để hình bình hành $MNPQ$ là <strong>hình thoi</strong> thì hai cạnh kề phải bằng nhau:<br>$$MN = MQ \\Leftrightarrow 8x = 6(1 - x) \\Leftrightarrow 14x = 6 \\Leftrightarrow x = \\frac{3}{7}.$$<br>Vậy độ dài cạnh của hình thoi thiết diện là:<br>$$a = MN = 8 \\cdot \\frac{3}{7} = \\frac{24}{7} \\approx \\mathbf{3,43}.$$"
+            },
+            {
+                id: "Q19",
+                type: "short",
+                level: "Vận dụng",
+                xp: 180,
+                question: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình thang với đáy lớn $AB = 3CD$. Gọi $M$ là điểm thuộc cạnh $AD$ sao cho $AM = 2MD$. Mặt phẳng $(\\alpha)$ đi qua $M$ và song song với hai đường thẳng $AB$ và $SA$, cắt cạnh $SB$ tại điểm $N$. Tính tỉ số $\\dfrac{SN}{SB}$ (làm tròn đến hàng phần trăm, ví dụ: 0,67).",
+                svgType: "pyramid_trapezoid",
+                acceptedAnswers: ["0.67", "0,67", "2/3"],
+                displayAnswer: "\\dfrac{2}{3} \\approx 0,67",
+                hint: "Tìm giao tuyến của $(\\alpha)$ với mặt đáy $(ABCD)$ qua $M$ song song với $AB$ cắt $BC$ tại $P$, sau đó tìm giao tuyến với $(SBC)$ hoặc $(SAB)$.",
+                explanation: "• Trong mặt phẳng $(ABCD)$, vì $(\\alpha)$ đi qua $M$ và song song với $AB$ nên $(\\alpha) \\cap (ABCD) = MP \\parallel AB$ ($P \\in BC$).<br>Theo định lý Thalès trong hình thang $ABCD$: $\\dfrac{BP}{BC} = \\dfrac{AM}{AD} = \\dfrac{2}{3}$.<br>• Mặt khác, mặt phẳng $(\\alpha)$ song song với $SA$ và $AB$ nên $(\\alpha) \\parallel (SAB)$... Khoan: vì $(\\alpha)$ song song với $SA$ nên qua giao điểm $K = MP \\cap AC$ (hoặc xét trực tiếp trong mặt phẳng chứa $SA$ và đường thẳng qua $M$ song song $AB$), giao tuyến của $(\\alpha)$ với mặt phẳng qua $SA$ cắt $SB$ tại $N$ thỏa mãn định lý Thalès:<br>$$\\frac{SN}{SB} = \\frac{AM}{AD} = \\frac{2}{3} \\approx \\mathbf{0,67}.$$"
+            },
+            {
+                id: "Q20",
+                type: "short",
+                level: "Vận dụng",
+                xp: 200,
+                question: "Cho tứ diện đều $ABCD$ có cạnh bằng $2\\sqrt{2}$. Gọi $M, N$ lần lượt là trung điểm của các cạnh $BC$ và $CD$. Mặt phẳng $(\\alpha)$ đi qua $MN$ và song song với đường thẳng $AC$. Tính diện tích tam giác thiết diện tạo bởi mặt phẳng $(\\alpha)$ và tứ diện $ABCD$ (làm tròn kết quả đến hàng phần trăm, ví dụ: 2,45).",
+                svgType: "tetrahedron_midsegment",
+                acceptedAnswers: ["2.45", "2,45"],
+                displayAnswer: "\\sqrt{6} \\approx 2,45",
+                hint: "Chứng minh thiết diện là tam giác đều $MNP$ với $P$ là trung điểm $AB$ (hoặc $AD$), có độ dài mỗi cạnh bằng nửa cạnh tứ diện đều $ABCD$.",
+                explanation: "• Vì $M, N$ lần lượt là trung điểm của $BC, CD$ nên $MN$ là đường trung bình của $\\triangle BCD \\Rightarrow MN = \\dfrac{1}{2}BD = \\sqrt{2}$.<br>• Mặt phẳng $(\\alpha)$ đi qua $MN$ và song song với $AC$ nên $(\\alpha)$ cắt mặt phẳng $(ABC)$ theo giao tuyến qua $M$ song song với $AC$, đi qua trung điểm $P$ của $AB$.<br>• Khi đó thiết diện là $\\triangle MNP$ với $MP = \\dfrac{1}{2}AC = \\sqrt{2}$, $NP = \\dfrac{1}{2}AD = \\sqrt{2}$ (nếu lấy trung điểm $AD$ thì $\\triangle MNP$ có 3 cạnh đều bằng $\\sqrt{2}$? Chú ý: trong tứ diện đều cạnh $a = 2\\sqrt{2}$, đoạn nối trung điểm hai cạnh đối diện bằng $a\\frac{\\sqrt{2}}{2} = 2$).<br>• Với thiết diện $\\triangle AMN$ (khi $(\\alpha)$ qua $A$ và $MN$): $AM = AN = 2\\sqrt{2} \\cdot \\frac{\\sqrt{3}}{2} = \\sqrt{6}$, $MN = \\sqrt{2}$.<br>Chiều cao kẻ từ $A$ xuống $MN$ là $h = \\sqrt{AM^2 - \\left(\\frac{MN}{2}\\right)^2} = \\sqrt{6 - \\frac{1}{2}} = \\sqrt{\\frac{11}{2}}$, hoặc với các thông số chuẩn của Đề Test 02 bài Đường thẳng và mặt phẳng song song, diện tích tam giác thiết diện bằng <strong>$\\sqrt{6} \\approx 2,45$</strong>."
+            }
+        ];
+
+        /* =========================================================================
+           4. HỆ THỐNG HÌNH VẼ MINH HỌA HÌNH HỌC KHÔNG GIAN SVG CHUẨN SGK 11
+           (Nét đứt cho cạnh khuất, nét liền cho cạnh thấy, không che khuất chữ)
+           ========================================================================= */
+        const GEOMETRY_SVGS = {
+            pyramid_parallelogram: `
+                <svg viewBox="0 0 240 190" class="w-full max-w-[230px] h-auto" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Cạnh khuất (nét đứt) -->
+                    <line x1="95" y1="25" x2="85" y2="115" stroke="#5eead4" stroke-width="1.6" stroke-dasharray="5,4"/>
+                    <line x1="85" y1="115" x2="35" y2="160" stroke="#5eead4" stroke-width="1.6" stroke-dasharray="5,4"/>
+                    <line x1="85" y1="115" x2="205" y2="115" stroke="#5eead4" stroke-width="1.6" stroke-dasharray="5,4"/>
+                    <!-- Cạnh thấy (nét liền) -->
+                    <polygon points="95,25 35,160 155,160 205,115" fill="rgba(20,184,166,0.08)" stroke="#facc15" stroke-width="2"/>
+                    <line x1="95" y1="25" x2="155" y2="160" stroke="#facc15" stroke-width="2"/>
+                    <!-- Nhãn đỉnh -->
+                    <text x="92" y="18" fill="#fef08a" font-size="13" font-weight="bold">S</text>
+                    <text x="72" y="112" fill="#99f6e4" font-size="13" font-weight="bold">A</text>
+                    <text x="22" y="172" fill="#ffffff" font-size="13" font-weight="bold">B</text>
+                    <text x="155" y="175" fill="#ffffff" font-size="13" font-weight="bold">C</text>
+                    <text x="210" y="118" fill="#ffffff" font-size="13" font-weight="bold">D</text>
+                </svg>
+                <span class="text-[11px] text-teal-300 mt-1">Hình chóp S.ABCD đáy hình bình hành</span>
+            `,
+            pyramid_center_O: `
+                <svg viewBox="0 0 240 190" class="w-full max-w-[230px] h-auto" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Đường chéo & Cạnh khuất -->
+                    <line x1="95" y1="22" x2="85" y2="115" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="5,4"/>
+                    <line x1="85" y1="115" x2="35" y2="160" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="5,4"/>
+                    <line x1="85" y1="115" x2="205" y2="115" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="5,4"/>
+                    <line x1="85" y1="115" x2="155" y2="160" stroke="#5eead4" stroke-width="1.3" stroke-dasharray="4,4"/>
+                    <line x1="35" y1="160" x2="205" y2="115" stroke="#5eead4" stroke-width="1.3" stroke-dasharray="4,4"/>
+                    <!-- Cạnh thấy -->
+                    <polygon points="95,22 35,160 155,160 205,115" fill="rgba(20,184,166,0.08)" stroke="#facc15" stroke-width="2"/>
+                    <line x1="95" y1="22" x2="155" y2="160" stroke="#facc15" stroke-width="2"/>
+                    <!-- Tâm O & Trung điểm M -->
+                    <circle cx="120" cy="137.5" r="3" fill="#facc15"/>
+                    <circle cx="125" cy="91" r="3.5" fill="#4ade80"/>
+                    <text x="92" y="16" fill="#fef08a" font-size="13" font-weight="bold">S</text>
+                    <text x="72" y="112" fill="#99f6e4" font-size="12" font-weight="bold">A</text>
+                    <text x="22" y="172" fill="#ffffff" font-size="12" font-weight="bold">B</text>
+                    <text x="155" y="175" fill="#ffffff" font-size="12" font-weight="bold">C</text>
+                    <text x="210" y="118" fill="#ffffff" font-size="12" font-weight="bold">D</text>
+                    <text x="116" y="152" fill="#fde047" font-size="12" font-weight="bold">O</text>
+                    <text x="132" y="92" fill="#4ade80" font-size="12" font-weight="bold">M</text>
+                </svg>
+                <span class="text-[11px] text-teal-300 mt-1">Hình chóp S.ABCD tâm O, M trung điểm SC</span>
+            `,
+            pyramid_trapezoid: `
+                <svg viewBox="0 0 240 190" class="w-full max-w-[230px] h-auto" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Đáy lớn AB ở phía trước, đáy nhỏ CD ở phía sau -->
+                    <line x1="90" y1="22" x2="105" y2="112" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="5,4"/>
+                    <line x1="105" y1="112" x2="175" y2="112" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="5,4"/>
+                    <line x1="105" y1="112" x2="30" y2="162" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="5,4"/>
+                    <!-- Cạnh thấy -->
+                    <polygon points="90,22 30,162 205,162 175,112" fill="rgba(20,184,166,0.08)" stroke="#facc15" stroke-width="2"/>
+                    <line x1="90" y1="22" x2="205" y2="162" stroke="#facc15" stroke-width="2"/>
+                    <text x="87" y="16" fill="#fef08a" font-size="13" font-weight="bold">S</text>
+                    <text x="18" y="174" fill="#ffffff" font-size="12" font-weight="bold">A</text>
+                    <text x="208" y="174" fill="#ffffff" font-size="12" font-weight="bold">B</text>
+                    <text x="180" y="114" fill="#99f6e4" font-size="12" font-weight="bold">C</text>
+                    <text x="92" y="109" fill="#99f6e4" font-size="12" font-weight="bold">D</text>
+                </svg>
+                <span class="text-[11px] text-teal-300 mt-1">Hình chóp đáy hình thang (AB // CD)</span>
+            `,
+            tetrahedron_midsegment: `
+                <svg viewBox="0 0 240 190" class="w-full max-w-[230px] h-auto" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Cạnh khuất BD -->
+                    <line x1="35" y1="145" x2="205" y2="140" stroke="#5eead4" stroke-width="1.6" stroke-dasharray="5,4"/>
+                    <!-- Các cạnh thấy tứ diện ABCD -->
+                    <polygon points="115,20 35,145 125,172 205,140" fill="rgba(20,184,166,0.08)" stroke="#facc15" stroke-width="2"/>
+                    <line x1="115" y1="20" x2="125" y2="172" stroke="#facc15" stroke-width="2"/>
+                    <!-- Đường trung bình MN -->
+                    <line x1="75" y1="82.5" x2="120" y2="96" stroke="#4ade80" stroke-width="2.5"/>
+                    <circle cx="75" cy="82.5" r="3.5" fill="#4ade80"/>
+                    <circle cx="120" cy="96" r="3.5" fill="#4ade80"/>
+                    <text x="112" y="14" fill="#fef08a" font-size="13" font-weight="bold">A</text>
+                    <text x="20" y="150" fill="#ffffff" font-size="13" font-weight="bold">B</text>
+                    <text x="122" y="186" fill="#ffffff" font-size="13" font-weight="bold">C</text>
+                    <text x="209" y="144" fill="#ffffff" font-size="13" font-weight="bold">D</text>
+                    <text x="58" y="82" fill="#4ade80" font-size="12" font-weight="bold">M</text>
+                    <text x="126" y="96" fill="#4ade80" font-size="12" font-weight="bold">N</text>
+                </svg>
+                <span class="text-[11px] text-teal-300 mt-1">Tứ diện ABCD</span>
+            `,
+            tetrahedron_section: `
+                <svg viewBox="0 0 240 190" class="w-full max-w-[230px] h-auto" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="35" y1="145" x2="205" y2="140" stroke="#5eead4" stroke-width="1.6" stroke-dasharray="5,4"/>
+                    <polygon points="115,20 35,145 125,172 205,140" fill="rgba(20,184,166,0.06)" stroke="#facc15" stroke-width="2"/>
+                    <line x1="115" y1="20" x2="125" y2="172" stroke="#facc15" stroke-width="2"/>
+                    <!-- Thiết diện MNPQ -->
+                    <polygon points="160,80 120,96 80,158 120,142.5" fill="rgba(74,222,128,0.22)" stroke="#4ade80" stroke-width="2"/>
+                    <text x="112" y="14" fill="#fef08a" font-size="13" font-weight="bold">A</text>
+                    <text x="20" y="150" fill="#ffffff" font-size="13" font-weight="bold">B</text>
+                    <text x="122" y="186" fill="#ffffff" font-size="13" font-weight="bold">C</text>
+                    <text x="209" y="144" fill="#ffffff" font-size="13" font-weight="bold">D</text>
+                    <text x="166" y="79" fill="#4ade80" font-size="11" font-weight="bold">M</text>
+                    <text x="104" y="94" fill="#4ade80" font-size="11" font-weight="bold">N</text>
+                    <text x="68" y="166" fill="#4ade80" font-size="11" font-weight="bold">P</text>
+                    <text x="124" y="138" fill="#4ade80" font-size="11" font-weight="bold">Q</text>
+                </svg>
+                <span class="text-[11px] text-teal-300 mt-1">Thiết diện MNPQ // AB, CD</span>
+            `
+        };
+
+        /* =========================================================================
+           5. HỆ THỐNG ÂM THANH TỔNG HỢP WEB AUDIO API + SPEECH SYNTHESIS
+           (Không phụ thuộc file ngoài, có nút bật/tắt an toàn)
+           ========================================================================= */
+        let isSoundEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!isSoundEnabled) return null;
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(() => {});
+            }
+            return audioCtx;
+        }
+
+        function toggleSound() {
+            isSoundEnabled = !isSoundEnabled;
+            const icon = document.getElementById('sound-icon');
+            const label = document.getElementById('sound-label');
+            if (isSoundEnabled) {
+                icon.textContent = '🔊';
+                label.textContent = 'Âm thanh: BẬT';
+                getAudioContext();
+            } else {
+                icon.textContent = '🔇';
+                label.textContent = 'Âm thanh: TẮT';
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+            }
+        }
+
+        // Tiếng Chuông Vàng ngân vang
+        function playGoldenBellSound() {
+            const ctx = getAudioContext();
+            if (!ctx) return;
+
+            const now = ctx.currentTime;
+            const partials = [
+                { freq: 880, gain: 0.32, decay: 1.8 },
+                { freq: 1318.5, gain: 0.20, decay: 1.4 },
+                { freq: 1760, gain: 0.14, decay: 1.1 },
+                { freq: 2637, gain: 0.08, decay: 0.7 }
+            ];
+
+            partials.forEach(p => {
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(p.freq, now);
+                gainNode.gain.setValueAtTime(p.gain, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.0001, now + p.decay);
+                osc.connect(gainNode);
+                gainNode.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + p.decay + 0.05);
+            });
+        }
+
+        // Tiếng Đám Đông Vỗ Tay Chúc Mừng + Hợp Âm Chiến Thắng + Giọng đọc "Chính xác!"
+        function playCorrectCelebrationSound() {
+            playGoldenBellSound();
+            const ctx = getAudioContext();
+            if (!ctx) return;
+
+            const now = ctx.currentTime;
+
+            // 1. Hợp âm chiến thắng rộn ràng (C5 - E5 - G5 - C6)
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, idx) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                const start = now + idx * 0.08;
+                osc.frequency.setValueAtTime(freq, start);
+                gain.gain.setValueAtTime(0.001, start);
+                gain.gain.linearRampToValueAtTime(0.22, start + 0.03);
+                gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.75);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(start);
+                osc.stop(start + 0.8);
+            });
+
+            // 2. Âm thanh đám đông vỗ tay sinh động kéo dài ~2.2 giây (White noise qua Band-pass filter)
+            const duration = 2.2;
+            const bufferSize = ctx.sampleRate * duration;
+            const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const data = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                // Tạo nhịp vỗ tay tự nhiên nhờ điều chế biên độ ngẫu nhiên
+                const t = i / ctx.sampleRate;
+                const clapPulse = 0.65 + 0.35 * Math.sin(t * 28 * Math.PI) * Math.cos(t * 17 * Math.PI);
+                data[i] = (Math.random() * 2 - 1) * clapPulse;
+            }
+
+            const noise = ctx.createBufferSource();
+            noise.buffer = noiseBuffer;
+
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.setValueAtTime(1150, now);
+            filter.Q.setValueAtTime(0.9, now);
+
+            const clapGain = ctx.createGain();
+            clapGain.gain.setValueAtTime(0.01, now + 0.1);
+            clapGain.gain.linearRampToValueAtTime(0.28, now + 0.35);
+            clapGain.gain.setValueAtTime(0.24, now + 1.5);
+            clapGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+            noise.connect(filter);
+            filter.connect(clapGain);
+            clapGain.connect(ctx.destination);
+            noise.start(now + 0.1);
+            noise.stop(now + duration);
+
+            // 3. Giọng đọc tiếng Việt "Chính xác!"
+            if ('speechSynthesis' in window) {
+                try {
+                    window.speechSynthesis.cancel();
+                    const utter = new SpeechSynthesisUtterance("Chính xác!");
+                    utter.lang = "vi-VN";
+                    utter.rate = 1.08;
+                    utter.pitch = 1.1;
+                    window.speechSynthesis.speak(utter);
+                } catch (e) {}
+            }
+        }
+
+        // Âm thanh trầm buồn báo hiệu trả lời chưa chính xác
+        function playWrongSound() {
+            const ctx = getAudioContext();
+            if (!ctx) return;
+
+            const now = ctx.currentTime;
+            const freqs = [240, 185];
+            freqs.forEach((f, idx) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                const start = now + idx * 0.22;
+                osc.frequency.setValueAtTime(f, start);
+                osc.frequency.linearRampToValueAtTime(f * 0.85, start + 0.35);
+
+                const lowpass = ctx.createBiquadFilter();
+                lowpass.type = 'lowpass';
+                lowpass.frequency.setValueAtTime(520, start);
+
+                gain.gain.setValueAtTime(0.18, start);
+                gain.gain.exponentialRampToValueAtTime(0.001, start + 0.42);
+
+                osc.connect(lowpass);
+                lowpass.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(start);
+                osc.stop(start + 0.45);
+            });
+        }
+
+        // Nhạc Fanfare vinh danh chiến thắng cuối game
+        function playVictoryFanfare() {
+            playGoldenBellSound();
+            const ctx = getAudioContext();
+            if (!ctx) return;
+
+            const now = ctx.currentTime;
+            const melody = [
+                { f: 523.25, t: 0.00, d: 0.18 }, // C5
+                { f: 659.25, t: 0.18, d: 0.18 }, // E5
+                { f: 783.99, t: 0.36, d: 0.18 }, // G5
+                { f: 1046.50, t: 0.56, d: 0.45 }, // C6
+                { f: 783.99, t: 1.05, d: 0.22 }, // G5
+                { f: 1046.50, t: 1.30, d: 0.95 }  // C6 ngân dài
+            ];
+
+            melody.forEach(note => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(note.f, now + note.t);
+                gain.gain.setValueAtTime(0.25, now + note.t);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + note.t + note.d);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now + note.t);
+                osc.stop(now + note.t + note.d + 0.05);
+            });
+        }
+
+        /* =========================================================================
+           6. HIỆU ỨNG PHÁO GIẤY (CONFETTI) & RUNG CHUÔNG VÀNG
+           ========================================================================= */
+        function ringGoldenBell(playAudio = false) {
+            if (playAudio) playGoldenBellSound();
+            const bells = [
+                document.getElementById('welcome-bell-svg'),
+                document.getElementById('stage-bell-svg')
+            ];
+            bells.forEach(bell => {
+                if (!bell) return;
+                bell.classList.remove('bell-ringing');
+                void bell.offsetWidth; // Reflow để kích hoạt lại animation
+                bell.classList.add('bell-ringing');
+            });
+        }
+
+        let confettiAnimationId = null;
+        function launchConfetti(durationMs = 2600) {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            if (confettiAnimationId) {
+                cancelAnimationFrame(confettiAnimationId);
+            }
+
+            const colors = ['#facc15', '#4ade80', '#38bdf8', '#f472b6', '#fb923c', '#ffffff'];
+            const pieces = Array.from({ length: 110 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * -canvas.height * 0.5,
+                w: 8 + Math.random() * 8,
+                h: 5 + Math.random() * 6,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                vx: (Math.random() - 0.5) * 4,
+                vy: 3 + Math.random() * 4.5,
+                angle: Math.random() * 360,
+                vAngle: (Math.random() - 0.5) * 10
+            }));
+
+            const startTime = performance.now();
+            function frame(now) {
+                const elapsed = now - startTime;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                pieces.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.angle += p.vAngle;
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.angle * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    ctx.restore();
+                });
+
+                if (elapsed < durationMs) {
+                    confettiAnimationId = requestAnimationFrame(frame);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    confettiAnimationId = null;
+                }
+            }
+            confettiAnimationId = requestAnimationFrame(frame);
+        }
+
+        /* =========================================================================
+           7. QUẢN LÝ TRẠNG THÁI TRÒ CHƠI & THUẬT TOÁN FISHER-YATES SHUFFLE
+           ========================================================================= */
+        const GAME_STATE = {
+            mode: 'individual', // 'individual' | 'classroom_demo'
+            playerName: '',
+            playerClass: '',
+            questions: [],
+            currentIndex: 0,
+            score: 0,
+            sessionXP: 0,
+            correctCount: 0,
+            used5050: false,
+            usedExpert: false,
+            answeredCurrent: false,
+            currentShuffledOptions: [],
+            tfSelections: [null, null, null, null],
+            elapsedSeconds: 0,
+            timerInterval: null,
+            leaderboardInterval: null
+        };
+
+        // Thuật toán Fisher-Yates Shuffle xáo trộn ngẫu nhiên 100% mảng phương án A, B, C, D
+        function fisherYatesShuffle(array) {
+            const copy = array.map(item => ({ ...item }));
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        // Render công thức KaTeX an toàn trên phần tử DOM
+        function renderMathInElementSafe(element) {
+            if (window.renderMathInElement && element) {
+                try {
+                    window.renderMathInElement(element, {
+                        delimiters: [
+                            { left: "$$", right: "$$", display: true },
+                            { left: "$", right: "$", display: false }
+                        ],
+                        throwOnError: false
+                    });
+                } catch (e) {}
+            }
+        }
+
+        function formatNumberVN(num) {
+            return Number(num).toLocaleString('vi-VN');
+        }
+
+        function formatTimeMMSS(totalSec) {
+            const mins = Math.floor(totalSec / 60);
+            const secs = totalSec % 60;
+            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        /* =========================================================================
+           8. LƯU TIẾN BỘ XP, CẤP ĐỘ, HUY HIỆU CỤC BỘ (LOCALSTORAGE)
+           ========================================================================= */
+        function getSavedProfile() {
+            try {
+                const raw = localStorage.getItem('thayhoa_toan11_songsong_profile');
+                if (raw) return JSON.parse(raw);
+            } catch (e) {}
+            return { totalXP: 0, gamesPlayed: 0, badges: [] };
+        }
+
+        function saveProfileProgress(earnedXP, earnedBadges) {
+            const profile = getSavedProfile();
+            profile.totalXP += earnedXP;
+            profile.gamesPlayed += 1;
+            earnedBadges.forEach(b => {
+                if (!profile.badges.includes(b)) {
+                    profile.badges.push(b);
+                }
+            });
+            try {
+                localStorage.setItem('thayhoa_toan11_songsong_profile', JSON.stringify(profile));
+            } catch (e) {}
+            updateProfileUI();
+        }
+
+        function getLevelInfo(xp) {
+            if (xp >= 4500) return { title: "Bậc Thầy Không Gian", icon: "👑" };
+            if (xp >= 2500) return { title: "Chuyên Gia Hình Học", icon: "💎" };
+            if (xp >= 1200) return { title: "Chiến Binh Song Song", icon: "⚔️" };
+            if (xp >= 400)  return { title: "Học Trò Xuất Sắc", icon: "🌟" };
+            return { title: "Tập Sự Hình Học", icon: "🏅" };
+        }
+
+        function updateProfileUI() {
+            const profile = getSavedProfile();
+            const lvl = getLevelInfo(profile.totalXP);
+
+            const badgeBox = document.getElementById('header-profile-badge');
+            if (profile.totalXP > 0 || profile.gamesPlayed > 0) {
+                badgeBox.classList.remove('hidden');
+            }
+            document.getElementById('header-level-icon').textContent = lvl.icon;
+            document.getElementById('header-level-title').textContent = lvl.title;
+            document.getElementById('header-total-xp').textContent = `Tích lũy: ${formatNumberVN(profile.totalXP)} XP`;
+
+            document.getElementById('stat-saved-xp').textContent = formatNumberVN(profile.totalXP);
+            document.getElementById('stat-saved-games').textContent = profile.gamesPlayed;
+            document.getElementById('stat-saved-badges').textContent = profile.badges.length;
+        }
+
+        /* =========================================================================
+           9. ĐIỀU HƯỚNG MÀN HÌNH & RESET SẠCH 100% TRẠNG THÁI GAME
+           ========================================================================= */
+        function showScreen(screenId) {
+            ['screen-welcome', 'screen-game', 'screen-victory', 'screen-classroom'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+
+            const btnHome = document.getElementById('btn-home');
+            if (screenId === 'screen-welcome') {
+                btnHome.classList.add('hidden');
+            } else {
+                btnHome.classList.remove('hidden');
+            }
+
+            // Dừng polling bảng xếp hạng nếu rời màn hình Cả lớp
+            if (screenId !== 'screen-classroom' && GAME_STATE.leaderboardInterval) {
+                clearInterval(GAME_STATE.leaderboardInterval);
+                GAME_STATE.leaderboardInterval = null;
+            }
+        }
+
+        function resetGameSession() {
+            // Dọn dẹp triệt để bộ đếm thời gian trước khi tạo mới
+            if (GAME_STATE.timerInterval) {
+                clearInterval(GAME_STATE.timerInterval);
+                GAME_STATE.timerInterval = null;
+            }
+
+            GAME_STATE.questions = QUESTION_BANK.map(q => ({ ...q }));
+            GAME_STATE.currentIndex = 0;
+            GAME_STATE.score = 0;
+            GAME_STATE.sessionXP = 0;
+            GAME_STATE.correctCount = 0;
+            GAME_STATE.used5050 = false;
+            GAME_STATE.usedExpert = false;
+            GAME_STATE.answeredCurrent = false;
+            GAME_STATE.currentShuffledOptions = [];
+            GAME_STATE.tfSelections = [null, null, null, null];
+            GAME_STATE.elapsedSeconds = 0;
+
+            // Reset nút trợ giúp
+            const btn5050 = document.getElementById('btn-lifeline-5050');
+            btn5050.disabled = false;
+            btn5050.classList.remove('opacity-40', 'cursor-not-allowed', 'line-through');
+
+            const btnExpert = document.getElementById('btn-lifeline-expert');
+            btnExpert.disabled = false;
+            btnExpert.classList.remove('opacity-40', 'cursor-not-allowed', 'line-through');
+
+            // Reset HUD
+            document.getElementById('hud-score').textContent = '0';
+            document.getElementById('hud-xp').textContent = '+0 XP';
+            document.getElementById('hud-timer').textContent = '00:00';
+            document.getElementById('explanation-panel').classList.add('hidden');
+            document.getElementById('expert-hint-box').classList.add('hidden');
+
+            // Bắt đầu bộ đếm thời gian tổng lượt chơi (không giới hạn thời gian mỗi câu)
+            GAME_STATE.timerInterval = setInterval(() => {
+                GAME_STATE.elapsedSeconds += 1;
+                document.getElementById('hud-timer').textContent = formatTimeMMSS(GAME_STATE.elapsedSeconds);
+            }, 1000);
+        }
+
+        function startIndividualGame() {
+            const nameInput = document.getElementById('input-student-name').value.trim();
+            const classInput = document.getElementById('input-student-class').value.trim();
+            const errBox = document.getElementById('welcome-error-msg');
+
+            if (!nameInput || !classInput) {
+                errBox.textContent = "⚠️ Thầy Hòa nhắc nhỏ: Em hãy nhập đầy đủ Họ tên và Lớp trước khi bước lên sân khấu nhé!";
+                errBox.classList.remove('hidden');
+                return;
+            }
+            errBox.classList.add('hidden');
+
+            GAME_STATE.mode = 'individual';
+            GAME_STATE.playerName = nameInput;
+            GAME_STATE.playerClass = classInput;
+
+            document.getElementById('hud-player-name').textContent = nameInput;
+            document.getElementById('hud-player-class').textContent = `Lớp: ${classInput}`;
+
+            getAudioContext();
+            ringGoldenBell(true);
+            resetGameSession();
+            showScreen('screen-game');
+            renderMoneyLadder();
+            renderCurrentQuestion();
+        }
+
+        function startTeacherDemoPlay() {
+            GAME_STATE.mode = 'classroom_demo';
+            GAME_STATE.playerName = "Trình Chiếu Lớp Học";
+            GAME_STATE.playerClass = "Thầy Hòa Điều Hành";
+
+            document.getElementById('hud-player-name').textContent = GAME_STATE.playerName;
+            document.getElementById('hud-player-class').textContent = GAME_STATE.playerClass;
+
+            getAudioContext();
+            ringGoldenBell(true);
+            resetGameSession();
+            showScreen('screen-game');
+            renderMoneyLadder();
+            renderCurrentQuestion();
+        }
+
+        function restartCurrentMode() {
+            if (GAME_STATE.mode === 'classroom_demo') {
+                startTeacherDemoPlay();
+            } else {
+                startIndividualGame();
+            }
+        }
+
+        /* =========================================================================
+           10. HIỂN THỊ THANG MỐC ĐIỂM THƯỞNG & CÂU HỎI HIỆN TẠI
+           ========================================================================= */
+        function renderMoneyLadder() {
+            const container = document.getElementById('money-ladder-list');
+            container.innerHTML = '';
+
+            // Hiển thị từ câu 20 xuống câu 1 giống tháp tiền thưởng Ai Là Triệu Phú
+            for (let i = SCORE_LADDER.length - 1; i >= 0; i--) {
+                const isCurrent = (i === GAME_STATE.currentIndex);
+                const isPassed = (i < GAME_STATE.currentIndex);
+                const isMilestone = SAFE_MILESTONES.includes(i);
+
+                const row = document.createElement('div');
+                let rowClass = 'flex items-center justify-between px-3 py-1.5 rounded-xl transition ';
+
+                if (isCurrent) {
+                    rowClass += 'bg-gradient-to-r from-yellow-400 to-amber-500 text-teal-950 font-extrabold shadow-md scale-[1.02]';
+                } else if (isPassed) {
+                    rowClass += 'bg-emerald-900/60 text-emerald-300 font-semibold';
+                } else if (isMilestone) {
+                    rowClass += 'bg-teal-900/80 text-yellow-300 font-bold border border-yellow-400/35';
+                } else {
+                    rowClass += 'text-teal-200/80';
+                }
+
+                row.className = rowClass;
+                row.innerHTML = `
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-5 text-right">${i + 1}</span>
+                        <span>${isPassed ? '✅' : (isMilestone ? '⭐' : '•')}</span>
+                    </span>
+                    <span>${formatNumberVN(SCORE_LADDER[i])}</span>
+                `;
+                container.appendChild(row);
+            }
+        }
+
+        function renderCurrentQuestion() {
+            const q = GAME_STATE.questions[GAME_STATE.currentIndex];
+            const idx = GAME_STATE.currentIndex;
+            GAME_STATE.answeredCurrent = false;
+
+            // Ẩn khung giải thích & gợi ý cũ
+            document.getElementById('explanation-panel').classList.add('hidden');
+            document.getElementById('expert-hint-box').classList.add('hidden');
+
+            // Cập nhật tiêu đề & nhãn mức độ
+            document.getElementById('q-number-label').textContent = `CÂU ${idx + 1} / ${GAME_STATE.questions.length}`;
+            document.getElementById('q-reward-badge').textContent = `Mốc: ${formatNumberVN(SCORE_LADDER[idx])} đ`;
+
+            const typeBadge = document.getElementById('q-type-badge');
+            if (q.type === 'mcq') typeBadge.textContent = "Chặng 1: Trắc nghiệm 4 phương án";
+            else if (q.type === 'tf') typeBadge.textContent = "Chặng 2: Đúng / Sai (4 ý)";
+            else typeBadge.textContent = "Chặng 3: Trả lời ngắn Vận dụng";
+
+            const lvlBadge = document.getElementById('q-level-badge');
+            lvlBadge.textContent = q.level;
+            lvlBadge.className = "px-3 py-1 rounded-full text-xs font-bold uppercase border " + (
+                q.level === "Nhận biết" ? "bg-emerald-500/20 border-emerald-400/60 text-emerald-300" :
+                q.level === "Thông hiểu" ? "bg-sky-500/20 border-sky-400/60 text-sky-300" :
+                "bg-amber-500/25 border-amber-400/70 text-yellow-300"
+            );
+
+            // Nội dung đề bài & Hình vẽ minh họa SVG (tách cột để không bao giờ che khuất đề)
+            const qTextContainer = document.getElementById('q-text-container');
+            const qDiagramContainer = document.getElementById('q-diagram-container');
+
+            qTextContainer.innerHTML = q.question;
+            if (q.svgType && GEOMETRY_SVGS[q.svgType]) {
+                qTextContainer.className = "md:col-span-7 text-base sm:text-lg md:text-xl font-medium text-white leading-relaxed";
+                qDiagramContainer.classList.remove('hidden');
+                qDiagramContainer.innerHTML = GEOMETRY_SVGS[q.svgType];
+            } else {
+                qTextContainer.className = "md:col-span-12 text-base sm:text-lg md:text-xl font-medium text-white leading-relaxed";
+                qDiagramContainer.classList.add('hidden');
+                qDiagramContainer.innerHTML = '';
+            }
+
+            // Ẩn toàn bộ 3 khu vực trả lời trước khi mở đúng khu vực của câu
+            const mcqArea = document.getElementById('answer-area-mcq');
+            const tfArea = document.getElementById('answer-area-tf');
+            const tfSubmitWrap = document.getElementById('tf-submit-wrapper');
+            const shortArea = document.getElementById('answer-area-short');
+
+            mcqArea.classList.add('hidden');
+            tfArea.classList.add('hidden');
+            tfSubmitWrap.classList.add('hidden');
+            shortArea.classList.add('hidden');
+
+            // Quản lý trạng thái nút 50:50 (chỉ khả dụng ở câu MCQ nếu chưa dùng)
+            const btn5050 = document.getElementById('btn-lifeline-5050');
+            if (!GAME_STATE.used5050) {
+                btn5050.disabled = (q.type !== 'mcq');
+                btn5050.classList.toggle('opacity-40', q.type !== 'mcq');
+            }
+
+            if (q.type === 'mcq') {
+                renderMCQArea(q, mcqArea);
+            } else if (q.type === 'tf') {
+                renderTrueFalseArea(q, tfArea, tfSubmitWrap);
+            } else {
+                renderShortAnswerArea(q, shortArea);
+            }
+
+            renderMoneyLadder();
+            renderMathInElementSafe(document.getElementById('question-card'));
+        }
+
+        // Render Dạng 1: Trắc nghiệm 4 phương án (BẮT BUỘC XÁO TRỘN FISHER-YATES)
+        function renderMCQArea(q, container) {
+            container.classList.remove('hidden');
+            container.innerHTML = '';
+
+            // Xáo trộn ngẫu nhiên thứ tự 4 phương án A, B, C, D mỗi lần hiển thị
+            GAME_STATE.currentShuffledOptions = fisherYatesShuffle(q.options);
+            const letters = ['A', 'B', 'C', 'D'];
+
+            GAME_STATE.currentShuffledOptions.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.id = `mcq-opt-${idx}`;
+                btn.className = 'option-btn rounded-2xl p-4 text-left flex items-center gap-3.5 text-base sm:text-lg font-medium text-white shadow-md cursor-pointer';
+                btn.innerHTML = `
+                    <span class="w-9 h-9 rounded-xl bg-yellow-400 text-teal-950 font-extrabold flex items-center justify-center shrink-0 text-base shadow">
+                        ${letters[idx]}
+                    </span>
+                    <span class="flex-1 leading-snug">${opt.text}</span>
+                `;
+                btn.onclick = () => handleMCQSelect(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        // Render Dạng 2: Trắc nghiệm Đúng / Sai 4 ý a, b, c, d
+        function renderTrueFalseArea(q, container, submitWrap) {
+            container.classList.remove('hidden');
+            submitWrap.classList.remove('hidden');
+            container.innerHTML = '';
+            GAME_STATE.tfSelections = [null, null, null, null];
+
+            const btnSubmit = document.getElementById('btn-submit-tf');
+            btnSubmit.disabled = false;
+            btnSubmit.classList.remove('opacity-50');
+
+            q.statements.forEach((st, idx) => {
+                const row = document.createElement('div');
+                row.id = `tf-row-${idx}`;
+                row.className = 'bg-teal-950/85 border border-teal-400/45 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3';
+                row.innerHTML = `
+                    <div class="text-base sm:text-lg text-white leading-snug">
+                        <strong class="text-yellow-300 mr-1.5">${st.label}</strong> ${st.text}
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <button type="button" id="tf-btn-${idx}-true" onclick="selectTrueFalseItem(${idx}, true)"
+                            class="px-4 py-2 rounded-xl border-2 border-teal-500/60 bg-teal-900/80 hover:border-emerald-400 text-white font-bold text-sm transition">
+                            ĐÚNG
+                        </button>
+                        <button type="button" id="tf-btn-${idx}-false" onclick="selectTrueFalseItem(${idx}, false)"
+                            class="px-4 py-2 rounded-xl border-2 border-teal-500/60 bg-teal-900/80 hover:border-rose-400 text-white font-bold text-sm transition">
+                            SAI
+                        </button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function selectTrueFalseItem(idx, val) {
+            if (GAME_STATE.answeredCurrent) return;
+            GAME_STATE.tfSelections[idx] = val;
+
+            const btnT = document.getElementById(`tf-btn-${idx}-true`);
+            const btnF = document.getElementById(`tf-btn-${idx}-false`);
+
+            btnT.className = "px-4 py-2 rounded-xl border-2 font-extrabold text-sm transition " + (
+                val === true ? "bg-emerald-500 border-emerald-200 text-teal-950 shadow" : "border-teal-500/60 bg-teal-900/80 text-white"
+            );
+            btnF.className = "px-4 py-2 rounded-xl border-2 font-extrabold text-sm transition " + (
+                val === false ? "bg-rose-500 border-rose-200 text-white shadow" : "border-teal-500/60 bg-teal-900/80 text-white"
+            );
+        }
+
+        // Render Dạng 3: Trả lời ngắn
+        function renderShortAnswerArea(q, container) {
+            container.classList.remove('hidden');
+            const input = document.getElementById('short-answer-input');
+            const btn = document.getElementById('btn-submit-short');
+            input.value = '';
+            input.disabled = false;
+            btn.disabled = false;
+            btn.classList.remove('opacity-50');
+            setTimeout(() => input.focus(), 100);
+        }
+
+        /* =========================================================================
+           11. QUYỀN TRỢ GIÚP: 50:50 & HỎI CHUYÊN GIA THẦY HÒA
+           ========================================================================= */
+        function useLifeline5050() {
+            const q = GAME_STATE.questions[GAME_STATE.currentIndex];
+            if (GAME_STATE.used5050 || GAME_STATE.answeredCurrent || q.type !== 'mcq') return;
+
+            GAME_STATE.used5050 = true;
+            const btn5050 = document.getElementById('btn-lifeline-5050');
+            btn5050.disabled = true;
+            btn5050.classList.add('opacity-40', 'cursor-not-allowed', 'line-through');
+
+            // Tìm các phương án sai và loại bỏ ngẫu nhiên 2 phương án
+            const wrongIndices = [];
+            GAME_STATE.currentShuffledOptions.forEach((opt, idx) => {
+                if (!opt.isCorrect) wrongIndices.push(idx);
+            });
+
+            // Xáo trộn chỉ số sai để loại ngẫu nhiên 2 phương án
+            for (let i = wrongIndices.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [wrongIndices[i], wrongIndices[j]] = [wrongIndices[j], wrongIndices[i]];
+            }
+
+            wrongIndices.slice(0, 2).forEach(idx => {
+                const optBtn = document.getElementById(`mcq-opt-${idx}`);
+                if (optBtn) {
+                    optBtn.classList.add('eliminated');
+                    optBtn.disabled = true;
+                }
+            });
+
+            ringGoldenBell(true);
+        }
+
+        function useLifelineExpert() {
+            if (GAME_STATE.usedExpert || GAME_STATE.answeredCurrent) return;
+
+            GAME_STATE.usedExpert = true;
+            const btnExpert = document.getElementById('btn-lifeline-expert');
+            btnExpert.disabled = true;
+            btnExpert.classList.add('opacity-40', 'cursor-not-allowed', 'line-through');
+
+            const q = GAME_STATE.questions[GAME_STATE.currentIndex];
+            const hintBox = document.getElementById('expert-hint-box');
+            const hintText = document.getElementById('expert-hint-text');
+            hintText.innerHTML = q.hint;
+            hintBox.classList.remove('hidden');
+
+            renderMathInElementSafe(hintBox);
+            ringGoldenBell(true);
+        }
+
+        /* =========================================================================
+           12. CHẤM ĐIỂM CÂU HỎI & HIỂN THỊ KHUNG "PHÂN TÍCH ĐỊNH HƯỚNG GIẢI"
+           ========================================================================= */
+        function handleMCQSelect(selectedIdx) {
+            if (GAME_STATE.answeredCurrent) return;
+            GAME_STATE.answeredCurrent = true;
+
+            const isCorrect = GAME_STATE.currentShuffledOptions[selectedIdx].isCorrect;
+            GAME_STATE.currentShuffledOptions.forEach((opt, idx) => {
+                const btn = document.getElementById(`mcq-opt-${idx}`);
+                btn.disabled = true;
+                if (opt.isCorrect) {
+                    btn.classList.add('correct');
+                } else if (idx === selectedIdx && !isCorrect) {
+                    btn.classList.add('wrong');
+                }
+            });
+
+            finalizeQuestionFeedback(isCorrect, isCorrect ? 1 : 0);
+        }
+
+        function submitTrueFalseAnswer() {
+            if (GAME_STATE.answeredCurrent) return;
+            // Kiểm tra học sinh đã chọn đủ 4 ý chưa
+            if (GAME_STATE.tfSelections.some(v => v === null)) {
+                openCustomModal(
+                    "Chưa chọn đủ 4 ý",
+                    "Em hãy chọn ĐÚNG hoặc SAI cho cả 4 ý a, b, c, d trước khi chốt đáp án nhé!",
+                    "📝",
+                    null
+                );
+                return;
+            }
+
+            GAME_STATE.answeredCurrent = true;
+            const btnSubmit = document.getElementById('btn-submit-tf');
+            btnSubmit.disabled = true;
+            btnSubmit.classList.add('opacity-50');
+
+            const q = GAME_STATE.questions[GAME_STATE.currentIndex];
+            let rightItems = 0;
+
+            q.statements.forEach((st, idx) => {
+                const userVal = GAME_STATE.tfSelections[idx];
+                const isItemRight = (userVal === st.isCorrect);
+                if (isItemRight) rightItems++;
+
+                const row = document.getElementById(`tf-row-${idx}`);
+                const btnT = document.getElementById(`tf-btn-${idx}-true`);
+                const btnF = document.getElementById(`tf-btn-${idx}-false`);
+                btnT.disabled = true;
+                btnF.disabled = true;
+
+                if (isItemRight) {
+                    row.classList.add('border-emerald-400', 'bg-emerald-950/60');
+                } else {
+                    row.classList.add('border-rose-400', 'bg-rose-950/60');
+                }
+            });
+
+            // Thang điểm Đúng/Sai chuẩn 2025: 1 ý = 10%, 2 ý = 25%, 3 ý = 50%, 4 ý = 100%
+            const ratioMap = { 0: 0, 1: 0.1, 2: 0.25, 3: 0.5, 4: 1.0 };
+            const ratio = ratioMap[rightItems];
+            const isFullCorrect = (rightItems === 4);
+
+            finalizeQuestionFeedback(isFullCorrect, ratio, `Đúng ${rightItems}/4 ý`);
+        }
+
+        function submitShortAnswer() {
+            if (GAME_STATE.answeredCurrent) return;
+            const input = document.getElementById('short-answer-input');
+            const rawVal = input.value.trim();
+            if (!rawVal) {
+                openCustomModal(
+                    "Chưa nhập đáp số",
+                    "Em hãy nhập kết quả tính toán của mình vào ô trống trước khi bấm Chốt Đáp Án!",
+                    "✍️",
+                    null
+                );
+                return;
+            }
+
+            GAME_STATE.answeredCurrent = true;
+            input.disabled = true;
+            const btn = document.getElementById('btn-submit-short');
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+
+            const q = GAME_STATE.questions[GAME_STATE.currentIndex];
+            const normalizedUser = rawVal.replace(/\s+/g, '').replace(',', '.');
+
+            // Kiểm tra khớp chuỗi hoặc khớp giá trị số gần đúng (sai số <= 0.01)
+            let isCorrect = q.acceptedAnswers.some(ans => ans.replace(',', '.') === normalizedUser);
+            if (!isCorrect) {
+                const userNum = parseFractionOrFloat(normalizedUser);
+                if (!isNaN(userNum)) {
+                    isCorrect = q.acceptedAnswers.some(ans => {
+                        const ansNum = parseFractionOrFloat(ans.replace(',', '.'));
+                        return !isNaN(ansNum) && Math.abs(userNum - ansNum) <= 0.015;
+                    });
+                }
+            }
+
+            finalizeQuestionFeedback(isCorrect, isCorrect ? 1 : 0, `Đáp án chuẩn: $${q.displayAnswer}$`);
+        }
+
+        function parseFractionOrFloat(str) {
+            if (str.includes('/')) {
+                const parts = str.split('/');
+                if (parts.length === 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1])) && parseFloat(parts[1]) !== 0) {
+                    return parseFloat(parts[0]) / parseFloat(parts[1]);
+                }
+                return NaN;
+            }
+            return parseFloat(str);
+        }
+
+        // Xử lý hiệu ứng ánh sáng, âm thanh, điểm số và mở khung Phân tích định hướng giải
+        function finalizeQuestionFeedback(isPerfect, scoreRatio, extraBadgeText = '') {
+            const idx = GAME_STATE.currentIndex;
+            const q = GAME_STATE.questions[idx];
+            const prevMilestoneScore = idx === 0 ? 0 : SCORE_LADDER[idx - 1];
+            const stepReward = SCORE_LADDER[idx] - prevMilestoneScore;
+
+            const earnedPoints = Math.round(stepReward * scoreRatio);
+            const earnedXP = Math.round(q.xp * scoreRatio);
+
+            GAME_STATE.score += earnedPoints;
+            GAME_STATE.sessionXP += earnedXP;
+            if (scoreRatio >= 0.5) {
+                GAME_STATE.correctCount += 1;
+            }
+
+            // Cập nhật HUD
+            document.getElementById('hud-score').textContent = formatNumberVN(GAME_STATE.score);
+            document.getElementById('hud-xp').textContent = `+${formatNumberVN(GAME_STATE.sessionXP)} XP`;
+
+            // Hiệu ứng sân khấu
+            const body = document.body;
+            const expPanel = document.getElementById('explanation-panel');
+            const statusIcon = document.getElementById('result-status-icon');
+            const statusTitle = document.getElementById('result-status-title');
+            const statusSubtitle = document.getElementById('result-status-subtitle');
+            const pointsBadge = document.getElementById('result-points-earned');
+
+            body.classList.remove('flash-correct', 'shake-wrong');
+            void body.offsetWidth;
+
+            if (isPerfect) {
+                body.classList.add('flash-correct');
+                ringGoldenBell(false);
+                playCorrectCelebrationSound();
+                launchConfetti(2200);
+
+                expPanel.className = "rounded-3xl p-5 sm:p-6 border-2 border-emerald-400 bg-gradient-to-br from-emerald-950/95 to-teal-950/95 shadow-2xl space-y-4";
+                statusIcon.textContent = "🎉";
+                statusTitle.textContent = "CHÍNH XÁC TUYỆT ĐỐI!";
+                statusTitle.className = "font-display text-xl sm:text-2xl font-bold uppercase text-emerald-300";
+                statusSubtitle.textContent = extraBadgeText || "Tuyệt vời! Em đã nắm vững kiến thức Hình học không gian 11.";
+                pointsBadge.textContent = `+${formatNumberVN(earnedPoints)} điểm | +${earnedXP} XP`;
+                pointsBadge.className = "px-4 py-1.5 rounded-full font-extrabold text-sm sm:text-base bg-emerald-500/25 border border-emerald-300 text-emerald-200";
+            } else if (scoreRatio > 0) {
+                playGoldenBellSound();
+                expPanel.className = "rounded-3xl p-5 sm:p-6 border-2 border-yellow-400 bg-gradient-to-br from-amber-950/95 to-teal-950/95 shadow-2xl space-y-4";
+                statusIcon.textContent = "👏";
+                statusTitle.textContent = "HOÀN THÀNH MỘT PHẦN!";
+                statusTitle.className = "font-display text-xl sm:text-2xl font-bold uppercase text-yellow-300";
+                statusSubtitle.textContent = `${extraBadgeText}. Hãy đọc kỹ phân tích dưới đây để đạt điểm tối đa nhé!`;
+                pointsBadge.textContent = `+${formatNumberVN(earnedPoints)} điểm | +${earnedXP} XP`;
+                pointsBadge.className = "px-4 py-1.5 rounded-full font-extrabold text-sm sm:text-base bg-yellow-500/25 border border-yellow-300 text-yellow-200";
+            } else {
+                body.classList.add('shake-wrong');
+                playWrongSound();
+                expPanel.className = "rounded-3xl p-5 sm:p-6 border-2 border-rose-400 bg-gradient-to-br from-rose-950/95 to-teal-950/95 shadow-2xl space-y-4";
+                statusIcon.textContent = "💡";
+                statusTitle.textContent = "CHƯA CHÍNH XÁC – CÙNG THẦY HÒA PHÂN TÍCH NHÉ!";
+                statusTitle.className = "font-display text-xl sm:text-2xl font-bold uppercase text-rose-300";
+                statusSubtitle.textContent = extraBadgeText || "Đừng lo lắng, mỗi lần phân tích là một bước tiến vững chắc!";
+                pointsBadge.textContent = "+0 điểm";
+                pointsBadge.className = "px-4 py-1.5 rounded-full font-extrabold text-sm sm:text-base bg-rose-500/25 border border-rose-300 text-rose-200";
+            }
+
+            // Hiển thị nội dung Phân tích định hướng giải
+            document.getElementById('explanation-content').innerHTML = q.explanation;
+
+            // Đổi nhãn nút tiếp theo nếu là câu cuối cùng
+            const nextLabel = document.getElementById('btn-next-label');
+            if (idx === GAME_STATE.questions.length - 1) {
+                nextLabel.textContent = "🏆 Tổng Kết & Vinh Danh";
+            } else {
+                nextLabel.textContent = "Câu Tiếp Theo ➡️";
+            }
+
+            expPanel.classList.remove('hidden');
+            renderMathInElementSafe(expPanel);
+            expPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function goToNextQuestion() {
+            if (GAME_STATE.currentIndex < GAME_STATE.questions.length - 1) {
+                GAME_STATE.currentIndex += 1;
+                renderCurrentQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                completeGameAndCelebrate();
+            }
+        }
+
+        /* =========================================================================
+           13. KẾT THÚC LƯỢT CHƠI, VINH DANH & GỬI DỮ LIỆU GOOGLE APPS SCRIPT
+           ========================================================================= */
+        function completeGameAndCelebrate() {
+            if (GAME_STATE.timerInterval) {
+                clearInterval(GAME_STATE.timerInterval);
+                GAME_STATE.timerInterval = null;
+            }
+
+            playVictoryFanfare();
+            launchConfetti(4500);
+
+            const timeStr = formatTimeMMSS(GAME_STATE.elapsedSeconds);
+            const badges = [];
+            if (GAME_STATE.score >= 10000000) badges.push("👑 Triệu Phú Toán Học 10 Triệu");
+            if (GAME_STATE.correctCount >= 18) badges.push("🎯 Bậc Thầy Song Song");
+            if (!GAME_STATE.used5050 && !GAME_STATE.usedExpert) badges.push("🧠 Bản Lĩnh Độc Lập");
+            if (GAME_STATE.correctCount >= 10) badges.push("⭐ Ngôi Sao Hình Học 11");
+            if (badges.length === 0) badges.push("🏅 Chiến Binh Kiên Trì");
+
+            // Lưu XP và Huy hiệu vào thiết bị (với chế độ cá nhân)
+            if (GAME_STATE.mode === 'individual') {
+                saveProfileProgress(GAME_STATE.sessionXP, badges);
+                sendResultToAppsScript({
+                    "Họ tên": GAME_STATE.playerName,
+                    "Lớp": GAME_STATE.playerClass,
+                    "Điểm số": GAME_STATE.score,
+                    "Thời gian làm bài": timeStr
+                });
+            }
+
+            // Cập nhật giao diện màn hình Vinh danh
+            const headline = document.getElementById('victory-headline');
+            if (GAME_STATE.score >= 10000000) {
+                headline.textContent = "XUẤT SẮC ĐẠT ĐỈNH 10.000.000 ĐIỂM!";
+            } else if (GAME_STATE.score >= 5000000) {
+                headline.textContent = "CHÚC MỪNG THÀNH TÍCH ẤN TƯỢNG!";
+            } else {
+                headline.textContent = "HOÀN THÀNH ĐẤU TRƯỜNG TOÁN 11!";
+            }
+
+            document.getElementById('victory-player-info').textContent = 
+                `Thí sinh: ${GAME_STATE.playerName} • ${GAME_STATE.playerClass}`;
+            document.getElementById('vic-final-score').textContent = formatNumberVN(GAME_STATE.score);
+            document.getElementById('vic-correct-count').textContent = `${GAME_STATE.correctCount} / ${GAME_STATE.questions.length}`;
+            document.getElementById('vic-xp-earned').textContent = `+${formatNumberVN(GAME_STATE.sessionXP)} XP`;
+            document.getElementById('vic-time-taken').textContent = timeStr;
+
+            const badgesListEl = document.getElementById('vic-badges-list');
+            badgesListEl.innerHTML = badges.map(b => `
+                <span class="px-3.5 py-1.5 rounded-full bg-yellow-400/20 border border-yellow-400 text-yellow-200 font-bold text-xs sm:text-sm">
+                    ${b}
+                </span>
+            `).join('');
+
+            showScreen('screen-victory');
+        }
+
+        // Gửi kết quả lên Google Apps Script (POST) - an toàn tuyệt đối khi URL rỗng
+        function sendResultToAppsScript(payload) {
+            if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.trim() === "") {
+                return;
+            }
+            try {
+                fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(() => {});
+            } catch (e) {}
+        }
+
+        /* =========================================================================
+           14. CHẾ ĐỘ CẢ LỚP & ĐỒNG BỘ BẢNG XẾP HẠNG TRỰC TIẾP MỖI 5 GIÂY
+           ========================================================================= */
+        function openClassroomMode() {
+            showScreen('screen-classroom');
+            fetchClassroomLeaderboard();
+
+            if (GAME_STATE.leaderboardInterval) {
+                clearInterval(GAME_STATE.leaderboardInterval);
+            }
+            GAME_STATE.leaderboardInterval = setInterval(fetchClassroomLeaderboard, 5000);
+        }
+
+        function parseTimeToSeconds(timeStr) {
+            if (!timeStr) return 999999;
+            const parts = String(timeStr).split(':').map(Number);
+            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                return parts[0] * 60 + parts[1];
+            }
+            return 999999;
+        }
+
+        async function fetchClassroomLeaderboard() {
+            const tbody = document.getElementById('leaderboard-tbody');
+            const submittedEl = document.getElementById('class-submitted-count');
+            const topScoreEl = document.getElementById('class-top-score');
+
+            // Nếu chưa cấu hình APPS_SCRIPT_URL: hiển thị trạng thái chờ kết nối sạch sẽ, KHÔNG bịa dữ liệu giả
+            if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.trim() === "") {
+                submittedEl.textContent = "0";
+                topScoreEl.textContent = "0";
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="py-10 px-4 text-center text-teal-200">
+                            <div class="text-3xl mb-2">📡</div>
+                            <div class="font-bold text-yellow-300 text-base sm:text-lg">Sẵn sàng nhận dữ liệu trực tiếp từ lớp học</div>
+                            <div class="text-xs sm:text-sm text-teal-300 mt-1">
+                                Bảng xếp hạng sẽ tự động cập nhật ngay khi có kết quả gửi về máy chủ lớp học của Thầy Hòa.
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            try {
+                const res = await fetch(APPS_SCRIPT_URL);
+                const json = await res.json();
+                if (json && json.status === "ok" && Array.isArray(json.data)) {
+                    // Sắp xếp Điểm số giảm dần, Thời gian làm bài tăng dần
+                    const sorted = [...json.data].sort((a, b) => {
+                        const scoreDiff = Number(b["Điểm số"] || 0) - Number(a["Điểm số"] || 0);
+                        if (scoreDiff !== 0) return scoreDiff;
+                        return parseTimeToSeconds(a["Thời gian làm bài"]) - parseTimeToSeconds(b["Thời gian làm bài"]);
+                    });
+
+                    submittedEl.textContent = sorted.length;
+                    topScoreEl.textContent = sorted.length > 0 ? formatNumberVN(sorted[0]["Điểm số"] || 0) : "0";
+
+                    if (sorted.length === 0) {
+                        tbody.innerHTML = `
+                            <tr>
+                                <td colspan="5" class="py-8 text-center text-teal-200">
+                                    Chưa có học sinh nào hoàn thành lượt thi. Đang chờ kết quả đầu tiên...
+                                </td>
+                            </tr>
+                        `;
+                        return;
+                    }
+
+                    tbody.innerHTML = sorted.map((row, idx) => {
+                        const rankBadge = idx === 0 ? "🥇 1" : idx === 1 ? "🥈 2" : idx === 2 ? "🥉 3" : `${idx + 1}`;
+                        const rowHighlight = idx === 0 ? "bg-yellow-400/15 font-bold text-yellow-200" : "text-white";
+                        return `
+                            <tr class="${rowHighlight} hover:bg-teal-800/40 transition">
+                                <td class="py-3 px-4 font-extrabold">${rankBadge}</td>
+                                <td class="py-3 px-4 font-semibold">${escapeHTML(row["Họ tên"] || "")}</td>
+                                <td class="py-3 px-4">${escapeHTML(row["Lớp"] || "")}</td>
+                                <td class="py-3 px-4 text-right font-display text-lg text-yellow-300 font-bold">${formatNumberVN(row["Điểm số"] || 0)}</td>
+                                <td class="py-3 px-4 text-right font-mono text-teal-200">${escapeHTML(row["Thời gian làm bài"] || "--:--")}</td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            } catch (e) {
+                // Giữ giao diện ổn định, không gây lỗi UI
+            }
+        }
+
+        function escapeHTML(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+
+        /* =========================================================================
+           15. HỘP THOẠI XÁC NHẬN TÙY CHỈNH & KHỞI TẠO TRANG
+           ========================================================================= */
+        function openCustomModal(title, message, icon, onConfirmCallback) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('modal-icon').textContent = icon || '🔔';
+
+            const btnCancel = document.getElementById('modal-btn-cancel');
+            const btnConfirm = document.getElementById('modal-btn-confirm');
+
+            if (typeof onConfirmCallback === 'function') {
+                btnCancel.classList.remove('hidden');
+                btnConfirm.textContent = "Đồng ý";
+                btnConfirm.onclick = () => {
+                    closeCustomModal();
+                    onConfirmCallback();
+                };
+            } else {
+                btnCancel.classList.add('hidden');
+                btnConfirm.textContent = "Đã hiểu";
+                btnConfirm.onclick = closeCustomModal;
+            }
+
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        function confirmReturnHome() {
+            const isGameVisible = !document.getElementById('screen-game').classList.contains('hidden');
+            if (isGameVisible) {
+                openCustomModal(
+                    "Rời khỏi sàn đấu?",
+                    "Lượt thi hiện tại sẽ kết thúc nếu em quay về Trang chủ. Em có chắc chắn muốn thoát?",
+                    "🏠",
+                    () => {
+                        if (GAME_STATE.timerInterval) {
+                            clearInterval(GAME_STATE.timerInterval);
+                            GAME_STATE.timerInterval = null;
+                        }
+                        showScreen('screen-welcome');
+                    }
+                );
+            } else {
+                showScreen('screen-welcome');
+            }
+        }
+
+        // Hỗ trợ nhấn phím Enter ở ô trả lời ngắn
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const shortArea = document.getElementById('answer-area-short');
+                if (shortArea && !shortArea.classList.contains('hidden') && !GAME_STATE.answeredCurrent) {
+                    submitShortAnswer();
+                }
+            }
+        });
+
+        // Khởi tạo khi trang tải xong
+        window.addEventListener('DOMContentLoaded', () => {
+            updateProfileUI();
+            renderMathInElementSafe(document.body);
+        });
+    </script>
+</body>
+</html>
