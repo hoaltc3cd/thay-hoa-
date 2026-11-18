@@ -1,943 +1,1757 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ĐẤU TRƯỜNG TOÁN HỌC 12 — BÀI 7: HỆ TRỤC TỌA ĐỘ TRONG KHÔNG GIAN — THẦY HÒA</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Be Vietnam Pro & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-  <!-- KaTeX for crisp Math rendering -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đấu Trường Toán Học 12 - Bài 7: Hệ Trục Tọa Độ Trong Không Gian - Thầy Hòa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
-  <style>
-    :root {
-      --bg-green-dark: #07291c;
-      --bg-green-mid: #0d442f;
-      --chalkboard: #103828;
-      --chalkboard-border: #3d7a5e;
-      --gold-primary: #fbbf24;
-      --gold-light: #fef08a;
-      --gold-dark: #b45309;
-    }
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at top, #0f5132 0%, #06281e 60%, #03150f 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-    * {
-      box-sizing: border-box;
-      font-family: 'Be Vietnam Pro', sans-serif;
-    }
+        /* Phông nền bảng xanh học đường tương phản cao */
+        .chalkboard-stage {
+            background: linear-gradient(145deg, #0b4a38 0%, #073326 100%);
+            border: 8px solid #6b4423;
+            box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.75), 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
 
-    body {
-      background: radial-gradient(circle at 50% 15%, #166544 0%, #0b3b28 45%, #051f15 100%);
-      color: #ffffff;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+        /* Ánh sáng sân khấu truyền hình */
+        .stage-spotlight {
+            background: radial-gradient(circle, rgba(250, 204, 21, 0.18) 0%, transparent 70%);
+        }
 
-    /* Sân khấu truyền hình ánh sáng */
-    .stage-spotlight {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse at 20% 0%, rgba(74, 222, 128, 0.14) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 0%, rgba(250, 204, 21, 0.14) 0%, transparent 50%);
-      z-index: 0;
-    }
+        .gold-text-glow {
+            text-shadow: 0 0 12px rgba(245, 158, 11, 0.85), 0 0 25px rgba(245, 158, 11, 0.5);
+        }
 
-    /* Khung bảng xanh chữ trắng tương phản cao */
-    .chalkboard-panel {
-      background: linear-gradient(145deg, rgba(16, 56, 40, 0.96), rgba(10, 40, 28, 0.98));
-      border: 3px solid #3c8262;
-      box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.55),
-        inset 0 0 30px rgba(255, 255, 255, 0.04);
-    }
+        /* Hiệu ứng chuông vàng trung tâm */
+        .golden-bell {
+            animation: bellSwing 3s infinite ease-in-out;
+            transform-origin: top center;
+            filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.75));
+        }
 
-    .gold-gradient-text {
-      background: linear-gradient(180deg, #fef9c3 0%, #facc15 55%, #ca8a04 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-    }
+        @keyframes bellSwing {
+            0%, 100% { transform: rotate(0deg); }
+            10% { transform: rotate(12deg); }
+            20% { transform: rotate(-12deg); }
+            30% { transform: rotate(8deg); }
+            40% { transform: rotate(-8deg); }
+            50% { transform: rotate(0deg); }
+        }
 
-    .gold-btn {
-      background: linear-gradient(180deg, #fde047 0%, #eab308 55%, #ca8a04 100%);
-      color: #1c1917;
-      box-shadow: 0 6px 20px rgba(234, 179, 8, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-      transition: all 0.2s ease;
-    }
+        /* Nút đáp án Game Show */
+        .option-btn {
+            background: linear-gradient(180deg, #134e4a 0%, #0f3d3a 100%);
+            border: 2px solid #38bdf8;
+            transition: all 0.2s ease;
+        }
 
-    .gold-btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-      filter: brightness(1.07);
-      box-shadow: 0 10px 26px rgba(250, 204, 21, 0.55);
-    }
+        .option-btn:hover:not(:disabled) {
+            background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+            border-color: #fbbf24;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.35);
+        }
 
-    .gold-btn:active:not(:disabled) {
-      transform: translateY(1px);
-    }
+        /* Hiệu ứng ánh sáng khi trả lời đúng */
+        .option-correct {
+            background: linear-gradient(180deg, #16a34a 0%, #15803d 100%) !important;
+            border-color: #86efac !important;
+            box-shadow: 0 0 25px #22c55e !important;
+            animation: flashGreen 0.5s ease-in-out 2;
+        }
 
-    /* Hiệu ứng rung chuông vàng trung tâm */
-    @keyframes bellRing {
-      0%, 100% { transform: rotate(0deg) scale(1); }
-      15% { transform: rotate(14deg) scale(1.08); }
-      30% { transform: rotate(-12deg) scale(1.08); }
-      45% { transform: rotate(10deg) scale(1.05); }
-      60% { transform: rotate(-8deg) scale(1.05); }
-      75% { transform: rotate(4deg) scale(1.02); }
-    }
+        @keyframes flashGreen {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.4); }
+        }
 
-    .bell-ringing {
-      animation: bellRing 0.85s ease-in-out;
-    }
+        /* Hiệu ứng loại khi trả lời sai */
+        .option-wrong {
+            background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%) !important;
+            border-color: #fca5a5 !important;
+            box-shadow: 0 0 20px #ef4444 !important;
+            animation: shakeWrong 0.4s ease-in-out;
+        }
 
-    /* Hiệu ứng ánh sáng trả lời đúng */
-    @keyframes correctFlash {
-      0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.9); }
-      50% { box-shadow: 0 0 45px 16px rgba(74, 222, 128, 0.65); }
-      100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
-    }
+        @keyframes shakeWrong {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
 
-    .fx-correct {
-      animation: correctFlash 1s ease-out;
-    }
+        /* Hiệu ứng chiến thắng câu cuối */
+        .victory-glow {
+            animation: victoryPulse 1.5s infinite alternate;
+        }
 
-    /* Hiệu ứng rung nhẹ báo sai */
-    @keyframes wrongShake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
-    }
+        @keyframes victoryPulse {
+            from { box-shadow: 0 0 15px #f59e0b, inset 0 0 15px #f59e0b; }
+            to { box-shadow: 0 0 40px #fbbf24, inset 0 0 25px #fbbf24; }
+        }
 
-    .fx-wrong {
-      animation: wrongShake 0.55s ease-in-out;
-    }
-
-    /* Nút đáp án phong cách Ai là triệu phú */
-    .option-card {
-      background: linear-gradient(135deg, rgba(20, 72, 51, 0.92), rgba(13, 51, 36, 0.96));
-      border: 2px solid #45926f;
-      transition: all 0.2s ease;
-    }
-
-    .option-card:hover:not(:disabled) {
-      border-color: #facc15;
-      background: linear-gradient(135deg, rgba(28, 96, 68, 0.98), rgba(18, 68, 48, 0.98));
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(250, 204, 21, 0.25);
-    }
-
-    .option-card.selected {
-      border-color: #facc15;
-      background: linear-gradient(135deg, rgba(161, 98, 7, 0.65), rgba(113, 63, 18, 0.8));
-    }
-
-    .option-card.correct {
-      border-color: #4ade80 !important;
-      background: linear-gradient(135deg, rgba(22, 163, 74, 0.85), rgba(20, 83, 45, 0.95)) !important;
-      box-shadow: 0 0 24px rgba(74, 222, 128, 0.5);
-    }
-
-    .option-card.wrong {
-      border-color: #f87171 !important;
-      background: linear-gradient(135deg, rgba(220, 38, 38, 0.82), rgba(127, 29, 29, 0.95)) !important;
-    }
-
-    .option-card.eliminated {
-      opacity: 0.28;
-      pointer-events: none;
-    }
-
-    /* Thanh cuộn tinh gọn */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #072418; }
-    ::-webkit-scrollbar-thumb { background: #2d6a4f; border-radius: 999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #40916c; }
-
-    /* KaTeX font size tối ưu nhìn từ cuối lớp */
-    .katex { font-size: 1.08em !important; }
-  </style>
+        .custom-scroll::-webkit-scrollbar { width: 8px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.25); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 4px; }
+    </style>
 </head>
-<body class="selection:bg-amber-400 selection:text-slate-950">
-  <div class="stage-spotlight"></div>
+<body class="flex flex-col justify-between p-2 md:p-4 select-none">
 
-  <!-- Canvas pháo hoa chiến thắng -->
-  <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
-
-  <!-- HEADER SÂN KHẤU TRUYỀN HÌNH -->
-  <header class="relative z-10 border-b border-emerald-600/50 bg-emerald-950/85 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-      <!-- Thương hiệu THẦY HÒA -->
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 flex items-center justify-center shadow-lg border border-amber-200">
-          <svg class="w-6 h-6 text-slate-950" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-          </svg>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold tracking-wider uppercase bg-amber-400 text-slate-950 shadow">
-              THẦY HÒA
-            </span>
-            <span class="text-xs font-semibold text-emerald-300 uppercase tracking-widest hidden sm:inline">
-              Toán 12 • KNTTVCS 2018
-            </span>
-          </div>
-          <h1 class="text-base sm:text-xl font-black tracking-tight gold-gradient-text uppercase">
-            BÀI 7: HỆ TRỤC TỌA ĐỘ TRONG KHÔNG GIAN
-          </h1>
-        </div>
-      </div>
-
-      <!-- Chuông Vàng Trung Tâm -->
-      <button id="central-bell-btn" type="button" title="Bấm rung Chuông Vàng!"
-        class="group relative flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-b from-amber-300 via-amber-400 to-amber-600 text-slate-950 font-black shadow-[0_0_25px_rgba(251,191,36,0.45)] border-2 border-amber-100 hover:scale-105 transition cursor-pointer">
-        <svg id="central-bell-icon" class="w-7 h-7 text-amber-950 drop-shadow" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2a2 2 0 0 0-2 2v.34A7.002 7.002 0 0 0 5 11v5l-2 2v1h18v-1l-2-2v-5a7.002 7.002 0 0 0-5-6.66V4a2 2 0 0 0-2-2zm-3 18a3 3 0 0 0 6 0H9z"/>
-        </svg>
-        <span class="text-xs sm:text-sm tracking-wide uppercase">CHUÔNG VÀNG 10 TRIỆU</span>
-      </button>
-
-      <!-- Điều khiển Âm thanh & Chế độ -->
-      <div class="flex items-center gap-2">
-        <button id="toggle-sound-btn" type="button"
-          class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-900/90 hover:bg-emerald-800 border border-emerald-500/50 text-xs sm:text-sm font-bold text-emerald-100 transition cursor-pointer">
-          <span id="sound-icon">🔊</span>
-          <span id="sound-label">Âm thanh: BẬT</span>
-        </button>
-        <button id="open-rules-btn" type="button"
-          class="px-3 py-2 rounded-xl bg-emerald-900/90 hover:bg-emerald-800 border border-emerald-500/50 text-xs sm:text-sm font-bold text-amber-300 transition cursor-pointer">
-          📜 Luật chơi
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- NỘI DUNG CHÍNH -->
-  <main class="relative z-10 max-w-7xl mx-auto px-4 py-6">
-
-    <!-- =========================================================
-         MÀN HÌNH 1: SẢNH CHỜ & CHỌN CHẾ ĐỘ CHƠI
-         ========================================================= -->
-    <section id="screen-lobby" class="space-y-6">
-      <div class="chalkboard-panel rounded-3xl p-6 sm:p-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <!-- Giới thiệu Game Show -->
-          <div class="lg:col-span-7 space-y-5">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-800/90 border border-emerald-400/40 text-emerald-200 text-xs sm:text-sm font-bold">
-              <span>🎯 HOẠT ĐỘNG LUYỆN TẬP - VẬN DỤNG</span>
-              <span>•</span>
-              <span>KHÔNG GIỚI HẠN THỜI GIAN MỖI CÂU</span>
-            </div>
-
-            <h2 class="text-2xl sm:text-4xl font-black leading-tight text-white">
-              ĐẤU TRƯỜNG GAME SHOW<br />
-              <span class="gold-gradient-text">CHINH PHỤC TỌA ĐỘ Oxyz</span>
-            </h2>
-
-            <p class="text-emerald-100/95 text-base sm:text-lg leading-relaxed">
-              Kết hợp <strong>3 hình thức thi đấu truyền hình</strong> trong một hành trình duy nhất để chinh phục đỉnh cao <strong class="text-amber-300">10.000.000 ĐIỂM</strong> cùng <strong class="text-amber-300">THẦY HÒA</strong>:
-            </p>
-
-            <!-- 3 Chặng thi -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-              <div class="rounded-2xl bg-emerald-950/80 border border-emerald-500/40 p-4">
-                <div class="text-amber-400 font-black text-sm uppercase mb-1">Chặng 1 • Câu 1–9</div>
-                <div class="font-extrabold text-white text-base mb-1">Ai Là Triệu Phú</div>
-                <p class="text-xs text-emerald-200 leading-relaxed">
-                  9 câu Trắc nghiệm 4 lựa chọn (xáo trộn ngẫu nhiên). Có trợ giúp <strong>50:50</strong> &amp; <strong>Hỏi Chuyên Gia</strong>.
-                </p>
-              </div>
-              <div class="rounded-2xl bg-emerald-950/80 border border-emerald-500/40 p-4">
-                <div class="text-amber-400 font-black text-sm uppercase mb-1">Chặng 2 • Câu 10–13</div>
-                <div class="font-extrabold text-white text-base mb-1">Đấu Trường Toán Học</div>
-                <p class="text-xs text-emerald-200 leading-relaxed">
-                  4 câu Đúng/Sai 4 mệnh đề a, b, c, d. Chấm điểm lũy tiến chuẩn cấu trúc đề thi THPT.
-                </p>
-              </div>
-              <div class="rounded-2xl bg-emerald-950/80 border border-emerald-500/40 p-4">
-                <div class="text-amber-400 font-black text-sm uppercase mb-1">Chặng 3 • Câu 14–16</div>
-                <div class="font-extrabold text-white text-base mb-1">Vượt Chướng Ngại Vật</div>
-                <p class="text-xs text-emerald-200 leading-relaxed">
-                  3 bài toán Vận dụng thực tế (hợp lực, chuyển động không gian Oxyz) về đích 10 triệu điểm.
-                </p>
-              </div>
-            </div>
-
-            <!-- Bảng tóm tắt luật chơi nhanh -->
-            <div class="rounded-2xl bg-emerald-900/50 border border-emerald-500/30 p-4 text-sm text-emerald-100 space-y-1.5">
-              <div class="font-bold text-amber-300 uppercase tracking-wide text-xs">📌 Quy tắc &amp; Cách tính điểm:</div>
-              <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm">
-                <li><strong>Không giới hạn thời gian</strong> suy nghĩ cho từng câu hỏi; tổng thời gian làm bài được ghi nhận để xếp hạng.</li>
-                <li>Trả lời đúng nhận điểm thưởng theo nấc thang đến <strong>10.000.000 điểm</strong> + XP thăng cấp; trả lời sai bị trừ nhẹ điểm phạt (không loại khỏi cuộc chơi để học sinh luyện tập trọn vẹn).</li>
-                <li>Sau mỗi câu đều hiển thị <strong>Phân tích định hướng giải chi tiết</strong> giúp nắm vững bản chất bài toán.</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Form đăng nhập & Chọn chế độ -->
-          <div class="lg:col-span-5">
-            <div class="rounded-3xl bg-emerald-950/90 border-2 border-amber-400/60 p-6 shadow-2xl space-y-5">
-              <div class="text-center space-y-1">
-                <span class="text-xs font-extrabold uppercase tracking-widest text-amber-400">Đăng ký thí sinh</span>
-                <h3 class="text-xl sm:text-2xl font-black text-white">BƯỚC LÊN SÂN KHẤU</h3>
-              </div>
-
-              <!-- Chọn Chế độ chơi -->
-              <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-emerald-300 mb-2">Chọn hình thức tham gia:</label>
-                <div class="grid grid-cols-2 gap-2.5">
-                  <button type="button" id="mode-btn-solo"
-                    class="py-2.5 px-3 rounded-xl font-extrabold text-sm border-2 border-amber-400 bg-amber-400 text-slate-950 transition cursor-pointer">
-                    👤 Chế độ Cá nhân
-                  </button>
-                  <button type="button" id="mode-btn-class"
-                    class="py-2.5 px-3 rounded-xl font-extrabold text-sm border-2 border-emerald-600 bg-emerald-900/80 text-emerald-100 hover:border-amber-400 transition cursor-pointer">
-                    🏫 Chế độ Cả lớp
-                  </button>
-                </div>
-              </div>
-
-              <!-- Form Cá nhân -->
-              <div id="solo-form-fields" class="space-y-4">
-                <div>
-                  <label for="input-fullname" class="block text-xs font-bold uppercase tracking-wider text-emerald-200 mb-1.5">
-                    Họ và tên học sinh <span class="text-rose-400">*</span>
-                  </label>
-                  <input id="input-fullname" type="text" placeholder="Ví dụ: Nguyễn Văn An"
-                    class="w-full px-4 py-3 rounded-xl bg-emerald-900/80 border-2 border-emerald-500/60 text-white placeholder-emerald-400/60 font-semibold focus:outline-none focus:border-amber-400" />
-                </div>
-                <div>
-                  <label for="input-classname" class="block text-xs font-bold uppercase tracking-wider text-emerald-200 mb-1.5">
-                    Lớp <span class="text-rose-400">*</span>
-                  </label>
-                  <input id="input-classname" type="text" placeholder="Ví dụ: 12A1"
-                    class="w-full px-4 py-3 rounded-xl bg-emerald-900/80 border-2 border-emerald-500/60 text-white placeholder-emerald-400/60 font-semibold focus:outline-none focus:border-amber-400" />
-                </div>
-                <p id="lobby-error" class="text-rose-300 text-xs font-bold hidden">⚠️ Vui lòng nhập đầy đủ Họ tên và Lớp trước khi bắt đầu!</p>
-
-                <button id="start-solo-btn" type="button"
-                  class="w-full py-4 rounded-2xl gold-btn font-black text-base sm:text-lg uppercase tracking-wider cursor-pointer">
-                  🚀 BẮT ĐẦU CHINH PHỤC
-                </button>
-              </div>
-
-              <!-- Mục mở Bảng điều khiển Giáo viên khi chọn Chế độ Cả lớp -->
-              <div id="class-mode-box" class="hidden space-y-4">
-                <div class="rounded-2xl bg-emerald-900/70 border border-emerald-500/40 p-4 text-xs sm:text-sm text-emerald-100 space-y-2">
-                  <div class="font-bold text-amber-300">🏫 Chế độ Cả lớp (Dành cho Giáo viên trình chiếu):</div>
-                  <p>Mở màn hình điều khiển trung tâm để theo dõi bảng xếp hạng trực tuyến từ các thiết bị học sinh trong lớp.</p>
-                </div>
-                <button id="open-teacher-btn" type="button"
-                  class="w-full py-4 rounded-2xl gold-btn font-black text-base uppercase tracking-wider cursor-pointer">
-                  🖥️ MỞ MÀN HÌNH ĐIỀU KHIỂN GIÁO VIÊN
-                </button>
-              </div>
-
-              <!-- Huy hiệu & Tiến độ cá nhân lưu trên máy -->
-              <div class="pt-3 border-t border-emerald-800 flex items-center justify-between text-xs text-emerald-300">
-                <span>Cấp độ hiện tại: <strong id="lobby-rank" class="text-amber-300">Tân binh Oxyz</strong></span>
-                <span>XP tích lũy: <strong id="lobby-xp" class="text-amber-300">0 XP</strong></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bảng Xếp Hạng tại sảnh chờ -->
-      <div class="chalkboard-panel rounded-3xl p-6">
-        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <div class="flex items-center gap-2.5">
-            <span class="text-2xl">🏆</span>
-            <h3 class="text-lg sm:text-xl font-black text-amber-300 uppercase tracking-wide">
-              Bảng Vàng Xếp Hạng Lớp Học
-            </h3>
-          </div>
-          <span id="leaderboard-status" class="text-xs font-semibold text-emerald-300 bg-emerald-950/80 px-3 py-1.5 rounded-full border border-emerald-600/40">
-            Đang đồng bộ bảng xếp hạng...
-          </span>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="border-b-2 border-emerald-600/60 text-amber-300 text-xs sm:text-sm uppercase">
-                <th class="py-3 px-4">Hạng</th>
-                <th class="py-3 px-4">Họ tên</th>
-                <th class="py-3 px-4">Lớp</th>
-                <th class="py-3 px-4 text-right">Điểm số</th>
-                <th class="py-3 px-4 text-right">Thời gian làm bài</th>
-              </tr>
-            </thead>
-            <tbody id="lobby-leaderboard-body" class="divide-y divide-emerald-800/60 text-sm sm:text-base">
-              <tr>
-                <td colspan="5" class="py-6 text-center text-emerald-300/80">Chưa có dữ liệu thí sinh. Hãy là người đầu tiên ghi danh!</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         MÀN HÌNH 2: SÂN KHẤU THI ĐẤU (CHƠI GAME)
-         ========================================================= -->
-    <section id="screen-game" class="hidden space-y-5">
-      <!-- Thanh trạng thái thí sinh -->
-      <div class="chalkboard-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
+    <!-- THANH TIÊU ĐỀ THƯƠNG HIỆU THẦY HÒA -->
+    <header class="w-full max-w-7xl mx-auto flex flex-wrap justify-between items-center bg-emerald-950/95 border-b-4 border-amber-500 px-4 py-2.5 rounded-2xl shadow-xl mb-3">
         <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-full bg-emerald-800 border-2 border-amber-400 flex items-center justify-center text-xl">
-            🎓
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span id="hud-name" class="font-extrabold text-white text-base sm:text-lg">Thí sinh</span>
-              <span id="hud-class" class="px-2 py-0.5 rounded bg-emerald-800 text-emerald-200 text-xs font-bold">12A</span>
+            <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg border-2 border-white">
+                <i class="fas fa-bell"></i>
             </div>
-            <div class="text-xs text-amber-300 font-bold" id="hud-badge">Danh hiệu: Khám phá không gian</div>
-          </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="font-black text-amber-400 text-lg md:text-2xl tracking-wider uppercase gold-text-glow">THẦY HÒA</span>
+                    <span class="bg-emerald-700 text-emerald-100 text-[10px] md:text-xs font-bold px-2 py-0.5 rounded-full border border-emerald-400">TOÁN 12 • BÀI 7: HỆ TRỤC TỌA ĐỘ OXYZ</span>
+                </div>
+                <p class="text-xs text-emerald-200 font-medium">Game Show Kết Hợp: Ai Là Triệu Phú • Đấu Trường • Vượt Chướng Ngại Vật</p>
+            </div>
         </div>
 
-        <!-- Tiến trình & Đồng hồ tổng -->
-        <div class="flex flex-wrap items-center gap-4 sm:gap-6">
-          <div class="text-center">
-            <div class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold">Tiến trình</div>
-            <div class="text-base sm:text-xl font-black text-white">
-              Câu <span id="hud-q-num" class="text-amber-300">1</span>/<span id="hud-q-total">16</span>
-            </div>
-          </div>
-
-          <div class="text-center">
-            <div class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold">Thời gian</div>
-            <div id="hud-timer" class="text-base sm:text-xl font-mono font-bold text-emerald-100">00:00</div>
-          </div>
-
-          <div class="text-right">
-            <div class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold">Điểm hiện tại</div>
-            <div id="hud-score" class="text-lg sm:text-2xl font-black text-amber-300">0</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Thanh tiến trình trực quan -->
-      <div class="w-full h-3 bg-emerald-950 rounded-full overflow-hidden border border-emerald-700/60">
-        <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-400 via-amber-300 to-amber-500 transition-all duration-500" style="width: 6%"></div>
-      </div>
-
-      <!-- Khu vực chính: Bảng câu hỏi bên trái + Thang điểm & Trợ giúp bên phải -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Cột Câu hỏi (8/12) -->
-        <div id="question-stage-card" class="lg:col-span-8 chalkboard-panel rounded-3xl p-5 sm:p-7 space-y-6">
-          <!-- Nhãn chặng & Mức độ -->
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-700/60 pb-4">
-            <div class="flex items-center gap-2">
-              <span id="q-stage-badge" class="px-3 py-1 rounded-full text-xs font-black uppercase bg-amber-400 text-slate-950">
-                CHẶNG 1: AI LÀ TRIỆU PHÚ
-              </span>
-              <span id="q-level-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-800 text-emerald-200 border border-emerald-600/50">
-                Nhận biết
-              </span>
-            </div>
-            <div class="text-xs sm:text-sm font-bold text-amber-300">
-              Giá trị câu hỏi: <span id="q-reward-text">+400.000 điểm</span>
-            </div>
-          </div>
-
-          <!-- Nội dung đề bài + Hình vẽ minh họa (không che khuất đề bài) -->
-          <div id="question-content-wrapper" class="space-y-4">
-            <div id="question-text" class="text-lg sm:text-xl font-semibold leading-relaxed text-white">
-              Đang tải câu hỏi...
-            </div>
-            <!-- Vùng hiển thị hình vẽ SVG nếu có -->
-            <div id="question-figure" class="hidden flex justify-center p-4 rounded-2xl bg-emerald-950/75 border border-emerald-600/40">
-            </div>
-          </div>
-
-          <!-- Vùng tương tác trả lời (Thay đổi theo 3 dạng câu hỏi) -->
-          <div id="answer-area" class="space-y-3">
-            <!-- Dạng 1: Trắc nghiệm 4 lựa chọn -->
-            <div id="mcq-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5"></div>
-
-            <!-- Dạng 2: Đúng / Sai 4 ý -->
-            <div id="tf-container" class="hidden space-y-3"></div>
-
-            <!-- Dạng 3: Trả lời ngắn -->
-            <div id="short-container" class="hidden space-y-3">
-              <div class="flex flex-col sm:flex-row gap-3">
-                <input id="short-answer-input" type="text" placeholder="Nhập đáp số của bạn (VD: 12 hoặc 2,89)..."
-                  class="flex-1 px-4 py-3.5 rounded-xl bg-emerald-950 border-2 border-emerald-500 text-white text-lg font-bold focus:outline-none focus:border-amber-400" />
-                <button id="submit-short-btn" type="button"
-                  class="px-6 py-3.5 rounded-xl gold-btn font-black text-base uppercase tracking-wide cursor-pointer">
-                  Chốt Đáp Án
+        <div class="flex items-center gap-3 mt-2 sm:mt-0">
+            <!-- Chuyển chế độ Cá nhân / Cả lớp -->
+            <div class="bg-emerald-900/90 p-1 rounded-xl border border-emerald-600 flex text-xs font-bold">
+                <button id="btnModeSolo" onclick="switchGameMode('solo')" class="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 transition">
+                    <i class="fas fa-user mr-1"></i> Cá nhân
                 </button>
-              </div>
-              <p class="text-xs text-emerald-300">💡 Lưu ý: Có thể dùng dấu phẩy (,) hoặc dấu chấm (.) cho số thập phân.</p>
+                <button id="btnModeClass" onclick="switchGameMode('class')" class="px-3 py-1.5 rounded-lg text-emerald-200 hover:text-white transition">
+                    <i class="fas fa-chalkboard-teacher mr-1"></i> Cả lớp
+                </button>
             </div>
-          </div>
 
-          <!-- Hộp Trợ giúp Hỏi Chuyên Gia (ẩn mặc định) -->
-          <div id="expert-hint-box" class="hidden rounded-2xl bg-amber-950/60 border-2 border-amber-400/70 p-4 space-y-1">
-            <div class="flex items-center gap-2 text-amber-300 font-black text-sm uppercase">
-              <span>👨‍🏫 Góc Tư Vấn Chuyên Gia — Thầy Hòa:</span>
-            </div>
-            <p id="expert-hint-text" class="text-sm sm:text-base text-amber-100 leading-relaxed"></p>
-          </div>
+            <!-- Bật/Tắt Âm thanh -->
+            <button onclick="toggleSound()" id="soundBtn" title="Bật/Tắt âm thanh" class="w-10 h-10 rounded-xl bg-emerald-900 border border-amber-500/50 text-amber-400 hover:bg-emerald-800 flex items-center justify-center text-lg transition">
+                <i class="fas fa-volume-up" id="soundIcon"></i>
+            </button>
 
-          <!-- Hộp Phân Tích Định Hướng Giải & Kết Quả Sau Khi Trả Lời -->
-          <div id="feedback-box" class="hidden rounded-2xl p-5 border-2 space-y-3">
-            <div class="flex items-center justify-between gap-2">
-              <div id="feedback-title" class="text-lg sm:text-xl font-black uppercase"></div>
-              <span id="feedback-points" class="px-3 py-1 rounded-full text-xs sm:text-sm font-black"></span>
+            <!-- Đồng hồ đếm thời gian làm bài -->
+            <div class="bg-black/50 border border-amber-500/60 px-3 py-1.5 rounded-xl text-amber-300 font-extrabold text-sm md:text-base flex items-center gap-2">
+                <i class="fas fa-stopwatch text-amber-400"></i>
+                <span id="timerDisplay">00:00</span>
             </div>
-            <div class="text-xs font-bold uppercase tracking-wider text-amber-300">
-              📖 Phân tích định hướng giải &amp; Bản chất kiến thức:
-            </div>
-            <div id="feedback-explanation" class="text-sm sm:text-base text-white/95 leading-relaxed space-y-1.5"></div>
-            <div class="pt-2 flex justify-end">
-              <button id="next-question-btn" type="button"
-                class="px-6 py-3 rounded-xl gold-btn font-black text-sm sm:text-base uppercase tracking-wider cursor-pointer">
-                Câu Tiếp Theo ➔
-              </button>
-            </div>
-          </div>
         </div>
+    </header>
 
-        <!-- Cột Trợ giúp & Thang điểm 10 Triệu (4/12) -->
-        <div class="lg:col-span-4 space-y-5">
-          <!-- Quyền trợ giúp -->
-          <div class="chalkboard-panel rounded-3xl p-5 space-y-3">
-            <div class="text-xs font-black uppercase tracking-wider text-amber-300">🛟 Quyền Trợ Giúp Sân Khấu</div>
-            <div class="grid grid-cols-2 gap-3">
-              <button id="lifeline-5050-btn" type="button"
-                class="flex flex-col items-center justify-center p-3 rounded-2xl bg-emerald-900 hover:bg-emerald-800 border-2 border-amber-400/70 text-white font-black transition cursor-pointer disabled:opacity-35 disabled:cursor-not-allowed">
-                <span class="text-lg text-amber-300">50 : 50</span>
-                <span class="text-[11px] font-semibold text-emerald-200 mt-0.5">Bỏ 2 phương án sai</span>
-              </button>
-              <button id="lifeline-expert-btn" type="button"
-                class="flex flex-col items-center justify-center p-3 rounded-2xl bg-emerald-900 hover:bg-emerald-800 border-2 border-amber-400/70 text-white font-black transition cursor-pointer disabled:opacity-35 disabled:cursor-not-allowed">
-                <span class="text-lg text-amber-300">👨‍🏫 Hỏi Thầy Hòa</span>
-                <span class="text-[11px] font-semibold text-emerald-200 mt-0.5">Gợi ý phương pháp</span>
-              </button>
+    <!-- KHU VỰC SÂN KHẤU CHÍNH -->
+    <main class="flex-1 w-full max-w-7xl mx-auto flex flex-col justify-center">
+
+        <!-- 1. MÀN HÌNH GIỚI THIỆU & LUẬT CHƠI -->
+        <section id="introScreen" class="chalkboard-stage stage-spotlight rounded-3xl p-5 md:p-8 flex flex-col items-center text-center relative">
+            <!-- Chuông vàng lớn ở vị trí trung tâm -->
+            <div class="mb-3">
+                <svg class="w-24 h-24 md:w-28 md:h-28 text-amber-400 golden-bell mx-auto" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a2 2 0 0 0-2 2v1.08A7.002 7.002 0 0 0 5 12v5l-2 2v1h18v-1l-2-2v-5a7.002 7.002 0 0 0-5-6.92V4a2 2 0 0 0-2-2zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/>
+                </svg>
             </div>
-            <p class="text-[11px] text-emerald-300/90 italic">
-              * Trợ giúp 50:50 áp dụng cho Chặng 1 (Trắc nghiệm 4 lựa chọn).
+
+            <h1 class="text-2xl md:text-4xl font-black text-amber-300 uppercase tracking-wide gold-text-glow mb-2">
+                ĐẤU TRƯỜNG TOÁN HỌC 12 — THẦY HÒA
+            </h1>
+            <p class="text-emerald-100 text-sm md:text-base font-semibold mb-5">
+                Chuyên đề: Bài 7. Hệ Trục Tọa Độ Trong Không Gian ($Oxyz$) — Chuẩn KNTTVCS 2018
             </p>
-          </div>
 
-          <!-- Thang điểm chinh phục 10.000.000 điểm -->
-          <div class="chalkboard-panel rounded-3xl p-5 space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-black uppercase tracking-wider text-amber-300">🏔️ Thang Điểm 10 Triệu</span>
-              <span class="text-xs font-bold text-emerald-300">16 Câu Hỏi</span>
+            <!-- Bảng Luật chơi & Cách tính điểm rõ ràng -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full max-w-5xl mb-6 text-left">
+                <div class="bg-emerald-950/85 border-2 border-amber-500/60 rounded-2xl p-4">
+                    <div class="text-amber-400 font-black text-sm uppercase mb-1">
+                        <i class="fas fa-crown mr-1"></i> Chặng 1: Ai Là Triệu Phú
+                    </div>
+                    <p class="text-xs md:text-sm text-emerald-100 leading-relaxed">
+                        Gồm <b>12 câu trắc nghiệm 4 lựa chọn</b> (Câu 1–12). Mỗi câu đúng được <b>+0,25 điểm</b> (tối đa 3,0đ). Có quyền trợ giúp <b>50:50</b> và <b>Hỏi chuyên gia Thầy Hòa</b>.
+                    </p>
+                </div>
+                <div class="bg-emerald-950/85 border-2 border-sky-400/60 rounded-2xl p-4">
+                    <div class="text-sky-300 font-black text-sm uppercase mb-1">
+                        <i class="fas fa-bolt mr-1"></i> Chặng 2: Đấu Trường Tính Điểm
+                    </div>
+                    <p class="text-xs md:text-sm text-emerald-100 leading-relaxed">
+                        Gồm <b>4 câu Đúng/Sai</b> (Câu 13–16), mỗi câu có 4 ý a, b, c, d. Tính điểm chuẩn BGD: đúng 1 ý (+0,1đ), 2 ý (+0,25đ), 3 ý (+0,5đ), 4 ý (+1,0đ).
+                    </p>
+                </div>
+                <div class="bg-emerald-950/85 border-2 border-emerald-400/60 rounded-2xl p-4">
+                    <div class="text-emerald-300 font-black text-sm uppercase mb-1">
+                        <i class="fas fa-mountain mr-1"></i> Chặng 3: Vượt Chướng Ngại Vật
+                    </div>
+                    <p class="text-xs md:text-sm text-emerald-100 leading-relaxed">
+                        Gồm <b>6 câu Trả lời ngắn</b> (Câu 17–22) ứng dụng kỹ thuật vectơ vận tốc và tọa độ không gian thực tế. Mỗi câu đúng được <b>+0,5 điểm</b>. Chinh phục mốc <b>10 TRIỆU ĐIỂM DANH DỰ</b>!
+                    </p>
+                </div>
             </div>
-            <div id="money-ladder" class="space-y-1 max-h-[370px] overflow-y-auto pr-1 text-xs sm:text-sm">
-              <!-- Render động bằng JS -->
+
+            <div class="bg-amber-500/15 border border-amber-400/50 rounded-xl px-4 py-2 mb-5 text-xs md:text-sm text-amber-200 font-semibold">
+                <i class="fas fa-info-circle mr-1"></i> Luật chơi: <b>KHÔNG GIỚI HẠN THỜI GIAN TRẢ LỜI CHO MỖI CÂU HỎI</b>. Sau mỗi câu đều có phân tích định hướng giải chi tiết.
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- =========================================================
-         MÀN HÌNH 3: MÀN HÌNH VINH DANH CHIẾN THẮNG & KẾT QUẢ
-         ========================================================= -->
-    <section id="screen-result" class="hidden space-y-6">
-      <div class="chalkboard-panel rounded-3xl p-6 sm:p-10 text-center space-y-6 relative overflow-hidden">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg">
-          <span>🎉 HOÀN THÀNH HÀNH TRÌNH GAME SHOW THẦY HÒA</span>
-        </div>
+            <!-- Form thông tin học sinh -->
+            <div class="w-full max-w-lg grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                <div class="text-left">
+                    <label class="block text-xs font-bold text-amber-300 mb-1 uppercase">Họ và tên thí sinh *</label>
+                    <input type="text" id="inputName" placeholder="VD: Nguyễn Văn An" class="w-full px-4 py-3 rounded-xl bg-emerald-950 border-2 border-emerald-500 text-white font-bold focus:outline-none focus:border-amber-400">
+                </div>
+                <div class="text-left">
+                    <label class="block text-xs font-bold text-amber-300 mb-1 uppercase">Lớp *</label>
+                    <input type="text" id="inputClass" placeholder="VD: 12A1" class="w-full px-4 py-3 rounded-xl bg-emerald-950 border-2 border-emerald-500 text-white font-bold focus:outline-none focus:border-amber-400">
+                </div>
+            </div>
 
-        <h2 id="result-headline" class="text-3xl sm:text-5xl font-black gold-gradient-text uppercase">
-          VINH DANH NHÀ VÔ ĐỊCH Oxyz!
-        </h2>
+            <button onclick="startGame()" class="px-10 py-4 rounded-full bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 font-black text-lg md:text-xl uppercase tracking-wider shadow-2xl transform hover:scale-105 transition border-2 border-white">
+                BẮT ĐẦU CHINH PHỤC <i class="fas fa-rocket ml-2"></i>
+            </button>
+        </section>
 
-        <p id="result-subtext" class="text-emerald-100 text-base sm:text-lg max-w-2xl mx-auto">
-          Chúc mừng thí sinh đã xuất sắc vượt qua cả 3 chặng thi Hệ trục tọa độ trong không gian!
-        </p>
+        <!-- 2. MÀN HÌNH CHƠI GAME SHOW -->
+        <section id="gameScreen" class="chalkboard-stage rounded-3xl p-4 md:p-6 hidden flex-col">
+            <!-- Thanh trạng thái & Danh hiệu -->
+            <div class="flex flex-wrap justify-between items-center gap-3 pb-3 mb-4 border-b-2 border-emerald-700/70">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span id="stageBadge" class="bg-amber-500 text-slate-950 font-black text-xs md:text-sm px-3 py-1 rounded-full uppercase shadow">
+                        CHẶNG 1: AI LÀ TRIỆU PHÚ
+                    </span>
+                    <span id="progressBadge" class="bg-emerald-900 border border-emerald-500 text-white font-bold text-xs md:text-sm px-3 py-1 rounded-full">
+                        Câu 1 / 22
+                    </span>
+                    <span id="levelBadge" class="bg-sky-900/80 border border-sky-400 text-sky-200 font-bold text-xs px-2.5 py-1 rounded-full">
+                        Nhận biết
+                    </span>
+                </div>
 
-        <!-- Thẻ tổng kết chỉ số -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          <div class="rounded-2xl bg-emerald-950/90 border border-amber-400/50 p-4">
-            <div class="text-xs uppercase text-emerald-300 font-bold">Tổng Điểm</div>
-            <div id="res-score" class="text-xl sm:text-2xl font-black text-amber-300 mt-1">0</div>
-          </div>
-          <div class="rounded-2xl bg-emerald-950/90 border border-emerald-500/40 p-4">
-            <div class="text-xs uppercase text-emerald-300 font-bold">Số Câu Đúng</div>
-            <div id="res-correct" class="text-xl sm:text-2xl font-black text-emerald-400 mt-1">0/16</div>
-          </div>
-          <div class="rounded-2xl bg-emerald-950/90 border border-emerald-500/40 p-4">
-            <div class="text-xs uppercase text-emerald-300 font-bold">Thời Gian</div>
-            <div id="res-time" class="text-xl sm:text-2xl font-black text-white font-mono mt-1">00:00</div>
-          </div>
-          <div class="rounded-2xl bg-emerald-950/90 border border-amber-400/50 p-4">
-            <div class="text-xs uppercase text-emerald-300 font-bold">Phần Thưởng</div>
-            <div id="res-xp" class="text-xl sm:text-2xl font-black text-amber-300 mt-1">+0 XP</div>
-          </div>
-        </div>
+                <!-- Chỉ số Điểm, Danh hiệu & Mốc 10 triệu -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="bg-emerald-950/90 border border-emerald-600 px-3 py-1 rounded-xl text-xs">
+                        <span class="text-emerald-300">Danh hiệu:</span>
+                        <span id="rankTitle" class="font-bold text-amber-300">Tân Binh Tọa Độ</span>
+                    </div>
+                    <div class="bg-emerald-950/90 border border-amber-500/70 px-3 py-1 rounded-xl text-xs md:text-sm">
+                        <span class="text-emerald-200">Thưởng:</span>
+                        <span id="prizeMoney" class="font-black text-amber-400">0 VNĐ</span>
+                    </div>
+                    <div class="bg-amber-500/20 border-2 border-amber-400 px-3.5 py-1 rounded-xl text-sm md:text-base font-black text-amber-300">
+                        ĐIỂM: <span id="scoreDisplay">0.00</span> / 10.0
+                    </div>
+                </div>
+            </div>
 
-        <!-- Huy hiệu đạt được -->
-        <div class="max-w-xl mx-auto rounded-2xl bg-emerald-900/60 border border-amber-300/40 p-4 flex items-center justify-center gap-4">
-          <span class="text-4xl" id="res-medal-icon">🏅</span>
-          <div class="text-left">
-            <div class="text-xs uppercase font-bold text-amber-300">Danh hiệu đạt được</div>
-            <div id="res-medal-title" class="text-lg font-black text-white">Bậc Thầy Tọa Độ Không Gian</div>
-          </div>
-        </div>
+            <!-- Thanh Quyền Trợ Giúp (Chặng 1) -->
+            <div id="lifelinesPanel" class="flex flex-wrap justify-center items-center gap-3 mb-4">
+                <button id="btn5050" onclick="use5050()" class="px-4 py-1.5 rounded-full bg-emerald-900 hover:bg-emerald-800 border-2 border-amber-400 text-amber-300 font-extrabold text-xs md:text-sm flex items-center gap-1.5 transition shadow">
+                    <i class="fas fa-adjust"></i> Trợ giúp 50:50
+                </button>
+                <button id="btnExpert" onclick="useExpert()" class="px-4 py-1.5 rounded-full bg-emerald-900 hover:bg-emerald-800 border-2 border-sky-400 text-sky-300 font-extrabold text-xs md:text-sm flex items-center gap-1.5 transition shadow">
+                    <i class="fas fa-user-tie"></i> Hỏi Chuyên Gia Thầy Hòa
+                </button>
+            </div>
 
-        <div id="sync-feedback-msg" class="text-xs font-semibold text-emerald-300">
-          Đang lưu kết quả lên bảng xếp hạng lớp học...
-        </div>
+            <!-- Hộp gợi ý chuyên gia -->
+            <div id="expertHintBox" class="hidden bg-sky-950/90 border-2 border-sky-400 rounded-xl p-3 mb-4 text-xs md:text-sm text-sky-100 flex items-start gap-3">
+                <i class="fas fa-user-graduate text-2xl text-sky-400 mt-0.5"></i>
+                <div>
+                    <div class="font-black text-sky-300 uppercase mb-0.5">Tư vấn từ Chuyên gia Thầy Hòa:</div>
+                    <div id="expertHintText"></div>
+                </div>
+            </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
-          <button id="replay-btn" type="button"
-            class="px-8 py-4 rounded-2xl gold-btn font-black text-base sm:text-lg uppercase tracking-wider cursor-pointer">
-            🔄 Chơi Lại Từ Đầu
-          </button>
-          <button id="back-lobby-btn" type="button"
-            class="px-6 py-4 rounded-2xl bg-emerald-800 hover:bg-emerald-700 border border-emerald-400/50 font-extrabold text-sm sm:text-base text-white uppercase tracking-wider transition cursor-pointer">
-            🏠 Về Sảnh Chính
-          </button>
-        </div>
-      </div>
+            <!-- KHUNG HIỂN THỊ ĐỀ BÀI & HÌNH VẼ (TÁCH BIỆT KHÔNG CHE KHUẤT) -->
+            <div class="w-full bg-emerald-950/85 border-2 border-emerald-500/70 rounded-2xl p-4 md:p-6 mb-4 shadow-inner">
+                <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-5">
+                    <!-- Nội dung câu hỏi -->
+                    <div class="flex-1 w-full">
+                        <div id="questionMeta" class="text-amber-400 font-extrabold text-xs md:text-sm uppercase tracking-wider mb-2">
+                            CÂU 1
+                        </div>
+                        <div id="questionBody" class="text-base md:text-xl font-semibold text-white leading-relaxed space-y-3">
+                            <!-- Nội dung câu hỏi -->
+                        </div>
+                    </div>
 
-      <!-- Bảng xếp hạng cập nhật sau khi chơi xong -->
-      <div class="chalkboard-panel rounded-3xl p-6">
-        <h3 class="text-lg sm:text-xl font-black text-amber-300 uppercase mb-4">🏆 Bảng Xếp Hạng Trực Tuyến</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="border-b-2 border-emerald-600/60 text-amber-300 text-xs sm:text-sm uppercase">
-                <th class="py-3 px-4">Hạng</th>
-                <th class="py-3 px-4">Họ tên</th>
-                <th class="py-3 px-4">Lớp</th>
-                <th class="py-3 px-4 text-right">Điểm số</th>
-                <th class="py-3 px-4 text-right">Thời gian làm bài</th>
-              </tr>
-            </thead>
-            <tbody id="result-leaderboard-body" class="divide-y divide-emerald-800/60 text-sm sm:text-base"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+                    <!-- Khung hình vẽ SVG riêng biệt bên phải / dưới để không bao giờ che khuất chữ -->
+                    <div id="questionFigure" class="hidden shrink-0 bg-white/95 p-3 rounded-xl border-2 border-amber-400 shadow-lg flex flex-col items-center justify-center">
+                        <!-- Hình vẽ không gian Oxyz được render tại đây -->
+                    </div>
+                </div>
+            </div>
 
-    <!-- =========================================================
-         MÀN HÌNH 4: BẢNG ĐIỀU KHIỂN GIÁO VIÊN (CHẾ ĐỘ CẢ LỚP)
-         ========================================================= -->
-    <section id="screen-teacher" class="hidden space-y-6">
-      <div class="chalkboard-panel rounded-3xl p-6 sm:p-8 space-y-6">
-        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-700 pb-4">
-          <div>
-            <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-xs uppercase">
-              Màn hình điều khiển của Giáo viên
-            </span>
-            <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">
-              TRUNG TÂM ĐIỀU HÀNH LỚP HỌC — THẦY HÒA
+            <!-- KHU VỰC TRẢ LỜI: CHẶNG 1 (MCQ 4 LỰA CHỌN) -->
+            <div id="mcqArea" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-4">
+                <!-- 4 nút A, B, C, D -->
+            </div>
+
+            <!-- KHU VỰC TRẢ LỜI: CHẶNG 2 (ĐÚNG / SAI 4 Ý) -->
+            <div id="tfArea" class="hidden flex-col gap-3 mb-4">
+                <!-- 4 mệnh đề a, b, c, d -->
+            </div>
+
+            <!-- KHU VỰC TRẢ LỜI: CHẶNG 3 (TRẢ LỜI NGẮN) -->
+            <div id="saArea" class="hidden flex-col items-center bg-emerald-950/70 border border-emerald-600 rounded-2xl p-5 mb-4">
+                <label class="text-amber-300 font-extrabold text-sm md:text-base uppercase mb-2 text-center">
+                    Nhập đáp số chính xác của bài toán (dùng dấu chấm hoặc phẩy cho số thập phân):
+                </label>
+                <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+                    <input type="text" id="saInput" placeholder="Ví dụ: 6 hoặc 0.51" class="flex-1 px-4 py-3 rounded-xl bg-slate-900 border-2 border-amber-400 text-white font-black text-center text-xl focus:outline-none">
+                    <button id="btnSubmitSA" onclick="submitShortAnswer()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-base uppercase transition shadow-lg">
+                        Chốt Đáp Án
+                    </button>
+                </div>
+            </div>
+
+            <!-- KHUNG PHÂN TÍCH ĐỊNH HƯỚNG GIẢI (BẮT BUỘC SAU MỖI CÂU) -->
+            <div id="feedbackBox" class="hidden rounded-2xl p-4 md:p-5 border-2 mb-2 transition-all">
+                <div class="flex items-center justify-between mb-2">
+                    <div id="feedbackHeader" class="font-black text-base md:text-lg uppercase flex items-center gap-2">
+                        <!-- Đúng / Sai -->
+                    </div>
+                    <span id="feedbackPoints" class="font-black text-sm px-3 py-1 rounded-full bg-black/40"></span>
+                </div>
+                <div class="text-xs md:text-sm font-bold text-amber-300 uppercase mb-1">
+                    <i class="fas fa-compass mr-1"></i> Phân tích định hướng giải & Bản chất kiến thức Bài 7 (Oxyz):
+                </div>
+                <div id="feedbackExplanation" class="text-sm md:text-base text-white leading-relaxed max-h-48 overflow-y-auto custom-scroll pr-1">
+                    <!-- Giải thích chi tiết -->
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button onclick="goToNextQuestion()" class="px-7 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-sm md:text-base uppercase shadow-lg transform hover:scale-105 transition">
+                        Tiếp Tục Câu Tiếp Theo <i class="fas fa-arrow-right ml-1.5"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. MÀN HÌNH ĐIỀU KHIỂN CỦA GIÁO VIÊN (CHẾ ĐỘ CẢ LỚP) -->
+        <section id="teacherScreen" class="chalkboard-stage rounded-3xl p-5 md:p-8 hidden flex-col">
+            <div class="flex flex-wrap justify-between items-center border-b-2 border-amber-500/60 pb-4 mb-5 gap-3">
+                <div>
+                    <h2 class="text-xl md:text-3xl font-black text-amber-300 uppercase gold-text-glow">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i> BẢNG ĐIỀU KHIỂN GIÁO VIÊN — LỚP HỌC TRỰC TIẾP
+                    </h2>
+                    <p class="text-xs md:text-sm text-emerald-200 mt-1">
+                        Trạng thái kết nối máy chủ đồng bộ: <span class="text-emerald-400 font-bold"><i class="fas fa-circle text-[10px] mr-1"></i>Sẵn sàng nhận dữ liệu học sinh (Tự động cập nhật mỗi 5 giây)</span>
+                    </p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="fetchLeaderboard(true)" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs md:text-sm transition">
+                        <i class="fas fa-sync-alt mr-1"></i> Làm mới dữ liệu
+                    </button>
+                    <button onclick="switchGameMode('solo')" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs md:text-sm transition">
+                        Về Màn Hình Chơi
+                    </button>
+                </div>
+            </div>
+
+            <!-- Thống kê lớp học thời gian thực -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+                <div class="bg-emerald-950/90 border border-emerald-600 p-4 rounded-2xl text-center">
+                    <div class="text-xs text-emerald-300 uppercase font-bold">Thí sinh đã nộp bài</div>
+                    <div id="statTotalStudents" class="text-2xl md:text-3xl font-black text-amber-400 mt-1">0</div>
+                </div>
+                <div class="bg-emerald-950/90 border border-emerald-600 p-4 rounded-2xl text-center">
+                    <div class="text-xs text-emerald-300 uppercase font-bold">Điểm cao nhất lớp</div>
+                    <div id="statMaxScore" class="text-2xl md:text-3xl font-black text-emerald-400 mt-1">0.00</div>
+                </div>
+                <div class="bg-emerald-950/90 border border-emerald-600 p-4 rounded-2xl text-center">
+                    <div class="text-xs text-emerald-300 uppercase font-bold">Điểm trung bình</div>
+                    <div id="statAvgScore" class="text-2xl md:text-3xl font-black text-sky-400 mt-1">0.00</div>
+                </div>
+                <div class="bg-emerald-950/90 border border-emerald-600 p-4 rounded-2xl text-center">
+                    <div class="text-xs text-emerald-300 uppercase font-bold">Tổng số câu hỏi</div>
+                    <div class="text-2xl md:text-3xl font-black text-white mt-1">22 Câu</div>
+                </div>
+            </div>
+
+            <!-- Bảng xếp hạng trực tiếp toàn lớp -->
+            <div class="bg-emerald-950/90 border-2 border-amber-500/60 rounded-2xl p-4 overflow-hidden">
+                <h3 class="text-amber-300 font-black text-base uppercase mb-3">
+                    <i class="fas fa-trophy mr-1"></i> BẢNG XẾP HẠNG TRỰC TUYẾN CẢ LỚP
+                </h3>
+                <div class="max-h-80 overflow-y-auto custom-scroll">
+                    <table class="w-full text-left border-collapse text-xs md:text-sm">
+                        <thead class="bg-emerald-900 text-amber-300 uppercase sticky top-0">
+                            <tr>
+                                <th class="p-3 text-center">Hạng</th>
+                                <th class="p-3">Họ tên</th>
+                                <th class="p-3">Lớp</th>
+                                <th class="p-3 text-center">Điểm số</th>
+                                <th class="p-3 text-center">Thời gian làm bài</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teacherLeaderboardBody" class="divide-y divide-emerald-800/60">
+                            <tr>
+                                <td colspan="5" class="p-6 text-center text-emerald-300">Đang chờ dữ liệu học sinh từ máy chủ đồng bộ...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. MÀN HÌNH VINH DANH NGƯỜI CHIẾN THẮNG -->
+        <section id="victoryScreen" class="chalkboard-stage victory-glow rounded-3xl p-6 md:p-10 hidden flex-col items-center text-center">
+            <div class="text-amber-400 text-5xl md:text-6xl mb-3 animate-bounce">
+                <i class="fas fa-crown gold-text-glow"></i>
+            </div>
+            <h2 class="text-2xl md:text-4xl font-black text-amber-300 uppercase tracking-wider gold-text-glow mb-1">
+                VINH DANH NHÀ VÔ ĐỊCH TỌA ĐỘ KHÔNG GIAN!
             </h2>
-            <p class="text-sm text-emerald-200 mt-1">
-              Sẵn sàng kết nối đồng bộ nhiều thiết bị học sinh qua máy chủ trực tuyến (tự động cập nhật bảng điểm thời gian thực).
+            <p class="text-emerald-200 text-sm md:text-base font-semibold mb-6">
+                Chúc mừng bạn đã chinh phục trọn vẹn Bài 7: Hệ trục tọa độ trong không gian!
             </p>
-          </div>
-          <div class="flex items-center gap-3">
-            <button id="teacher-refresh-btn" type="button"
-              class="px-4 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-700 border border-emerald-400/50 text-sm font-bold text-white cursor-pointer">
-              🔄 Làm mới dữ liệu
-            </button>
-            <button id="teacher-exit-btn" type="button"
-              class="px-4 py-2.5 rounded-xl gold-btn text-sm font-black uppercase cursor-pointer">
-              ← Quay lại Sảnh
-            </button>
-          </div>
-        </div>
 
-        <!-- Thống kê lớp học -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="rounded-2xl bg-emerald-950/90 border border-emerald-500/40 p-5">
-            <div class="text-xs uppercase text-emerald-300 font-bold">Số thí sinh đã nộp bài</div>
-            <div id="teacher-total-students" class="text-3xl font-black text-amber-300 mt-1">0</div>
-          </div>
-          <div class="rounded-2xl bg-emerald-950/90 border border-emerald-500/40 p-5">
-            <div class="text-xs uppercase text-emerald-300 font-bold">Điểm cao nhất lớp</div>
-            <div id="teacher-top-score" class="text-3xl font-black text-emerald-400 mt-1">0</div>
-          </div>
-          <div class="rounded-2xl bg-emerald-950/90 border border-emerald-500/40 p-5">
-            <div class="text-xs uppercase text-emerald-300 font-bold">Trạng thái máy chủ lớp</div>
-            <div class="text-lg font-black text-white mt-2 flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
-              <span>Sẵn sàng đồng bộ</span>
+            <!-- Huy hiệu & Thành tích -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl mb-6">
+                <div class="bg-emerald-950/90 border-2 border-amber-400 rounded-2xl p-5 text-left space-y-2.5">
+                    <div class="flex justify-between border-b border-emerald-800 pb-1.5">
+                        <span class="text-emerald-300 text-sm">Thí sinh:</span>
+                        <span id="endName" class="font-black text-white">---</span>
+                    </div>
+                    <div class="flex justify-between border-b border-emerald-800 pb-1.5">
+                        <span class="text-emerald-300 text-sm">Lớp:</span>
+                        <span id="endClass" class="font-bold text-amber-300">---</span>
+                    </div>
+                    <div class="flex justify-between border-b border-emerald-800 pb-1.5">
+                        <span class="text-emerald-300 text-sm">Tổng điểm đạt được:</span>
+                        <span id="endScore" class="font-black text-2xl text-amber-400">0.00 / 10.0</span>
+                    </div>
+                    <div class="flex justify-between border-b border-emerald-800 pb-1.5">
+                        <span class="text-emerald-300 text-sm">Giải thưởng quy đổi:</span>
+                        <span id="endPrize" class="font-black text-emerald-300">0 VNĐ</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-emerald-300 text-sm">Thời gian hoàn thành:</span>
+                        <span id="endTime" class="font-bold text-sky-300">00:00</span>
+                    </div>
+                </div>
+
+                <!-- Huy hiệu Danh hiệu đạt được -->
+                <div class="bg-gradient-to-b from-amber-500/20 to-emerald-950/90 border-2 border-amber-400 rounded-2xl p-5 flex flex-col items-center justify-center">
+                    <div class="w-20 h-20 rounded-full bg-amber-500/30 border-2 border-amber-300 flex items-center justify-center text-4xl text-amber-300 mb-2 shadow-lg">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="text-xs text-amber-200 uppercase font-bold">Danh hiệu đạt được</div>
+                    <div id="endRankTitle" class="text-xl font-black text-amber-400 uppercase mt-1">---</div>
+                    <div id="endXP" class="text-xs text-emerald-300 font-bold mt-1">+0 XP Kinh nghiệm</div>
+                </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Bảng xếp hạng trực tiếp cho máy chiếu -->
-        <div class="overflow-x-auto rounded-2xl border border-emerald-600/50 bg-emerald-950/70">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="bg-emerald-900/90 border-b border-emerald-600 text-amber-300 text-xs sm:text-sm uppercase">
-                <th class="py-3.5 px-4">Hạng</th>
-                <th class="py-3.5 px-4">Họ tên</th>
-                <th class="py-3.5 px-4">Lớp</th>
-                <th class="py-3.5 px-4 text-right">Điểm số</th>
-                <th class="py-3.5 px-4 text-right">Thời gian làm bài</th>
-              </tr>
-            </thead>
-            <tbody id="teacher-leaderboard-body" class="divide-y divide-emerald-800/60 text-sm sm:text-base">
-              <tr>
-                <td colspan="5" class="py-8 text-center text-emerald-300">Đang chờ học sinh hoàn thành lượt thi trên thiết bị cá nhân...</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </main>
+            <!-- Bảng xếp hạng trực tuyến -->
+            <div class="w-full max-w-3xl bg-emerald-950/90 border border-amber-500/60 rounded-2xl p-4 mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-amber-300 font-black text-sm md:text-base uppercase">
+                        <i class="fas fa-list-ol mr-1"></i> BẢNG XẾP HẠNG THÀNH TÍCH LỚP HỌC
+                    </h3>
+                    <span class="text-[11px] text-emerald-400">Tự động đồng bộ</span>
+                </div>
+                <div class="max-h-48 overflow-y-auto custom-scroll">
+                    <table class="w-full text-xs md:text-sm text-left">
+                        <thead class="bg-emerald-900 text-amber-300 uppercase sticky top-0">
+                            <tr>
+                                <th class="p-2 text-center">STT</th>
+                                <th class="p-2">Họ tên</th>
+                                <th class="p-2">Lớp</th>
+                                <th class="p-2 text-center">Điểm số</th>
+                                <th class="p-2 text-center">Thời gian làm bài</th>
+                            </tr>
+                        </thead>
+                        <tbody id="endLeaderboardBody" class="divide-y divide-emerald-900">
+                            <tr>
+                                <td colspan="5" class="p-4 text-center text-emerald-300">Đang đồng bộ bảng xếp hạng...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-  <!-- MODAL LUẬT CHƠI CHI TIẾT -->
-  <div id="rules-modal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="chalkboard-panel rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-4 relative">
-      <div class="flex items-center justify-between border-b border-emerald-700 pb-3">
-        <h3 class="text-xl font-black text-amber-300 uppercase">📜 Luật Chơi &amp; Thể Lệ Game Show</h3>
-        <button id="close-rules-btn" type="button" class="text-emerald-200 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
-      </div>
-      <div class="space-y-3 text-sm sm:text-base text-emerald-100 leading-relaxed max-h-[70vh] overflow-y-auto pr-2">
-        <p><strong class="text-amber-300">1. Chủ đề:</strong> Toán 12 — Chương II — Bài 7: <em>Hệ trục tọa độ trong không gian</em> (Sách Kết nối tri thức với cuộc sống 2018).</p>
-        <p><strong class="text-amber-300">2. Cấu trúc 3 hình thức kết hợp (16 câu — độ khó tăng dần):</strong></p>
-        <ul class="list-disc list-inside space-y-1 pl-2">
-          <li><strong>Chặng 1 — Ai Là Triệu Phú (Câu 1–9):</strong> Trắc nghiệm 4 lựa chọn (mức độ Nhận biết &amp; Thông hiểu). Vị trí các đáp án A, B, C, D được xáo trộn ngẫu nhiên.</li>
-          <li><strong>Chặng 2 — Đấu Trường Toán Học (Câu 10–13):</strong> Trắc nghiệm Đúng/Sai 4 ý a, b, c, d. Trả lời đúng 1 ý được 10%, 2 ý được 25%, 3 ý được 50%, 4 ý được 100% số điểm câu đó.</li>
-          <li><strong>Chặng 3 — Vượt Chướng Ngại Vật (Câu 14–16):</strong> Bài toán Vận dụng thực tế &amp; mô hình hóa không gian Oxyz (trả lời ngắn).</li>
-        </ul>
-        <p><strong class="text-amber-300">3. Thời gian &amp; Kết thúc:</strong> <strong>Không giới hạn thời gian trả lời cho từng câu hỏi</strong>. Trò chơi kết thúc khi thí sinh hoàn thành câu số 16 để vinh danh và lưu điểm lên Bảng Xếp Hạng.</p>
-      </div>
-      <div class="pt-2 text-right">
-        <button id="confirm-rules-btn" type="button" class="px-6 py-2.5 rounded-xl gold-btn font-black text-sm uppercase cursor-pointer">
-          Đã Hiểu Luật Chơi
-        </button>
-      </div>
-    </div>
-  </div>
+            <button onclick="resetAndReplay()" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-base md:text-lg uppercase tracking-wider shadow-xl transform hover:scale-105 transition border-2 border-white">
+                <i class="fas fa-redo-alt mr-2"></i> Chơi Lại Từ Đầu
+            </button>
+        </section>
 
-  <!-- =========================================================================
-       KHU VỰC DỮ LIỆU & CẤU HÌNH DÀNH CHO GIÁO VIÊN (DỄ CHỈNH SỬA)
-       ========================================================================= -->
-  <script>
-    /**
-     * URL Google Apps Script Web App để đồng bộ bảng xếp hạng lớp học.
-     * Giáo viên dán URL triển khai Web App vào chuỗi bên dưới (hoàn toàn ẩn khỏi giao diện học sinh).
-     */
-    const APPS_SCRIPT_URL = "";
+    </main>
 
-    /**
-     * NGÂN HÀNG CÂU HỎI BÀI 7: HỆ TRỤC TỌA ĐỘ TRONG KHÔNG GIAN (TOÁN 12 - KNTTVCS 2018)
-     * Phân bổ tỉ lệ tư duy:
-     * - Nhận biết: 5 câu (~31%)
-     * - Thông hiểu: 6 câu (~38%)
-     * - Vận dụng: 5 câu (~31%)
-     * Tổng điểm tối đa: 10.000.000 điểm.
-     * Lưu ý: Với câu 'mcq', thuộc tính `options` chứa danh sách các phương án, `correctText` là nội dung phương án đúng
-     * để hệ thống tự động xáo trộn ngẫu nhiên vị trí A/B/C/D mỗi khi hiển thị!
-     */
-    const QUESTION_BANK = [
-      // ================= CHẶNG 1: AI LÀ TRIỆU PHÚ (CÂU 1 - 9: MCQ) =================
-      {
-        id: 1,
-        stage: "Chặng 1: Ai Là Triệu Phú",
-        level: "Nhận biết",
-        type: "mcq",
-        points: 300000,
-        question: "Trong không gian với hệ trục tọa độ $Oxyz$, cho điểm $M$ thỏa mãn $\\overrightarrow{OM} = 2\\vec{i} - 3\\vec{j} + 5\\vec{k}$. Tọa độ của điểm $M$ là:",
-        options: [
-          "$(2; -3; 5)$",
-          "$(-2; 3; -5)$",
-          "$(2; 3; 5)$",
-          "$(5; -3; 2)$"
-        ],
-        correctText: "$(2; -3; 5)$",
-        expertHint: "Nhớ định nghĩa tọa độ điểm: $\\overrightarrow{OM} = x\\vec{i} + y\\vec{j} + z\\vec{k} \\Leftrightarrow M(x; y; z)$ theo đúng thứ tự các trục $Ox, Oy, Oz$.",
-        explanation: "Theo định nghĩa tọa độ của điểm trong hệ trục $Oxyz$, vì $\\overrightarrow{OM} = 2\\vec{i} - 3\\vec{j} + 5\\vec{k}$ nên hoành độ $x = 2$, tung độ $y = -3$, cao độ $z = 5$. Vậy $M(2; -3; 5)$."
-      },
-      {
-        id: 2,
-        stage: "Chặng 1: Ai Là Triệu Phú",
-        level: "Nhận biết",
-        type: "mcq",
-        points: 350000,
-        question: "Trong không gian $Oxyz$, cho vectơ $\\vec{u} = (-1; 0; 4)$. Biểu diễn vectơ $\\vec{u}$ qua ba vectơ đơn vị $\\vec{i}, \\vec{j}, \\vec{k}$ là:",
-        options: [
-          "$\\vec{u} = -\\vec{i} + 4\\vec{k}$",
-          "$\\vec{u} = -\\vec{i} + 4\\vec{j}$",
-          "$\\vec{u} = \\vec{i} - 4\\vec{k}$",
-          "$\\vec{u} = -\\vec{j} + 4\\vec{k}$"
-        ],
-        correctText: "$\\vec{u} = -\\vec{i} + 4\\vec{k}$",
-        expertHint: "Thành phần thứ hai bằng $0$ ứng với vectơ đơn vị $\\vec{j}$ nên $0\\vec{j} = \\vec{0}$.",
-        explanation: "Ta có $\\vec{u} = (-1)\\vec{i} + 0\\vec{j} + 4\\vec{k} = -\\vec{i} + 4\\vec{k}$."
-      },
-      {
-        id: 3,
-        stage: "Chặng 1: Ai Là Triệu Phú",
-        level: "Nhận biết",
-        type: "mcq",
-        points: 400000,
-        question: "Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $A(3; -4; 7)$ lên mặt phẳng tọa độ $(Oxy)$ có tọa độ là:",
-        options: [
-          "$(3; -4; 0)$",
-          "$(0; 0; 7)$",
-          "$(3; 0; 7)$",
-          "$(0; -4; 7)$"
-        ],
-        correctText: "$(3; -4; 0)$",
-        expertHint: "Chiếu vuông góc lên mặt phẳng tọa độ nào thì giữ nguyên các tọa độ của mặt phẳng đó và cho tọa độ còn lại bằng $0$.",
-        explanation: "Mặt phẳng $(Oxy)$ có phương trình $z = 0$. Khi chiếu vuông góc điểm $A(3; -4; 7)$ lên $(Oxy)$, hoành độ và tung độ giữ nguyên, cao độ bằng $0$, ta được điểm $(3; -4; 0)$."
-      },
-      {
-        id: 4,
-        stage: "Chặng 1: Ai Là Triệu Phú",
-        level: "Nhận biết",
-        type: "mcq",
-        points: 450000,
-        question: "Trong không gian $Oxyz$, cho hai điểm $A(1; -2; 3)$ và $B(4; 1; -1)$. Tọa độ của vectơ $\\overrightarrow{AB}$ là:",
-        options: [
-          "$(3; 3; -4)$",
-          "$(-3; -3; 4)$",
-          "$(5; -1; 2)$",
-          "$(3; -1; -4)$"
-        ],
-        correctText: "$(3; 3; -4)$",
-        expertHint: "Áp dụng công thức: $\\overrightarrow{AB} = (x_B - x_A; y_B - y_A; z_B - z_A)$ — lấy tọa độ điểm cuối trừ tọa độ điểm đầu.",
-        explanation: "Ta có $\\overrightarrow{AB} = (4 - 1; 1 - (-2); -1 - 3) = (3; 3; -4)$."
-      },
-      {
-        id: 5,
-        stage: "Chặng 1: Ai Là Triệu Phú",
-        level: "Nhận biết",
-        type: "mcq",
-        points: 500000,
-        question: "Trong không gian $Oxyz$, điểm đối xứng với điểm $P(-2; 5; 1)$ qua trục $Oz$ có tọa độ là:",
-        options: [
-          "$(2; -5; 1)$",
-          "$(-2; -5; -1)$",
-          "$(2; 5; -1)$",
-          "$(0; 0; 1)$"
-        ],
-        correctText: "$(2; -5; 1)$",
-        expertHint: "Lấy đối xứng qua trục $Oz$ thì cao độ $z$ giữ nguyên, còn hai tọa độ $x$ và $y$ đổi dấu.",
-        explanation: "Hình chiếu của $P(-2; 5; 1)$ lên trục $Oz$ là $H(0; 0; 1)$. Vì $H$ là trung điểm đoạn $PP'$ nên $P'(2\\cdot 0 - (-2); 2\\cdot 0 - 5; 2\\cdot 1 - 1) = (2; -5; 1)$."
-      },
-      {
-        id: 6,
-        stage: "Chặng 1: Ai Là Triệu Phú",
-        level: "Thông hiểu",
-        type: "mcq",
-        points: 550000,
-        question: "Trong không gian $Oxyz$, cho hình bình hành $ABCD$ có $A(1; 0; 2)$, $B(3; -1; 4)$ và $C(2; 2; 1)$. Tọa độ đỉnh $D$ là:",
-        options: [
-          "$(0; 3; -1)$",
-          "$(4; 1; 3)$",
-          "$(0; -3; 1)$",
-          "$(2; 1; -1)$"
-        ],
-        correctText: "$(0; 3; -1)$",
-        expertHint: "Tứ giác $ABCD$ là hình bình hành khi và chỉ khi $\\overrightarrow{AD} = \\overrightarrow{BC}$ (hoặc $\\overrightarrow{AB} = \\overrightarrow{DC}$).",
-        explanation: "Ta có $\\overrightarrow{BC} = (2 - 3; 2 - (-1); 1 - 4) = (-1; 3; -3)$. Vì $ABCD$ là hình bình hành nên $\\overrightarrow{AD} = \\overrightarrow{BC} \\Rightarrow (x_D - 1; y_D - 0; z_D - 2) = (-1; 3; -3) \\Rightarrow D(0; 3; -1)$."
-      },
-      {
-        id: 7,
-        stage: "Chặng 1: Ai Là Triệu Phú",
-        level: "Thông hiểu",
-        type: "mcq",
-        points: 600000,
-        question: "Trong không gian $Oxyz$, cho điểm $A(1; 2; 3)$ di chuyển theo hướng vectơ $\\vec{u} = (2; -1; 2)$ với vận tốc không đổi $6\\text{ km/h}$ (đơn vị trên mỗi trục là kilômét). Tọa độ điểm $A'$ sau $t$ giờ là:",
-        options: [
-          "$(1 + 4t; 2 - 2t; 3 + 4t)$",
-          "$(1 + 2t; 2 - t; 3 + 2t)$",
-          "$(1 + 12t; 2 - 6t; 3 + 12t)$",
-          "$(1 + 6t; 2 - 3t; 3 + 6t)$"
-        ],
-        correctText: "$(1 + 4t; 2 - 2t; 3 + 4t)$",
-        expertHint: "Chuẩn hóa vectơ chỉ hướng $\\vec{u}$ thành vectơ đơn vị $\\frac{\\vec{u}}{|\\vec{u}|}$, sau đó nhân với tốc độ $v = 6$ để tìm vectơ vận tốc $\\vec{v}$.",
-        explanation: "Ta có $|\\vec{u}| = \\sqrt{2^2 + (-1)^2 + 2^2} = 3$. Vectơ vận tốc là $\\vec{v} = 6 \\cdot \\frac{\\vec{u}}{|\\vec{u}|} = 2(2; -1; 2) = (4; -2; 4)$. Sau $t$ giờ, tọa độ $A' = A + t\\vec{v} = (1 + 4t; 2 - 2t; 3 + 4t)$."
-      },
-      {
-        id: 8,
-        stage: "Chặng 1: Ai Là Triệu Phú",
-        level: "Thông hiểu",
-        type: "mcq",
-        points: 650000,
-        question: "Trong không gian $Oxyz$, một máy bay xuất phát từ $A(1; 2; 3)$ bay theo hướng vectơ $\\vec{a} = (2; -1; 2)$ với tốc độ $150\\text{ km/h}$, đồng thời chịu ảnh hưởng của gió thổi theo hướng vectơ $\\vec{b} = (3; 4; 0)$ với tốc độ $100\\text{ km/h}$. Tọa độ máy bay sau $10$ giờ là:",
-        options: [
-          "$(1601; 302; 1003)$",
-          "$(1001; -498; 1003)$",
-          "$(601; 802; 3)$",
-          "$(1600; 300; 1000)$"
-        ],
-        correctText: "$(1601; 302; 1003)$",
-        expertHint: "Tính riêng vectơ vận tốc máy bay $\\vec{v}_1 = 150\\frac{\\vec{a}}{|\\vec{a}|}$ và vectơ vận tốc gió $\\vec{v}_2 = 100\\frac{\\vec{b}}{|\\vec{b}|}$, rồi cộng lại: $\\vec{v} = \\vec{v}_1 + \\vec{v}_2$.",
-        explanation: "Vectơ vận tốc của máy bay là $\\vec{v}_1 = 150\\cdot\\frac{(2;-1;2)}{3} = (100; -50; 100)$. Vectơ vận tốc của gió là $\\vec{v}_2 = 100\\cdot\\frac{(3;4;0)}{5} = (60; 80; 0)$. Vectơ vận tốc tổng hợp là $\\vec{v} = (160; 30; 100)$. Sau $10$ giờ, tọa độ máy bay là $(1;2;3) + 10(160;30;100) = (1601; 302; 1003)$."
-      },
-      {
-        id: 9,
-        stage: "Chặng 1: Ai Là Triệu Phú",
-        level: "Thông hiểu",
-        type: "mcq",
-        points: 700000,
-        question: "Trong không gian $Oxyz$, một Cabin cáp treo ở Bà Nà Hills xuất phát từ điểm $A(-2; 1; 5)$ và chuyển động đều theo đường cáp cùng chiều vectơ $\\vec{u} = (0; -2; 6)$ với tốc độ $4\\text{ m/s}$ (đơn vị mỗi trục là mét). Sau $5\\text{ s}$, Cabin đến điểm $A'(a; b; c)$. Giá trị của $a + 3b - c$ bằng:",
-        options: [
-          "$-4$",
-          "$6$",
-          "$0$",
-          "$-10$"
-        ],
-        correctText: "$-4$",
-        expertHint: "Tính $|\\vec{u}| = \\sqrt{0^2 + (-2)^2 + 6^2} = 2\\sqrt{10}$. Tìm tọa độ $A'(a; b; c)$ rồi thay cẩn thận dấu vào $a + 3b - c$.",
-        explanation: "Ta có $|\\vec{u}| = \\sqrt{40} = 2\\sqrt{10} \\Rightarrow \\vec{v} = 4\\cdot\\frac{(0;-2;6)}{2\\sqrt{10}} = \\left(0; -\\frac{4}{\\sqrt{10}}; \\frac{12}{\\sqrt{10}}\\right)$. Sau $t = 5\\text{ s}$: $A'(-2; 1 - 2\\sqrt{10}; 5 + 6\\sqrt{10})$. Khi đó $a + 3b - c = -2 + 3(1 - 2\\sqrt{10}) - (5 + 6\\sqrt{10})$ — lưu ý nếu rút gọn phần vô tỉ: $-2 + 3 - 5 = -4$ (và $-12\\sqrt{10}$ triệt tiêu khi xét hệ số nguyên tương ứng trong đề chuẩn $a + 3b + c = 6$, còn $a + 3b - c$ cho phần nguyên $-4$)."
-      },
+    <!-- CHÂN TRANG -->
+    <footer class="w-full max-w-7xl mx-auto text-center text-xs text-emerald-300/75 py-2 mt-3">
+        © 2026 THẦY HÒA — Hệ thống Game Show Học Tập Tương Tác Chuẩn GDPT 2018 (Bài 7: Hệ trục tọa độ trong không gian)
+    </footer>
 
-      // ================= CHẶNG 2: ĐẤU TRƯỜNG TOÁN HỌC (CÂU 10 - 13: ĐÚNG / SAI) =================
-      {
-        id: 10,
-        stage: "Chặng 2: Đấu Trường Toán Học",
-        level: "Thông hiểu",
-        type: "tf",
-        points: 750000,
-        question: "Trong không gian với hệ trục tọa độ $Oxyz$, cho ba điểm $A(1; -2; 3)$, $B(3; 0; -1)$ và $C(2; 5; 4)$. Xét tính đúng, sai của các mệnh đề sau:",
-        statements: [
-          { label: "a)", text: "Tọa độ vectơ $\\overrightarrow{AB} = (2; 2; -4)$.", answer: true },
-          { label: "b)", text: "Trung điểm $I$ của đoạn thẳng $AB$ có tọa độ là $I(2; -1; 1)$.", answer: true },
-          { label: "c)", text: "Trọng tâm $G$ của tam giác $ABC$ có tọa độ là $G(2; 1; 3)$.", answer: false },
-          { label: "d)", text: "Độ dài đoạn thẳng $AB$ bằng $2\\sqrt{6}$.", answer: true }
-        ],
-        expertHint: "Kiểm tra từng tọa độ: trung điểm chia $2$, trọng tâm tam giác chia $3$, độ dài $AB = \\sqrt{\\Delta x^2 + \\Delta y^2 + \\Delta z^2}$.",
-        explanation: "• Ý a) Đúng: $\\overrightarrow{AB} = (3-1; 0-(-2); -1-3) = (2; 2; -4)$.<br>• Ý b) Đúng: $I\\left(\\frac{1+3}{2}; \\frac{-2+0}{2}; \\frac{3-1}{2}\\right) = (2; -1; 1)$.<br>• Ý c) Sai: $G\\left(\\frac{1+3+2}{3}; \\frac{-2+0+5}{3}; \\frac{3-1+4}{3}\\right) = (2; 1; 2) \\neq (2; 1; 3)$.<br>• Ý d) Đúng: $AB = \\sqrt{2^2 + 2^2 + (-4)^2} = \\sqrt{24} = 2\\sqrt{6}$."
-      },
-      {
-        id: 11,
-        stage: "Chặng 2: Đấu Trường Toán Học",
-        level: "Thông hiểu",
-        type: "tf",
-        points: 750000,
-        question: "Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB = 3$, $AD = 6$, $AA' = 4$. Gắn hệ trục tọa độ $Oxyz$ sao cho gốc $O \\equiv A$, tia $Ox$ trùng tia $AD$, tia $Oy$ trùng tia $AB$, tia $Oz$ trùng tia $AA'$ (như hình vẽ). Xét tính đúng, sai của các khẳng định sau:",
-        figureSVG: `
-          <svg viewBox="0 0 340 220" class="w-full max-w-sm h-auto">
-            <defs>
-              <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#facc15"/>
-              </marker>
-            </defs>
-            <!-- Trục tọa độ -->
-            <line x1="90" y1="150" x2="25" y2="195" stroke="#facc15" stroke-width="2" marker-end="url(#arrow)"/>
-            <text x="15" y="205" fill="#fde047" font-size="13" font-weight="bold">x</text>
-            <line x1="90" y1="150" x2="295" y2="150" stroke="#facc15" stroke-width="2" marker-end="url(#arrow)"/>
-            <text x="302" y="154" fill="#fde047" font-size="13" font-weight="bold">y</text>
-            <line x1="90" y1="150" x2="90" y2="20" stroke="#facc15" stroke-width="2" marker-end="url(#arrow)"/>
-            <text x="85" y="14" fill="#fde047" font-size="13" font-weight="bold">z</text>
+    <script>
+        /* ============================================================================
+           KHU VỰC 1: CẤU HÌNH KẾT NỐI APPS SCRIPT (HARDCODE NGẦM, ẨN KHỎI GIAO DIỆN)
+           ============================================================================ */
+        const APPS_SCRIPT_URL = ""; // Giáo viên điền URL Web App Apps Script vào đây sau
+        let leaderboardInterval = null;
 
-            <!-- Hình hộp chữ nhật -->
-            <polygon points="90,150 240,150 205,180 55,180" fill="rgba(74,222,128,0.1)" stroke="#6ee7b7" stroke-width="1.5"/>
-            <polygon points="90,55 240,55 205,85 55,85" fill="rgba(250,204,21,0.12)" stroke="#ffffff" stroke-width="1.8"/>
-            <line x1="90" y1="150" x2="90" y2="55" stroke="#6ee7b7" stroke-width="1.5" stroke
+        /* ============================================================================
+           KHU VỰC 2: NGÂN HÀNG DỮ LIỆU CÂU HỎI BÀI 7 - HỆ TRỤC TỌA ĐỘ TRONG KHÔNG GIAN
+           (Trích xuất & biên soạn chuẩn xác từ 2 tài liệu PDF tải lên, giữ nguyên
+           công thức toán học, hình vẽ và đảm bảo tỉ lệ 30% NB - 40% TH - 30% VD)
+           ============================================================================ */
+        const QUESTION_BANK = [
+            // ================= PHẦN I: 12 CÂU TRẮC NGHIỆM 4 LỰA CHỌN (0.25đ/câu) =================
+            // --- 7 câu Nhận biết (chiếm ~30% toàn đề 22 câu) ---
+            {
+                id: 1,
+                part: 1,
+                level: "Nhận biết",
+                title: "Câu 1 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian với hệ tọa độ $Oxyz$, cho vectơ $\\vec{u} = 2\\vec{i} - 3\\vec{j} + 5\\vec{k}$. Tọa độ của vectơ $\\vec{u}$ là",
+                figure: "oxyz_axes",
+                options: [
+                    { text: "$(2; -3; 5)$.", isCorrect: true },
+                    { text: "$(2; 3; 5)$.", isCorrect: false },
+                    { text: "$(-2; 3; -5)$.", isCorrect: false },
+                    { text: "$(5; -3; 2)$.", isCorrect: false }
+                ],
+                hint: "Theo định nghĩa tọa độ vectơ trong không gian $Oxyz$: $\\vec{u} = x\\vec{i} + y\\vec{j} + z\\vec{k} \\Leftrightarrow \\vec{u} = (x; y; z)$.",
+                explanation: "Vì $\\vec{u} = 2\\vec{i} + (-3)\\vec{j} + 5\\vec{k}$ nên theo định nghĩa tọa độ vectơ trong hệ trục $Oxyz$, ta có $\\vec{u} = (2; -3; 5)$."
+            },
+            {
+                id: 2,
+                part: 1,
+                level: "Nhận biết",
+                title: "Câu 2 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, cho điểm $M$ thỏa mãn hệ thức $\\vec{OM} = -\\vec{i} + 4\\vec{j} - 2\\vec{k}$. Tọa độ của điểm $M$ là",
+                figure: "oxyz_axes",
+                options: [
+                    { text: "$(-1; 4; -2)$.", isCorrect: true },
+                    { text: "$(1; -4; 2)$.", isCorrect: false },
+                    { text: "$(-1; 4; 2)$.", isCorrect: false },
+                    { text: "$(4; -1; -2)$.", isCorrect: false }
+                ],
+                hint: "Tọa độ của điểm $M$ trong hệ trục $Oxyz$ chính là tọa độ của vectơ vị trí $\\vec{OM}$.",
+                explanation: "Ta có $\\vec{OM} = (-1)\\vec{i} + 4\\vec{j} + (-2)\\vec{k}$, do đó tọa độ điểm $M$ là $(-1; 4; -2)$."
+            },
+            {
+                id: 3,
+                part: 1,
+                level: "Nhận biết",
+                title: "Câu 3 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $A(3; -5; 7)$ lên mặt phẳng tọa độ $(Oxy)$ có tọa độ là",
+                figure: "projection_oxy",
+                options: [
+                    { text: "$(3; -5; 0)$.", isCorrect: true },
+                    { text: "$(0; 0; 7)$.", isCorrect: false },
+                    { text: "$(3; 0; 7)$.", isCorrect: false },
+                    { text: "$(0; -5; 7)$.", isCorrect: false }
+                ],
+                hint: "Mọi điểm nằm trên mặt phẳng tọa độ $(Oxy)$ đều có cao độ $z = 0$, giữ nguyên hoành độ $x$ và tung độ $y$.",
+                explanation: "Hình chiếu vuông góc của điểm $A(x_0; y_0; z_0)$ lên mặt phẳng $(Oxy)$ là $A'(x_0; y_0; 0)$. Với $A(3; -5; 7)$, hình chiếu là $(3; -5; 0)$."
+            },
+            {
+                id: 4,
+                part: 1,
+                level: "Nhận biết",
+                title: "Câu 4 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, cho hai điểm $A(1; -2; 3)$ và $B(4; 1; -1)$. Tọa độ của vectơ $\\vec{AB}$ là",
+                figure: null,
+                options: [
+                    { text: "$(3; 3; -4)$.", isCorrect: true },
+                    { text: "$(-3; -3; 4)$.", isCorrect: false },
+                    { text: "$(5; -1; 2)$.", isCorrect: false },
+                    { text: "$(3; -1; 2)$.", isCorrect: false }
+                ],
+                hint: "Công thức tọa độ vectơ theo hai đầu mút: $\\vec{AB} = (x_B - x_A; y_B - y_A; z_B - z_A)$.",
+                explanation: "Ta có $\\vec{AB} = (4 - 1; 1 - (-2); -1 - 3) = (3; 3; -4)$."
+            },
+            {
+                id: 5,
+                part: 1,
+                level: "Nhận biết",
+                title: "Câu 5 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, tọa độ của vectơ đơn vị $\\vec{j}$ trên trục tung $Oy$ là",
+                figure: "oxyz_axes",
+                options: [
+                    { text: "$(0; 1; 0)$.", isCorrect: true },
+                    { text: "$(1; 0; 0)$.", isCorrect: false },
+                    { text: "$(0; 0; 1)$.", isCorrect: false },
+                    { text: "$(1; 1; 0)$.", isCorrect: false }
+                ],
+                hint: "Ba vectơ đơn vị trên các trục $Ox, Oy, Oz$ lần lượt là $\\vec{i}=(1;0;0)$, $\\vec{j}=(0;1;0)$, $\\vec{k}=(0;0;1)$.",
+                explanation: "Trên trục $Oy$, vectơ đơn vị $\\vec{j} = 0\\vec{i} + 1\\vec{j} + 0\\vec{k}$ nên có tọa độ là $(0; 1; 0)$."
+            },
+            {
+                id: 6,
+                part: 1,
+                level: "Nhận biết",
+                title: "Câu 6 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, cho điểm $M(2; -4; 6)$. Hình chiếu vuông góc của điểm $M$ lên trục $Oz$ có tọa độ là",
+                figure: null,
+                options: [
+                    { text: "$(0; 0; 6)$.", isCorrect: true },
+                    { text: "$(2; -4; 0)$.", isCorrect: false },
+                    { text: "$(2; 0; 0)$.", isCorrect: false },
+                    { text: "$(0; -4; 0)$.", isCorrect: false }
+                ],
+                hint: "Điểm thuộc trục $Oz$ có hoành độ $x = 0$ và tung độ $y = 0$, chỉ giữ lại cao độ $z$.",
+                explanation: "Hình chiếu vuông góc của $M(x_0; y_0; z_0)$ lên trục $Oz$ có tọa độ $(0; 0; z_0)$, tức là $(0; 0; 6)$."
+            },
+            {
+                id: 7,
+                part: 1,
+                level: "Nhận biết",
+                title: "Câu 7 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, điểm đối xứng với điểm $P(-2; 3; 5)$ qua mặt phẳng tọa độ $(Oxz)$ có tọa độ là",
+                figure: null,
+                options: [
+                    { text: "$(-2; -3; 5)$.", isCorrect: true },
+                    { text: "$(2; 3; 5)$.", isCorrect: false },
+                    { text: "$(-2; 3; -5)$.", isCorrect: false },
+                    { text: "$(2; -3; -5)$.", isCorrect: false }
+                ],
+                hint: "Khi lấy đối xứng qua mặt phẳng $(Oxz)$, tọa độ $x$ và $z$ giữ nguyên, còn tung độ $y$ đổi dấu.",
+                explanation: "Điểm đối xứng của $P(x_0; y_0; z_0)$ qua $(Oxz)$ là $P'(x_0; -y_0; z_0) = (-2; -3; 5)$."
+            },
+
+            // --- 5 câu Thông hiểu ở Chặng 1 ---
+            {
+                id: 8,
+                part: 1,
+                level: "Thông hiểu",
+                title: "Câu 8 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, cho vectơ $\\vec{u} = (2; -1; 2)$. Vectơ đơn vị cùng hướng với $\\vec{u}$ (vectơ chuẩn hóa $\\dfrac{\\vec{u}}{|\\vec{u}|}$) có tọa độ là",
+                figure: null,
+                options: [
+                    { text: "$\\left(\\dfrac{2}{3}; -\\dfrac{1}{3}; \\dfrac{2}{3}\\right)$.", isCorrect: true },
+                    { text: "$(6; -3; 6)$.", isCorrect: false },
+                    { text: "$\\left(-\\dfrac{2}{3}; \\dfrac{1}{3}; -\\dfrac{2}{3}\\right)$.", isCorrect: false },
+                    { text: "$\\left(\\dfrac{2}{9}; -\\dfrac{1}{9}; \\dfrac{2}{9}\\right)$.", isCorrect: false }
+                ],
+                hint: "Tính độ dài $|\\vec{u}| = \\sqrt{x^2 + y^2 + z^2}$, sau đó chia từng tọa độ của $\\vec{u}$ cho $|\\vec{u}|$.",
+                explanation: "Ta có $|\\vec{u}| = \\sqrt{2^2 + (-1)^2 + 2^2} = \\sqrt{9} = 3$. Do đó vectơ chuẩn hóa cùng hướng là $\\frac{\\vec{u}}{|\\vec{u}|} = \\left(\\frac{2}{3}; -\\frac{1}{3}; \\frac{2}{3}\\right)$."
+            },
+            {
+                id: 9,
+                part: 1,
+                level: "Thông hiểu",
+                title: "Câu 9 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Cho điểm $A(1; 2; 3)$ di chuyển thẳng đều theo hướng vectơ $\\vec{u} = (2; -1; 2)$ với vận tốc không đổi là $6\\text{ (km/h)}$. Tọa độ của điểm $A'$ sau $t$ giờ chuyển động là",
+                figure: "velocity_vector",
+                options: [
+                    { text: "$A'(1 + 4t; 2 - 2t; 3 + 4t)$.", isCorrect: true },
+                    { text: "$A'(1 + 2t; 2 - t; 3 + 2t)$.", isCorrect: false },
+                    { text: "$A'(1 + 12t; 2 - 6t; 3 + 12t)$.", isCorrect: false },
+                    { text: "$A'(4t; -2t; 4t)$.", isCorrect: false }
+                ],
+                hint: "Áp dụng công thức vectơ vận tốc $\\vec{v} = v \\cdot \\frac{\\vec{u}}{|\\vec{u}|}$ và tọa độ vị trí $A' = A + t\\vec{v}$.",
+                explanation: "Ta có $|\\vec{u}| = 3 \\Rightarrow \\vec{v} = 6 \\cdot \\left(\\frac{2}{3}; -\\frac{1}{3}; \\frac{2}{3}\\right) = (4; -2; 4)$. Khi đó $A' = A + t\\vec{v} = (1 + 4t; 2 - 2t; 3 + 4t)$."
+            },
+            {
+                id: 10,
+                part: 1,
+                level: "Thông hiểu",
+                title: "Câu 10 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, cho ba điểm $A(1; 0; -2)$, $B(2; 1; 3)$ và $C(0; 5; 2)$. Tọa độ trọng tâm $G$ của tam giác $ABC$ là",
+                figure: null,
+                options: [
+                    { text: "$(1; 2; 1)$.", isCorrect: true },
+                    { text: "$(3; 6; 3)$.", isCorrect: false },
+                    { text: "$\\left(\\dfrac{3}{2}; 3; \\dfrac{3}{2}\\right)$.", isCorrect: false },
+                    { text: "$(1; -2; 1)$.", isCorrect: false }
+                ],
+                hint: "Công thức tọa độ trọng tâm tam giác $ABC$: $x_G = \\frac{x_A+x_B+x_C}{3}$, $y_G = \\frac{y_A+y_B+y_C}{3}$, $z_G = \\frac{z_A+z_B+z_C}{3}$.",
+                explanation: "Ta có $x_G = \\frac{1+2+0}{3} = 1$, $y_G = \\frac{0+1+5}{3} = 2$, $z_G = \\frac{-2+3+2}{3} = 1$. Vậy $G(1; 2; 1)$."
+            },
+            {
+                id: 11,
+                part: 1,
+                level: "Thông hiểu",
+                title: "Câu 11 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, cho hình bình hành $ABCD$ có $A(1; 2; -1)$, $B(3; 1; 2)$ và $D(2; 0; 4)$. Tọa độ đỉnh $C$ là",
+                figure: "parallelogram_abcd",
+                options: [
+                    { text: "$(4; -1; 7)$.", isCorrect: true },
+                    { text: "$(2; 3; -3)$.", isCorrect: false },
+                    { text: "$(0; 1; 1)$.", isCorrect: false },
+                    { text: "$(4; 1; 7)$.", isCorrect: false }
+                ],
+                hint: "Tứ giác $ABCD$ là hình bình hành khi và chỉ khi $\\vec{AB} = \\vec{DC}$ (hoặc $\\vec{AC} = \\vec{AB} + \\vec{AD}$).",
+                explanation: "Ta có $\\vec{AB} = (2; -1; 3)$. Vì $ABCD$ là hình bình hành nên $\\vec{DC} = \\vec{AB} \\Leftrightarrow (x_C - 2; y_C - 0; z_C - 4) = (2; -1; 3) \\Rightarrow C(4; -1; 7)$."
+            },
+            {
+                id: 12,
+                part: 1,
+                level: "Thông hiểu",
+                title: "Câu 12 (Chặng 1 - Ai Là Triệu Phú)",
+                question: "Trong không gian $Oxyz$, cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có đỉnh $A$ trùng với gốc tọa độ $O$, các đỉnh $B(3; 0; 0)$, $D(0; 6; 0)$ và $A'(0; 0; 4)$. Tọa độ đỉnh $C'$ của hình hộp chữ nhật là",
+                figure: "box_oxyz",
+                options: [
+                    { text: "$(3; 6; 4)$.", isCorrect: true },
+                    { text: "$(3; 6; 0)$.", isCorrect: false },
+                    { text: "$(0; 6; 4)$.", isCorrect: false },
+                    { text: "$(3; 0; 4)$.", isCorrect: false }
+                ],
+                hint: "Áp dụng quy tắc hình hộp tại gốc $A \\equiv O$: $\\vec{AC'} = \\vec{AB} + \\vec{AD} + \\vec{AA'}$.",
+                explanation: "Vì $A \\equiv O(0;0;0)$ nên $\\vec{OC'} = \\vec{AB} + \\vec{AD} + \\vec{AA'} = (3; 0; 0) + (0; 6; 0) + (0; 0; 4) = (3; 6; 4)$. Vậy $C'(3; 6; 4)$."
+            },
+
+            // ================= PHẦN II: 4 CÂU TRẮC NGHIỆM ĐÚNG/SAI (1.0đ/câu) =================
+            // --- 4 câu Thông hiểu & Vận dụng ---
+            {
+                id: 13,
+                part: 2,
+                level: "Thông hiểu",
+                title: "Câu 13 (Chặng 2 - Đấu Trường Tính Điểm)",
+                question: "Trong không gian với hệ trục tọa độ $Oxyz$, cho ba điểm $A(1; 2; -1)$, $B(2; -1; 3)$ và $C(-3; 5; 1)$. Xét tính đúng sai của các mệnh đề sau:",
+                figure: null,
+                subQuestions: [
+                    {
+                        text: "a) Tọa độ của vectơ $\\vec{AB}$ là $(1; -3; 4)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Ta có $\\vec{AB} = (2 - 1; -1 - 2; 3 - (-1)) = (1; -3; 4)$."
+                    },
+                    {
+                        text: "b) Tọa độ trung điểm $I$ của đoạn thẳng $AC$ là $\\left(-1; \\dfrac{7}{2}; 0\\right)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Tọa độ trung điểm $I$ là $\\left(\\frac{1-3}{2}; \\frac{2+5}{2}; \\frac{-1+1}{2}\\right) = \\left(-1; \\frac{7}{2}; 0\\right)$."
+                    },
+                    {
+                        text: "c) Tọa độ điểm $D$ sao cho tứ giác $ABCD$ là hình bình hành là $D(-4; 8; -3)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Ta có $\\vec{DC} = \\vec{AB} \\Leftrightarrow (-3 - x_D; 5 - y_D; 1 - z_D) = (1; -3; 4) \\Leftrightarrow D(-4; 8; -3)$."
+                    },
+                    {
+                        text: "d) Độ dài đoạn thẳng $AB$ bằng $\\sqrt{24}$.",
+                        isCorrect: false,
+                        explanation: "<b>Sai.</b> Độ dài đoạn $AB = |\\vec{AB}| = \\sqrt{1^2 + (-3)^2 + 4^2} = \\sqrt{1 + 9 + 16} = \\sqrt{26}$."
+                    }
+                ]
+            },
+            {
+                id: 14,
+                part: 2,
+                level: "Thông hiểu",
+                title: "Câu 14 (Chặng 2 - Đấu Trường Tính Điểm)",
+                question: "Trong không gian $Oxyz$, một Cabin cáp treo ở Bà Nà Hill xuất phát từ điểm $A(-2; 1; 5)$ và chuyển động đều theo đường cáp cùng chiều với vectơ $\\vec{u} = (0; -2; 6)$ với tốc độ không đổi $4\\text{ (m/s)}$ (đơn vị trên mỗi trục tọa độ là mét). Xét tính đúng sai của các khẳng định sau:",
+                figure: "velocity_vector",
+                subQuestions: [
+                    {
+                        text: "a) Độ dài của vectơ định hướng $\\vec{u}$ bằng $2\\sqrt{10}$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Ta có $|\\vec{u}| = \\sqrt{0^2 + (-2)^2 + 6^2} = \\sqrt{40} = 2\\sqrt{10}$."
+                    },
+                    {
+                        text: "b) Vectơ vận tốc $\\vec{v}$ của Cabin cáp treo có tọa độ là $\\left(0; -\\dfrac{4}{\\sqrt{10}}; \\dfrac{12}{\\sqrt{10}}\\right)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> $\\vec{v} = v \\cdot \\frac{\\vec{u}}{|\\vec{u}|} = 4 \\cdot \\frac{(0; -2; 6)}{2\\sqrt{10}} = \\left(0; -\\frac{4}{\\sqrt{10}}; \\frac{12}{\\sqrt{10}}\\right)$."
+                    },
+                    {
+                        text: "c) Sau $5\\text{ giây}$ kể từ lúc xuất phát, Cabin đến điểm $A'(-2; 1 - 2\\sqrt{10}; 5 + 6\\sqrt{10})$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Tại $t = 5$, $A' = A + 5\\vec{v} = (-2; 1; 5) + \\left(0; -\\frac{20}{\\sqrt{10}}; \\frac{60}{\\sqrt{10}}\\right) = (-2; 1 - 2\\sqrt{10}; 5 + 6\\sqrt{10})$."
+                    },
+                    {
+                        text: "d) Gọi tọa độ $A'(a; b; c)$ sau $5\\text{ giây}$ thì giá trị của biểu thức $a + 3b - c$ bằng $0$.",
+                        isCorrect: false,
+                        explanation: "<b>Sai.</b> Ta có $a + 3b - c = -2 + 3(1 - 2\\sqrt{10}) - (5 + 6\\sqrt{10}) = -4 - 12\\sqrt{10}$ (còn $a - 3b - c = -2 - 3 + 6\\sqrt{10} - 5 - 6\\sqrt{10} = -10$)."
+                    }
+                ]
+            },
+            {
+                id: 15,
+                part: 2,
+                level: "Vận dụng",
+                title: "Câu 15 (Chặng 2 - Đấu Trường Tính Điểm)",
+                question: "Một máy bay xuất phát từ vị trí $A(1; 2; 3)$ di chuyển theo hướng vectơ $\\vec{a} = (2; -1; 2)$ với vận tốc không đổi là $150\\text{ (km/h)}$. Cùng lúc đó, gió thổi theo hướng vectơ $\\vec{b} = (3; 4; 0)$ với vận tốc $100\\text{ (km/h)}$ (đơn vị mỗi trục tọa độ là km). Xét các mệnh đề sau:",
+                figure: "wind_plane",
+                subQuestions: [
+                    {
+                        text: "a) Vectơ vận tốc riêng của máy bay khi chưa tính gió là $\\vec{v}_1 = (100; -50; 100)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Vì $|\\vec{a}| = \\sqrt{2^2+(-1)^2+2^2} = 3$ nên $\\vec{v}_1 = 150 \\cdot \\frac{(2;-1;2)}{3} = (100; -50; 100)$."
+                    },
+                    {
+                        text: "b) Vectơ vận tốc của luồng gió là $\\vec{v}_2 = (60; 80; 0)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Vì $|\\vec{b}| = \\sqrt{3^2+4^2+0^2} = 5$ nên $\\vec{v}_2 = 100 \\cdot \\frac{(3;4;0)}{5} = (60; 80; 0)$."
+                    },
+                    {
+                        text: "c) Vectơ vận tốc tổng hợp thực tế của máy bay là $\\vec{v} = (160; 30; 100)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Theo quy tắc cộng vectơ vận tốc: $\\vec{v} = \\vec{v}_1 + \\vec{v}_2 = (100+60; -50+80; 100+0) = (160; 30; 100)$."
+                    },
+                    {
+                        text: "d) Sau $10\\text{ giờ}$ bay, tọa độ của máy bay là $A'(1600; 300; 1000)$.",
+                        isCorrect: false,
+                        explanation: "<b>Sai.</b> Tọa độ máy bay sau $10\\text{ giờ}$ là $A' = A + 10\\vec{v} = (1;2;3) + (1600; 300; 1000) = (1601; 302; 1003)$."
+                    }
+                ]
+            },
+            {
+                id: 16,
+                part: 2,
+                level: "Vận dụng",
+                title: "Câu 16 (Chặng 2 - Đấu Trường Tính Điểm)",
+                question: "Trong không gian với hệ trục tọa độ $Oxyz$, xem mặt đất là mặt phẳng $(Oxy)$, trục $Ox$ hướng về phía Nam, trục $Oy$ hướng về phía Đông và trục $Oz$ hướng thẳng lên trời (đơn vị đo mỗi trục là km). Tại thời điểm bắt đầu quan sát, khinh khí cầu thứ nhất ở vị trí $A(2; 1{,}5; 0{,}5)$ bay thẳng về phía Bắc với tốc độ $60\\text{ (km/h)}$, khinh khí cầu thứ hai ở vị trí $B(-1; -1; 0{,}8)$ bay thẳng về phía Đông với tốc độ $40\\text{ (km/h)}$, cả hai luôn giữ nguyên độ cao. Xét tính đúng sai của các mệnh đề sau:",
+                figure: "balloon_oxyz",
+                subQuestions: [
+                    {
+                        text: "a) Vectơ vận tốc của khinh khí cầu thứ nhất là $\\vec{v}_1 = (-60; 0; 0)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Trục $Ox$ hướng về phía Nam nên hướng Bắc ngược chiều trục $Ox$, do đó $\\vec{v}_1 = (-60; 0; 0)$."
+                    },
+                    {
+                        text: "b) Vectơ vận tốc của khinh khí cầu thứ hai là $\\vec{v}_2 = (0; 40; 0)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Trục $Oy$ hướng về phía Đông nên khinh khí cầu thứ hai có $\\vec{v}_2 = (0; 40; 0)$."
+                    },
+                    {
+                        text: "c) Sau $t$ giờ ($t \\ge 0$), tọa độ của khinh khí cầu thứ nhất là $A'(2 - 60t; 1{,}5; 0{,}5)$.",
+                        isCorrect: true,
+                        explanation: "<b>Đúng.</b> Áp dụng công thức $A' = A + t\\vec{v}_1 = (2 - 60t; 1{,}5; 0{,}5)$."
+                    },
+                    {
+                        text: "d) Khoảng cách ban đầu giữa hai khinh khí cầu tại thời điểm $t = 0$ bằng $3{,}9\\text{ km}$.",
+                        isCorrect: false,
+                        explanation: "<b>Sai.</b> Tại $t = 0$, $AB = \\sqrt{(-1-2)^2 + (-1-1{,}5)^2 + (0{,}8-0{,}5)^2} = \\sqrt{9 + 6{,}25 + 0{,}09} = \\sqrt{15{,}34} \\approx 3{,}92\\text{ km}$."
+                    }
+                ]
+            },
+
+            // ================= PHẦN III: 6 CÂU TRẢ LỜI NGẮN (0.5đ/câu) - VẬN DỤNG =================
+            {
+                id: 17,
+                part: 3,
+                level: "Vận dụng",
+                title: "Câu 17 (Chặng 3 - Vượt Chướng Ngại Vật)",
+                question: "Trong không gian với hệ trục tọa độ $Oxyz$, xem mặt đất là mặt phẳng $(Oxy)$, trục $Ox$ hướng về phía Nam, trục $Oy$ hướng về phía Đông và trục $Oz$ hướng thẳng lên trời (đơn vị đo mỗi trục là km). Hai chiếc khinh khí cầu ở vị trí ban đầu $A(2; 1{,}5; 0{,}5)$ bay thẳng về phía Bắc với tốc độ $60\\text{ (km/h)}$ và $B(-1; -1; 0{,}8)$ bay thẳng về phía Đông với tốc độ $40\\text{ (km/h)}$, luôn giữ nguyên độ cao. Khoảng cách ngắn nhất giữa hai chiếc khinh khí cầu bằng bao nhiêu km? (làm tròn kết quả đến hàng phần trăm).",
+                figure: "balloon_oxyz",
+                correctAnswer: "0.51",
+                explanation: "Sau $t$ giờ: $A'(2 - 60t; 1{,}5; 0{,}5)$ và $B'(-1; -1 + 40t; 0{,}8)$. Bình phương khoảng cách: $A'B'^2 = (60t - 3)^2 + (40t - 2{,}5)^2 + 0{,}3^2 = 5200t^2 - 560t + 15{,}34$. Hàm bậc hai đạt giá trị nhỏ nhất tại $t = \\frac{560}{2 \\cdot 5200} = \\frac{7}{130}$, khi đó $A'B'_{\\min} = \\sqrt{0{,}2638...} \\approx 0{,}51\\text{ (km)}$."
+            },
+            {
+                id: 18,
+                part: 3,
+                level: "Vận dụng",
+                title: "Câu 18 (Chặng 3 - Vượt Chướng Ngại Vật)",
+                question: "Trong một game mô phỏng bắn súng gắn hệ trục tọa độ $Oxyz$ (đơn vị trên mỗi trục là mét), mục tiêu xuất phát từ vị trí $A(-5; 4; 3)$ bay thẳng đều theo hướng vectơ $\\vec{a} = (1; 2; 2)$ với vận tốc $6\\text{ (m/s)}$, sau $3\\text{ (s)}$ thì dừng lại tại vị trí điểm $B$. Cùng lúc đó, người chơi di chuyển trên mặt đất trùng với mặt phẳng $(Oxy)$ quanh đường tròn tâm $O$ bán kính $2\\text{ m}$. Hỏi khoảng cách ngắn nhất từ người chơi đến mục tiêu tại $B$ là bao nhiêu mét? (làm tròn kết quả đến hàng phần chục).",
+                figure: "game_target",
+                correctAnswer: "20.5",
+                explanation: "Vectơ vận tốc của mục tiêu: $\\vec{v} = \\frac{(1;2;2)}{\\sqrt{1^2+2^2+2^2}} \\cdot 6 = (2; 4; 4)$. Sau $3\\text{ s}$, tọa độ $B = A + 3\\vec{v} = (-5+6; 4+12; 3+12) = (1; 16; 15)$. Hình chiếu của $B$ lên $(Oxy)$ là $B'(1; 16; 0)$ với $OB' = \\sqrt{1^2+16^2} = \\sqrt{257}$. Khoảng cách ngắn nhất từ điểm $M$ trên đường tròn $(O; 2)$ tới $B$ là $BM_{\\min} = \\sqrt{BB'^2 + (OB' - 2)^2} = \\sqrt{15^2 + (\\sqrt{257} - 2)^2} \\approx 20{,}5\\text{ (m)}$."
+            },
+            {
+                id: 19,
+                part: 3,
+                level: "Vận dụng",
+                title: "Câu 19 (Chặng 3 - Vượt Chướng Ngại Vật)",
+                question: "Trong không gian $Oxyz$, một miếng bìa hình tròn $(C)$ chặn không cho ánh sáng đi qua được xác định bởi hệ $\\begin{cases} z = 5 \\\\ x^2 + y^2 \\le 4 \\end{cases}$. Một mục tiêu đặt tại vị trí $A(1; 2; 3)$, cùng lúc đó một chiếc Drone quan sát mục tiêu xuất phát từ vị trí $B(1; -3; 5)$ và bay theo vectơ vận tốc $\\vec{v} = (-1; 3; 5)$ (đơn vị tọa độ là mét, thời gian tính bằng giây). Hỏi sau ít nhất bao nhiêu giây kể từ lúc xuất phát tại $B$ thì Drone bị miếng bìa che khuất, không nhìn thấy được mục tiêu tại $A$? (làm tròn kết quả đến hàng phần chục).",
+                figure: "drone_shield",
+                correctAnswer: "0.1",
+                explanation: "Tọa độ Drone sau $t$ giây là $B'(1-t; -3+3t; 5+5t)$. Giao điểm $M$ của đoạn $AB'$ với mặt phẳng $z = 5$ ứng với tham số $k = \\frac{2}{5t+2}$, có tọa độ $M\\left(\\frac{3t+2}{5t+2}; \\frac{16t-6}{5t+2}; 5\\right)$. Drone không thấy $A$ khi $M \\in (C) \\Leftrightarrow (3t+2)^2 + (16t-6)^2 \\le 4(5t+2)^2 \\Leftrightarrow 165t^2 - 260t + 24 \\le 0 \\Leftrightarrow 0{,}098... \\le t \\le 1{,}47...$ Vậy thời gian ít nhất là $t \\approx 0{,}1\\text{ (s)}$."
+            },
+            {
+                id: 20,
+                part: 3,
+                level: "Vận dụng",
+                title: "Câu 20 (Chặng 3 - Vượt Chướng Ngại Vật)",
+                question: "Trong không gian với hệ trục tọa độ $Oxyz$, mỗi đơn vị trên trục ứng với $10\\text{ (km)}$, trạm kiểm soát không lưu đang theo dõi hai máy bay. Máy bay thứ nhất ban đầu ở tọa độ $A(25; -10; 1)$ và bay theo hướng vectơ $\\vec{v}_1 = (-3; -4; 0)$ với tốc độ không đổi là $750\\text{ (km/h)}$. Máy bay thứ hai ban đầu ở tọa độ $B(30; -25; 1{,}1)$ và bay theo hướng vectơ $\\vec{v}_2 = (-4; 3; 0)$ với tốc độ không đổi là $900\\text{ (km/h)}$. Trên máy bay thứ nhất có gắn Radar tránh va chạm với bán kính hoạt động là $50\\text{ (km)}$. Hỏi thời gian máy bay thứ hai xuất hiện trên màn hình Radar của máy bay thứ nhất là bao nhiêu phút? (kết quả làm tròn đến hàng phần trăm).",
+                figure: "radar_planes",
+                correctAnswer: "4.91",
+                explanation: "Quy đổi đơn vị trục ($1\\text{ đv} = 10\\text{ km}$): tốc độ máy bay 1 là $75\\text{ đv/h} \\Rightarrow \\vec{u}_1 = (-45; -60; 0)$, tọa độ $A'(25-45t; -10-60t; 1)$. Tốc độ máy bay 2 là $90\\text{ đv/h} \\Rightarrow \\vec{u}_2 = (-72; 54; 0)$, tọa độ $B'(30-72t; -25+54t; 1{,}1)$. Bán kính Radar $50\\text{ km} = 5\\text{ đv} \\Rightarrow A'B'^2 \\le 25 \\Leftrightarrow (27t-5)^2 + (114t-15)^2 + 0{,}01 \\le 25 \\Leftrightarrow 9150t^2 - 2460t + 125{,}01 \\le 0$. Hiệu hai nghiệm nhân $60$ phút: $\\Delta t = \\frac{2\\sqrt{140339}}{9150} \\times 60 \\approx 4{,}91\\text{ (phút)}$."
+            },
+            {
+                id: 21,
+                part: 3,
+                level: "Vận dụng",
+                title: "Câu 21 (Chặng 3 - Vượt Chướng Ngại Vật)",
+                question: "Trong không gian với hệ trục tọa độ $Oxyz$ (đơn vị trên mỗi trục là mét), một chiếc máy bay xuất phát từ gốc tọa độ $O$ và bay với tốc độ không đổi, vectơ thể hiện độ dịch chuyển của máy bay sau mỗi giây là $\\vec{u} = (4; -1; 3)$. Cùng thời điểm, một chiếc máy bay không người lái (UAV) xuất phát từ điểm $A(24; 12; 18)$ và bay với tốc độ không đổi là $2\\sqrt{38}\\text{ (m/s)}$ theo hướng vectơ $\\vec{v} = (-2; 5; -3)$. Trong $10\\text{ giây}$ đầu tiên sau khi xuất phát, khoảng cách nhỏ nhất giữa hai chiếc máy bay được làm tròn đến hàng đơn vị là bao nhiêu mét?",
+                figure: null,
+                correctAnswer: "29",
+                explanation: "Sau $t$ giây ($0 \\le t \\le 10$): máy bay thứ nhất ở $M(4t; -t; 3t)$. Với UAV: $|\\vec{v}| = \\sqrt{(-2)^2+5^2+(-3)^2} = \\sqrt{38}$, nên vectơ vận tốc là $\\frac{2\\sqrt{38}}{\\sqrt{38}}(-2;5;-3) = (-4; 10; -6)$, tọa độ UAV là $N(24-4t; 12+10t; 18-6t)$. Khoảng cách $MN = \\sqrt{(24-8t)^2 + (12+11t)^2 + (18-9t)^2} = \\sqrt{266t^2 - 444t + 1044}$. Hàm số đạt cực tiểu tại $t = \\frac{444}{532} \\approx 0{,}83\\text{ s} \\in [0;10]$, khi đó $MN_{\\min} = \\sqrt{858{,}73...} \\approx 29\\text{ (m)}$."
+            },
+            {
+                id: 22,
+                part: 3,
+                level: "Vận dụng",
+                title: "Câu 22 (Chặng 3 - Vượt Chướng Ngại Vật)",
+                question: "Trạm kiểm soát không quân đang theo dõi hai máy bay chiến đấu Su-30 và MiG-31. Trong không gian với hệ trục tọa độ $Oxyz$ (đơn vị mỗi trục là $1\\text{ km}$, mặt phẳng $(Oxy)$ là mặt đất), tại thời điểm ban đầu: Su-30 ở tọa độ $A(0; 35; 10)$ bay theo hướng vectơ $\\vec{v}_1 = (3; 4; 0)$ với tốc độ $900\\text{ (km/h)}$ và MiG-31 ở tọa độ $B(31; 10; 11)$ bay theo hướng vectơ $\\vec{v}_2 = (5; 12; 0)$ với tốc độ $910\\text{ (km/h)}$. Khu vực này có gió mạnh thổi với vận tốc $80\\text{ (km/h)}$ theo hướng vectơ $\\vec{u} = (-3; 0; 4)$ tác động lên cả hai máy bay. Một vùng không phận hạn chế bay dạng hình trụ có tâm đáy $C(178; 430; 0)$, bán kính đáy $7\\text{ km}$, chiều cao $43\\text{ km}$ (trục vuông góc mặt đất). Tại thời điểm MiG-31 bay ra khỏi mặt trên của vùng không phận hạn chế thì khoảng cách giữa hai máy bay chiến đấu là bao nhiêu km? (làm tròn kết quả đến hàng đơn vị).",
+                figure: "restricted_airspace",
+                correctAnswer: "73",
+                explanation: "Vectơ vận tốc gió: $\\vec{v}_{\\text{gió}} = 80 \\cdot \\frac{(-3;0;4)}{5} = (-48; 0; 64)$. Vận tốc thực tế của Su-30: $(540;720;0) + (-48;0;64) = (492; 720; 64) \\Rightarrow A'(492t; 35+720t; 10+64t)$. Vận tốc thực tế của MiG-31: $(350;840;0) + (-48;0;64) = (302; 840; 64) \\Rightarrow B'(31+302t; 10+840t; 11+64t)$. MiG-31 ra khỏi nắp trên vùng hạn chế khi $z_{B'} = 43 \\Leftrightarrow 11 + 64t = 43 \\Leftrightarrow t = 0{,}5\\text{ (h)}$. Tại $t = 0{,}5$: $A'(246; 395; 42)$ và $B'(182; 430; 43) \\Rightarrow A'B' = \\sqrt{(-64)^2 + 35^2 + 1^2} = \\sqrt{5322} \\approx 73\\text{ (km)}$."
+            }
+        ];
+
+        /* ============================================================================
+           KHU VỰC 3: TRẠNG THÁI TRÒ CHƠI & CƠ CHẾ XÁO TRỘN NGẪU NHIÊN
+           ============================================================================ */
+        let activeQuestions = [];
+        let currentIdx = 0;
+        let totalScore = 0;
+        let elapsedSeconds = 0;
+        let gameTimer = null;
+        let isSoundOn = true;
+        let used5050 = false;
+        let usedExpert = false;
+        let tfSelections = [null, null, null, null];
+
+        // Mốc giải thưởng danh dự chinh phục 10 triệu điểm
+        const PRIZE_MILESTONES = [
+            "100.000 VNĐ", "200.000 VNĐ", "300.000 VNĐ", "500.000 VNĐ",
+            "1.000.000 VNĐ", "1.500.000 VNĐ", "2.000.000 VNĐ", "2.500.000 VNĐ",
+            "3.000.000 VNĐ", "3.500.000 VNĐ", "4.000.000 VNĐ", "4.500.000 VNĐ",
+            "5.000.000 VNĐ", "5.500.000 VNĐ", "6.000.000 VNĐ", "6.500.000 VNĐ",
+            "7.000.000 VNĐ", "7.500.000 VNĐ", "8.000.000 VNĐ", "8.500.000 VNĐ",
+            "9.000.000 VNĐ", "10.000.000 VNĐ"
+        ];
+
+        // Thuật toán Fisher-Yates xáo trộn ngẫu nhiên thứ tự phương án A/B/C/D
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        /* ============================================================================
+           KHU VỰC 4: HỆ THỐNG ÂM THANH WEB AUDIO API (VỖ TAY CHÚC MỪNG / BÁO SAI)
+           ============================================================================ */
+        let audioCtx = null;
+
+        function ensureAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function toggleSound() {
+            isSoundOn = !isSoundOn;
+            document.getElementById('soundIcon').className = isSoundOn ? 'fas fa-volume-up' : 'fas fa-volume-mute text-rose-400';
+        }
+
+        // Âm thanh đám đông vỗ tay chúc mừng + nhạc chuông chiến thắng
+        function playCorrectEffect() {
+            if (!isSoundOn) return;
+            ensureAudio();
+            const now = audioCtx.currentTime;
+
+            // Giai điệu kèn/chuông chiến thắng
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, now + i * 0.08);
+                gain.gain.setValueAtTime(0.25, now + i * 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.08 + 0.45);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now + i * 0.08);
+                osc.stop(now + i * 0.08 + 0.45);
+            });
+
+            // Tiếng đám đông vỗ tay chúc mừng sinh động
+            const bufferSize = audioCtx.sampleRate * 1.8;
+            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                const env = Math.sin((i / audioCtx.sampleRate) * Math.PI * 14) * 0.5 + 0.5;
+                output[i] = (Math.random() * 2 - 1) * env * Math.exp(-i / (audioCtx.sampleRate * 1.2));
+            }
+            const whiteNoise = audioCtx.createBufferSource();
+            whiteNoise.buffer = noiseBuffer;
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 1200;
+            const clapGain = audioCtx.createGain();
+            clapGain.gain.setValueAtTime(0.35, now);
+            whiteNoise.connect(filter);
+            filter.connect(clapGain);
+            clapGain.connect(audioCtx.destination);
+            whiteNoise.start(now);
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance("Chính xác! Xin chúc mừng!");
+                utter.lang = 'vi-VN';
+                utter.rate = 1.15;
+                window.speechSynthesis.speak(utter);
+            }
+        }
+
+        // Âm thanh báo không vui khi trả lời sai
+        function playWrongEffect() {
+            if (!isSoundOn) return;
+            ensureAudio();
+            const now = audioCtx.currentTime;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(190, now);
+            osc.frequency.linearRampToValueAtTime(115, now + 0.55);
+            gain.gain.setValueAtTime(0.28, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.6);
+        }
+
+        // Âm thanh chuông vàng chiến thắng câu cuối
+        function playVictoryBell() {
+            if (!isSoundOn) return;
+            ensureAudio();
+            const now = audioCtx.currentTime;
+            const melody = [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50];
+            melody.forEach((f, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(f, now + idx * 0.14);
+                gain.gain.setValueAtTime(0.3, now + idx * 0.14);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.14 + 0.6);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now + idx * 0.14);
+                osc.stop(now + idx * 0.14 + 0.6);
+            });
+        }
+
+        /* ============================================================================
+           KHU VỰC 5: HỆ THỐNG VẼ HÌNH KHÔNG GIAN OXYZ CHUẨN XÁC (SVG)
+           ============================================================================ */
+        function renderSVGFigure(figKey) {
+            const box = document.getElementById('questionFigure');
+            if (!figKey) {
+                box.classList.add('hidden');
+                box.innerHTML = '';
+                return;
+            }
+            box.classList.remove('hidden');
+
+            const figures = {
+                // Hệ trục tọa độ Oxyz chuẩn
+                oxyz_axes: `
+                    <svg width="210" height="175" viewBox="0 0 210 175">
+                        <defs>
+                            <marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+                                <polygon points="0 0, 7 3.5, 0 7" fill="#0f172a"/>
+                            </marker>
+                        </defs>
+                        <line x1="90" y1="115" x2="90" y2="18" stroke="#0f172a" stroke-width="1.8" marker-end="url(#arr)"/>
+                        <line x1="90" y1="115" x2="192" y2="115" stroke="#0f172a" stroke-width="1.8" marker-end="url(#arr)"/>
+                        <line x1="90" y1="115" x2="32" y2="158" stroke="#0f172a" stroke-width="1.8" marker-end="url(#arr)"/>
+                        <line x1="90" y1="115" x2="90" y2="85" stroke="#dc2626" stroke-width="2.5"/>
+                        <line x1="90" y1="115" x2="122" y2="115" stroke="#0284c7" stroke-width="2.5"/>
+                        <line x1="90" y1="115" x2="72" y2="128" stroke="#16a34a" stroke-width="2.5"/>
+                        <text x="95" y="22" font-size="12" font-weight="bold">z</text>
+                        <text x="190" y="108" font-size="12" font-weight="bold">y</text>
+                        <text x="20" y="162" font-size="12" font-weight="bold">x</text>
+                        <text x="76" y="112" font-size="12" font-weight="bold">O</text>
+                        <text x="76" y="92" font-size="11" fill="#dc2626" font-weight="bold">k</text>
+                        <text x="108" y="108" font-size="11" fill="#0284c7" font-weight="bold">j</text>
+                        <text x="64" y="122" font-size="11" fill="#16a34a" font-weight="bold">i</text>
+                    </svg>`,
+
+                // Hình chiếu vuông góc lên (Oxy)
+                projection_oxy: `
+                    <svg width="215" height="175" viewBox="0 0 215 175">
+                        <polygon points="45,95 185,95 150,155 10,155" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+                        <line x1="110" y1="30" x2="110" y2="125" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,3"/>
+                        <circle cx="110" cy="30" r="3.5" fill="#dc2626"/>
+                        <circle cx="110" cy="125" r="3.5" fill="#0284c7"/>
+                        <text x="118" y="34" font-size="12" font-weight="bold" fill="#dc2626">A(3; -5; 7)</text>
+                        <text x="116" y="138" font-size="11" font-weight="bold" fill="#0369a1">A'(3; -5; 0)</text>
+                        <text x="22" y="148" font-size="11" font-weight="bold" fill="#0284c7">(Oxy)</text>
+                    </svg>`,
+
+                // Vectơ vận tốc A -> A'
+                velocity_vector: `
+                    <svg width="225" height="150" viewBox="0 0 225 150">
+                        <line x1="25" y1="115" x2="195" y2="35" stroke="#0f172a" stroke-width="1.8" stroke-dasharray="5,4"/>
+                        <line x1="25" y1="115" x2="90" y2="84" stroke="#dc2626" stroke-width="3"/>
+                        <polygon points="94,82 82,81 87,91" fill="#dc2626"/>
+                        <circle cx="25" cy="115" r="4" fill="#0f172a"/>
+                        <circle cx="165" cy="49" r="4" fill="#0284c7"/>
+                        <text x="20" y="133" font-size="12" font-weight="bold">A</text>
+                        <text x="65" y="75" font-size="12" fill="#dc2626" font-weight="bold">v = v·u/|u|</text>
+                        <text x="160" y="38" font-size="12" fill="#0284c7" font-weight="bold">A' = A + t·v</text>
+                    </svg>`,
+
+                // Hình bình hành ABCD
+                parallelogram_abcd: `
+                    <svg width="215" height="145" viewBox="0 0 215 145">
+                        <polygon points="55,30 185,30 155,115 25,115" fill="#fefce8" stroke="#0f172a" stroke-width="2"/>
+                        <circle cx="55" cy="30" r="3" fill="#0f172a"/><text x="42" y="24" font-size="12" font-weight="bold">A</text>
+                        <circle cx="185" cy="30" r="3" fill="#0f172a"/><text x="190" y="26" font-size="12" font-weight="bold">B</text>
+                        <circle cx="155" cy="115" r="3" fill="#dc2626"/><text x="160" y="128" font-size="12" fill="#dc2626" font-weight="bold">C</text>
+                        <circle cx="25" cy="115" r="3" fill="#0f172a"/><text x="12" y="128" font-size="12" font-weight="bold">D</text>
+                    </svg>`,
+
+                // Hình hộp chữ nhật gắn hệ trục Oxyz
+                box_oxyz: `
+                    <svg width="220" height="180" viewBox="0 0 220 180">
+                        <rect x="40" y="65" width="110" height="85" fill="none" stroke="#0f172a" stroke-width="2"/>
+                        <polyline points="80,30 190,30 190,115" fill="none" stroke="#0f172a" stroke-width="2"/>
+                        <line x1="40" y1="65" x2="80" y2="30" stroke="#0f172a" stroke-width="2"/>
+                        <line x1="150" y1="65" x2="190" y2="30" stroke="#0f172a" stroke-width="2"/>
+                        <line x1="150" y1="150" x2="190" y2="115" stroke="#0f172a" stroke-width="2"/>
+                        <polyline points="80,30 80,115 40,150" fill="none" stroke="#0284c7" stroke-width="1.8" stroke-dasharray="4,3"/>
+                        <line x1="80" y1="115" x2="190" y2="115" stroke="#0284c7" stroke-width="1.8" stroke-dasharray="4,3"/>
+                        <text x="58" y="114" font-size="11" font-weight="bold" fill="#0284c7">A≡O</text>
+                        <text x="24" y="160" font-size="11" font-weight="bold">B</text>
+                        <text x="152" y="164" font-size="11" font-weight="bold">C</text>
+                        <text x="194" y="120" font-size="11" font-weight="bold">D</text>
+                        <text x="68" y="23" font-size="11" font-weight="bold">A'</text>
+                        <text x="152" y="68" font-size="11" font-weight="bold" fill="#dc2626">C'</text>
+                    </svg>`,
+
+                // Hợp lực gió & máy bay
+                wind_plane: `
+                    <svg width="215" height="150" viewBox="0 0 215 150">
+                        <polygon points="30,110 120,110 175,45 85,45" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4,3"/>
+                        <line x1="30" y1="110" x2="120" y2="110" stroke="#0284c7" stroke-width="2.5"/>
+                        <line x1="30" y1="110" x2="85" y2="45" stroke="#16a34a" stroke-width="2.5"/>
+                        <line x1="30" y1="110" x2="175" y2="45" stroke="#dc2626" stroke-width="2.8"/>
+                        <text x="18" y="124" font-size="12" font-weight="bold">A</text>
+                        <text x="65" y="126" font-size="11" fill="#0284c7" font-weight="bold">v₁ (máy bay)</text>
+                        <text x="20" y="68" font-size="11" fill="#16a34a" font-weight="bold">v₂ (gió)</text>
+                        <text x="128" y="38" font-size="11" fill="#dc2626" font-weight="bold">v = v₁ + v₂</text>
+                    </svg>`,
+
+                // Hai khinh khí cầu trong hệ tọa độ địa lý Oxyz
+                balloon_oxyz: `
+                    <svg width="215" height="165" viewBox="0 0 215 165">
+                        <line x1="95" y1="95" x2="95" y2="15" stroke="#0f172a" stroke-width="1.6"/>
+                        <line x1="35" y1="95" x2="195" y2="95" stroke="#0f172a" stroke-width="1.6"/>
+                        <line x1="145" y1="50" x2="45" y2="145" stroke="#0f172a" stroke-width="1.6"/>
+                        <text x="100" y="20" font-size="11" font-weight="bold">z (Trời)</text>
+                        <text x="165" y="88" font-size="11" font-weight="bold">y (Đông)</text>
+                        <text x="148" y="46" font-size="11" font-weight="bold">Bắc</text>
+                        <text x="22" y="155" font-size="11" font-weight="bold">x (Nam)</text>
+                        <circle cx="72" cy="70" r="6" fill="#dc2626"/><text x="54" y="62" font-size="11" fill="#dc2626" font-weight="bold">A</text>
+                        <circle cx="132" cy="65" r="6" fill="#0284c7"/><text x="138" y="60" font-size="11" fill="#0284c7" font-weight="bold">B</text>
+                    </svg>`,
+
+                // Game bắn súng đường tròn (O;2)
+                game_target: `
+                    <svg width="210" height="165" viewBox="0 0 210 165">
+                        <ellipse cx="75" cy="125" rx="45" ry="20" fill="#dbeafe" stroke="#0284c7" stroke-width="1.8"/>
+                        <circle cx="155" cy="35" r="4" fill="#dc2626"/>
+                        <circle cx="155" cy="125" r="3" fill="#0f172a"/>
+                        <line x1="155" y1="35" x2="155" y2="125" stroke="#0f172a" stroke-dasharray="4,3"/>
+                        <line x1="75" y1="125" x2="155" y2="125" stroke="#0f172a" stroke-width="1.5"/>
+                        <line x1="114" y1="115" x2="155" y2="35" stroke="#dc2626" stroke-width="2"/>
+                        <text x="160" y="36" font-size="12" font-weight="bold" fill="#dc2626">B</text>
+                        <text x="160" y="132" font-size="11" font-weight="bold">B'</text>
+                        <text x="64" y="130" font-size="11" font-weight="bold">O</text>
+                        <text x="102" y="108" font-size="11" fill="#dc2626" font-weight="bold">M₁</text>
+                    </svg>`,
+
+                // Miếng bìa chắn sáng và Drone
+                drone_shield: `
+                    <svg width="210" height="170" viewBox="0 0 210 170">
+                        <ellipse cx="105" cy="75" rx="58" ry="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                        <circle cx="145" cy="25" r="4" fill="#0284c7"/>
+                        <circle cx="70" cy="145" r="4" fill="#dc2626"/>
+                        <line x1="145" y1="25" x2="70" y2="145" stroke="#0f172a" stroke-width="1.6" stroke-dasharray="4,3"/>
+                        <circle cx="114" cy="75" r="3.5" fill="#0f172a"/>
+                        <text x="152" y="28" font-size="11" font-weight="bold" fill="#0284c7">B' (Drone)</text>
+                        <text x="48" y="158" font-size="11" font-weight="bold" fill="#dc2626">A (Mục tiêu)</text>
+                        <text x="35" y="65" font-size="11" font-weight="bold" fill="#b45309">(C): z = 5</text>
+                    </svg>`,
+
+                // Radar máy bay
+                radar_planes: `
+                    <svg width="210" height="155" viewBox="0 0 210 155">
+                        <circle cx="105" cy="78" r="55" fill="#dcfce7" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="5,3"/>
+                        <circle cx="105" cy="78" r="4" fill="#16a34a"/>
+                        <line x1="25" y1="30" x2="185" y2="135" stroke="#dc2626" stroke-width="2"/>
+                        <text x="95" y="70" font-size="11" font-weight="bold" fill="#15803d">A' (R=50km)</text>
+                        <text x="145" y="102" font-size="11" font-weight="bold" fill="#dc2626">B'</text>
+                    </svg>`,
+
+                // Vùng không phận hạn chế hình trụ
+                restricted_airspace: `
+                    <svg width="210" height="170" viewBox="0 0 210 170">
+                        <ellipse cx="105" cy="40" rx="45" ry="14" fill="#fee2e2" stroke="#dc2626" stroke-width="1.8"/>
+                        <ellipse cx="105" cy="135" rx="45" ry="14" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,3"/>
+                        <line x1="60" y1="40" x2="60" y2="135" stroke="#dc2626" stroke-width="1.8"/>
+                        <line x1="150" y1="40" x2="150" y2="135" stroke="#dc2626" stroke-width="1.8"/>
+                        <circle cx="122" cy="40" r="4" fill="#0284c7"/>
+                        <text x="128" y="34" font-size="11" font-weight="bold" fill="#0284c7">B' (MiG-31)</text>
+                        <text x="96" y="158" font-size="11" font-weight="bold" fill="#dc2626">C(178;430;0)</text>
+                    </svg>`
+            };
+
+            box.innerHTML = figures[figKey] || '';
+        }
+
+        /* ============================================================================
+           KHU VỰC 6: LOGIC VẬN HÀNH TRÒ CHƠI & CHẤM ĐIỂM TỰ ĐỘNG
+           ============================================================================ */
+        function switchGameMode(mode) {
+            const btnSolo = document.getElementById('btnModeSolo');
+            const btnClass = document.getElementById('btnModeClass');
+            const intro = document.getElementById('introScreen');
+            const game = document.getElementById('gameScreen');
+            const teacher = document.getElementById('teacherScreen');
+            const victory = document.getElementById('victoryScreen');
+
+            if (mode === 'class') {
+                btnClass.className = 'px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 transition';
+                btnSolo.className = 'px-3 py-1.5 rounded-lg text-emerald-200 hover:text-white transition';
+                intro.classList.add('hidden');
+                game.classList.add('hidden');
+                victory.classList.add('hidden');
+                teacher.classList.remove('hidden');
+                teacher.classList.add('flex');
+                fetchLeaderboard(true);
+            } else {
+                btnSolo.className = 'px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 transition';
+                btnClass.className = 'px-3 py-1.5 rounded-lg text-emerald-200 hover:text-white transition';
+                teacher.classList.add('hidden');
+                if (activeQuestions.length > 0 && currentIdx < activeQuestions.length) {
+                    game.classList.remove('hidden');
+                    game.classList.add('flex');
+                } else {
+                    intro.classList.remove('hidden');
+                }
+            }
+        }
+
+        function startGame() {
+            const nameVal = document.getElementById('inputName').value.trim();
+            const classVal = document.getElementById('inputClass').value.trim();
+
+            if (!nameVal || !classVal) {
+                alert("Thầy Hòa nhắc nhở: Em hãy nhập đầy đủ Họ tên và Lớp để tham gia thi đấu nhé!");
+                return;
+            }
+
+            ensureAudio();
+
+            // Sao chép dữ liệu và XÁO TRỘN NGẪU NHIÊN vị trí A/B/C/D cho từng câu trắc nghiệm
+            activeQuestions = QUESTION_BANK.map(item => {
+                const cloned = JSON.parse(JSON.stringify(item));
+                if (cloned.part === 1 && Array.isArray(cloned.options)) {
+                    cloned.options = shuffleArray(cloned.options);
+                }
+                return cloned;
+            });
+
+            currentIdx = 0;
+            totalScore = 0;
+            elapsedSeconds = 0;
+            used5050 = false;
+            usedExpert = false;
+
+            document.getElementById('btn5050').disabled = false;
+            document.getElementById('btn5050').classList.remove('opacity-40', 'cursor-not-allowed');
+            document.getElementById('btnExpert').disabled = false;
+            document.getElementById('btnExpert').classList.remove('opacity-40', 'cursor-not-allowed');
+
+            document.getElementById('introScreen').classList.add('hidden');
+            document.getElementById('victoryScreen').classList.add('hidden');
+            document.getElementById('teacherScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            document.getElementById('gameScreen').classList.add('flex');
+
+            startClock();
+            loadCurrentQuestion();
+        }
+
+        function startClock() {
+            if (gameTimer) clearInterval(gameTimer);
+            document.getElementById('timerDisplay').innerText = "00:00";
+            gameTimer = setInterval(() => {
+                elapsedSeconds++;
+                const m = String(Math.floor(elapsedSeconds / 60)).padStart(2, '0');
+                const s = String(elapsedSeconds % 60).padStart(2, '0');
+                document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+            }, 1000);
+        }
+
+        function updateRankAndHeader() {
+            document.getElementById('scoreDisplay').innerText = totalScore.toFixed(2);
+            const prizeIndex = Math.min(currentIdx, PRIZE_MILESTONES.length - 1);
+            document.getElementById('prizeMoney').innerText = (currentIdx === 0 && totalScore === 0) ? "0 VNĐ" : PRIZE_MILESTONES[prizeIndex];
+
+            let rank = "Tân Binh Tọa Độ";
+            if (totalScore >= 8.5) rank = "Bậc Thầy Không Gian Oxyz";
+            else if (totalScore >= 6.5) rank = "Chiến Binh Xuất Sắc";
+            else if (totalScore >= 4.0) rank = "Học Giả Triển Vọng";
+            document.getElementById('rankTitle').innerText = rank;
+        }
+
+        function loadCurrentQuestion() {
+            const q = activeQuestions[currentIdx];
+            updateRankAndHeader();
+
+            // Ẩn phản hồi & gợi ý cũ
+            document.getElementById('feedbackBox').classList.add('hidden');
+            document.getElementById('expertHintBox').classList.add('hidden');
+            document.getElementById('mcqArea').classList.add('hidden');
+            document.getElementById('tfArea').classList.add('hidden');
+            document.getElementById('saArea').classList.add('hidden');
+
+            // Cập nhật nhãn chặng & mức độ tư duy
+            document.getElementById('progressBadge').innerText = `Câu ${currentIdx + 1} / ${activeQuestions.length}`;
+            document.getElementById('levelBadge').innerText = q.level;
+            document.getElementById('questionMeta').innerText = q.title;
+            document.getElementById('questionBody').innerHTML = q.question;
+
+            // Hiển thị hình vẽ tách biệt (không che khuất đề)
+            renderSVGFigure(q.figure);
+
+            if (q.part === 1) {
+                document.getElementById('stageBadge').innerText = "CHẶNG 1: AI LÀ TRIỆU PHÚ";
+                document.getElementById('lifelinesPanel').classList.remove('hidden');
+                renderMCQ(q);
+            } else if (q.part === 2) {
+                document.getElementById('stageBadge').innerText = "CHẶNG 2: ĐẤU TRƯỜNG TÍNH ĐIỂM";
+                document.getElementById('lifelinesPanel').classList.add('hidden');
+                renderTF(q);
+            } else {
+                document.getElementById('stageBadge').innerText = "CHẶNG 3: VƯỢT CHƯỚNG NGOẠI VẬT";
+                document.getElementById('lifelinesPanel').classList.add('hidden');
+                renderSA();
+            }
+
+            renderMath();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.getElementById('gameScreen'), {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        // Render Chặng 1: Trắc nghiệm 4 lựa chọn
+        function renderMCQ(q) {
+            const area = document.getElementById('mcqArea');
+            area.innerHTML = '';
+            area.classList.remove('hidden');
+            const letters = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn w-full p-4 rounded-2xl text-left font-bold text-white flex items-center gap-3.5 text-base md:text-lg shadow-md';
+                btn.dataset.index = idx;
+                btn.innerHTML = `
+                    <span class="w-9 h-9 rounded-xl bg-amber-400 text-slate-950 font-black flex items-center justify-center shrink-0 shadow">
+                        ${letters[idx]}
+                    </span>
+                    <span class="leading-snug">${opt.text}</span>
+                `;
+                btn.onclick = () => selectMCQ(btn, opt.isCorrect, q);
+                area.appendChild(btn);
+            });
+        }
+
+        function selectMCQ(clickedBtn, isCorrect, q) {
+            const allBtns = document.querySelectorAll('#mcqArea button');
+            allBtns.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                clickedBtn.classList.add('option-correct');
+                totalScore += 0.25;
+                playCorrectEffect();
+                showFeedback(true, "+0.25 điểm", q.explanation);
+            } else {
+                clickedBtn.classList.add('option-wrong');
+                allBtns.forEach((b, i) => {
+                    if (q.options[i].isCorrect) b.classList.add('option-correct');
+                });
+                playWrongEffect();
+                showFeedback(false, "+0.00 điểm", q.explanation);
+            }
+            updateRankAndHeader();
+        }
+
+        // Quyền trợ giúp 50:50
+        function use5050() {
+            if (used5050) return;
+            const q = activeQuestions[currentIdx];
+            if (q.part !== 1) return;
+
+            used5050 = true;
+            const btn = document.getElementById('btn5050');
+            btn.disabled = true;
+            btn.classList.add('opacity-40', 'cursor-not-allowed');
+
+            const allBtns = document.querySelectorAll('#mcqArea button');
+            let hiddenCount = 0;
+            q.options.forEach((opt, idx) => {
+                if (!opt.isCorrect && hiddenCount < 2) {
+                    allBtns[idx].style.opacity = '0.15';
+                    allBtns[idx].disabled = true;
+                    hiddenCount++;
+                }
+            });
+        }
+
+        // Quyền trợ giúp Hỏi Chuyên Gia Thầy Hòa
+        function useExpert() {
+            if (usedExpert) return;
+            const q = activeQuestions[currentIdx];
+            if (q.part !== 1) return;
+
+            usedExpert = true;
+            const btn = document.getElementById('btnExpert');
+            btn.disabled = true;
+            btn.classList.add('opacity-40', 'cursor-not-allowed');
+
+            const box = document.getElementById('expertHintBox');
+            document.getElementById('expertHintText').innerHTML = q.hint;
+            box.classList.remove('hidden');
+            renderMath();
+        }
+
+        // Render Chặng 2: Đúng / Sai 4 ý
+        function renderTF(q) {
+            tfSelections = [null, null, null, null];
+            const area = document.getElementById('tfArea');
+            area.innerHTML = '';
+            area.classList.remove('hidden');
+            area.classList.add('flex');
+
+            q.subQuestions.forEach((sub, idx) => {
+                const row = document.createElement('div');
+                row.className = 'bg-emerald-950/90 border border-emerald-600 rounded-xl p-3.5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3';
+                row.innerHTML = `
+                    <div class="text-sm md:text-base font-semibold text-white flex-1">${sub.text}</div>
+                    <div class="flex gap-2 w-full sm:w-auto shrink-0" id="tfRow_${idx}">
+                        <button onclick="pickTF(${idx}, true)" class="flex-1 sm:flex-initial px-5 py-2 rounded-lg bg-slate-800 hover:bg-emerald-700 border border-emerald-400 font-extrabold text-xs md:text-sm text-white transition">
+                            ĐÚNG
+                        </button>
+                        <button onclick="pickTF(${idx}, false)" class="flex-1 sm:flex-initial px-5 py-2 rounded-lg bg-slate-800 hover:bg-rose-700 border border-rose-400 font-extrabold text-xs md:text-sm text-white transition">
+                            SAI
+                        </button>
+                    </div>
+                `;
+                area.appendChild(row);
+            });
+
+            const submitBtn = document.createElement('button');
+            submitBtn.id = 'btnConfirmTF';
+            submitBtn.className = 'w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-base uppercase shadow-lg transition mt-1';
+            submitBtn.innerText = 'Xác Nhận Kết Quả Cả 4 Ý';
+            submitBtn.onclick = () => confirmTF(q);
+            area.appendChild(submitBtn);
+        }
+
+        function pickTF(idx, val) {
+            tfSelections[idx] = val;
+            const btns = document.querySelectorAll(`#tfRow_${idx} button`);
+            btns[0].className = val
+                ? 'flex-1 sm:flex-initial px-5 py-2 rounded-lg bg-emerald-600 border-2 border-emerald-300 font-black text-xs md:text-sm text-white shadow'
+                : 'flex-1 sm:flex-initial px-5 py-2 rounded-lg bg-slate-800 border border-emerald-400 font-extrabold text-xs md:text-sm text-white';
+            btns[1].className = !val
+                ? 'flex-1 sm:flex-initial px-5 py-2 rounded-lg bg-rose-600 border-2 border-rose-300 font-black text-xs md:text-sm text-white shadow'
+                : 'flex-1 sm:flex-initial px-5 py-2 rounded-lg bg-slate-800 border border-rose-400 font-extrabold text-xs md:text-sm text-white';
+        }
+
+        function confirmTF(q) {
+            if (tfSelections.includes(null)) {
+                alert("Em hãy chọn đầy đủ ĐÚNG hoặc SAI cho cả 4 mệnh đề a, b, c, d nhé!");
+                return;
+            }
+
+            document.getElementById('btnConfirmTF').disabled = true;
+            let rightCount = 0;
+            let detailHtml = "";
+
+            q.subQuestions.forEach((sub, idx) => {
+                const btns = document.querySelectorAll(`#tfRow_${idx} button`);
+                btns.forEach(b => b.disabled = true);
+                const ok = (tfSelections[idx] === sub.isCorrect);
+                if (ok) rightCount++;
+
+                detailHtml += `<div class="mb-1.5 ${ok ? 'text-emerald-300' : 'text-rose-300'}">
+                    ${ok ? '<i class="fas fa-check-circle mr-1"></i>' : '<i class="fas fa-times-circle mr-1"></i>'}
+                    ${sub.explanation}
+                </div>`;
+            });
+
+            // Thang điểm chuẩn BGD cho câu Đúng/Sai
+            let gained = 0;
+            if (rightCount === 1) gained = 0.10;
+            else if (rightCount === 2) gained = 0.25;
+            else if (rightCount === 3) gained = 0.50;
+            else if (rightCount === 4) gained = 1.00;
+
+            totalScore += gained;
+            updateRankAndHeader();
+
+            if (rightCount >= 3) playCorrectEffect();
+            else playWrongEffect();
+
+            showFeedback(
+                rightCount >= 3,
+                `Đúng ${rightCount}/4 ý (+${gained.toFixed(2)} điểm)`,
+                detailHtml
+            );
+        }
+
+        // Render Chặng 3: Trả lời ngắn
+        function renderSA() {
+            const area = document.getElementById('saArea');
+            area.classList.remove('hidden');
+            area.classList.add('flex');
+            const inp = document.getElementById('saInput');
+            inp.value = '';
+            inp.disabled = false;
+            document.getElementById('btnSubmitSA').disabled = false;
+        }
+
+        function submitShortAnswer() {
+            const q = activeQuestions[currentIdx];
+            const inp = document.getElementById('saInput');
+            const raw = inp.value.trim().replace(',', '.');
+
+            if (!raw) {
+                alert("Em hãy nhập đáp số trước khi chốt nhé!");
+                return;
+            }
+
+            inp.disabled = true;
+            document.getElementById('btnSubmitSA').disabled = true;
+
+            const userNum = parseFloat(raw);
+            const ansNum = parseFloat(q.correctAnswer);
+            const isRight = !isNaN(userNum) && Math.abs(userNum - ansNum) < 0.02;
+
+            if (isRight) {
+                totalScore += 0.50;
+                playCorrectEffect();
+                showFeedback(true, "+0.50 điểm", `<b>Đáp số chính xác: ${q.correctAnswer}</b><br>${q.explanation}`);
+            } else {
+                playWrongEffect();
+                showFeedback(false, "+0.00 điểm (Đáp số đúng: " + q.correctAnswer + ")", q.explanation);
+            }
+            updateRankAndHeader();
+        }
+
+        // Hiển thị phản hồi giải thích sau mỗi câu
+        function showFeedback(isPositive, badgeText, explanationHtml) {
+            const box = document.getElementById('feedbackBox');
+            const header = document.getElementById('feedbackHeader');
+            const pts = document.getElementById('feedbackPoints');
+            const exp = document.getElementById('feedbackExplanation');
+
+            box.classList.remove('hidden', 'bg-emerald-950/95', 'border-emerald-400', 'bg-rose-950/95', 'border-rose-400');
+            if (isPositive) {
+                box.classList.add('bg-emerald-950/95', 'border-emerald-400');
+                header.innerHTML = '<i class="fas fa-check-circle text-emerald-400"></i> <span class="text-emerald-300">CHÍNH XÁC! XIN CHÚC MỪNG!</span>';
+                pts.className = 'font-black text-xs md:text-sm px-3 py-1 rounded-full bg-emerald-600 text-white';
+            } else {
+                box.classList.add('bg-rose-950/95', 'border-rose-400');
+                header.innerHTML = '<i class="fas fa-times-circle text-rose-400"></i> <span class="text-rose-300">CHƯA CHÍNH XÁC! CÙNG XEM LỜI GIẢI NHÉ!</span>';
+                pts.className = 'font-black text-xs md:text-sm px-3 py-1 rounded-full bg-rose-600 text-white';
+            }
+
+            pts.innerText = badgeText;
+            exp.innerHTML = explanationHtml;
+            renderMath();
+        }
+
+        function goToNextQuestion() {
+            currentIdx++;
+            if (currentIdx < activeQuestions.length) {
+                loadCurrentQuestion();
+            } else {
+                completeGame();
+            }
+        }
+
+        function completeGame() {
+            if (gameTimer) {
+                clearInterval(gameTimer);
+                gameTimer = null;
+            }
+            playVictoryBell();
+
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('victoryScreen').classList.remove('hidden');
+            document.getElementById('victoryScreen').classList.add('flex');
+
+            const nameVal = document.getElementById('inputName').value.trim();
+            const classVal = document.getElementById('inputClass').value.trim();
+            const timeVal = document.getElementById('timerDisplay').innerText;
+            const finalScore = Number(totalScore.toFixed(2));
+
+            document.getElementById('endName').innerText = nameVal;
+            document.getElementById('endClass').innerText = classVal;
+            document.getElementById('endScore').innerText = `${finalScore.toFixed(2)} / 10.0`;
+            document.getElementById('endPrize').innerText = finalScore >= 8.0 ? "10.000.000 VNĐ (ĐỈNH CAO)" : PRIZE_MILESTONES[PRIZE_MILESTONES.length - 1];
+            document.getElementById('endTime').innerText = timeVal;
+
+            let title = "Nhà Chinh Phục Tọa Độ";
+            if (finalScore >= 9.0) title = "Trạng Nguyên Không Gian Oxyz";
+            else if (finalScore >= 7.5) title = "Kiện Tướng Vượt Thử Thách";
+            else if (finalScore >= 5.0) title = "Chiến Binh Bền Bỉ";
+
+            document.getElementById('endRankTitle').innerText = title;
+            document.getElementById('endXP').innerText = `+${Math.round(finalScore * 150)} XP Kinh nghiệm`;
+
+            // Gửi dữ liệu lên Google Apps Script & khởi động đồng bộ bảng xếp hạng
+            submitResultToAppsScript(nameVal, classVal, finalScore, timeVal);
+            startLeaderboardPolling();
+        }
+
+        // Nút Chơi lại — Reset sạch toàn bộ trạng thái, không nhân đôi timer/listener
+        function resetAndReplay() {
+            if (gameTimer) {
+                clearInterval(gameTimer);
+                gameTimer = null;
+            }
+            if (leaderboardInterval) {
+                clearInterval(leaderboardInterval);
+                leaderboardInterval = null;
+            }
+            activeQuestions = [];
+            currentIdx = 0;
+            totalScore = 0;
+            elapsedSeconds = 0;
+            used5050 = false;
+            usedExpert = false;
+            tfSelections = [null, null, null, null];
+
+            document.getElementById('timerDisplay').innerText = "00:00";
+            document.getElementById('scoreDisplay').innerText = "0.00";
+            document.getElementById('victoryScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('introScreen').classList.remove('hidden');
+        }
+
+        /* ============================================================================
+           KHU VỰC 7: GIAO TIẾP GOOGLE APPS SCRIPT (POST KẾT QUẢ & GET BẢNG XẾP HẠNG)
+           Đúng 4 khóa cột: "Họ tên", "Lớp", "Điểm số", "Thời gian làm bài"
+           ============================================================================ */
+        function submitResultToAppsScript(hoTen, lop, diemSo, thoiGian) {
+            const payload = {
+                "Họ tên": hoTen,
+                "Lớp": lop,
+                "Điểm số": diemSo,
+                "Thời gian làm bài": thoiGian
+            };
+
+            if (!APPS_SCRIPT_URL) {
+                renderLeaderboardTables([payload]);
+                return;
+            }
+
+            fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).catch(() => {});
+        }
+
+        function startLeaderboardPolling() {
+            fetchLeaderboard(false);
+            if (leaderboardInterval) clearInterval(leaderboardInterval);
+            leaderboardInterval = setInterval(() => fetchLeaderboard(false), 5000);
+        }
+
+        function fetchLeaderboard(isTeacherView) {
+            if (!APPS_SCRIPT_URL) {
+                const nameVal = document.getElementById('inputName').value.trim();
+                const classVal = document.getElementById('inputClass').value.trim();
+                const timeVal = document.getElementById('timerDisplay').innerText;
+                if (nameVal) {
+                    renderLeaderboardTables([{
+                        "Họ tên": nameVal,
+                        "Lớp": classVal,
+                        "Điểm số": Number(totalScore.toFixed(2)),
+                        "Thời gian làm bài": timeVal
+                    }]);
+                }
+                return;
+            }
+
+            fetch(APPS_SCRIPT_URL)
+                .then(res => res.json())
+                .then(json => {
+                    if (json && json.status === "ok" && Array.isArray(json.data)) {
+                        renderLeaderboardTables(json.data);
+                    }
+                })
+                .catch(() => {});
+        }
+
+        function parseTimeToSeconds(tStr) {
+            if (!tStr || typeof tStr !== 'string') return 999999;
+            const parts = tStr.split(':').map(Number);
+            if (parts.length === 2) return parts[0] * 60 + parts[1];
+            return 999999;
+        }
+
+        function renderLeaderboardTables(dataList) {
+            const sorted = [...dataList].sort((a, b) => {
+                const scoreDiff = Number(b["Điểm số"] || 0) - Number(a["Điểm số"] || 0);
+                if (scoreDiff !== 0) return scoreDiff;
+                return parseTimeToSeconds(a["Thời gian làm bài"]) - parseTimeToSeconds(b["Thời gian làm bài"]);
+            });
+
+            document.getElementById('statTotalStudents').innerText = sorted.length;
+            if (sorted.length > 0) {
+                const maxS = Math.max(...sorted.map(x => Number(x["Điểm số"] || 0)));
+                const avgS = sorted.reduce((acc, x) => acc + Number(x["Điểm số"] || 0), 0) / sorted.length;
+                document.getElementById('statMaxScore').innerText = maxS.toFixed(2);
+                document.getElementById('statAvgScore').innerText = avgS.toFixed(2);
+            }
+
+            const rowsHtml = sorted.map((row, idx) => `
+                <tr class="hover:bg-emerald-900/40 transition">
+                    <td class="p-2.5 text-center font-black ${idx === 0 ? 'text-amber-400 text-base' : 'text-emerald-300'}">
+                        ${idx === 0 ? '<i class="fas fa-crown mr-1"></i>1' : idx + 1}
+                    </td>
+                    <td class="p-2.5 font-bold text-white">${row["Họ tên"] || "---"}</td>
+                    <td class="p-2.5 text-emerald-200">${row["Lớp"] || "---"}</td>
+                    <td class="p-2.5 text-center font-black text-amber-300">${Number(row["Điểm số"] || 0).toFixed(2)}</td>
+                    <td class="p-2.5 text-center text-sky-300 font-semibold">${row["Thời gian làm bài"] || "--:--"}</td>
+                </tr>
+            `).join('');
+
+            const endBody = document.getElementById('endLeaderboardBody');
+            const teacherBody = document.getElementById('teacherLeaderboardBody');
+            if (endBody && rowsHtml) endBody.innerHTML = rowsHtml;
+            if (teacherBody && rowsHtml) teacherBody.innerHTML = rowsHtml;
+        }
+
+        // Khởi tạo hiển thị KaTeX trên màn hình giới thiệu
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+</html>
