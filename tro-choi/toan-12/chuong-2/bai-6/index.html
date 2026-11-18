@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ĐẤU TRƯỜNG TOÁN HỌC 12 — BÀI 6: VÉC TƠ TRONG KHÔNG GIAN — THẦY HÒA</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Be Vietnam Pro & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <!-- KaTeX hiển thị công thức Toán học chuẩn sắc nét -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #166544 0%, #0b3b28 48%, #041c13 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Ánh sáng sân khấu truyền hình */
+    .stage-spotlight {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 18% 0%, rgba(74, 222, 128, 0.16) 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 0%, rgba(250, 204, 21, 0.16) 0%, transparent 52%);
+      z-index: 0;
+    }
+
+    /* Khung bảng xanh chữ trắng tương phản cao */
+    .chalkboard-panel {
+      background: linear-gradient(145deg, rgba(16, 56, 40, 0.96), rgba(9, 37, 26, 0.98));
+      border: 3px solid #3c8262;
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.55),
+        inset 0 0 32px rgba(255, 255, 255, 0.04);
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(180deg, #fef9c3 0%, #facc15 55%, #ca8a04 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.55));
+    }
+
+    .gold-btn {
+      background: linear-gradient(180deg, #fde047 0%, #eab308 55%, #ca8a04 100%);
+      color: #1c1917;
+      box-shadow: 0 6px 20px rgba(234, 179, 8, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      transition: all 0.2s ease;
+    }
+
+    .gold-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      filter: brightness(1.07);
+      box-shadow: 0 10px 26px rgba(250, 204, 21, 0.58);
+    }
+
+    .gold-btn:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    /* Hiệu ứng rung Chuông Vàng trung tâm */
+    @keyframes bellRing {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      15% { transform: rotate(15deg) scale(1.09); }
+      30% { transform: rotate(-13deg) scale(1.09); }
+      45% { transform: rotate(11deg) scale(1.06); }
+      60% { transform: rotate(-8deg) scale(1.06); }
+      75% { transform: rotate(4deg) scale(1.02); }
+    }
+
+    .bell-ringing {
+      animation: bellRing 0.85s ease-in-out;
+    }
+
+    /* Hiệu ứng ánh sáng trả lời đúng */
+    @keyframes correctFlash {
+      0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.95); }
+      50% { box-shadow: 0 0 50px 18px rgba(74, 222, 128, 0.7); }
+      100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+    }
+
+    .fx-correct {
+      animation: correctFlash 1s ease-out;
+    }
+
+    /* Hiệu ứng loại / cảnh báo khi trả lời sai */
+    @keyframes wrongShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-9px); }
+      40% { transform: translateX(9px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+
+    .fx-wrong {
+      animation: wrongShake 0.55s ease-in-out;
+    }
+
+    /* Nút đáp án phong cách truyền hình */
+    .option-card {
+      background: linear-gradient(135deg, rgba(20, 72, 51, 0.93), rgba(13, 51, 36, 0.97));
+      border: 2px solid #45926f;
+      transition: all 0.2s ease;
+    }
+
+    .option-card:hover:not(:disabled) {
+      border-color: #facc15;
+      background: linear-gradient(135deg, rgba(28, 96, 68, 0.98), rgba(18, 68, 48, 0.98));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(250, 204, 21, 0.28);
+    }
+
+    .option-card.correct {
+      border-color: #4ade80 !important;
+      background: linear-gradient(135deg, rgba(22, 163, 74, 0.88), rgba(20, 83, 45, 0.96)) !important;
+      box-shadow: 0 0 24px rgba(74, 222, 128, 0.55);
+    }
+
+    .option-card.wrong {
+      border-color: #f87171 !important;
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.84), rgba(127, 29, 29, 0.96)) !important;
+    }
+
+    .option-card.eliminated {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    /* Nhân vật hoạt hình MC đồng hành */
+    @keyframes floatMascot {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .mascot-float {
+      animation: floatMascot 3s ease-in-out infinite;
+    }
+
+    /* Thanh cuộn tinh gọn */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #072418; }
+    ::-webkit-scrollbar-thumb { background: #2d6a4f; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #40916c; }
+
+    /* KaTeX cỡ chữ to rõ nhìn từ cuối lớp */
+    .katex { font-size: 1.08em !important; }
+  </style>
+</head>
+<body class="selection:bg-amber-400 selection:text-slate-950">
+  <div class="stage-spotlight"></div>
+
+  <!-- Canvas pháo hoa chiến thắng -->
+  <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+  <!-- HEADER SÂN KHẤU TRUYỀN HÌNH -->
+  <header class="relative z-10 border-b border-emerald-600/50 bg-emerald-950/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Thương hiệu THẦY HÒA -->
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 flex items-center justify-center shadow-lg border border-amber-200">
+          <svg class="w-6 h-6 text-slate-950" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold tracking-wider uppercase bg-amber-400 text-slate-950 shadow">
+              THẦY HÒA
+            </span>
+            <span class="text-xs font-semibold text-emerald-300 uppercase tracking-widest hidden sm:inline">
+              Toán 12 • KNTTVCS 2018
+            </span>
+          </div>
+          <h1 class="text-base sm:text-xl font-black tracking-tight gold-gradient-text uppercase">
+            BÀI 6: VÉC TƠ TRONG KHÔNG GIAN
+          </h1>
+        </div>
+      </div>
+
+      <!-- Chuông Vàng Lớn Ở Vị Trí Trung Tâm -->
+      <button id="central-bell-btn" type="button" title="Bấm rung Chuông Vàng!"
+        class="group relative flex items-center gap-2.5 px-5 py-2 rounded-full bg-gradient-to-b from-amber-300 via-amber-400 to-amber-600 text-slate-950 font-black shadow-[0_0_28px_rgba(251,191,36,0.5)] border-2 border-amber-100 hover:scale-105 transition cursor-pointer">
+        <svg id="central-bell-icon" class="w-8 h-8 text-amber-950 drop-shadow" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2a2 2 0 0 0-2 2v.34A7.002 7.002 0 0 0 5 11v5l-2 2v1h18v-1l-2-2v-5a7.002 7.002 0 0 0-5-6.66V4a2 2 0 0 0-2-2zm-3 18a3 3 0 0 0 6 0H9z"/>
+        </svg>
+        <span class="text-xs sm:text-sm tracking-wide uppercase">CHUÔNG VÀNG 10 TRIỆU</span>
+      </button>
+
+      <!-- Nút Bật/Tắt Âm thanh & Luật chơi -->
+      <div class="flex items-center gap-2">
+        <button id="toggle-sound-btn" type="button"
+          class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-900/90 hover:bg-emerald-800 border border-emerald-500/50 text-xs sm:text-sm font-bold text-emerald-100 transition cursor-pointer">
+          <span id="sound-icon">🔊</span>
+          <span id="sound-label">Âm thanh: BẬT</span>
+        </button>
+        <button id="open-rules-btn" type="button"
+          class="px-3 py-2 rounded-xl bg-emerald-900/90 hover:bg-emerald-800 border border-emerald-500/50 text-xs sm:text-sm font-bold text-amber-300 transition cursor-pointer">
+          📜 Luật chơi
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="relative z-10 max-w-7xl mx-auto px-4 py-6">
+
+    <!-- =========================================================
+         MÀN HÌNH 1: SẢNH CHỜ & CHỌN CHẾ ĐỘ CHƠI
+         ========================================================= -->
+    <section id="screen-lobby" class="space-y-6">
+      <div class="chalkboard-panel rounded-3xl p-6 sm:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <!-- Giới thiệu Game Show & 3 Chặng thi -->
+          <div class="lg:col-span-7 space-y-5">
+            <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-800/90 border border-emerald-400/40 text-emerald-200 text-xs sm:text-sm font-bold">
+              <span>🎯 HOẠT ĐỘNG LUYỆN TẬP - VẬN DỤNG</span>
+              <span>•</span>
+              <span>KHÔNG GIỚI HẠN THỜI GIAN MỖI CÂU</span>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <!-- Nhân vật hoạt hình MC Thầy Hòa -->
+              <div class="mascot-float shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-b from-amber-300 to-amber-500 p-1.5 shadow-lg border-2 border-white">
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                  <circle cx="50" cy="50" r="46" fill="#064e3b"/>
+                  <!-- Mũ tốt nghiệp / MC -->
+                  <polygon points="50,12 18,26 50,40 82,26" fill="#facc15"/>
+                  <rect x="36" y="34" width="28" height="8" rx="3" fill="#eab308"/>
+                  <!-- Khuôn mặt -->
+                  <circle cx="50" cy="56" r="21" fill="#fde68a"/>
+                  <!-- Kính trí thức -->
+                  <rect x="35" y="49" width="12" height="9" rx="2" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+                  <rect x="53" y="49" width="12" height="9" rx="2" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+                  <line x1="47" y1="53" x2="53" y2="53" stroke="#1e293b" stroke-width="2.5"/>
+                  <circle cx="41" cy="53.5" r="2" fill="#0f172a"/>
+                  <circle cx="59" cy="53.5" r="2" fill="#0f172a"/>
+                  <!-- Nụ cười thân thiện -->
+                  <path d="M 43 64 Q 50 70 57 64" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- Áo vest -->
+                  <path d="M 24 92 C 26 76, 74 76, 76 92 Z" fill="#10b981"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-2xl sm:text-4xl font-black leading-tight text-white">
+                  GAME SHOW TOÁN 12<br />
+                  <span class="gold-gradient-text">CHINH PHỤC VÉC TƠ KHÔNG GIAN</span>
+                </h2>
+              </div>
+            </div>
+
+            <p class="text-emerald-100/95 text-base sm:text-lg leading-relaxed">
+              Kết hợp <strong>3 hình thức thi đấu truyền hình</strong> gồm <strong>22 câu hỏi</strong> (30% Nhận biết – 40% Thông hiểu – 30% Vận dụng) để chinh phục đỉnh cao <strong class="text-amber-300">10.000.000 ĐIỂM</strong> cùng <strong class="text-amber-300">THẦY HÒA</strong>:
+            </p>
+
+            <!-- 3 Phần thi -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              <div class="rounded-2xl bg-emerald-950/85 border border-emerald-500/40 p-4">
+                <div class="text-amber-400 font-black text-xs uppercase mb-1">Phần 1 • Câu 1–12</div>
+                <div class="font-extrabold text-white text-base mb-1">Ai Là Triệu Phú</div>
+                <p class="text-xs text-emerald-200 leading-relaxed">
+                  12 câu Trắc nghiệm 4 lựa chọn (xáo trộn ngẫu nhiên A, B, C, D). Có trợ giúp <strong>50:50</strong> &amp; <strong>Hỏi Chuyên Gia</strong>.
+                </p>
+              </div>
+              <div class="rounded-2xl bg-emerald-950/85 border border-emerald-500/40 p-4">
+                <div class="text-amber-400 font-black text-xs uppercase mb-1">Phần 2 • Câu 13–16</div>
+                <div class="font-extrabold text-white text-base mb-1">Đấu Trường Toán Học</div>
+                <p class="text-xs text-emerald-200 leading-relaxed">
+                  4 câu Trắc nghiệm Đúng/Sai (mỗi câu 4 ý a, b, c, d). Chấm điểm lũy tiến 10% – 25% – 50% – 100%.
+                </p>
+              </div>
+              <div class="rounded-2xl bg-emerald-950/85 border border-emerald-500/40 p-4">
+                <div class="text-amber-400 font-black text-xs uppercase mb-1">Phần 3 • Câu 17–22</div>
+                <div class="font-extrabold text-white text-base mb-1">Vượt Chướng Ngại Vật</div>
+                <p class="text-xs text-emerald-200 leading-relaxed">
+                  6 câu Trả lời ngắn vận dụng &amp; mô hình hóa thực tế (hợp lực, cân bằng, độ dài) về đích 10 triệu điểm.
+                </p>
+              </div>
+            </div>
+
+            <!-- Luật chơi & Cách tính điểm -->
+            <div class="rounded-2xl bg-emerald-900/55 border border-emerald-500/30 p-4 text-sm text-emerald-100 space-y-1.5">
+              <div class="font-bold text-amber-300 uppercase tracking-wide text-xs">📌 Luật chơi, Cách tính điểm &amp; Kết thúc:</div>
+              <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm">
+                <li><strong>KHÔNG GIỚI HẠN THỜI GIAN TRẢ LỜI CHO MỖI CÂU HỎI</strong>; đồng hồ tổng ghi nhận thời gian hoàn thành bài thi.</li>
+                <li>Trả lời đúng nhận trọn điểm câu hỏi (tổng tối đa <strong>10.000.000 điểm</strong>) + điểm kinh nghiệm XP; trả lời sai trừ nhẹ 20% giá trị câu đó (không loại khỏi cuộc chơi để học sinh rèn luyện trọn vẹn 22 câu).</li>
+                <li>Mỗi câu đều kèm <strong>Phân tích định hướng giải</strong> giúp hiểu sâu bản chất hình học không gian.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Form đăng nhập & Chọn chế độ chơi -->
+          <div class="lg:col-span-5">
+            <div class="rounded-3xl bg-emerald-950/90 border-2 border-amber-400/60 p-6 shadow-2xl space-y-5">
+              <div class="text-center space-y-1">
+                <span class="text-xs font-extrabold uppercase tracking-widest text-amber-400">Đăng ký thí sinh</span>
+                <h3 class="text-xl sm:text-2xl font-black text-white">BƯỚC LÊN SÂN KHẤU</h3>
+              </div>
+
+              <!-- Chọn Chế độ chơi -->
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-emerald-300 mb-2">Chọn hình thức tham gia:</label>
+                <div class="grid grid-cols-2 gap-2.5">
+                  <button type="button" id="mode-btn-solo"
+                    class="py-2.5 px-3 rounded-xl font-extrabold text-sm border-2 border-amber-400 bg-amber-400 text-slate-950 transition cursor-pointer">
+                    👤 Chế độ Cá nhân
+                  </button>
+                  <button type="button" id="mode-btn-class"
+                    class="py-2.5 px-3 rounded-xl font-extrabold text-sm border-2 border-emerald-600 bg-emerald-900/80 text-emerald-100 hover:border-amber-400 transition cursor-pointer">
+                    🏫 Chế độ Cả lớp
+                  </button>
+                </div>
+              </div>
+
+              <!-- Form Cá nhân -->
+              <div id="solo-form-fields" class="space-y-4">
+                <div>
+                  <label for="input-fullname" class="block text-xs font-bold uppercase tracking-wider text-emerald-200 mb-1.5">
+                    Họ và tên học sinh <span class="text-rose-400">*</span>
+                  </label>
+                  <input id="input-fullname" type="text" placeholder="Ví dụ: Trần Minh Khoa"
+                    class="w-full px-4 py-3 rounded-xl bg-emerald-900/80 border-2 border-emerald-500/60 text-white placeholder-emerald-400/60 font-semibold focus:outline-none focus:border-amber-400" />
+                </div>
+                <div>
+                  <label for="input-classname" class="block text-xs font-bold uppercase tracking-wider text-emerald-200 mb-1.5">
+                    Lớp <span class="text-rose-400">*</span>
+                  </label>
+                  <input id="input-classname" type="text" placeholder="Ví dụ: 12A1"
+                    class="w-full px-4 py-3 rounded-xl bg-emerald-900/80 border-2 border-emerald-500/60 text-white placeholder-emerald-400/60 font-semibold focus:outline-none focus:border-amber-400" />
+                </div>
+                <p id="lobby-error" class="text-rose-300 text-xs font-bold hidden">⚠️ Vui lòng nhập đầy đủ Họ tên và Lớp trước khi bắt đầu!</p>
+
+                <button id="start-solo-btn" type="button"
+                  class="w-full py-4 rounded-2xl gold-btn font-black text-base sm:text-lg uppercase tracking-wider cursor-pointer">
+                  🚀 BẮT ĐẦU CHINH PHỤC
+                </button>
+              </div>
+
+              <!-- Mục mở Bảng điều khiển Giáo viên khi chọn Chế độ Cả lớp -->
+              <div id="class-mode-box" class="hidden space-y-4">
+                <div class="rounded-2xl bg-emerald-900/70 border border-emerald-500/40 p-4 text-xs sm:text-sm text-emerald-100 space-y-2">
+                  <div class="font-bold text-amber-300">🏫 Chế độ Cả lớp (Dành cho Giáo viên trình chiếu):</div>
+                  <p>Mở màn hình điều khiển của Giáo viên để theo dõi trực tiếp tiến độ, số người chơi và bảng xếp hạng từ máy chủ lớp học.</p>
+                </div>
+                <button id="open-teacher-btn" type="button"
+                  class="w-full py-4 rounded-2xl gold-btn font-black text-base uppercase tracking-wider cursor-pointer">
+                  🖥️ MỞ MÀN HÌNH ĐIỀU KHIỂN GIÁO VIÊN
+                </button>
+              </div>
+
+              <!-- Cấp độ & Tiến bộ cá nhân -->
+              <div class="pt-3 border-t border-emerald-800 flex items-center justify-between text-xs text-emerald-300">
+                <span>Danh hiệu: <strong id="lobby-rank" class="text-amber-300">Tân binh Véc tơ</strong></span>
+                <span>Tích lũy: <strong id="lobby-xp" class="text-amber-300">0 XP</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bảng Vàng Xếp Hạng tại sảnh chờ -->
+      <div class="chalkboard-panel rounded-3xl p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">🏆</span>
+            <h3 class="text-lg sm:text-xl font-black text-amber-300 uppercase tracking-wide">
+              Bảng Vàng Xếp Hạng Lớp Học
+            </h3>
+          </div>
+          <span id="leaderboard-status" class="text-xs font-semibold text-emerald-300 bg-emerald-950/80 px-3 py-1.5 rounded-full border border-emerald-600/40">
+            Sẵn sàng kết nối máy chủ lớp học
+          </span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b-2 border-emerald-600/60 text-amber-300 text-xs sm:text-sm uppercase">
+                <th class="py-3 px-4">Hạng</th>
+                <th class="py-3 px-4">Họ tên</th>
+                <th class="py-3 px-4">Lớp</th>
+                <th class="py-3 px-4 text-right">Điểm số</th>
+                <th class="py-3 px-4 text-right">Thời gian làm bài</th>
+              </tr>
+            </thead>
+            <tbody id="lobby-leaderboard-body" class="divide-y divide-emerald-800/60 text-sm sm:text-base">
+              <tr>
+                <td colspan="5" class="py-6 text-center text-emerald-300/80">Chưa có dữ liệu thí sinh trên bảng xếp hạng. Hãy là người đầu tiên ghi danh!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         MÀN HÌNH 2: SÂN KHẤU THI ĐẤU (CHƠI GAME)
+         ========================================================= -->
+    <section id="screen-game" class="hidden space-y-5">
+      <!-- Thanh trạng thái thí sinh -->
+      <div class="chalkboard-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full bg-emerald-800 border-2 border-amber-400 flex items-center justify-center text-xl">
+            🎓
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="hud-name" class="font-extrabold text-white text-base sm:text-lg">Thí sinh</span>
+              <span id="hud-class" class="px-2 py-0.5 rounded bg-emerald-800 text-emerald-200 text-xs font-bold">12A</span>
+            </div>
+            <div class="text-xs text-amber-300 font-bold" id="hud-badge">Chặng 1: Ai Là Triệu Phú</div>
+          </div>
+        </div>
+
+        <!-- Tiến trình & Đồng hồ tổng -->
+        <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+          <div class="text-center">
+            <div class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold">Tiến trình</div>
+            <div class="text-base sm:text-xl font-black text-white">
+              Câu <span id="hud-q-num" class="text-amber-300">1</span>/<span id="hud-q-total">22</span>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold">Thời gian</div>
+            <div id="hud-timer" class="text-base sm:text-xl font-mono font-bold text-emerald-100">00:00</div>
+          </div>
+
+          <div class="text-right">
+            <div class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold">Điểm hiện tại</div>
+            <div id="hud-score" class="text-lg sm:text-2xl font-black text-amber-300">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thanh tiến trình trực quan -->
+      <div class="w-full h-3 bg-emerald-950 rounded-full overflow-hidden border border-emerald-700/60">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-400 via-amber-300 to-amber-500 transition-all duration-500" style="width: 4.5%"></div>
+      </div>
+
+      <!-- Khu vực chính: Bảng câu hỏi bên trái + Thang điểm & Trợ giúp bên phải -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Cột Câu hỏi (8/12) -->
+        <div id="question-stage-card" class="lg:col-span-8 chalkboard-panel rounded-3xl p-5 sm:p-7 space-y-6">
+          <!-- Nhãn chặng & Mức độ -->
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-700/60 pb-4">
+            <div class="flex items-center gap-2">
+              <span id="q-stage-badge" class="px-3 py-1 rounded-full text-xs font-black uppercase bg-amber-400 text-slate-950">
+                PHẦN 1: AI LÀ TRIỆU PHÚ
+              </span>
+              <span id="q-level-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-800 text-emerald-200 border border-emerald-600/50">
+                Nhận biết
+              </span>
+            </div>
+            <div class="text-xs sm:text-sm font-bold text-amber-300">
+              Giá trị câu hỏi: <span id="q-reward-text">+300.000 điểm</span>
+            </div>
+          </div>
+
+          <!-- Nội dung đề bài + Hình vẽ minh họa tách biệt (không che khuất đề bài) -->
+          <div id="question-content-wrapper" class="space-y-4">
+            <div id="question-text" class="text-lg sm:text-xl font-semibold leading-relaxed text-white">
+              Đang tải câu hỏi...
+            </div>
+            <div id="question-figure" class="hidden flex justify-center p-4 rounded-2xl bg-emerald-950/80 border border-emerald-600/40">
+            </div>
+          </div>
+
+          <!-- Vùng tương tác trả lời -->
+          <div id="answer-area" class="space-y-3">
+            <!-- Phần 1: Trắc nghiệm 4 lựa chọn -->
+            <div id="mcq-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5"></div>
+
+            <!-- Phần 2: Đúng / Sai 4 ý -->
+            <div id="tf-container" class="hidden space-y-3"></div>
+
+            <!-- Phần 3: Trả lời ngắn -->
+            <div id="short-container" class="hidden space-y-3">
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input id="short-answer-input" type="text" placeholder="Nhập đáp số của bạn (VD: 5 hoặc 3,46)..."
+                  class="flex-1 px-4 py-3.5 rounded-xl bg-emerald-950 border-2 border-emerald-500 text-white text-lg font-bold focus:outline-none focus:border-amber-400" />
+                <button id="submit-short-btn" type="button"
+                  class="px-6 py-3.5 rounded-xl gold-btn font-black text-base uppercase tracking-wide cursor-pointer">
+                  Chốt Đáp Án
+                </button>
+              </div>
+              <p class="text-xs text-emerald-300">💡 Lưu ý: Có thể dùng dấu phẩy (,) hoặc dấu chấm (.) cho số thập phân.</p>
+            </div>
+          </div>
+
+          <!-- Hộp Trợ giúp Hỏi Chuyên Gia -->
+          <div id="expert-hint-box" class="hidden rounded-2xl bg-amber-950/65 border-2 border-amber-400/75 p-4 space-y-1">
+            <div class="flex items-center gap-2 text-amber-300 font-black text-sm uppercase">
+              <span>👨‍🏫 Góc Tư Vấn Chuyên Gia — Thầy Hòa:</span>
+            </div>
+            <p id="expert-hint-text" class="text-sm sm:text-base text-amber-100 leading-relaxed"></p>
+          </div>
+
+          <!-- Hộp Phân Tích Định Hướng Giải & Kết Quả Sau Khi Trả Lời -->
+          <div id="feedback-box" class="hidden rounded-2xl p-5 border-2 space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <div id="feedback-title" class="text-lg sm:text-xl font-black uppercase"></div>
+              <span id="feedback-points" class="px-3 py-1 rounded-full text-xs sm:text-sm font-black"></span>
+            </div>
+            <div class="text-xs font-bold uppercase tracking-wider text-amber-300">
+              📖 Phân tích định hướng giải &amp; Bản chất kiến thức:
+            </div>
+            <div id="feedback-explanation" class="text-sm sm:text-base text-white/95 leading-relaxed space-y-1.5"></div>
+            <div class="pt-2 flex justify-end">
+              <button id="next-question-btn" type="button"
+                class="px-6 py-3 rounded-xl gold-btn font-black text-sm sm:text-base uppercase tracking-wider cursor-pointer">
+                Câu Tiếp Theo ➔
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cột Trợ giúp & Thang điểm 10 Triệu (4/12) -->
+        <div class="lg:col-span-4 space-y-5">
+          <!-- Quyền trợ giúp -->
+          <div class="chalkboard-panel rounded-3xl p-5 space-y-3">
+            <div class="text-xs font-black uppercase tracking-wider text-amber-300">🛟 Quyền Trợ Giúp Sân Khấu</div>
+            <div class="grid grid-cols-2 gap-3">
+              <button id="lifeline-5050-btn" type="button"
+                class="flex flex-col items-center justify-center p-3 rounded-2xl bg-emerald-900 hover:bg-emerald-800 border-2 border-amber-400/70 text-white font-black transition cursor-pointer disabled:opacity-35 disabled:cursor-not-allowed">
+                <span class="text-lg text-amber-300">50 : 50</span>
+                <span class="text-[11px] font-semibold text-emerald-200 mt-0.5">Bỏ 2 phương án sai</span>
+              </button>
+              <button id="lifeline-expert-btn" type="button"
+                class="flex flex-col items-center justify-center p-3 rounded-2xl bg-emerald-900 hover:bg-emerald-800 border-2 border-amber-400/70 text-white font-black transition cursor-pointer disabled:opacity-35 disabled:cursor-not-allowed">
+                <span class="text-lg text-amber-300">👨‍🏫 Hỏi Thầy Hòa</span>
+                <span class="text-[11px] font-semibold text-emerald-200 mt-0.5">Gợi ý phương pháp</span>
+              </button>
+            </div>
+            <p class="text-[11px] text-emerald-300/90 italic">
+              * Trợ giúp 50:50 áp dụng cho Phần 1 (Trắc nghiệm 4 lựa chọn).
+            </p>
+          </div>
+
+          <!-- Thang điểm chinh phục 10
