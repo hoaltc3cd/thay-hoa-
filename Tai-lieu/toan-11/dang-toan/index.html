@@ -353,7 +353,7 @@ function renderList() {
 
     if (filtered.length === 0) {
         list.innerHTML =
-            '<div class="empty">Không tìm thấy đề kiểm tra.</div>';
+            '<div class="empty">Không tìm thấy tài liệu.</div>';
         return;
     }
 
@@ -430,7 +430,7 @@ function openPDF(item) {
 function openNewTab() {
 
     if (!selectedFile) {
-        alert("Vui lòng chọn một đề kiểm tra!");
+        alert("Vui lòng chọn một tài liệu!");
         return;
     }
 
