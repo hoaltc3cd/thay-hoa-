@@ -1,21 +1,3 @@
-<!-- NÚT QUAY VỀ TRANG CHỦ THẦY HÒA -->
-<div style="padding:12px 15px;">
-  <a href="https://thay-hoa.vercel.app/"
-     style="
-       display:inline-block;
-       background:linear-gradient(135deg,#1769d2,#7957d5);
-       color:white;
-       padding:12px 22px;
-       border-radius:12px;
-       font-weight:bold;
-       font-size:15px;
-       text-decoration:none;
-       box-shadow:0 4px 12px #0002;
-     ">
-    🏠 TRANG CHỦ THẦY HÒA
-  </a>
-</div>
-
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -27,206 +9,526 @@
 <title>Kiểm tra và thi thử Toán 10 - THẦY HÒA</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f2f6fc;
-  color:#17243b;
-  line-height:1.6;
+/* ===== THIẾT LẬP CHUNG ===== */
+.math10-page,
+.math10-page * {
+  box-sizing: border-box;
 }
 
-a{text-decoration:none}
+.math10-page {
+  --navy: #10264b;
+  --blue: #1769d2;
+  --text: #172b49;
+  --muted: #64748b;
 
-header{
-  background:linear-gradient(120deg,#10264b,#1769d2);
-  color:white;
-  padding:35px 15px;
-  text-align:center;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 15px 22px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  line-height: 1.5;
 }
 
-header .logo{font-size:42px}
-header h1{font-size:clamp(24px,4vw,36px);margin:8px 0}
-header p{color:#dceaff}
-
-.container{
-  width:min(1050px,92%);
-  margin:35px auto;
+.math10-page a {
+  text-decoration: none !important;
 }
 
-.intro{
-  text-align:center;
-  margin-bottom:30px;
+/* ===== NÚT TRANG CHỦ ===== */
+.math10-home {
+  margin-bottom: 13px;
 }
 
-.intro h2{
-  color:#10264b;
-  font-size:26px;
+.math10-home a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1769d2, #7957d5);
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 3px 10px #1769d226;
+  transition: .25s;
 }
 
-.intro p{
-  color:#64748b;
-  margin-top:8px;
+.math10-home a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px #1769d23b;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:20px;
+/* ===== HEADER ===== */
+.math10-header {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 25px 15px;
+  border-radius: 16px;
+  color: white;
+  background: linear-gradient(120deg, #10264b, #1769d2, #59439a);
+  box-shadow: 0 6px 18px #10264b20;
 }
 
-.card{
-  background:white;
-  border-radius:16px;
-  padding:24px;
-  border:1px solid #e1e8f2;
-  box-shadow:0 6px 22px #10264b12;
-  transition:.2s;
+.math10-header::before,
+.math10-header::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: #ffffff0d;
+  pointer-events: none;
 }
 
-.card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 12px 28px #10264b20;
+.math10-header::before {
+  width: 160px;
+  height: 160px;
+  top: -90px;
+  left: -35px;
 }
 
-.icon{font-size:36px}
-
-.card h3{
-  color:#10264b;
-  margin:8px 0;
-  font-size:19px;
+.math10-header::after {
+  width: 130px;
+  height: 130px;
+  bottom: -80px;
+  right: -25px;
 }
 
-.card p{
-  color:#64748b;
-  font-size:14px;
-  margin-bottom:15px;
+.math10-header-content {
+  position: relative;
+  z-index: 1;
 }
 
-.btn{
-  display:inline-block;
-  background:#1769d2;
-  color:white;
-  padding:10px 18px;
-  border-radius:8px;
-  font-weight:bold;
-  font-size:13px;
+.math10-logo {
+  font-size: 34px;
+  line-height: 1.2;
+  margin-bottom: 6px;
 }
 
-.btn:hover{background:#10264b}
-
-.note{
-  background:#e6f4ff;
-  border-left:4px solid #1769d2;
-  padding:16px;
-  margin-top:25px;
-  border-radius:8px;
-  font-size:14px;
+.math10-brand {
+  color: #a8edff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
 }
 
-.back{
-  text-align:center;
-  margin:35px 0;
+.math10-header h1 {
+  margin: 5px 0 7px;
+  color: #fff;
+  font-size: clamp(21px, 3vw, 30px);
+  font-weight: 800;
+  line-height: 1.3;
 }
 
-.back a{
-  color:#1769d2;
-  font-weight:bold;
+.math10-header p {
+  margin: 3px 0 0;
+  color: #e2efff;
+  font-size: 12px;
 }
 
-footer{
-  background:#10264b;
-  color:#dceaff;
-  text-align:center;
-  padding:25px 15px;
-  font-size:13px;
+/* ===== GIỚI THIỆU ===== */
+.math10-container {
+  margin: 20px auto 0;
 }
 
-@media(max-width:650px){
-  .grid{grid-template-columns:1fr}
-  header{padding:27px 12px}
-  .container{margin:25px auto}
+.math10-intro {
+  text-align: center;
+  margin: 0 0 15px;
+}
+
+.math10-intro h2 {
+  color: #10264b;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.math10-intro p {
+  margin: 0;
+  color: #718198;
+  font-size: 12px;
+}
+
+/* ===== LƯỚI THẺ ===== */
+.math10-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 11px;
+}
+
+/* ===== THẺ NỘI DUNG ===== */
+.math10-card {
+  --accent: #1769d2;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  min-width: 0;
+  min-height: 177px;
+  padding: 15px 14px 13px;
+
+  border: 1px solid #e2eaf4;
+  border-top: 4px solid var(--accent);
+  border-radius: 13px;
+
+  background: linear-gradient(145deg, #fff, #f7faff);
+  box-shadow: 0 3px 12px #10264b0d;
+
+  color: #172b49 !important;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.math10-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 9px 20px #10264b1c;
+}
+
+.math10-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 39px;
+  height: 39px;
+  margin-bottom: 9px;
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--accent) 11%, white);
+  font-size: 22px;
+}
+
+.math10-card h3 {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.math10-card p {
+  margin: 0 0 12px;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.math10-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  margin-top: auto;
+  padding: 7px 12px;
+  border-radius: 7px;
+
+  background: var(--accent);
+  color: #fff !important;
+  font-size: 10px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.math10-card:hover .math10-btn {
+  filter: brightness(.9);
+}
+
+/* ===== MÀU TỪNG THẺ ===== */
+.math10-card:nth-child(1) {
+  --accent: #2184d1;
+}
+
+.math10-card:nth-child(2) {
+  --accent: #119477;
+}
+
+.math10-card:nth-child(3) {
+  --accent: #8652c4;
+}
+
+.math10-card:nth-child(4) {
+  --accent: #d88b22;
+}
+
+.math10-card:nth-child(5) {
+  --accent: #e05b55;
+}
+
+/* ===== HƯỚNG DẪN ===== */
+.math10-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-left: 4px solid #1769d2;
+  border-radius: 9px;
+  background: #eaf4ff;
+  color: #315477;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.math10-note-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.math10-note strong {
+  color: #174c83;
+}
+
+/* ===== LIÊN KẾT QUAY LẠI ===== */
+.math10-back {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px 18px;
+  margin: 19px 0;
+  text-align: center;
+}
+
+.math10-back a {
+  color: #1769d2 !important;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.math10-back a:hover {
+  color: #7957d5 !important;
+}
+
+/* ===== FOOTER ===== */
+.math10-footer {
+  padding: 15px 10px;
+  border-radius: 11px;
+  background: #10264b;
+  color: #dceaff;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.math10-footer strong {
+  color: #fff;
+  font-size: 12px;
+}
+
+/* ===== TABLET ===== */
+@media (max-width: 800px) {
+  .math10-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .math10-card {
+    min-height: 170px;
+  }
+}
+
+/* ===== ĐIỆN THOẠI ===== */
+@media (max-width: 500px) {
+  .math10-page {
+    padding: 9px;
+  }
+
+  .math10-header {
+    padding: 21px 10px;
+    border-radius: 13px;
+  }
+
+  .math10-header h1 {
+    font-size: 20px;
+  }
+
+  .math10-header p {
+    font-size: 10px;
+  }
+
+  .math10-container {
+    margin-top: 15px;
+  }
+
+  .math10-intro {
+    margin-bottom: 11px;
+  }
+
+  .math10-intro h2 {
+    font-size: 16px;
+  }
+
+  .math10-intro p {
+    font-size: 10px;
+  }
+
+  .math10-grid {
+    gap: 8px;
+  }
+
+  .math10-card {
+    min-height: 165px;
+    padding: 12px 10px 11px;
+    border-radius: 11px;
+  }
+
+  .math10-card-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 19px;
+    margin-bottom: 7px;
+  }
+
+  .math10-card h3 {
+    font-size: 12px;
+  }
+
+  .math10-card p {
+    font-size: 10px;
+    margin-bottom: 9px;
+  }
+
+  .math10-btn {
+    padding: 7px 9px;
+    font-size: 9px;
+  }
+
+  .math10-note {
+    margin-top: 11px;
+    padding: 10px;
+    font-size: 10px;
+  }
+
+  .math10-back {
+    margin: 15px 0;
+    gap: 8px 12px;
+  }
+
+  .math10-back a {
+    font-size: 10px;
+  }
+}
+
+/* MÀN HÌNH RẤT NHỎ */
+@media (max-width: 330px) {
+  .math10-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .math10-card {
+    min-height: 150px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo"></div>
-  <h1>KIỂM TRA VÀ THI THỬ TOÁN 10</h1>
-  <p>THẦY HÒA – CHINH PHỤC TOÁN HỌC</p>
-  <p>Củng cố kiến thức – Luyện đề – Chinh phục kỳ thi tốt nghiệp THPT</p>
-</header>
+<div class="math10-page">
 
-<main class="container">
-
-  <section class="intro">
-    <h2>THƯ VIỆN ĐỀ THI THỬ TOÁN 10</h2>
-    <p>Chọn nội dung em muốn học tập và ôn luyện.</p>
-  </section>
-
-  <section class="grid">
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Kiểm tra giữa học kì I</h3>
-      <p>Đề kiểm tra, bài tập ôn tập và hướng dẫn giải.</p>
-      <a class="btn" href="./kiem-tra-giua-hoc-ki-1/">XEM ĐỀ →</a>
-    </article>
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Kiểm tra cuối học kì I</h3>
-      <p>Hệ thống đề kiểm tra và tài liệu ôn tập.</p>
-      <a class="btn" href="./kiem-tra-cuoi-hoc-ki-1/">XEM ĐỀ →</a>
-    </article>
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Kiểm tra giữa học kì II</h3>
-      <p>Ôn tập kiến thức trọng tâm và luyện đề.</p>
-      <a class="btn" href="./kiem-tra-giua-hoc-ki-2/">XEM ĐỀ →</a>
-    </article>
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Kiểm tra cuối học kì II</h3>
-      <p>Đề tổng hợp và tài liệu chuẩn bị kiểm tra.</p>
-      <a class="btn" href="./kiem-tra-cuoi-hoc-ki-2/">XEM ĐỀ →</a>
-    </article>
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Đề học sinh giỏi lớp 10</h3>
-      <p>Luyện đề theo cấu trúc ôn thi HSG.</p>
-      <a class="btn" href="./de-thi-hoc-sinh-gioi-lop-10/">LUYỆN THI →</a>
-    </article>
-
-
-    
-
-  </section>
-
-  <div class="note">
-    <strong>Hướng dẫn học tập:</strong>
-    Em hãy tải đề về làm bài trước, sau đó đối chiếu đáp án
-    và ghi lại những câu còn sai để ôn tập.
+  <!-- NÚT TRANG CHỦ -->
+  <div class="math10-home">
+    <a href="https://thay-hoa.vercel.app/">
+      🏠 TRANG CHỦ THẦY HÒA
+    </a>
   </div>
 
-  <div class="back">
-    <a href="../">← QUAY LẠI CHỌN KHỐI LỚP</a>
-    &nbsp; | &nbsp;
-    <a href="/">TRANG CHỦ THẦY HÒA</a>
-  </div>
+  <!-- HEADER -->
+  <header class="math10-header">
+    <div class="math10-header-content">
+      <div class="math10-logo">📐</div>
+      <div class="math10-brand">THẦY HÒA EDUCATION</div>
 
-</main>
+      <h1>KIỂM TRA VÀ THI THỬ TOÁN 10</h1>
 
-<footer>
-  © THẦY HÒA – CHINH PHỤC TOÁN HỌC
-  <br>
-  Học Toán dễ hiểu hơn mỗi ngày!
-</footer>
+      <p>THẦY HÒA – CHINH PHỤC TOÁN HỌC</p>
+      <p>Củng cố kiến thức – Luyện đề – Phát triển tư duy toán học</p>
+    </div>
+  </header>
+
+  <main class="math10-container">
+
+    <!-- GIỚI THIỆU -->
+    <section class="math10-intro">
+      <h2>THƯ VIỆN ĐỀ KIỂM TRA TOÁN 10</h2>
+      <p>Chọn nội dung em muốn học tập và ôn luyện.</p>
+    </section>
+
+    <!-- DANH SÁCH THẺ -->
+    <section class="math10-grid">
+
+      <article class="math10-card">
+        <div class="math10-card-icon">📝</div>
+        <h3>Kiểm tra giữa học kì I</h3>
+        <p>Đề kiểm tra, bài tập ôn tập và hướng dẫn giải.</p>
+        <a class="math10-btn" href="./kiem-tra-giua-hoc-ki-1/">
+          XEM ĐỀ →
+        </a>
+      </article>
+
+      <article class="math10-card">
+        <div class="math10-card-icon">📚</div>
+        <h3>Kiểm tra cuối học kì I</h3>
+        <p>Hệ thống đề kiểm tra và tài liệu ôn tập.</p>
+        <a class="math10-btn" href="./kiem-tra-cuoi-hoc-ki-1/">
+          XEM ĐỀ →
+        </a>
+      </article>
+
+      <article class="math10-card">
+        <div class="math10-card-icon">📖</div>
+        <h3>Kiểm tra giữa học kì II</h3>
+        <p>Ôn tập kiến thức trọng tâm và luyện đề.</p>
+        <a class="math10-btn" href="./kiem-tra-giua-hoc-ki-2/">
+          XEM ĐỀ →
+        </a>
+      </article>
+
+      <article class="math10-card">
+        <div class="math10-card-icon">📋</div>
+        <h3>Kiểm tra cuối học kì II</h3>
+        <p>Đề tổng hợp và tài liệu chuẩn bị kiểm tra.</p>
+        <a class="math10-btn" href="./kiem-tra-cuoi-hoc-ki-2/">
+          XEM ĐỀ →
+        </a>
+      </article>
+
+      <article class="math10-card">
+        <div class="math10-card-icon">🏆</div>
+        <h3>Đề học sinh giỏi lớp 10</h3>
+        <p>Luyện đề theo cấu trúc ôn thi học sinh giỏi.</p>
+        <a class="math10-btn" href="./de-thi-hoc-sinh-gioi-lop-10/">
+          LUYỆN THI →
+        </a>
+      </article>
+
+    </section>
+
+    <!-- HƯỚNG DẪN -->
+    <div class="math10-note">
+      <div class="math10-note-icon">💡</div>
+      <div>
+        <strong>HƯỚNG DẪN HỌC TẬP:</strong>
+        Em hãy tải đề về làm bài trước, sau đó đối chiếu đáp án
+        và ghi lại những câu còn sai để ôn tập, củng cố kiến thức.
+      </div>
+    </div>
+
+    <!-- QUAY LẠI -->
+    <div class="math10-back">
+      <a href="../">← QUAY LẠI CHỌN KHỐI LỚP</a>
+      <a href="/">🏠 TRANG CHỦ THẦY HÒA</a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="math10-footer">
+    <strong>© THẦY HÒA – CHINH PHỤC TOÁN HỌC</strong>
+    <br>
+    Học Toán dễ hiểu hơn mỗi ngày!
+  </footer>
+
+</div>
 
 </body>
 </html>
