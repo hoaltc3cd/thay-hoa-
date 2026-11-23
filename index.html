@@ -10,334 +10,860 @@
 
 <style>
 :root {
-  --navy:#10264b;
-  --blue:#1769d2;
-  --cyan:#13b8c9;
-  --purple:#7957d5;
-  --bg:#f3f6fc;
-  --text:#17243b;
-  --muted:#64748b;
-  --white:#ffffff;
-  --border:#e5eaf2;
-  --shadow:0 8px 28px rgba(22,48,87,.08);
+  --navy: #10264b;
+  --navy-light: #183d72;
+  --blue: #1769d2;
+  --cyan: #13b8c9;
+  --purple: #7957d5;
+  --bg: #f3f6fc;
+  --text: #17243b;
+  --muted: #64748b;
+  --white: #ffffff;
+  --border: #e5eaf2;
+  --shadow: 0 5px 18px rgba(22,48,87,.07);
+  --shadow-hover: 0 12px 28px rgba(22,48,87,.13);
 }
-* {box-sizing:border-box;margin:0;padding:0}
-html {scroll-behavior:smooth}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
 body {
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
 }
-a {text-decoration:none;color:inherit}
-button,input {font:inherit}
-button {cursor:pointer}
-.container {width:min(1180px,92%);margin:auto}
 
-/* HEADER */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  width: min(1180px, 94%);
+  margin: auto;
+}
+
+/* ================= HEADER ================= */
+
 header {
-  background:rgba(16,38,75,.98);
-  color:white;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 4px 20px #10264b22;
+  background: rgba(16,38,75,.98);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 18px rgba(16,38,75,.15);
 }
+
 .header-inner {
-  min-height:76px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
+  min-height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
 }
-.logo {display:flex;align-items:center;gap:12px}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
 .logo-icon {
-  width:48px;height:48px;
-  background:linear-gradient(135deg,#20c6d2,#347bea);
-  border-radius:14px;
-  display:grid;place-items:center;
-  font-size:27px;font-weight:bold;
+  width: 43px;
+  height: 43px;
+  background: linear-gradient(135deg, #20c6d2, #347bea);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  font-weight: bold;
 }
-.logo h2 {font-size:19px;letter-spacing:.5px}
-.logo p {font-size:10px;color:#b9d7ff;letter-spacing:1.5px}
-nav {display:flex;gap:18px;align-items:center}
+
+.logo h2 {
+  font-size: 18px;
+  letter-spacing: .5px;
+  line-height: 1.3;
+}
+
+.logo p {
+  font-size: 9px;
+  color: #b9d7ff;
+  letter-spacing: 1.2px;
+}
+
+nav {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+}
+
 nav a {
-  color:#e5efff;font-size:13px;font-weight:600;
-  transition:.2s;
+  color: #e5efff;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: .2s;
+  white-space: nowrap;
 }
-nav a:hover {color:#49e2e9}
+
+nav a:hover {
+  color: #49e2e9;
+}
+
 .menu-btn {
-  display:none;
-  background:transparent;color:white;
-  border:1px solid #ffffff55;
-  padding:8px 12px;border-radius:8px;
+  display: none;
+  background: transparent;
+  color: white;
+  border: 1px solid #ffffff55;
+  padding: 7px 11px;
+  border-radius: 8px;
+  font-size: 12px;
 }
 
-/* HERO */
+/* ================= HERO ================= */
+
 .hero {
-  color:white;
+  color: white;
   background:
-  radial-gradient(circle at 85% 20%,#347bea 0,transparent 30%),
-  radial-gradient(circle at 10% 90%,#13b8c9 0,transparent 27%),
-  linear-gradient(120deg,#10264b,#153d79);
-  padding:75px 0 68px;
-  overflow:hidden;
+    radial-gradient(circle at 85% 20%, #347bea 0, transparent 30%),
+    radial-gradient(circle at 10% 90%, #13b8c9 0, transparent 27%),
+    linear-gradient(120deg, #10264b, #153d79);
+  padding: 65px 0 58px;
+  overflow: hidden;
 }
+
 .hero-grid {
-  display:grid;
-  grid-template-columns:1.3fr .7fr;
-  align-items:center;
-  gap:35px;
+  display: grid;
+  grid-template-columns: 1.3fr .7fr;
+  align-items: center;
+  gap: 30px;
 }
+
 .eyebrow {
-  display:inline-block;
-  background:#ffffff19;
-  border:1px solid #ffffff35;
-  padding:7px 14px;
-  border-radius:30px;
-  color:#aeeeff;
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:1px;
+  display: inline-block;
+  background: #ffffff19;
+  border: 1px solid #ffffff35;
+  padding: 6px 13px;
+  border-radius: 30px;
+  color: #aeeeff;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: .8px;
 }
+
 .hero h1 {
-  font-size:clamp(32px,5vw,54px);
-  line-height:1.17;
-  margin:20px 0;
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.15;
+  margin: 18px 0;
+  letter-spacing: .3px;
 }
-.hero h1 span {color:#5de4eb}
-.hero-desc {color:#d5e5ff;max-width:650px;font-size:16px}
-.hero-buttons {display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}
+
+.hero h1 span {
+  color: #5de4eb;
+}
+
+.hero-desc {
+  color: #d5e5ff;
+  max-width: 620px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 23px;
+}
+
 .btn {
-  padding:12px 21px;
-  border-radius:10px;
-  border:none;
-  font-weight:bold;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  transition:.25s;
+  padding: 10px 18px;
+  border-radius: 9px;
+  border: none;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: .25s;
 }
-.btn:hover {transform:translateY(-3px)}
-.btn-primary {background:#24c5d2;color:#08294a}
-.btn-light {background:white;color:#174078}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn-primary {
+  background: #24c5d2;
+  color: #08294a;
+}
+
+.btn-light {
+  background: white;
+  color: #174078;
+}
+
 .hero-art {
-  display:grid;place-items:center;
-  min-height:270px;
+  display: grid;
+  place-items: center;
+  min-height: 240px;
 }
+
 .math-circle {
-  width:230px;height:230px;
-  border-radius:50%;
-  border:2px solid #ffffff55;
-  background:#ffffff12;
-  display:grid;place-items:center;
-  font-size:100px;
-  box-shadow:0 0 70px #33c9e755;
-  animation:float 4s ease-in-out infinite;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  border: 2px solid #ffffff55;
+  background: #ffffff12;
+  display: grid;
+  place-items: center;
+  font-size: 90px;
+  box-shadow: 0 0 65px #33c9e755;
+  animation: float 4s ease-in-out infinite;
 }
+
 @keyframes float {
-  0%,100% {transform:translateY(0)}
-  50% {transform:translateY(-14px)}
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
 
-/* SEARCH */
-.search-section {margin-top:-27px;position:relative;z-index:5}
+/* ================= SEARCH ================= */
+
+.search-section {
+  margin-top: -25px;
+  position: relative;
+  z-index: 5;
+}
+
 .search-box {
-  background:white;
-  padding:12px;
-  border-radius:15px;
-  box-shadow:var(--shadow);
-  display:flex;gap:10px;
+  background: white;
+  padding: 9px;
+  border-radius: 13px;
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 9px;
+  border: 1px solid var(--border);
 }
+
 .search-box input {
-  flex:1;min-width:0;
-  border:none;outline:none;
-  padding:10px;
-  color:var(--text);
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: 13px;
 }
+
 .search-box button {
-  border:0;border-radius:9px;
-  padding:10px 20px;
-  color:white;background:var(--blue);
-  font-weight:bold;
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 19px;
+  color: white;
+  background: var(--blue);
+  font-size: 12px;
+  font-weight: bold;
+  transition: .2s;
 }
 
-/* GENERAL */
-.section {padding:55px 0}
+.search-box button:hover {
+  background: var(--navy);
+}
+
+/* ================= GENERAL ================= */
+
+.section {
+  padding: 42px 0;
+}
+
 .section-head {
-  display:flex;justify-content:space-between;
-  align-items:end;gap:15px;
-  margin-bottom:25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+  margin-bottom: 20px;
 }
-.section-head h2 {font-size:27px;color:var(--navy)}
-.section-head p {font-size:13px;color:var(--muted)}
+
+.section-head h2 {
+  font-size: 24px;
+  color: var(--navy);
+  line-height: 1.3;
+}
+
+.section-head p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
 .section-tag {
-  color:var(--blue);
-  font-size:12px;font-weight:bold;
-  letter-spacing:1px;
-  margin-bottom:5px;
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
 }
-.grid {display:grid;gap:18px}
-.grid-4 {grid-template-columns:repeat(4,1fr)}
-.grid-3 {grid-template-columns:repeat(3,1fr)}
-.grid-2 {grid-template-columns:repeat(2,1fr)}
 
-/* GRADE CARDS */
+.grid {
+  display: grid;
+  gap: 13px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* ================= GENERAL CARD ================= */
+
+.card {
+  display: block;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  transition: .25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: #b8d4f5;
+}
+
+.card h3 {
+  font-size: 15px;
+  color: var(--navy);
+  margin-bottom: 5px;
+}
+
+.card p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ================= GRADE CARDS ================= */
+
 .grade-card {
-  background:white;
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:23px;
-  box-shadow:var(--shadow);
-  transition:.25s;
-  position:relative;
-  overflow:hidden;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  transition: .25s;
+  position: relative;
+  overflow: hidden;
 }
+
 .grade-card:hover {
-  transform:translateY(-6px);
-  box-shadow:0 14px 35px #10264b18;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
 }
-.grade-number {font-size:42px;font-weight:900;line-height:1}
-.grade-card h3 {font-size:19px;margin:12px 0 5px}
-.grade-card p {font-size:12px;color:var(--muted);min-height:38px}
+
+.grade-number {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.grade-card h3 {
+  font-size: 16px;
+  margin: 10px 0 4px;
+}
+
+.grade-card p {
+  font-size: 12px;
+  color: var(--muted);
+  min-height: 35px;
+}
+
 .grade-card a {
-  display:inline-block;margin-top:14px;
-  font-weight:bold;font-size:13px;
+  display: inline-block;
+  margin-top: 11px;
+  font-weight: bold;
+  font-size: 12px;
 }
-.g9 {border-top:5px solid #3182ce}
-.g10 {border-top:5px solid #20a66b}
-.g11 {border-top:5px solid #8959d5}
-.g12 {border-top:5px solid #e18b35}
-.g9 .grade-number,.g9 a {color:#3182ce}
-.g10 .grade-number,.g10 a {color:#20a66b}
-.g11 .grade-number,.g11 a {color:#8959d5}
-.g12 .grade-number,.g12 a {color:#e18b35}
 
-/* FEATURE CARDS */
+.g9 { border-top: 4px solid #3182ce; }
+.g10 { border-top: 4px solid #20a66b; }
+.g11 { border-top: 4px solid #8959d5; }
+.g12 { border-top: 4px solid #e18b35; }
+
+.g9 .grade-number, .g9 a { color: #3182ce; }
+.g10 .grade-number, .g10 a { color: #20a66b; }
+.g11 .grade-number, .g11 a { color: #8959d5; }
+.g12 .grade-number, .g12 a { color: #e18b35; }
+
+/* ================= FEATURE CARDS ================= */
+
 .feature-card {
-  background:white;
-  padding:23px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  transition:.25s;
-  display:block;
+  background: white;
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  transition: .25s;
+  display: flex;
+  flex-direction: column;
+  min-height: 150px;
+  box-shadow: 0 3px 12px rgba(22,48,87,.035);
 }
-.feature-card:hover {transform:translateY(-5px);box-shadow:var(--shadow)}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: #c5dafa;
+}
+
 .feature-icon {
-  width:49px;height:49px;
-  border-radius:13px;
-  display:grid;place-items:center;
-  font-size:25px;margin-bottom:13px;
-  background:#eaf2ff;
+  width: 43px;
+  height: 43px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  margin-bottom: 11px;
 }
-.feature-card h3 {font-size:17px;margin-bottom:5px}
-.feature-card p {font-size:13px;color:var(--muted)}
 
-/* FEATURED GAMES */
+.feature-icon svg {
+  width: 27px;
+  height: 27px;
+}
+
+.feature-card h3 {
+  font-size: 14px;
+  color: var(--navy);
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.feature-card p {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* ================= FEATURED GAMES ================= */
+
 .dark-section {
-  background:linear-gradient(120deg,#10264b,#183d72);
-  color:white;
+  background: linear-gradient(120deg, #10264b, #183d72);
+  color: white;
 }
-.dark-section .section-head h2 {color:white}
-.dark-section .section-head p {color:#c4d6f2}
-.game-card {
-  background:#ffffff12;
-  border:1px solid #ffffff25;
-  border-radius:15px;
-  padding:22px;
-  transition:.2s;
+
+.dark-section .section-head h2 {
+  color: white;
 }
-.game-card:hover {background:#ffffff20;transform:translateY(-5px)}
-.game-icon {font-size:35px;margin-bottom:12px}
-.game-card h3 {font-size:17px;margin-bottom:7px}
-.game-card p {font-size:12px;color:#c9d9f2}
+
+.dark-section .section-head p {
+  color: #c4d6f2;
+}
+
+.dark-section .section-tag {
+  color: #5de4eb;
+}
+
+.dark-section .game-card {
+  background: #ffffff12;
+  border: 1px solid #ffffff25;
+  border-radius: 13px;
+  padding: 18px;
+  transition: .25s;
+}
+
+.dark-section .game-card:hover {
+  background: #ffffff20;
+  transform: translateY(-4px);
+  border-color: #ffffff55;
+}
+
+.game-icon {
+  font-size: 30px;
+  margin-bottom: 9px;
+}
+
+.game-card h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.game-card p {
+  font-size: 11.5px;
+  color: #c9d9f2;
+}
+
 .game-card a {
-  display:inline-block;
-  margin-top:15px;
-  color:#61e1e8;font-size:13px;font-weight:bold;
+  display: inline-block;
+  margin-top: 12px;
+  color: #61e1e8;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-/* FILTER */
-.filter-bar {display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}
+/* ================= FILTER ================= */
+
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 17px;
+}
+
 .filter-btn {
-  border:1px solid var(--border);
-  background:white;
-  color:var(--muted);
-  padding:8px 15px;
-  border-radius:30px;
-  font-size:12px;font-weight:bold;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--muted);
+  padding: 7px 13px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: bold;
+  transition: .2s;
 }
-.filter-btn.active {background:var(--blue);color:white;border-color:var(--blue)}
+
+.filter-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.filter-btn.active {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+
+/* ================= RESOURCE CARDS ================= */
+
 .resource-card {
-  background:white;border:1px solid var(--border);
-  border-radius:13px;padding:18px;
-  transition:.2s;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 15px;
+  transition: .2s;
 }
-.resource-card:hover {box-shadow:var(--shadow)}
-.resource-card .resource-icon {font-size:25px}
-.resource-card h3 {font-size:15px;margin:8px 0 4px}
-.resource-card p {font-size:12px;color:var(--muted)}
-.resource-card a {color:var(--blue);font-size:12px;font-weight:bold}
-.resource-card[hidden] {display:none}
 
-/* FOOTER */
-footer {background:#0c1d39;color:white;padding:45px 0 20px}
+.resource-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+
+.resource-card .resource-icon {
+  font-size: 23px;
+}
+
+.resource-card h3 {
+  font-size: 14px;
+  margin: 7px 0 4px;
+}
+
+.resource-card p {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.resource-card a {
+  color: var(--blue);
+  font-size: 11.5px;
+  font-weight: bold;
+}
+
+.resource-card[hidden],
+#emptyMessage[hidden] {
+  display: none !important;
+}
+
+.empty-message {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 20px;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+  background: #0c1d39;
+  color: white;
+  padding: 38px 0 18px;
+}
+
 .footer-grid {
-  display:grid;grid-template-columns:1.5fr 1fr 1fr;
-  gap:30px;
-}
-footer h3 {margin-bottom:13px}
-footer p,footer a {font-size:13px;color:#bdcce4}
-footer a {display:block;margin:7px 0}
-.footer-bottom {
-  text-align:center;border-top:1px solid #ffffff22;
-  padding-top:18px;margin-top:30px;
-  font-size:12px;color:#9eb2d1;
-}
-.back-top {
-  position:fixed;bottom:20px;right:20px;
-  width:45px;height:45px;border:0;
-  border-radius:50%;background:var(--blue);
-  color:white;font-size:20px;
-  box-shadow:var(--shadow);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 25px;
 }
 
-/* RESPONSIVE */
-@media(max-width:900px) {
-  .grid-4 {grid-template-columns:repeat(2,1fr)}
-  .grid-3 {grid-template-columns:repeat(2,1fr)}
-  .hero-grid {grid-template-columns:1fr}
-  .hero-art {display:none}
+footer h3 {
+  font-size: 15px;
+  margin-bottom: 11px;
 }
-@media(max-width:650px) {
-  .header-inner {min-height:65px}
-  .menu-btn {display:block}
-  nav {
-    display:none;position:absolute;
-    top:65px;left:0;width:100%;
-    background:var(--navy);
-    padding:20px;
-    flex-direction:column;align-items:flex-start;
+
+footer p,
+footer a {
+  font-size: 12px;
+  color: #bdcce4;
+}
+
+footer a {
+  display: block;
+  margin: 6px 0;
+  transition: .2s;
+}
+
+footer a:hover {
+  color: #5de4eb;
+  padding-left: 3px;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #ffffff22;
+  padding-top: 16px;
+  margin-top: 25px;
+  font-size: 11px;
+  color: #9eb2d1;
+}
+
+/* ================= BACK TO TOP ================= */
+
+.back-top {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  width: 41px;
+  height: 41px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--blue);
+  color: white;
+  font-size: 19px;
+  box-shadow: var(--shadow);
+  z-index: 999;
+  transition: .2s;
+}
+
+.back-top:hover {
+  background: var(--navy);
+  transform: translateY(-3px);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (min-width: 1100px) {
+  .feature-card {
+    min-height: 155px;
   }
-  nav.open {display:flex}
-  .hero {padding:55px 0}
-  .hero h1 {font-size:34px}
-  .section {padding:40px 0}
-  .section-head {display:block}
-  .grid-4,.grid-3,.grid-2 {grid-template-columns:1fr}
-  .footer-grid {grid-template-columns:1fr}
-  .search-box {flex-direction:column}
-  .search-box button {width:100%}
+}
+
+@media (max-width: 900px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-art {
+    display: none;
+  }
+
+  nav {
+    gap: 10px;
+  }
+
+  nav a {
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    width: 93%;
+  }
+
+  .header-inner {
+    min-height: 62px;
+  }
+
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+  }
+
+  .logo h2 {
+    font-size: 16px;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 62px;
+    left: 0;
+    width: 100%;
+    background: var(--navy);
+    padding: 16px 5%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    box-shadow: 0 8px 15px #10264b22;
+  }
+
+  nav.open {
+    display: flex;
+  }
+
+  nav a {
+    font-size: 13px;
+  }
+
+  .hero {
+    padding: 47px 0 43px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .hero-desc {
+    font-size: 13px;
+  }
+
+  .section {
+    padding: 32px 0;
+  }
+
+  .section-head {
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .section-head h2 {
+    font-size: 21px;
+  }
+
+  .grid {
+    gap: 10px;
+  }
+
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feature-card {
+    padding: 13px;
+    min-height: 145px;
+  }
+
+  .feature-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .feature-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .feature-card h3 {
+    font-size: 12.5px;
+  }
+
+  .feature-card p {
+    font-size: 10.5px;
+  }
+
+  .card,
+  .grade-card,
+  .dark-section .game-card,
+  .resource-card {
+    padding: 13px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .search-box {
+    flex-direction: row;
+  }
+
+  .search-box input {
+    font-size: 11.5px;
+    padding: 9px 5px;
+  }
+
+  .search-box button {
+    padding: 9px 12px;
+    font-size: 10.5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-box button {
+    width: 100%;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
+
 <header>
  <div class="container header-inner">
+
   <a class="logo" href="/">
    <div class="logo-icon">∑</div>
    <div>
@@ -346,7 +872,9 @@ footer a {display:block;margin:7px 0}
    </div>
   </a>
 
-  <button class="menu-btn" id="menuBtn">☰ MENU</button>
+  <button class="menu-btn" id="menuBtn" aria-label="Mở menu">
+   ☰ MENU
+  </button>
 
   <nav id="mainNav">
    <a href="/">Trang chủ</a>
@@ -355,149 +883,404 @@ footer a {display:block;margin:7px 0}
    <a href="/Tai-lieu/">Thư viện tài liệu</a>
    <a href="/THAY-HOA-AI/">Trợ lý AI</a>
   </nav>
+
  </div>
 </header>
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
+
 <section class="hero">
  <div class="container hero-grid">
+
   <div>
-   <span class="eyebrow">✦HỆ SINH THÁI GIÁO DỤC SỐ</span>
-   <h1>CHINH PHỤC<br><span>TOÁN HỌC</span><br>CÙNG THẦY HÒA</h1>
+   <span class="eyebrow">✦ HỆ SINH THÁI GIÁO DỤC SỐ</span>
+
+   <h1>
+    CHINH PHỤC<br>
+    <span>TOÁN HỌC</span><br>
+    CÙNG THẦY HÒA
+   </h1>
+
    <p class="hero-desc">
     Học Toán thông minh hơn với hàng trăm trò chơi,
     bài học tương tác, bài tập và công cụ AI.
     Từ nền tảng Toán 9 đến chinh phục kỳ thi THPT.
    </p>
+
    <div class="hero-buttons">
-    <a href="/tro-choi/" class="btn btn-light">KHÁM PHÁ TRÒ CHƠI</a>
+    <a href="/tro-choi/" class="btn btn-light">
+     KHÁM PHÁ TRÒ CHƠI
+    </a>
    </div>
   </div>
+
   <div class="hero-art">
    <div class="math-circle">∑</div>
   </div>
+
  </div>
 </section>
 
-<!-- SEARCH -->
+<!-- ================= SEARCH ================= -->
+
 <div class="container search-section">
  <div class="search-box">
-  <input type="search" id="searchInput"
-   placeholder=" Tìm trò chơi, bài học, chủ đề Toán học...">
-  <button onclick="searchContent()">TÌM KIẾM</button>
+
+  <input
+   type="search"
+   id="searchInput"
+   placeholder="Tìm trò chơi, bài học, chủ đề Toán học..."
+   aria-label="Tìm kiếm nội dung">
+
+  <button type="button" onclick="searchContent()">
+   TÌM KIẾM
+  </button>
+
  </div>
 </div>
 
-  <a href="/tro-choi/" class="card">
-    <h3>Trung tâm trò chơi</h3>
-    <p>Học Toán qua các thử thách và game show hấp dẫn</p>
-  </a>
+<!-- ================= TRUNG TÂM TRÒ CHƠI ================= -->
 
-<!-- 1. KIỂM TRA VÀ THI THỬ -->
-<a class="feature-card" href="/Kiem-tra-va-thi-thu/">
-    <div class="feature-icon" style="background:#EAF2FF;color:#2563EB;">
-        <svg viewBox="0 0 24 24" width="34" height="34"
-             fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="3" width="16" height="18" rx="2"/>
-            <path d="m8 9 2 2 4-4"/>
-            <path d="M8 16h8"/>
-        </svg>
-    </div>
-    <h3>Kiểm tra và thi thử</h3>
-    <p>Luyện đề, tự đánh giá và chuẩn bị cho các kỳ thi.</p>
-</a>
+<section class="section">
+ <div class="container">
 
-<!-- 2. THƯ VIỆN TÀI LIỆU -->
-<a class="feature-card" href="/Tai-lieu/">
-    <div class="feature-icon" style="background:#E9F9F0;color:#16A34A;">
-        <svg viewBox="0 0 24 24" width="34" height="34"
-             fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 5a2 2 0 0 1 2-2h14v18H6a2 2 0 0 1-2-2z"/>
-            <path d="M4 17a2 2 0 0 1 2-2h14"/>
-            <path d="M8 7h8M8 10h6"/>
-        </svg>
-    </div>
-    <h3>Thư viện tài liệu</h3>
-    <p>Tổng hợp tài liệu PDF, Word và tài liệu ôn thi.</p>
-</a>
+  <div class="section-head">
+   <div>
+    <div class="section-tag">KHÁM PHÁ VÀ TRẢI NGHIỆM</div>
+    <h2>Không gian học tập Toán học</h2>
+    <p>Học tập chủ động – Luyện tập sáng tạo – Chinh phục thử thách</p>
+   </div>
+  </div>
 
-<!-- 3. NGÂN HÀNG CÂU HỎI -->
-<a class="feature-card" href="/ngan-hang-cau-hoi/">
-    <div class="feature-icon" style="background:#FFF3E8;color:#EA580C;">
-        <svg viewBox="0 0 24 24" width="34" height="34"
-             fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="3" width="16" height="18" rx="2"/>
-            <path d="M8 8h8M8 12h8M8 16h4"/>
-        </svg>
-    </div>
-    <h3>Ngân hàng câu hỏi</h3>
-    <p>Hệ thống câu hỏi theo chương, chủ đề và mức độ.</p>
-</a>
+  <div class="grid grid-3">
 
-<!-- 4. VIDEO BÀI GIẢNG -->
-<a class="feature-card" href="/VIDEO/">
-    <div class="feature-icon" style="background:#F3EAFE;color:#9333EA;">
-        <svg viewBox="0 0 24 24" width="34" height="34"
-             fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="5" width="18" height="14" rx="3"/>
-            <path d="m10 9 5 3-5 3z"/>
-        </svg>
-    </div>
-    <h3>Video bài giảng</h3>
-    <p>Học tập trực quan qua các video hướng dẫn.</p>
-</a>
-
-<!-- 5. TRỢ LÝ AI -->
-<a class="feature-card" href="/THAY-HOA-AI/">
-    <div class="feature-icon" style="background:#E0F7FA;color:#0891B2;">
-        <svg viewBox="0 0 24 24" width="34" height="34"
-             fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="7" width="16" height="13" rx="3"/>
-            <path d="M12 3v4M9 13h.01M15 13h.01"/>
-            <path d="M9 17h6M2 12h2M20 12h2"/>
-        </svg>
-    </div>
-    <h3>Trợ lý AI Toán học</h3>
-    <p>Hỗ trợ giải thích, gợi ý và luyện tập kiến thức.</p>
-</a>
-
-<!-- 6. KẾT QUẢ HỌC TẬP -->
-<a class="feature-card" href="/ket-qua/">
-    <div class="feature-icon" style="background:#FFF0F2;color:#E11D48;">
-        <svg viewBox="0 0 24 24" width="34" height="34"
-             fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3v18h18"/>
-            <path d="m7 14 4-4 4 3 6-7"/>
-            <path d="M16 6h5v5"/>
-        </svg>
-    </div>
-    <h3>Kết quả học tập</h3>
-    <p>Theo dõi tiến bộ và đánh giá năng lực học sinh.</p>
-</a>
+   <a href="/tro-choi/" class="card searchable-card">
+    <h3>🎮 Trung tâm trò chơi</h3>
+    <p>Học Toán qua các thử thách và game show hấp dẫn.</p>
+   </a>
 
   </div>
+
  </div>
 </section>
 
+<!-- ================= CÁC CHỨC NĂNG ================= -->
 
-<!-- FOOTER -->
+<section class="section" id="chuc-nang">
+ <div class="container">
+
+  <div class="section-head">
+   <div>
+    <div class="section-tag">TIỆN ÍCH HỌC TẬP</div>
+    <h2>Khám phá hệ sinh thái THẦY HÒA</h2>
+    <p>Tất cả công cụ học tập được kết nối trong một không gian.</p>
+   </div>
+  </div>
+
+  <div class="grid grid-3">
+
+   <!-- 1. KIỂM TRA VÀ THI THỬ -->
+
+   <a class="feature-card searchable-card"
+      href="/Kiem-tra-va-thi-thu/">
+
+    <div class="feature-icon"
+         style="background:#EAF2FF;color:#2563EB;">
+
+     <svg viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+
+      <rect x="4" y="3" width="16" height="18" rx="2"/>
+      <path d="m8 9 2 2 4-4"/>
+      <path d="M8 16h8"/>
+
+     </svg>
+    </div>
+
+    <h3>Kiểm tra và thi thử</h3>
+    <p>Luyện đề, tự đánh giá và chuẩn bị cho các kỳ thi.</p>
+
+   </a>
+
+   <!-- 2. THƯ VIỆN TÀI LIỆU -->
+
+   <a class="feature-card searchable-card"
+      href="/Tai-lieu/">
+
+    <div class="feature-icon"
+         style="background:#E9F9F0;color:#16A34A;">
+
+     <svg viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+
+      <path d="M4 5a2 2 0 0 1 2-2h14v18H6a2 2 0 0 1-2-2z"/>
+      <path d="M4 17a2 2 0 0 1 2-2h14"/>
+      <path d="M8 7h8M8 10h6"/>
+
+     </svg>
+    </div>
+
+    <h3>Thư viện tài liệu</h3>
+    <p>Tổng hợp tài liệu PDF, Word và tài liệu ôn thi.</p>
+
+   </a>
+
+   <!-- 3. NGÂN HÀNG CÂU HỎI -->
+
+   <a class="feature-card searchable-card"
+      href="/ngan-hang-cau-hoi/">
+
+    <div class="feature-icon"
+         style="background:#FFF3E8;color:#EA580C;">
+
+     <svg viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+
+      <rect x="4" y="3" width="16" height="18" rx="2"/>
+      <path d="M8 8h8M8 12h8M8 16h4"/>
+
+     </svg>
+    </div>
+
+    <h3>Ngân hàng câu hỏi</h3>
+    <p>Hệ thống câu hỏi theo chương, chủ đề và mức độ.</p>
+
+   </a>
+
+   <!-- 4. VIDEO BÀI GIẢNG -->
+
+   <a class="feature-card searchable-card"
+      href="/VIDEO/">
+
+    <div class="feature-icon"
+         style="background:#F3EAFE;color:#9333EA;">
+
+     <svg viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+
+      <rect x="3" y="5" width="18" height="14" rx="3"/>
+      <path d="m10 9 5 3-5 3z"/>
+
+     </svg>
+    </div>
+
+    <h3>Video bài giảng</h3>
+    <p>Học tập trực quan qua các video hướng dẫn.</p>
+
+   </a>
+
+   <!-- 5. TRỢ LÝ AI -->
+
+   <a class="feature-card searchable-card"
+      href="/THAY-HOA-AI/">
+
+    <div class="feature-icon"
+         style="background:#E0F7FA;color:#0891B2;">
+
+     <svg viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+
+      <rect x="4" y="7" width="16" height="13" rx="3"/>
+      <path d="M12 3v4M9 13h.01M15 13h.01"/>
+      <path d="M9 17h6M2 12h2M20 12h2"/>
+
+     </svg>
+    </div>
+
+    <h3>Trợ lý AI Toán học</h3>
+    <p>Hỗ trợ giải thích, gợi ý và luyện tập kiến thức.</p>
+
+   </a>
+
+   <!-- 6. KẾT QUẢ HỌC TẬP -->
+
+   <a class="feature-card searchable-card"
+      href="/ket-qua/">
+
+    <div class="feature-icon"
+         style="background:#FFF0F2;color:#E11D48;">
+
+     <svg viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+
+      <path d="M3 3v18h18"/>
+      <path d="m7 14 4-4 4 3 6-7"/>
+      <path d="M16 6h5v5"/>
+
+     </svg>
+    </div>
+
+    <h3>Kết quả học tập</h3>
+    <p>Theo dõi tiến bộ và đánh giá năng lực học sinh.</p>
+
+   </a>
+
+  </div>
+
+ </div>
+</section>
+
+<!-- ================= KHU VỰC TRÒ CHƠI ================= -->
+
+<section class="section dark-section">
+ <div class="container">
+
+  <div class="section-head">
+   <div>
+    <div class="section-tag">HỌC MÀ CHƠI – CHƠI MÀ HỌC</div>
+    <h2>Thế giới trò chơi Toán học</h2>
+    <p>Khám phá các thử thách và hoạt động học tập tương tác.</p>
+   </div>
+  </div>
+
+  <div class="grid grid-3">
+
+   <div class="game-card searchable-card">
+    <div class="game-icon">🎮</div>
+    <h3>Kho trò chơi Toán học</h3>
+    <p>Khám phá các trò chơi và thử thách Toán học.</p>
+    <a href="/tro-choi/">KHÁM PHÁ NGAY →</a>
+   </div>
+
+  </div>
+
+ </div>
+</section>
+
+<!-- ================= KHU VỰC TÀI NGUYÊN ================= -->
+
+<section class="section" id="tai-nguyen">
+ <div class="container">
+
+  <div class="section-head">
+   <div>
+    <div class="section-tag">HỌC LIỆU SỐ</div>
+    <h2>Kho tài nguyên học tập</h2>
+    <p>Tìm kiếm và lựa chọn nội dung học tập phù hợp.</p>
+   </div>
+  </div>
+
+  <!-- BỘ LỌC: CÓ THỂ DÙNG KHI THÊM RESOURCE CARD -->
+
+  <div class="filter-bar">
+   <button class="filter-btn active"
+           type="button"
+           data-filter="all">
+    Tất cả
+   </button>
+
+   <button class="filter-btn"
+           type="button"
+           data-filter="9">
+    Toán 9
+   </button>
+
+   <button class="filter-btn"
+           type="button"
+           data-filter="10">
+    Toán 10
+   </button>
+
+   <button class="filter-btn"
+           type="button"
+           data-filter="11">
+    Toán 11
+   </button>
+
+   <button class="filter-btn"
+           type="button"
+           data-filter="12">
+    Toán 12
+   </button>
+  </div>
+
+  <div class="grid grid-3" id="resourceList">
+
+   <a href="/Tai-lieu/"
+      class="resource-card searchable-card"
+      data-grade="all">
+
+    <div class="resource-icon">📚</div>
+    <h3>Thư viện tài liệu</h3>
+    <p>Tổng hợp tài liệu học tập và ôn luyện Toán học.</p>
+    <span>XEM TÀI LIỆU →</span>
+
+   </a>
+
+   <a href="/Kiem-tra-va-thi-thu/"
+      class="resource-card searchable-card"
+      data-grade="all">
+
+    <div class="resource-icon">📝</div>
+    <h3>Đề kiểm tra – Thi thử</h3>
+    <p>Luyện tập và tự đánh giá kết quả học tập.</p>
+    <span>XEM ĐỀ THI →</span>
+
+   </a>
+
+   <a href="/ngan-hang-cau-hoi/"
+      class="resource-card searchable-card"
+      data-grade="all">
+
+    <div class="resource-icon">📖</div>
+    <h3>Ngân hàng câu hỏi</h3>
+    <p>Câu hỏi theo chương, chủ đề và mức độ nhận thức.</p>
+    <span>KHÁM PHÁ →</span>
+
+   </a>
+
+  </div>
+
+  <p id="emptyMessage"
+     class="empty-message"
+     hidden>
+   Không tìm thấy nội dung phù hợp.
+  </p>
+
+ </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+
 <footer>
  <div class="container">
+
   <div class="footer-grid">
+
    <div>
     <h3>∑ THẦY HÒA</h3>
     <p>CHINH PHỤC TOÁN HỌC</p>
+
     <p style="margin-top:12px">
      Hệ sinh thái học tập số dành cho học sinh
      từ Toán 9 đến Toán 12.
     </p>
    </div>
+
    <div>
     <h3>HỌC TẬP</h3>
     <a href="/tro-choi/">Trung tâm trò chơi</a>
@@ -505,6 +1288,7 @@ footer a {display:block;margin:7px 0}
     <a href="/kiem-tra/">Kiểm tra – Thi thử</a>
     <a href="/tai-lieu/">Tài liệu</a>
    </div>
+
    <div>
     <h3>HỆ SINH THÁI</h3>
     <a href="/THAY-HOA/">Trợ lý AI</a>
@@ -512,82 +1296,212 @@ footer a {display:block;margin:7px 0}
     <a href="/SUC-KHOẺ/">Sức khỏe</a>
     <a href="/">Trang chủ</a>
    </div>
+
   </div>
+
   <div class="footer-bottom">
    © THẦY HÒA – CHINH PHỤC TOÁN HỌC.
    HỌC TOÁN DỄ HIỂU HƠN MỖI NGÀY.
   </div>
+
  </div>
 </footer>
 
-<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
- aria-label="Về đầu trang">↑</button>
+<!-- ================= BACK TO TOP ================= -->
+
+<button class="back-top"
+        id="backTop"
+        type="button"
+        aria-label="Về đầu trang"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})">
+ ↑
+</button>
+
+<!-- ================= JAVASCRIPT ================= -->
 
 <script>
-// MENU MOBILE
+
+// ================= MENU MOBILE =================
+
 const menuBtn = document.getElementById("menuBtn");
 const mainNav = document.getElementById("mainNav");
 
-menuBtn.addEventListener("click", () => {
- mainNav.classList.toggle("open");
-});
+if (menuBtn && mainNav) {
 
-mainNav.querySelectorAll("a").forEach(link => {
- link.addEventListener("click", () => {
-  mainNav.classList.remove("open");
- });
-});
+  menuBtn.addEventListener("click", () => {
+    mainNav.classList.toggle("open");
+  });
 
-// BỘ LỌC KHỐI LỚP
+  mainNav.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      mainNav.classList.remove("open");
+    });
+  });
+
+}
+
+// ================= BỘ LỌC TÀI NGUYÊN =================
+
 const filterButtons = document.querySelectorAll(".filter-btn");
 const resourceCards = document.querySelectorAll(".resource-card");
 
 filterButtons.forEach(button => {
- button.addEventListener("click", () => {
-  filterButtons.forEach(b => b.classList.remove("active"));
-  button.classList.add("active");
 
-  const selected = button.dataset.filter;
+  button.addEventListener("click", () => {
 
-  resourceCards.forEach(card => {
-   const grade = card.dataset.grade;
-   card.hidden = !(selected === "all" || grade === selected || grade === "all");
+    filterButtons.forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+
+    const selected = button.dataset.filter;
+
+    resourceCards.forEach(card => {
+
+      const grade = card.dataset.grade;
+
+      card.hidden = !(
+        selected === "all" ||
+        grade === selected ||
+        grade === "all"
+      );
+
+    });
+
+    updateEmptyMessage();
+
   });
 
-  updateEmptyMessage();
- });
 });
 
-// TÌM KIẾM
-function searchContent() {
- const input = document.getElementById("searchInput");
- const keyword = input.value.trim().toLowerCase();
-
- if (!keyword) {
-  input.focus();
-  return;
- }
-
- resourceCards.forEach(card => {
-  card.hidden = !card.innerText.toLowerCase().includes(keyword);
- });
-
- filterButtons.forEach(b => b.classList.remove("active"));
- updateEmptyMessage();
-
- document.getElementById("tai-nguyen").scrollIntoView({
-  behavior:"smooth"
- });
-}
-
-document.getElementById("searchInput").addEventListener("keydown",e=>{
- if(e.key === "Enter") searchContent();
-});
+// ================= THÔNG BÁO KHÔNG CÓ KẾT QUẢ =================
 
 function updateEmptyMessage() {
- const visible = [...resourceCards].some(card => !card.hidden);
- document.getElementById("emptyMessage").hidden = visible;
+
+  const emptyMessage = document.getElementById("emptyMessage");
+
+  if (!emptyMessage) return;
+
+  const visible = [...resourceCards].some(card => !card.hidden);
+
+  emptyMessage.hidden = visible;
+
 }
+
+// ================= TÌM KIẾM NỘI DUNG =================
+
+function searchContent() {
+
+  const input = document.getElementById("searchInput");
+
+  if (!input) return;
+
+  const keyword = input.value.trim().toLowerCase();
+
+  if (!keyword) {
+    input.focus();
+    return;
+  }
+
+  // Tìm kiếm trong các thẻ chức năng, trò chơi và tài nguyên
+
+  const searchableCards = document.querySelectorAll(
+    ".searchable-card"
+  );
+
+  let found = 0;
+
+  searchableCards.forEach(card => {
+
+    const content = card.innerText.toLowerCase();
+
+    const matched = content.includes(keyword);
+
+    card.hidden = !matched;
+
+    if (matched) found++;
+
+  });
+
+  // Bỏ trạng thái lọc cũ
+
+  filterButtons.forEach(button => {
+    button.classList.remove("active");
+  });
+
+  // Cập nhật thông báo kết quả
+
+  const emptyMessage = document.getElementById("emptyMessage");
+
+  if (emptyMessage) {
+    emptyMessage.hidden = found > 0;
+  }
+
+  // Đưa người dùng đến khu vực kết quả
+
+  const resultSection = document.getElementById("tai-nguyen");
+
+  if (resultSection) {
+    resultSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+}
+
+// ================= TÌM KIẾM BẰNG PHÍM ENTER =================
+
+const searchInput = document.getElementById("searchInput");
+
+if (searchInput) {
+
+  searchInput.addEventListener("keydown", event => {
+
+    if (event.key === "Enter") {
+      searchContent();
+    }
+
+  });
+
+}
+
+// ================= HIỂN THỊ LẠI NỘI DUNG KHI XÓA TỪ KHÓA =================
+
+if (searchInput) {
+
+  searchInput.addEventListener("input", () => {
+
+    if (searchInput.value.trim() === "") {
+
+      document.querySelectorAll(".searchable-card").forEach(card => {
+        card.hidden = false;
+      });
+
+      const emptyMessage = document.getElementById("emptyMessage");
+
+      if (emptyMessage) {
+        emptyMessage.hidden = true;
+      }
+
+      const allButton = document.querySelector(
+        '.filter-btn[data-filter="all"]'
+      );
+
+      if (allButton) {
+
+        filterButtons.forEach(button => {
+          button.classList.remove("active");
+        });
+
+        allButton.classList.add("active");
+
+      }
+
+    }
+
+  });
+
+}
+
 </script>
 
 </body>
