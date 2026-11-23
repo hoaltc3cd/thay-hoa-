@@ -1,20 +1,3 @@
-<!-- NÚT QUAY VỀ TRANG CHỦ THẦY HÒA -->
-<div style="padding:12px 15px;">
-  <a href="https://thay-hoa.vercel.app/"
-     style="
-       display:inline-block;
-       background:linear-gradient(135deg,#1769d2,#7957d5);
-       color:white;
-       padding:12px 22px;
-       border-radius:12px;
-       font-weight:bold;
-       font-size:15px;
-       text-decoration:none;
-       box-shadow:0 4px 12px #0002;
-     ">
-    🏠 TRANG CHỦ THẦY HÒA
-  </a>
-</div>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -27,10 +10,69 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- Google Fonts: Be Vietnam Pro -->
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
-  <!-- KaTeX hiển thị công thức Toán học chuẩn sắc nét -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <!-- KaTeX hiển thị công thức Toán học chuẩn sắc nét (CDN chính jsDelivr + dự phòng cdnjs cho Vercel) -->
+  <link id="katex-css-primary" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous"
+        onerror="this.onerror=null;this.href='https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css';" />
+  <script>
+    // Bộ nạp KaTeX thông minh: tự động chuyển sang CDN dự phòng cdnjs nếu jsDelivr chậm hoặc lỗi
+    window.__katexReadyCallbacks = [];
+    window.__onKaTeXReady = function (cb) {
+      if (typeof window.renderMathInElement === 'function' && typeof window.katex !== 'undefined') {
+        cb();
+      } else {
+        window.__katexReadyCallbacks.push(cb);
+      }
+    };
+    window.__notifyKaTeXReady = function () {
+      if (typeof window.renderMathInElement === 'function' && typeof window.katex !== 'undefined') {
+        while (window.__katexReadyCallbacks.length > 0) {
+          const fn = window.__katexReadyCallbacks.shift();
+          try { fn(); } catch (e) {}
+        }
+      }
+    };
+    function loadScriptWithFallback(primarySrc, fallbackSrc, onLoadDone) {
+      const s = document.createElement('script');
+      s.src = primarySrc;
+      s.crossOrigin = 'anonymous';
+      let settled = false;
+      const fallbackTimer = setTimeout(() => {
+        if (!settled && fallbackSrc) {
+          settled = true;
+          s.remove();
+          loadScriptWithFallback(fallbackSrc, null, onLoadDone);
+        }
+      }, 3500);
+      s.onload = function () {
+        if (settled) return;
+        settled = true;
+        clearTimeout(fallbackTimer);
+        if (onLoadDone) onLoadDone();
+      };
+      s.onerror = function () {
+        if (settled) return;
+        settled = true;
+        clearTimeout(fallbackTimer);
+        if (fallbackSrc) {
+          loadScriptWithFallback(fallbackSrc, null, onLoadDone);
+        }
+      };
+      document.head.appendChild(s);
+    }
+    loadScriptWithFallback(
+      'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js',
+      function () {
+        loadScriptWithFallback(
+          'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js',
+          'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js',
+          function () {
+            window.__notifyKaTeXReady();
+          }
+        );
+      }
+    );
+  </script>
 
   <style>
     * {
@@ -1464,15 +1506,24 @@
       renderMath(box);
     }
 
+    // Tự động đợi KaTeX (kể cả khi chuyển sang CDN dự phòng cdnjs) tải xong rồi mới kết xuất công thức
     function renderMath(targetEl) {
-      if (typeof renderMathInElement === 'function' && targetEl) {
-        renderMathInElement(targetEl, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          throwOnError: false
-        });
+      if (!targetEl) return;
+      const doRender = () => {
+        if (typeof renderMathInElement === 'function') {
+          renderMathInElement(targetEl, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false }
+            ],
+            throwOnError: false
+          });
+        }
+      };
+      if (typeof window.__onKaTeXReady === 'function') {
+        window.__onKaTeXReady(doRender);
+      } else {
+        doRender();
       }
     }
 
