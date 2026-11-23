@@ -1,234 +1,474 @@
-<!-- NÚT QUAY VỀ TRANG CHỦ THẦY HÒA -->
-<div style="padding:12px 15px;">
-  <a href="https://thay-hoa.vercel.app/"
-     style="
-       display:inline-block;
-       background:linear-gradient(135deg,#1769d2,#7957d5);
-       color:white;
-       padding:12px 22px;
-       border-radius:12px;
-       font-weight:bold;
-       font-size:15px;
-       text-decoration:none;
-       box-shadow:0 4px 12px #0002;
-     ">
-    🏠 TRANG CHỦ THẦY HÒA
-  </a>
+
+<!-- TRANG KIỂM TRA VÀ THI THỬ TOÁN 9 - THẦY HÒA -->
+<div class="math9-page">
+
+  <!-- NÚT TRANG CHỦ -->
+  <div class="home-bar">
+    <a href="https://thay-hoa.vercel.app/">🏠 TRANG CHỦ THẦY HÒA</a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="math9-header">
+    <div class="brand">📐 THẦY HÒA EDUCATION</div>
+    <h1>KIỂM TRA VÀ THI THỬ TOÁN 9</h1>
+    <p class="subtitle">THẦY HÒA – CHINH PHỤC TOÁN HỌC</p>
+    <p class="description">Củng cố kiến thức – Luyện đề – Chinh phục kỳ thi vào lớp 10</p>
+  </header>
+
+  <main class="math9-container">
+
+    <!-- GIỚI THIỆU -->
+    <section class="math9-intro">
+      <h2>THƯ VIỆN ĐỀ TOÁN 9</h2>
+      <p>Chọn nội dung em muốn học tập và ôn luyện.</p>
+    </section>
+
+    <!-- DANH SÁCH THẺ -->
+    <section class="math9-grid">
+
+      <article class="math9-card card-blue">
+        <div class="math9-icon">📘</div>
+        <h3>Kiểm tra giữa học kì I</h3>
+        <p>Đề kiểm tra, bài tập ôn tập và hướng dẫn giải.</p>
+        <a class="math9-btn" href="./kiem-tra-giua-hoc-ki-1/">XEM ĐỀ →</a>
+      </article>
+
+      <article class="math9-card card-purple">
+        <div class="math9-icon">📚</div>
+        <h3>Kiểm tra cuối học kì I</h3>
+        <p>Hệ thống đề kiểm tra và tài liệu ôn tập.</p>
+        <a class="math9-btn" href="./kiem-tra-cuoi-hoc-ki-1/">XEM ĐỀ →</a>
+      </article>
+
+      <article class="math9-card card-cyan">
+        <div class="math9-icon">📝</div>
+        <h3>Kiểm tra giữa học kì II</h3>
+        <p>Ôn tập kiến thức trọng tâm và luyện đề.</p>
+        <a class="math9-btn" href="./kiem-tra-giua-hoc-ki-2/">XEM ĐỀ →</a>
+      </article>
+
+      <article class="math9-card card-orange">
+        <div class="math9-icon">📖</div>
+        <h3>Kiểm tra cuối học kì II</h3>
+        <p>Đề tổng hợp và tài liệu chuẩn bị kiểm tra.</p>
+        <a class="math9-btn" href="./kiem-tra-cuoi-hoc-ki-2/">XEM ĐỀ →</a>
+      </article>
+
+      <article class="math9-card card-green">
+        <div class="math9-icon">🎯</div>
+        <h3>Đề thi thử vào lớp 10</h3>
+        <p>Luyện đề theo cấu trúc ôn thi vào THPT.</p>
+        <a class="math9-btn" href="./de-thi-thu-vao-lop-10/">LUYỆN THI →</a>
+      </article>
+
+      <article class="math9-card card-pink">
+        <div class="math9-icon">✅</div>
+        <h3>Đáp án và hướng dẫn giải</h3>
+        <p>Đối chiếu kết quả và hiểu cách giải từng bài.</p>
+        <a class="math9-btn" href="./dap-an-va-huong-dan-giai/">XEM ĐÁP ÁN →</a>
+      </article>
+
+    </section>
+
+    <!-- HƯỚNG DẪN -->
+    <div class="math9-note">
+      <strong>💡 HƯỚNG DẪN HỌC TẬP</strong>
+      <p>Em hãy tải đề về làm bài trước, sau đó đối chiếu đáp án và ghi lại những câu còn sai để ôn tập.</p>
+    </div>
+
+    <!-- ĐIỀU HƯỚNG -->
+    <div class="math9-back">
+      <a href="../">← QUAY LẠI CHỌN KHỐI LỚP</a>
+      <span>|</span>
+      <a href="https://thay-hoa.vercel.app/">TRANG CHỦ THẦY HÒA</a>
+    </div>
+
+  </main>
+
+  <footer class="math9-footer">
+    <strong>THẦY HÒA – CHINH PHỤC TOÁN HỌC</strong>
+    <p>Học Toán dễ hiểu hơn mỗi ngày!</p>
+  </footer>
+
 </div>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10264b">
-<meta name="description" content="Thư viện kiểm tra và thi thử Toán 9 - THẦY HÒA">
-<title>Kiểm tra và thi thử Toán 9 - THẦY HÒA</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f2f6fc;
-  color:#17243b;
-  line-height:1.6;
+/* ===== PHẠM VI RIÊNG TRANG TOÁN 9 ===== */
+.math9-page,
+.math9-page * {
+  box-sizing: border-box;
 }
 
-a{text-decoration:none}
+.math9-page {
+  --navy: #10264b;
+  --blue: #1769d2;
+  --cyan: #13b8c9;
+  --purple: #7957d5;
+  --text: #17243b;
+  --muted: #64748b;
 
-header{
-  background:linear-gradient(120deg,#10264b,#1769d2);
-  color:white;
-  padding:35px 15px;
-  text-align:center;
+  width: 100%;
+  margin: 0 auto;
+  background: #f3f6fc;
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  overflow: hidden;
 }
 
-header .logo{font-size:42px}
-header h1{font-size:clamp(24px,4vw,36px);margin:8px 0}
-header p{color:#dceaff}
-
-.container{
-  width:min(1050px,92%);
-  margin:35px auto;
+.math9-page a {
+  text-decoration: none;
 }
 
-.intro{
-  text-align:center;
-  margin-bottom:30px;
+/* ===== NÚT TRANG CHỦ ===== */
+.math9-page .home-bar {
+  padding: 10px 14px;
 }
 
-.intro h2{
-  color:#10264b;
-  font-size:26px;
+.math9-page .home-bar a {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1769d2, #7957d5);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 3px 10px #10264b20;
+  transition: .2s;
 }
 
-.intro p{
-  color:#64748b;
-  margin-top:8px;
+.math9-page .home-bar a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 13px #10264b30;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:20px;
+/* ===== HEADER ===== */
+.math9-page .math9-header {
+  padding: 25px 14px 27px;
+  text-align: center;
+  color: white;
+  background: linear-gradient(120deg, #10264b, #1769d2, #59439a);
 }
 
-.card{
-  background:white;
-  border-radius:16px;
-  padding:24px;
-  border:1px solid #e1e8f2;
-  box-shadow:0 6px 22px #10264b12;
-  transition:.2s;
+.math9-page .brand {
+  display: inline-block;
+  margin-bottom: 7px;
+  padding: 4px 11px;
+  border: 1px solid #ffffff55;
+  border-radius: 20px;
+  color: #e4efff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 12px 28px #10264b20;
+.math9-page .math9-header h1 {
+  margin: 3px 0 7px;
+  color: #fff;
+  font-size: clamp(21px, 3vw, 30px);
+  line-height: 1.25;
+  font-weight: 800;
 }
 
-.icon{font-size:36px}
-
-.card h3{
-  color:#10264b;
-  margin:8px 0;
-  font-size:19px;
+.math9-page .subtitle {
+  margin: 3px 0;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
 }
 
-.card p{
-  color:#64748b;
-  font-size:14px;
-  margin-bottom:15px;
+.math9-page .description {
+  margin-top: 5px;
+  color: #dceaff;
+  font-size: 12px;
 }
 
-.btn{
-  display:inline-block;
-  background:#1769d2;
-  color:white;
-  padding:10px 18px;
-  border-radius:8px;
-  font-weight:bold;
-  font-size:13px;
+/* ===== KHU VỰC NỘI DUNG ===== */
+.math9-page .math9-container {
+  width: min(100%, 1000px);
+  margin: 0 auto;
+  padding: 22px 15px 25px;
 }
 
-.btn:hover{background:#10264b}
-
-.note{
-  background:#e6f4ff;
-  border-left:4px solid #1769d2;
-  padding:16px;
-  margin-top:25px;
-  border-radius:8px;
-  font-size:14px;
+.math9-page .math9-intro {
+  margin-bottom: 17px;
+  text-align: center;
 }
 
-.back{
-  text-align:center;
-  margin:35px 0;
+.math9-page .math9-intro h2 {
+  margin: 0 0 4px;
+  color: var(--navy);
+  font-size: 21px;
+  font-weight: 800;
 }
 
-.back a{
-  color:#1769d2;
-  font-weight:bold;
+.math9-page .math9-intro p {
+  color: var(--muted);
+  font-size: 12px;
 }
 
-footer{
-  background:#10264b;
-  color:#dceaff;
-  text-align:center;
-  padding:25px 15px;
-  font-size:13px;
+/* ===== LƯỚI CÁC THẺ ===== */
+.math9-page .math9-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 11px;
+  align-items: stretch;
 }
 
-@media(max-width:650px){
-  .grid{grid-template-columns:1fr}
-  header{padding:27px 12px}
-  .container{margin:25px auto}
+/* ===== THIẾT KẾ THẺ ===== */
+.math9-page .math9-card {
+  --accent: #1769d2;
+
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 166px;
+  padding: 13px 13px 12px;
+  background: #fff;
+  border: 1px solid #e4eaf3;
+  border-top: 4px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 3px 12px #10264b0d;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.math9-page .math9-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 19px #10264b18;
+}
+
+.math9-page .card-blue { --accent: #1769d2; }
+.math9-page .card-purple { --accent: #7957d5; }
+.math9-page .card-cyan { --accent: #0b9eaf; }
+.math9-page .card-orange { --accent: #ed8a27; }
+.math9-page .card-green { --accent: #16a36a; }
+.math9-page .card-pink { --accent: #d65391; }
+
+.math9-page .math9-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 7px;
+  border-radius: 10px;
+  background: #edf4ff;
+  font-size: 22px;
+}
+
+.math9-page .math9-card h3 {
+  margin: 0 0 5px;
+  color: var(--navy);
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 750;
+}
+
+.math9-page .math9-card p {
+  margin: 0 0 11px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* ===== NÚT TRONG THẺ ===== */
+.math9-page .math9-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 7px 12px;
+  border-radius: 7px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  transition: .2s;
+}
+
+.math9-page .math9-btn:hover {
+  background: var(--navy);
+  transform: translateY(-1px);
+}
+
+/* ===== HƯỚNG DẪN ===== */
+.math9-page .math9-note {
+  margin-top: 17px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--blue);
+  border-radius: 9px;
+  background: #e8f2ff;
+  color: var(--navy);
+}
+
+.math9-page .math9-note strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.math9-page .math9-note p {
+  margin: 0;
+  color: #405675;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+/* ===== ĐIỀU HƯỚNG CUỐI TRANG ===== */
+.math9-page .math9-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 22px 0 5px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.math9-page .math9-back a {
+  color: var(--blue);
+}
+
+.math9-page .math9-back a:hover {
+  color: var(--purple);
+}
+
+.math9-page .math9-back span {
+  color: #a0aec0;
+}
+
+/* ===== FOOTER ===== */
+.math9-page .math9-footer {
+  padding: 17px 12px;
+  text-align: center;
+  color: #dceaff;
+  background: var(--navy);
+  font-size: 11px;
+}
+
+.math9-page .math9-footer strong {
+  color: #fff;
+  font-size: 12px;
+}
+
+.math9-page .math9-footer p {
+  margin-top: 3px;
+  color: #c4d5ef;
+}
+
+/* ===== TABLET ===== */
+@media (max-width: 800px) {
+  .math9-page .math9-container {
+    padding: 19px 12px 22px;
+  }
+
+  .math9-page .math9-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .math9-page .math9-card {
+    min-height: 158px;
+    padding: 12px;
+  }
+}
+
+/* ===== ĐIỆN THOẠI ===== */
+@media (max-width: 500px) {
+  .math9-page .math9-header {
+    padding: 21px 10px 22px;
+  }
+
+  .math9-page .math9-header h1 {
+    font-size: 21px;
+  }
+
+  .math9-page .subtitle {
+    font-size: 11px;
+  }
+
+  .math9-page .description {
+    font-size: 10px;
+  }
+
+  .math9-page .math9-container {
+    padding: 17px 10px 20px;
+  }
+
+  .math9-page .math9-intro {
+    margin-bottom: 13px;
+  }
+
+  .math9-page .math9-intro h2 {
+    font-size: 18px;
+  }
+
+  .math9-page .math9-intro p {
+    font-size: 11px;
+  }
+
+  .math9-page .math9-grid {
+    gap: 8px;
+  }
+
+  .math9-page .math9-card {
+    min-height: 150px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .math9-page .math9-icon {
+    width: 33px;
+    height: 33px;
+    margin-bottom: 6px;
+    font-size: 19px;
+  }
+
+  .math9-page .math9-card h3 {
+    font-size: 12px;
+  }
+
+  .math9-page .math9-card p {
+    margin-bottom: 9px;
+    font-size: 10px;
+  }
+
+  .math9-page .math9-btn {
+    padding: 6px 9px;
+    font-size: 9px;
+  }
+
+  .math9-page .math9-note {
+    margin-top: 13px;
+    padding: 10px 11px;
+  }
+
+  .math9-page .math9-note strong {
+    font-size: 11px;
+  }
+
+  .math9-page .math9-note p {
+    font-size: 10px;
+  }
+
+  .math9-page .math9-back {
+    gap: 7px;
+    margin-top: 17px;
+    font-size: 10px;
+  }
+}
+
+/* ===== MÀN HÌNH RẤT NHỎ ===== */
+@media (max-width: 330px) {
+  .math9-page .math9-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .math9-page .math9-card {
+    min-height: 135px;
+  }
 }
 </style>
-</head>
-
-<body>
-
-<header>
-  <div class="logo"></div>
-  <h1>KIỂM TRA VÀ THI THỬ TOÁN 9</h1>
-  <p>THẦY HÒA – CHINH PHỤC TOÁN HỌC</p>
-  <p>Củng cố kiến thức – Luyện đề – Chinh phục kỳ thi vào lớp 10</p>
-</header>
-
-<main class="container">
-
-  <section class="intro">
-    <h2>THƯ VIỆN ĐỀ TOÁN 9</h2>
-    <p>Chọn nội dung em muốn học tập và ôn luyện.</p>
-  </section>
-
-  <section class="grid">
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Kiểm tra giữa học kì I</h3>
-      <p>Đề kiểm tra, bài tập ôn tập và hướng dẫn giải.</p>
-      <a class="btn" href="./kiem-tra-giua-hoc-ki-1/">XEM ĐỀ →</a>
-    </article>
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Kiểm tra cuối học kì I</h3>
-      <p>Hệ thống đề kiểm tra và tài liệu ôn tập.</p>
-      <a class="btn" href="./kiem-tra-cuoi-hoc-ki-1/">XEM ĐỀ →</a>
-    </article>
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Kiểm tra giữa học kì II</h3>
-      <p>Ôn tập kiến thức trọng tâm và luyện đề.</p>
-      <a class="btn" href="./kiem-tra-giua-hoc-ki-2/">XEM ĐỀ →</a>
-    </article>
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Kiểm tra cuối học kì II</h3>
-      <p>Đề tổng hợp và tài liệu chuẩn bị kiểm tra.</p>
-      <a class="btn" href="./kiem-tra-cuoi-hoc-ki-2/">XEM ĐỀ →</a>
-    </article>
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Đề thi thử vào lớp 10</h3>
-      <p>Luyện đề theo cấu trúc ôn thi vào THPT.</p>
-      <a class="btn" href="./de-thi-thu-vao-lop-10/">LUYỆN THI →</a>
-    </article>
-
-    <article class="card">
-      <div class="icon"></div>
-      <h3>Đáp án và hướng dẫn giải</h3>
-      <p>Đối chiếu kết quả và hiểu cách giải từng bài.</p>
-      <a class="btn" href="./dap-an-va-huong-dan-giai/">XEM ĐÁP ÁN →</a>
-    </article>
-
-  </section>
-
-  <div class="note">
-    <strong> Hướng dẫn học tập:</strong>
-    Em hãy tải đề về làm bài trước, sau đó đối chiếu đáp án
-    và ghi lại những câu còn sai để ôn tập.
-  </div>
-
-  <div class="back">
-    <a href="../">← QUAY LẠI CHỌN KHỐI LỚP</a>
-    &nbsp; | &nbsp;
-    <a href="/">TRANG CHỦ THẦY HÒA</a>
-  </div>
-
-</main>
-
-<footer>
-  © THẦY HÒA – CHINH PHỤC TOÁN HỌC
-  <br>
-  Học Toán dễ hiểu hơn mỗi ngày!
-</footer>
-
-</body>
-</html>
