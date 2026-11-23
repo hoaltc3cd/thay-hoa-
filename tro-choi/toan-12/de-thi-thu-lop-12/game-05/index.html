@@ -15,12 +15,13 @@
     🏠 TRANG CHỦ THẦY HÒA
   </a>
 </div>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ĐẤU TRƯỜNG TOÁN HỌC 12 — ĐỀ THI THỬ TN THPT 2026 LẦN 1 (MÃ ĐỀ 0101) — THẦY HÒA</title>
+  <title>ĐẤU TRƯỜNG TOÁN HỌC 12 — ĐỀ THI THỬ TN THPT 2026 (MÃ ĐỀ 0101) — THẦY HÒA</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome -->
@@ -43,13 +44,6 @@
       color: #ffffff;
       min-height: 100vh;
       overflow-x: hidden;
-    }
-
-    /* Sân khấu bảng xanh chữ trắng tương phản cao nhìn rõ từ cuối lớp học */
-    .chalkboard-stage {
-      background: linear-gradient(145deg, #0b4f3b 0%, #063527 100%);
-      border: 8px solid #784b26;
-      box-shadow: inset 0 0 42px rgba(0, 0, 0, 0.72), 0 18px 42px rgba(0, 0, 0, 0.45);
     }
 
     /* Sân khấu bảng xanh chữ trắng tương phản cao nhìn rõ từ cuối lớp học */
@@ -165,7 +159,7 @@
         <div class="flex flex-wrap items-center gap-2">
           <span class="font-black text-amber-400 text-lg md:text-2xl tracking-wider uppercase gold-text-glow">THẦY HÒA</span>
           <span class="bg-emerald-700 text-emerald-100 text-[11px] md:text-xs font-bold px-2.5 py-0.5 rounded-full border border-emerald-400">
-            TOÁN 12 • ĐỀ THI THỬ TN THPT LẦN 1 — LIÊN TRƯỜNG NGHỆ AN (MÃ ĐỀ 0101)
+            TOÁN 12 • ĐỀ THI THỬ TN THPT 2026 — LIÊN TRƯỜNG NGHỆ AN (MÃ ĐỀ 0101)
           </span>
         </div>
         <p class="text-xs text-emerald-200 font-medium">
@@ -242,7 +236,7 @@
         ĐẤU TRƯỜNG TOÁN HỌC 12 — THẦY HÒA
       </h1>
       <p class="text-emerald-100 text-sm md:text-base font-semibold mb-5">
-        Luyện Tập &amp; Vận Dụng Tổng Hợp: Đề Thi Thử Tốt Nghiệp THPT 2026 Lần 1 — Liên Trường Nghệ An (Mã Đề 0101)
+        Luyện Tập &amp; Vận Dụng Tổng Hợp: Đề Thi Thử Tốt Nghiệp THPT Lần 1 (2025–2026) — Liên Trường Nghệ An (Mã Đề 0101)
       </p>
 
       <!-- Bảng Luật chơi & Cách tính điểm 3 chặng -->
@@ -268,7 +262,7 @@
             <i class="fas fa-mountain mr-1"></i> Phần 3: Vượt Chướng Ngại Vật (6 Câu)
           </div>
           <p class="text-xs md:text-sm text-emerald-100 leading-relaxed">
-            Gồm <b>6 câu Trả lời ngắn</b> (Câu 17–22) vận dụng và mô hình hóa thực tế (tầm nhìn không gian $Oxyz$, xác suất trắc nghiệm, hình chóp, bơm xăng, thống kê) để chinh phục mốc <b>10.000.000 ĐIỂM</b>!
+            Gồm <b>6 câu Trả lời ngắn</b> (Câu 17–22) vận dụng và mô hình hóa thực tế (tầm nhìn không gian $Oxyz$, xác suất, hình chóp, bơm xăng, thống kê) để chinh phục mốc <b>10.000.000 ĐIỂM</b>!
           </p>
         </div>
       </div>
@@ -370,7 +364,7 @@
           </div>
 
           <!-- Khung hình vẽ SVG / Bảng biến thiên riêng biệt -->
-          <div id="questionFigure" class="hidden shrink-0 bg-white/95 p-3 rounded-xl border-2 border-amber-400 shadow-lg flex flex-col items-center justify-center"></div>
+          <div id="questionFigure" class="hidden shrink-0 bg-emerald-950/95 p-3.5 rounded-2xl border-2 border-amber-400 shadow-lg flex flex-col items-center justify-center text-white"></div>
         </div>
       </div>
 
@@ -386,7 +380,7 @@
           Nhập đáp số chính xác của bài toán (có thể dùng dấu phẩy hoặc dấu chấm cho số thập phân):
         </label>
         <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
-          <input type="text" id="saInput" placeholder="Ví dụ: 9 hoặc 12,5" class="flex-1 px-4 py-3 rounded-xl bg-slate-900 border-2 border-amber-400 text-white font-black text-center text-xl focus:outline-none" />
+          <input type="text" id="saInput" placeholder="Ví dụ: 26 hoặc 0,57" class="flex-1 px-4 py-3 rounded-xl bg-slate-900 border-2 border-amber-400 text-white font-black text-center text-xl focus:outline-none" />
           <button type="button" id="btnSubmitSA" onclick="submitShortAnswer()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-base uppercase transition shadow-lg cursor-pointer">
             Chốt Đáp Án
           </button>
@@ -490,7 +484,7 @@
         VINH DANH NHÀ VÔ ĐỊCH TOÁN 12!
       </h2>
       <p class="text-emerald-200 text-sm md:text-base font-semibold mb-6">
-        Chúc mừng bạn đã chinh phục trọn vẹn Đề Thi Thử Tốt Nghiệp THPT 2026 Lần 1 — Liên Trường Nghệ An (Mã đề 0101)!
+        Chúc mừng bạn đã chinh phục trọn vẹn Đề Thi Thử Tốt Nghiệp THPT Lần 1 (2025–2026) — Liên Trường Nghệ An (Mã đề 0101)!
       </p>
 
       <!-- Huy hiệu & Thành tích -->
@@ -577,8 +571,8 @@
     const APPS_SCRIPT_URL = "";
 
     /**
-     * NGÂN HÀNG 22 CÂU HỎI TRÍCH TỪ ĐỀ THI THỬ TN THPT LẦN 1 NĂM HỌC 2025-2026
-     * SỞ GD & ĐT NGHỆ AN — LIÊN TRƯỜNG THPT ANH SƠN, ĐÔ LƯƠNG, THANH CHƯƠNG, YÊN THÀNH (MÃ ĐỀ 0101)
+     * NGÂN HÀNG 22 CÂU HỎI TRÍCH NGUYÊN VĂN TỪ ĐỀ THI THỬ TỐT NGHIỆP THPT LẦN 1 NĂM HỌC 2025-2026
+     * SỞ GD&ĐT NGHỆ AN — LIÊN TRƯỜNG THPT (MÃ ĐỀ 0101)
      * - Phần 1 (Câu 1 - 12): 12 câu Trắc nghiệm 4 lựa chọn (tự động xáo trộn ngẫu nhiên A/B/C/D)
      * - Phần 2 (Câu 13 - 16): 4 câu Trắc nghiệm Đúng/Sai (mỗi câu 4 ý a, b, c, d)
      * - Phần 3 (Câu 17 - 22): 6 câu Trả lời ngắn
@@ -593,7 +587,7 @@
         level: "Nhận biết",
         points: 300000,
         title: "Câu 1 (Phần 1 - Ai Là Triệu Phú)",
-        question: "Hàm số nào dưới đây có đồ thị là đường cong như hình vẽ bên?",
+        question: "Hàm số nào dưới đây có đồ thị là đường cong như hình vẽ?",
         figure: "graph_c1_0101",
         options: [
           { text: "$y = -x^3 + 3x + 1$.", isCorrect: true },
@@ -601,8 +595,8 @@
           { text: "$y = -x^2 + 3x + 1$.", isCorrect: false },
           { text: "$y = -x^4 + 3x + 1$.", isCorrect: false }
         ],
-        hint: "Quan sát dạng đồ thị chữ N ngược (nhánh phải đi xuống $-\\infty$) nên đây là hàm số bậc ba $y = ax^3 + bx^2 + cx + d$ có hệ số $a < 0$.",
-        explanation: "Đồ thị có dạng đường cong bậc ba với nhánh cuối bên phải đi xuống ($\\lim\\limits_{x \\to +\\infty} y = -\\infty$) nên hệ số $a < 0$, và cắt trục tung tại điểm $(0; 1)$. Do đó hàm số cần tìm là $y = -x^3 + 3x + 1$."
+        hint: "Quan sát dạng đồ thị hàm bậc ba với nhánh cuối bên phải đi xuống ($x \\to +\\infty \\Rightarrow y \\to -\\infty$), suy ra hệ số cao nhất $a < 0$.",
+        explanation: "Đây là đồ thị hàm số bậc ba có hai điểm cực trị và nhánh ngoài cùng bên phải đi xuống nên hệ số $a < 0$. Mặt khác đồ thị cắt trục tung tại điểm $(0; 1)$ nên hàm số là $y = -x^3 + 3x + 1$."
       },
       {
         id: 2,
@@ -614,12 +608,12 @@
         figure: null,
         options: [
           { text: "$x = k2\\pi$ với $k \\in \\mathbb{Z}$.", isCorrect: true },
-          { text: "$x = \\dfrac{\\pi}{2} + k2\\pi$ với $k \\in \\mathbb{Z}$.", isCorrect: false },
-          { text: "$x = \\dfrac{\\pi}{2} + k2\\pi$ và $x = -\\dfrac{\\pi}{2} + k2\\pi$ với $k \\in \\mathbb{Z}$.", isCorrect: false },
+          { text: "$x = \\frac{\\pi}{2} + k2\\pi$ với $k \\in \\mathbb{Z}$.", isCorrect: false },
+          { text: "$x = \\frac{\\pi}{2} + k2\\pi$ và $x = -\\frac{\\pi}{2} + k2\\pi$ với $k \\in \\mathbb{Z}$.", isCorrect: false },
           { text: "$x = \\pi + k2\\pi$ với $k \\in \\mathbb{Z}$.", isCorrect: false }
         ],
-        hint: "Trên đường tròn lượng giác, điểm ngọn cung có hoành độ $\\cos x = 1$ nằm tại điểm gốc $A(1; 0)$, chu kì tuần hoàn của hàm côsin là $2\\pi$.",
-        explanation: "Phương trình lượng giác đặc biệt $\\cos x = 1 \\Leftrightarrow x = k2\\pi$ ($k \\in \\mathbb{Z}$). (Còn $\\cos x = -1 \\Leftrightarrow x = \\pi + k2\\pi$ và $\\cos x = 0 \\Leftrightarrow x = \\dfrac{\\pi}{2} + k\\pi$)."
+        hint: "Trên đường tròn lượng giác, $\\cos x = 1$ tại điểm biểu diễn góc $0$ rad và lặp lại sau mỗi vòng $2\\pi$.",
+        explanation: "Phương trình lượng giác cơ bản $\\cos x = 1 \\Leftrightarrow x = k2\\pi$ ($k \\in \\mathbb{Z}$)."
       },
       {
         id: 3,
@@ -627,7 +621,7 @@
         level: "Nhận biết",
         points: 350000,
         title: "Câu 3 (Phần 1 - Ai Là Triệu Phú)",
-        question: "Cho hình hộp chữ nhật $ABCD.A'B'C'D'$. Véctơ nào sau đây bằng véctơ $\\overrightarrow{AB}$?",
+        question: "Cho hình hộp chữ nhật $ABCD.A'B'C'D'$. Véc tơ nào sau đây bằng véc tơ $\\overrightarrow{AB}$?",
         figure: "fig_c3_0101",
         options: [
           { text: "$\\overrightarrow{D'C'}$.", isCorrect: true },
@@ -635,8 +629,8 @@
           { text: "$\\overrightarrow{B'A'}$.", isCorrect: false },
           { text: "$\\overrightarrow{CD}$.", isCorrect: false }
         ],
-        hint: "Hai véctơ bằng nhau khi và chỉ khi chúng cùng hướng và có cùng độ dài.",
-        explanation: "Trong hình hộp chữ nhật $ABCD.A'B'C'D'$, các cạnh $AB$, $DC$ và $D'C'$ song song và bằng nhau. Xét chiều mũi tên, véctơ $\\overrightarrow{D'C'}$ cùng hướng và cùng độ dài với $\\overrightarrow{AB}$ nên $\\overrightarrow{AB} = \\overrightarrow{D'C'}$."
+        hint: "Hai véc tơ bằng nhau khi chúng cùng hướng và có cùng độ dài.",
+        explanation: "Trong hình hộp chữ nhật $ABCD.A'B'C'D'$, các cạnh $AB, DC, D'C', A'B'$ song song và bằng nhau. Xét đúng chiều từ $A$ đến $B$ ta có $\\overrightarrow{AB} = \\overrightarrow{D'C'}$."
       },
       {
         id: 4,
@@ -644,7 +638,7 @@
         level: "Nhận biết",
         points: 350000,
         title: "Câu 4 (Phần 1 - Ai Là Triệu Phú)",
-        question: "Trong không gian $Oxyz$, cho hai véctơ $\\vec{u} = (1; 2; -2)$ và $\\vec{v} = (2; -2; 3)$. Tọa độ của véctơ $\\vec{u} - \\vec{v}$ là:",
+        question: "Trong không gian $Oxyz$, cho hai véc tơ $\\vec{u} = (1; 2; -2)$ và $\\vec{v} = (2; -2; 3)$. Tọa độ của véc tơ $\\vec{u} - \\vec{v}$ là:",
         figure: null,
         options: [
           { text: "$(-1; 4; -5)$.", isCorrect: true },
@@ -652,8 +646,8 @@
           { text: "$(3; 0; 1)$.", isCorrect: false },
           { text: "$(1; -4; 5)$.", isCorrect: false }
         ],
-        hint: "Lấy từng tọa độ tương ứng của véctơ $\\vec{u}$ trừ đi tọa độ của véctơ $\\vec{v}$: $\\vec{u} - \\vec{v} = (x_1 - x_2; y_1 - y_2; z_1 - z_2)$.",
-        explanation: "Ta có $\\vec{u} - \\vec{v} = (1 - 2;\\ 2 - (-2);\\ -2 - 3) = (-1; 4; -5)$."
+        hint: "Lấy tọa độ của $\\vec{u}$ trừ đi tọa độ tương ứng của $\\vec{v}$: $(x_u - x_v; y_u - y_v; z_u - z_v)$.",
+        explanation: "Ta có $\\vec{u} - \\vec{v} = (1 - 2; 2 - (-2); -2 - 3) = (-1; 4; -5)$."
       },
       {
         id: 5,
@@ -661,7 +655,7 @@
         level: "Nhận biết",
         points: 400000,
         title: "Câu 5 (Phần 1 - Ai Là Triệu Phú)",
-        question: "Trong không gian $Oxyz$, cho $\\vec{a} = \\vec{i} - 2\\vec{j} + 3\\vec{k}$. Tọa độ của $\\vec{a}$ là:",
+        question: "Trong không gian $Oxyz$ cho $\\vec{a} = \\vec{i} - 2\\vec{j} + 3\\vec{k}$. Tọa độ của $\\vec{a}$ là:",
         figure: null,
         options: [
           { text: "$(1; -2; 3)$.", isCorrect: true },
@@ -669,8 +663,8 @@
           { text: "$(-1; 2; -3)$.", isCorrect: false },
           { text: "$(3; -2; 1)$.", isCorrect: false }
         ],
-        hint: "Theo định nghĩa tọa độ véctơ trong hệ $Oxyz$, nếu $\\vec{a} = x\\vec{i} + y\\vec{j} + z\\vec{k}$ thì $\\vec{a} = (x; y; z)$.",
-        explanation: "Vì $\\vec{a} = 1\\vec{i} - 2\\vec{j} + 3\\vec{k}$ nên tọa độ của véctơ $\\vec{a}$ là $(1; -2; 3)$."
+        hint: "Nếu $\\vec{a} = x\\vec{i} + y\\vec{j} + z\\vec{k}$ thì tọa độ của $\\vec{a}$ là $(x; y; z)$.",
+        explanation: "Vì $\\vec{a} = 1\\vec{i} + (-2)\\vec{j} + 3\\vec{k}$ nên tọa độ của véc tơ $\\vec{a}$ là $(1; -2; 3)$."
       },
       {
         id: 6,
@@ -678,7 +672,7 @@
         level: "Thông hiểu",
         points: 400000,
         title: "Câu 6 (Phần 1 - Ai Là Triệu Phú)",
-        question: "Cho hàm số $y = f(x)$ xác định trên $\\mathbb{R} \\setminus \\{-1\\}$, liên tục trên mỗi khoảng xác định và có bảng biến thiên như hình bên. Hỏi đồ thị hàm số có bao nhiêu đường tiệm cận ngang?",
+        question: "Cho hàm số $y = f(x)$ xác định trên $\\mathbb{R} \\setminus \\{-1\\}$, liên tục trên mỗi khoảng xác định và có bảng biến thiên như hình. Hỏi đồ thị hàm số có bao nhiêu đường tiệm cận ngang?",
         figure: "bbt_c6_0101",
         options: [
           { text: "$2$.", isCorrect: true },
@@ -686,8 +680,8 @@
           { text: "$0$.", isCorrect: false },
           { text: "$1$.", isCorrect: false }
         ],
-        hint: "Đường thẳng $y = y_0$ là tiệm cận ngang của đồ thị hàm số nếu ít nhất một trong hai giới hạn $\\lim\\limits_{x \\to +\\infty} f(x) = y_0$ hoặc $\\lim\\limits_{x \\to -\\infty} f(x) = y_0$ thỏa mãn.",
-        explanation: "Từ bảng biến thiên ta có $\\lim\\limits_{x \\to -\\infty} y = 2$ và $\\lim\\limits_{x \\to +\\infty} y = -1$. Do đó đồ thị hàm số có $2$ đường tiệm cận ngang là $y = 2$ và $y = -1$."
+        hint: "Kiểm tra các giới hạn hữu hạn của $y$ khi $x \\to -\\infty$ và khi $x \\to +\\infty$ trên bảng biến thiên.",
+        explanation: "Từ bảng biến thiên ta có $\\lim_{x \\to -\\infty} f(x) = 2$ và $\\lim_{x \\to +\\infty} f(x) = -1$. Do đó đồ thị hàm số có $2$ đường tiệm cận ngang là $y = 2$ và $y = -1$."
       },
       {
         id: 7,
@@ -703,8 +697,8 @@
           { text: "$-2$.", isCorrect: false },
           { text: "$4$.", isCorrect: false }
         ],
-        hint: "Tính đạo hàm $y' = 4x^3 - 4x$, tìm các nghiệm thuộc khoảng $(0; 2)$ rồi so sánh giá trị của hàm số tại các điểm tới hạn và hai đầu mút $x = 0, x = 2$.",
-        explanation: "Ta có $y' = 4x^3 - 4x = 0 \\Leftrightarrow x = 0$ hoặc $x = \\pm 1$. Trên đoạn $[0; 2]$ chỉ xét $x = 0, x = 1, x = 2$. Tính giá trị: $y(0) = 3$, $y(1) = 2$, $y(2) = 11$. Vậy $\\min_{[0; 2]} y = 2$."
+        hint: "Tính đạo hàm $y' = 4x^3 - 4x$, tìm nghiệm thuộc $(0; 2)$ rồi so sánh các giá trị $y(0), y(1), y(2)$.",
+        explanation: "Ta có $y' = 4x^3 - 4x = 0 \\Leftrightarrow x = 0$ hoặc $x = \\pm 1$. Trên đoạn $[0; 2]$, xét $x = 1 \\in (0; 2)$: $y(0) = 3$, $y(1) = 2$, $y(2) = 11$. Vậy $\\min_{[0;2]} y = 2$."
       },
       {
         id: 8,
@@ -712,7 +706,7 @@
         level: "Nhận biết",
         points: 450000,
         title: "Câu 8 (Phần 1 - Ai Là Triệu Phú)",
-        question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ và có bảng biến thiên như hình bên. Hàm số $y = f(x)$ đồng biến trên khoảng nào sau đây?",
+        question: "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ và có bảng biến thiên được như sau. Hàm số $y = f(x)$ đồng biến trên khoảng nào sau đây?",
         figure: "bbt_c8_0101",
         options: [
           { text: "$(-2; 1)$.", isCorrect: true },
@@ -720,8 +714,8 @@
           { text: "$(1; +\\infty)$.", isCorrect: false },
           { text: "$(-2; 3)$.", isCorrect: false }
         ],
-        hint: "Hàm số đồng biến trên khoảng mà đạo hàm $f'(x) > 0$ (mũi tên đi lên từ trái sang phải).",
-        explanation: "Dựa vào bảng biến thiên, $f'(x) > 0$ trên khoảng $(-2; 1)$ nên hàm số $y = f(x)$ đồng biến trên khoảng $(-2; 1)$."
+        hint: "Hàm số đồng biến trên khoảng mà đạo hàm $f'(x) > 0$ (mũi tên đi lên).",
+        explanation: "Quan sát bảng biến thiên, trên khoảng $(-2; 1)$ ta có $f'(x) > 0$ và đồ thị đi lên từ $-2$ đến $3$, nên hàm số đồng biến trên $(-2; 1)$."
       },
       {
         id: 9,
@@ -729,7 +723,7 @@
         level: "Thông hiểu",
         points: 450000,
         title: "Câu 9 (Phần 1 - Ai Là Triệu Phú)",
-        question: "Bảng điểm bài kiểm tra môn Toán của lớp 10A được cho ở bảng bên. Số trung vị của mẫu số liệu trên thuộc khoảng nào trong các nhóm dưới đây?",
+        question: "Bảng điểm bài kiểm tra môn Toán của lớp 10A được cho ở bảng sau. Số trung vị của mẫu số liệu trên thuộc khoảng nào trong các nhóm dưới đây?",
         figure: "table_c9_0101",
         options: [
           { text: "$[6; 8)$.", isCorrect: true },
@@ -737,8 +731,8 @@
           { text: "$[4; 6)$.", isCorrect: false },
           { text: "$[8; 10)$.", isCorrect: false }
         ],
-        hint: "Tính tổng số học sinh $n = 0 + 2 + 10 + 18 + 10 = 40$. Trung vị nằm ở vị trí trung bình của giá trị thứ $20$ và $21$ theo tần số tích lũy.",
-        explanation: "Cỡ mẫu $n = 40$. Tần số tích lũy đến hết nhóm $[4; 6)$ là $0 + 2 + 10 = 12 < 20$, và đến hết nhóm $[6; 8)$ là $12 + 18 = 30 > 21$. Do đó, số trung vị của mẫu số liệu thuộc nhóm $[6; 8)$."
+        hint: "Tính tổng cỡ mẫu $n = 0 + 2 + 10 + 18 + 10 = 40$, xác định vị trí số hạng thứ $20$ và $21$ sau khi sắp xếp tăng dần.",
+        explanation: "Cỡ mẫu $n = 40$. Tần số tích lũy đến hết nhóm $[4; 6)$ là $0 + 2 + 10 = 12 < 20$, và đến hết nhóm $[6; 8)$ là $12 + 18 = 30 \\ge 21$. Do đó số trung vị thuộc nhóm $[6; 8)$."
       },
       {
         id: 10,
@@ -746,7 +740,7 @@
         level: "Nhận biết",
         points: 450000,
         title: "Câu 10 (Phần 1 - Ai Là Triệu Phú)",
-        question: "Cho hàm số $y = f(x)$ có bảng biến thiên như hình bên. Giá trị cực đại của hàm số $y = f(x)$ là:",
+        question: "Cho hàm số $y = f(x)$ có bảng biến thiên sau. Giá trị cực đại của hàm số $y = f(x)$ là:",
         figure: "bbt_c10_0101",
         options: [
           { text: "$0$.", isCorrect: true },
@@ -754,8 +748,8 @@
           { text: "$1$.", isCorrect: false },
           { text: "$-3$.", isCorrect: false }
         ],
-        hint: "Cần phân biệt 'điểm cực đại' ($x_{\\text{CĐ}}$) với 'giá trị cực đại' ($y_{\\text{CĐ}}$) tại nơi $y'$ đổi dấu từ dương sang âm.",
-        explanation: "Quan sát bảng biến thiên, khi $x$ đi qua $x = 1$, đạo hàm $y'$ đổi dấu từ $+$ sang $-$, hàm số đạt cực đại tại $x = 1$ với giá trị cực đại $y_{\\text{CĐ}} = 0$."
+        hint: "Chú ý sự khác biệt giữa điểm cực đại $x_{\\text{CĐ}}$ và giá trị cực đại $y_{\\text{CĐ}}$.",
+        explanation: "Từ bảng biến thiên, $y'$ đổi dấu từ dương sang âm khi đi qua $x = 1$, tại đó $y(1) = 0$. Vậy giá trị cực đại của hàm số là $y_{\\text{CĐ}} = 0$."
       },
       {
         id: 11,
@@ -771,8 +765,8 @@
           { text: "$u_4 = 72$.", isCorrect: false },
           { text: "$u_4 = 12$.", isCorrect: false }
         ],
-        hint: "Tìm công bội $q = \\dfrac{u_3}{u_2}$, sau đó tính số hạng thứ tư theo công thức $u_4 = u_3 \\cdot q$.",
-        explanation: "Công bội của cấp số nhân là $q = \\dfrac{u_3}{u_2} = \\dfrac{6}{2} = 3$. Vậy số hạng thứ $4$ là $u_4 = u_3 \\cdot q = 6 \\cdot 3 = 18$."
+        hint: "Tìm công bội $q = \\frac{u_3}{u_2}$, sau đó tính $u_4 = u_3 \\cdot q$.",
+        explanation: "Công bội của cấp số nhân là $q = \\frac{u_3}{u_2} = \\frac{6}{2} = 3$. Vậy số hạng thứ $4$ là $u_4 = u_3 \\cdot q = 6 \\cdot 3 = 18$."
       },
       {
         id: 12,
@@ -784,74 +778,74 @@
         figure: null,
         options: [
           { text: "$x = 3$.", isCorrect: true },
-          { text: "$x = \\dfrac{10}{3}$.", isCorrect: false },
-          { text: "$x = \\dfrac{7}{3}$.", isCorrect: false },
-          { text: "$x = \\dfrac{8}{3}$.", isCorrect: false }
+          { text: "$x = \\frac{10}{3}$.", isCorrect: false },
+          { text: "$x = \\frac{7}{3}$.", isCorrect: false },
+          { text: "$x = \\frac{8}{3}$.", isCorrect: false }
         ],
-        hint: "Điều kiện $3x - 1 > 0$. Biến đổi phương trình lôgarit cơ bản $\\log_2(3x - 1) = 3 \\Leftrightarrow 3x - 1 = 2^3$.",
-        explanation: "Điều kiện: $3x - 1 > 0 \\Leftrightarrow x > \\dfrac{1}{3}$. Phương trình tương đương với $3x - 1 = 2^3 = 8 \\Leftrightarrow 3x = 9 \\Leftrightarrow x = 3$ (thỏa mãn điều kiện)."
+        hint: "Với điều kiện $3x - 1 > 0$, chuyển phương trình lôgarit về dạng mũ: $3x - 1 = 2^3$.",
+        explanation: "Điều kiện $x > \\frac{1}{3}$. Phương trình tương đương với $3x - 1 = 2^3 = 8 \\Leftrightarrow 3x = 9 \\Leftrightarrow x = 3$ (thỏa mãn)."
       },
 
       // ================= PHẦN 2: 4 CÂU TRẮC NGHIỆM ĐÚNG/SAI (ĐẤU TRƯỜNG TOÁN HỌC) =================
       {
         id: 13,
         part: 2,
-        level: "Thông hiểu",
+        level: "Vận dụng",
         points: 550000,
         title: "Câu 13 (Phần 2 - Đấu Trường Toán Học)",
-        question: "Cho hàm số $y = f(x) = \\dfrac{ax + b}{cx - 1}$ (với $a, b, c$ là các số thực) có đồ thị được cho ở hình bên. Xét tính đúng, sai của các khẳng định sau:",
+        question: "Cho hàm số $y = f(x) = \\frac{ax + b}{cx - 1}$ (với $a, b, c$ là các số thực) có đồ thị được cho ở hình vẽ. Xét tính đúng, sai của các khẳng định sau:",
         figure: "graph_p2_c1_0101",
         subQuestions: [
           {
             text: "a) Đạo hàm của $f'(x) < 0$ với mọi số $x \\in \\mathbb{R} \\setminus \\{1\\}$.",
             isCorrect: true,
-            explanation: "<b>Đúng.</b> Từ đồ thị thấy hai nhánh hàm số đều đi xuống từ trái sang phải trên từng khoảng xác định $(-\\infty; 1)$ và $(1; +\\infty)$, nên $f'(x) < 0,\\ \\forall x \\in \\mathbb{R} \\setminus \\{1\\}$."
+            explanation: "<b>Đúng.</b> Từ đồ thị ta thấy hai nhánh hàm số đều đi xuống từ trái sang phải trên từng khoảng xác định $(-\\infty; 1)$ và $(1; +\\infty)$, nên $f'(x) < 0, \\forall x \\ne 1$."
           },
           {
             text: "b) Đồ thị hàm số có một đường tiệm cận đứng $x = 1$ và một đường tiệm cận ngang $y = -1$.",
             isCorrect: true,
-            explanation: "<b>Đúng.</b> Quan sát hai đường thẳng tiệm cận màu đen trên hình vẽ, ta thấy tiệm cận đứng là $x = 1$ và tiệm cận ngang là $y = -1$."
+            explanation: "<b>Đúng.</b> Quan sát đồ thị, đường tiệm cận đứng là $x = 1$ và đường tiệm cận ngang là $y = -1$."
           },
           {
             text: "c) Giá trị của $a + 2b - 3c = 5$.",
             isCorrect: false,
-            explanation: "<b>Sai.</b> Tiệm cận đứng $x = \\dfrac{1}{c} = 1 \\Rightarrow c = 1$; tiệm cận ngang $y = \\dfrac{a}{c} = -1 \\Rightarrow a = -1$; đồ thị đi qua $(0; -2) \\Rightarrow \\dfrac{b}{-1} = -2 \\Rightarrow b = 2$. Khi đó $a + 2b - 3c = -1 + 4 - 3 = 0 \\ne 5$."
+            explanation: "<b>Sai.</b> Tiệm cận đứng $x = \\frac{1}{c} = 1 \\Rightarrow c = 1$; tiệm cận ngang $y = \\frac{a}{c} = -1 \\Rightarrow a = -1$; giao trục tung $(0; -2) \\Rightarrow -b = -2 \\Rightarrow b = 2$. Vậy $a + 2b - 3c = -1 + 4 - 3 = 0 \\ne 5$."
           },
           {
             text: "d) $M, N$ là hai điểm thuộc hai nhánh khác nhau của đồ thị, khi đó $MN$ ngắn nhất bằng $\\sqrt{10}$.",
             isCorrect: false,
-            explanation: "<b>Sai.</b> Hàm số là $y = \\dfrac{-x + 2}{x - 1} = -1 + \\dfrac{1}{x - 1}$. Lấy $A\\left(1 + u; -1 + \\dfrac{1}{u}\\right)$ và $B\\left(1 - v; -1 - \\dfrac{1}{v}\\right)$ với $u, v > 0$. Áp dụng BĐT Cô-si: $AB^2 = (u + v)^2 + \\left(\\dfrac{1}{u} + \\dfrac{1}{v}\\right)^2 \\ge 4uv + \\dfrac{4}{uv} \\ge 8 \\Rightarrow AB_{\\min} = \\sqrt{8} = 2\\sqrt{2} \\ne \\sqrt{10}$."
+            explanation: "<b>Sai.</b> Ta có $y = -1 + \\frac{1}{x - 1}$. Đặt $M(1 - u; -1 - \\frac{1}{u})$ và $N(1 + v; -1 + \\frac{1}{v})$ ($u, v > 0$), khi đó $MN^2 = (u + v)^2 + \\left(\\frac{1}{u} + \\frac{1}{v}\\right)^2 \\ge 8 \\Rightarrow MN_{\\min} = \\sqrt{8} = 2\\sqrt{2} \\ne \\sqrt{10}$ (đạt tại $u = v = 1$)."
           }
         ]
       },
       {
         id: 14,
         part: 2,
-        level: "Thông hiểu",
+        level: "Vận dụng",
         points: 550000,
         title: "Câu 14 (Phần 2 - Đấu Trường Toán Học)",
-        question: "Trang trại nhà Ông A chuyên sản xuất các loại thực phẩm cho nhà hàng của ông B. Hai ông thỏa thuận rằng, hằng ngày ông A cung cấp cho B số lượng thực phẩm theo đơn đặt hàng của B (tối đa $100\\text{ kg}$ thực phẩm). Nếu số lượng đặt hàng là $x\\text{ kg}$ thực phẩm thì giá bán cho mỗi kg được biểu diễn bởi công thức: $P(x) = 30 - \\dfrac{1}{1000}x^2$ (ngàn đồng). Chi phí để ông A sản xuất $x\\text{ kg}$ sản phẩm là $C(x) = 200 + 15x$ (ngàn đồng). Khi đó:",
+        question: "Trang trại nhà Ông A chuyên sản xuất các loại thực phẩm cho nhà hàng của ông B. Hai ông thỏa thuận rằng, hằng ngày ông A cung cấp cho B số lượng thực phẩm theo đơn đặt hàng của B (tối đa $100\\text{ kg}$ thực phẩm). Nếu số lượng đặt hàng là $x\\text{ kg}$ thực phẩm thì giá bán cho mỗi kg được biểu diễn bởi công thức: $P(x) = 30 - \\frac{1}{1000}x^2$ (ngàn đồng). Chi phí để ông A sản xuất $x\\text{ kg}$ sản phẩm là $C(x) = 200 + 15x$ (ngàn đồng). Khi đó:",
         figure: null,
         subQuestions: [
           {
             text: "a) Chi phí sản xuất $100\\text{ kg}$ thực phẩm là $350$ ngàn đồng.",
             isCorrect: false,
-            explanation: "<b>Sai.</b> Thay $x = 100$ vào công thức chi phí: $C(100) = 200 + 15 \\cdot 100 = 1700$ (ngàn đồng) $\\ne 350$ ngàn đồng (theo bảng đáp án chuẩn mã 0101)."
+            explanation: "<b>Sai.</b> Thay $x = 100$ vào hàm chi phí: $C(100) = 200 + 15 \\cdot 100 = 1700$ (ngàn đồng) $\\ne 350$ ngàn đồng."
           },
           {
             text: "b) Số tiền thu được khi bán $100\\text{ kg}$ thực phẩm cho nhà hàng ông B là $200$ ngàn đồng.",
             isCorrect: false,
-            explanation: "<b>Sai.</b> Doanh thu khi bán $100\\text{ kg}$ là $100 \\cdot P(100) = 100 \\cdot \\left(30 - \\dfrac{100^2}{1000}\\right) = 100 \\cdot 20 = 2000$ (ngàn đồng) $\\ne 200$ ngàn đồng."
+            explanation: "<b>Sai.</b> Doanh thu khi bán $100\\text{ kg}$ là $100 \\cdot P(100) = 100\\left(30 - \\frac{100^2}{1000}\\right) = 100 \\cdot 20 = 2000$ (ngàn đồng) $\\ne 200$ ngàn đồng."
           },
           {
             text: "c) Lợi nhuận ông A thu được khi bán $x\\text{ kg}$ ($x \\in (0; 100)$) thực phẩm cho ông B là $L(x) = xP(x) - C(x)$.",
             isCorrect: true,
-            explanation: "<b>Đúng.</b> Lợi nhuận bằng tổng doanh thu $R(x) = xP(x)$ trừ đi tổng chi phí sản xuất $C(x)$, tức là $L(x) = xP(x) - C(x)$."
+            explanation: "<b>Đúng.</b> Doanh thu bán $x\\text{ kg}$ là $xP(x)$ và chi phí là $C(x)$ nên lợi nhuận là $L(x) = xP(x) - C(x)$."
           },
           {
             text: "d) Lợi nhuận lớn nhất mà ông A có được trong $1$ ngày là $507$ ngàn đồng (làm tròn đến hàng đơn vị).",
             isCorrect: true,
-            explanation: "<b>Đúng.</b> Ta có $L(x) = -\\dfrac{x^3}{1000} + 15x - 200$. Đạo hàm $L'(x) = -\\dfrac{3x^2}{1000} + 15 = 0 \\Leftrightarrow x = \\sqrt{5000} = 50\\sqrt{2} \\approx 70,71 \\in (0; 100)$. Khi đó $L(50\\sqrt{2}) = 500\\sqrt{2} - 200 \\approx 507,1 \\approx 507$ (ngàn đồng)."
+            explanation: "<b>Đúng.</b> Ta có $L(x) = -\\frac{x^3}{1000} + 15x - 200$, $L'(x) = -\\frac{3x^2}{1000} + 15 = 0 \\Leftrightarrow x = \\sqrt{5000} = 50\\sqrt{2} \\in (0; 100)$. Khi đó $L(50\\sqrt{2}) = 500\\sqrt{2} - 200 \\approx 507,11 \\approx 507$ (ngàn đồng)."
           }
         ]
       },
@@ -861,28 +855,28 @@
         level: "Thông hiểu",
         points: 600000,
         title: "Câu 15 (Phần 2 - Đấu Trường Toán Học)",
-        question: "Cho hàm số $y = f(x) = ax^3 + bx^2 + cx + d$ có bảng biến thiên được cho như hình bên. Xét tính đúng, sai của các khẳng định sau:",
+        question: "Cho hàm số $y = f(x) = ax^3 + bx^2 + cx + d$ có bảng biến thiên được cho như bảng sau. Xét tính đúng, sai của các khẳng định sau:",
         figure: "bbt_p2_c3_0101",
         subQuestions: [
           {
             text: "a) Hàm số đạt cực đại tại $x = 3$.",
             isCorrect: false,
-            explanation: "<b>Sai.</b> Quan sát bảng biến thiên, tại $x = 3$ đạo hàm $f'(x)$ đổi dấu từ $-$ sang $+$ nên hàm số đạt cực tiểu tại $x = 3$ (và đạt cực đại tại $x = 0$)."
+            explanation: "<b>Sai.</b> Từ bảng biến thiên, tại $x = 3$ hàm số đạt cực tiểu ($y_{\\text{CT}} = -4$), còn hàm số đạt cực đại tại $x = 0$ ($y_{\\text{CĐ}} = 2$)."
           },
           {
             text: "b) $f(2025) > f(2026)$.",
             isCorrect: false,
-            explanation: "<b>Sai.</b> Trên khoảng $(3; +\\infty)$, $f'(x) > 0$ nên hàm số đồng biến. Vì $3 < 2025 < 2026$ nên $f(2025) < f(2026)$."
+            explanation: "<b>Sai.</b> Trên khoảng $(3; +\\infty)$ hàm số đồng biến mà $3 < 2025 < 2026$ nên $f(2025) < f(2026)$."
           },
           {
             text: "c) Giá trị lớn nhất của hàm số trên $(-\\infty; 3]$ bằng $0$.",
             isCorrect: false,
-            explanation: "<b>Sai.</b> Trên nửa khoảng $(-\\infty; 3]$, hàm số đạt cực đại tại $x = 0$ với giá trị cực đại $f(0) = 2$, nên $\\max_{(-\\infty; 3]} f(x) = 2 \\ne 0$."
+            explanation: "<b>Sai.</b> Trên nửa khoảng $(-\\infty; 3]$, hàm số đạt giá trị lớn nhất tại $x = 0$ với $\\max_{(-\\infty; 3]} f(x) = f(0) = 2 \\ne 0$."
           },
           {
             text: "d) Trong bốn hệ số $a, b, c, d$ chỉ có hệ số $b$ nhận giá trị âm.",
             isCorrect: true,
-            explanation: "<b>Đúng.</b> Vì $\\lim\\limits_{x \\to +\\infty} f(x) = +\\infty \\Rightarrow a > 0$; $f(0) = 2 \\Rightarrow d = 2 > 0$; $f'(0) = 0 \\Rightarrow c = 0$; tổng hai điểm cực trị $x_1 + x_2 = -\\dfrac{2b}{3a} = 0 + 3 = 3 > 0$, mà $a > 0$ nên $b < 0$. Vậy chỉ có $b < 0$."
+            explanation: "<b>Đúng.</b> Từ bảng biến thiên: $f(0) = 2 \\Rightarrow d = 2$; $f'(0) = 0 \\Rightarrow c = 0$; $f'(3) = 0$ và $f(3) = -4 \\Rightarrow 27a + 9b + 2 = -4$ và $27a + 6b = 0 \\Rightarrow a = \\frac{4}{9} > 0, b = -2 < 0$. Chỉ có $b < 0$ (còn $c = 0$ không âm)."
           }
         ]
       },
@@ -892,28 +886,28 @@
         level: "Vận dụng",
         points: 600000,
         title: "Câu 16 (Phần 2 - Đấu Trường Toán Học)",
-        question: "Trong không gian $Oxyz$, cho hình lăng trụ $ABC.A'B'C'$ có đáy là tam giác đều cạnh bằng $6$, cạnh bên có độ dài bằng $5$. Gốc tọa độ $O$ là trung điểm cạnh $AC$, các điểm $B, C, A'$ theo thứ tự thuộc các tia $Ox, Oy, Oz$ như hình vẽ bên. Xét tính đúng, sai của các khẳng định sau:",
+        question: "Trong không gian $Oxyz$, cho hình lăng trụ $ABC.A'B'C'$ có đáy là tam giác đều cạnh bằng $6$, cạnh bên có độ dài bằng $5$. Gốc tọa độ $O$ là trung điểm cạnh $AC$, các điểm $B, C, A'$ theo thứ tự thuộc các tia $Ox, Oy, Oz$ như hình vẽ. Xét tính đúng, sai của các khẳng định sau:",
         figure: "fig_p2_c4_0101",
         subQuestions: [
           {
             text: "a) Tọa độ điểm $B(3\\sqrt{3}; 0; 0)$.",
             isCorrect: true,
-            explanation: "<b>Đúng.</b> Đáy $\\Delta ABC$ là tam giác đều cạnh $6$, $O$ là trung điểm $AC$ nên đường cao $OB = \\dfrac{6\\sqrt{3}}{2} = 3\\sqrt{3}$. Vì $B$ thuộc tia $Ox$ nên $B(3\\sqrt{3}; 0; 0)$."
+            explanation: "<b>Đúng.</b> Tam giác $ABC$ đều cạnh $6$ có đường cao $OB = \\frac{6\\sqrt{3}}{2} = 3\\sqrt{3}$, lại có $B$ thuộc tia $Ox$ nên $B(3\\sqrt{3}; 0; 0)$."
           },
           {
             text: "b) Gọi $M$ là trung điểm $BC$, $E$ là trung điểm $A'B'$, khi đó tọa độ $\\overrightarrow{ME} = (0; 0; -4)$.",
             isCorrect: false,
-            explanation: "<b>Sai.</b> Ta có $OA = 3$, $AA' = 5 \\Rightarrow OA' = \\sqrt{5^2 - 3^2} = 4 \\Rightarrow A'(0; 0; 4)$. Vì $OM$ là đường trung bình $\\Delta ABC$ nên $OM \\parallel AB$ và $OM = \\dfrac{1}{2}AB = \\dfrac{1}{2}A'B' = A'E$, suy ra $OMEA'$ là hình bình hành $\\Rightarrow \\overrightarrow{ME} = \\overrightarrow{OA'} = (0; 0; 4) \\ne (0; 0; -4)$."
+            explanation: "<b>Sai.</b> Ta có $OA = 3$, $AA' = 5 \\Rightarrow OA' = \\sqrt{5^2 - 3^2} = 4 \\Rightarrow A'(0; 0; 4)$. Vì $OM \\parallel A'E$ và $OM = A'E = 3$ nên $OMEA'$ là hình bình hành, suy ra $\\overrightarrow{ME} = \\overrightarrow{OA'} = (0; 0; 4) \\ne (0; 0; -4)$."
           },
           {
             text: "c) $\\cos(\\overrightarrow{A'B}, \\overrightarrow{BC}) > 0$.",
             isCorrect: false,
-            explanation: "<b>Sai.</b> Tọa độ $A'(0; 0; 4)$, $B(3\\sqrt{3}; 0; 0)$, $C(0; 3; 0) \\Rightarrow \\overrightarrow{A'B} = (3\\sqrt{3}; 0; -4)$ và $\\overrightarrow{BC} = (-3\\sqrt{3}; 3; 0)$. Tích vô hướng $\\overrightarrow{A'B} \\cdot \\overrightarrow{BC} = -27 < 0$, nên $\\cos(\\overrightarrow{A'B}, \\overrightarrow{BC}) < 0$."
+            explanation: "<b>Sai.</b> Ta có $C(0; 3; 0)$, $A'(0; 0; 4)$, $B(3\\sqrt{3}; 0; 0) \\Rightarrow \\overrightarrow{A'B} = (3\\sqrt{3}; 0; -4)$ và $\\overrightarrow{BC} = (-3\\sqrt{3}; 3; 0)$. Tích vô hướng $\\overrightarrow{A'B} \\cdot \\overrightarrow{BC} = -27 < 0 \\Rightarrow \\cos(\\overrightarrow{A'B}, \\overrightarrow{BC}) < 0$."
           },
           {
-            text: "d) Khoảng cách giữa hai đường thẳng $ME$ với $AA'$ bằng $\\dfrac{3\\sqrt{3}}{2}$.",
+            text: "d) Khoảng cách giữa hai đường thẳng $ME$ với $AA'$ bằng $\\frac{3\\sqrt{3}}{2}$.",
             isCorrect: true,
-            explanation: "<b>Đúng.</b> Vì $ME \\parallel OA'$ nên $ME \\parallel (ACC'A')$, mà $AA' \\subset (ACC'A')$, do đó $d(ME, AA') = d(M, (ACC'A')) = d(M, (Oyz))$. Tọa độ $M\\left(\\dfrac{3\\sqrt{3}}{2}; \\dfrac{3}{2}; 0\\right)$ nên khoảng cách tới $(Oyz)$ bằng $x_M = \\dfrac{3\\sqrt{3}}{2}$."
+            explanation: "<b>Đúng.</b> Vì $ME \\parallel OA'$ nên $ME \\parallel (ACC'A')$, mà $AA' \\subset (ACC'A')$ nên $d(ME, AA') = d(M, (ACC'A')) = d(M, Oy) = \\frac{1}{2}OB = \\frac{3\\sqrt{3}}{2}$."
           }
         ]
       },
@@ -925,10 +919,10 @@
         level: "Vận dụng",
         points: 400000,
         title: "Câu 17 (Phần 3 - Vượt Chướng Ngại Vật)",
-        question: "Trong không gian $Oxyz$, mắt một người quan sát đặt tại điểm $M(1; 2; 3)$ và vật cần quan sát đặt tại điểm $N(3; 6; -12)$. Một tấm bìa cứng có dạng hình tròn tâm tại gốc tọa độ, bán kính $R = 2$ thuộc mặt phẳng $(Oxy)$ bắt đầu xuất phát đi thẳng theo hướng véctơ $\\vec{j} = (0; 1; 0)$ với tốc độ không đổi $v = 5\\text{ (cm/s)}$. Tính khoảng thời gian mà trong quá trình di chuyển tấm bìa đã che khuất tầm nhìn của người quan sát, làm tròn kết quả đến hàng phần trăm (lấy đơn vị trên mỗi trục tọa độ là $1\\text{ cm}$).",
+        question: "Trong không gian $Oxyz$, mắt một người quan sát đặt tại điểm $M(1; 2; 3)$ và vật cần quan sát đặt tại điểm $N(3; 6; -12)$. Một tấm bìa cứng có dạng hình tròn tâm tại gốc tọa độ, bán kính $R = 2$ thuộc mặt phẳng $(Oxy)$ bắt đầu xuất phát đi thẳng theo hướng véc tơ $\\vec{j} = (0; 1; 0)$ với tốc độ không đổi $v = 5\\text{ (cm/s)}$. Tính khoảng thời gian mà trong quá trình di chuyển tấm bìa đã che khuất tầm nhìn của người quan sát, làm tròn kết quả đến hàng phần trăm (lấy đơn vị trên mỗi trục tọa độ là $1\\text{ cm}$).",
         figure: "fig_p3_c1_0101",
         correctAnswer: "0.57",
-        explanation: "Gọi $A(x; y; 0)$ là giao điểm của tia nhìn $MN$ với mặt phẳng $(Oxy)$. Ta có $\\overrightarrow{MN} = (2; 4; -15)$ cùng hướng với $\\overrightarrow{MA} = (x - 1; y - 2; -3)$.<br>Từ cao độ $-3 = \\dfrac{1}{5}(-15)$ suy ra $x - 1 = \\dfrac{2}{5} \\Rightarrow x = \\dfrac{7}{5}$ và $y - 2 = \\dfrac{4}{5} \\Rightarrow y = \\dfrac{14}{5}$, tức $A\\left(\\dfrac{7}{5}; \\dfrac{14}{5}; 0\\right)$.<br>Tâm hình tròn di chuyển trên trục $Oy$ nên ở vị trí $I(0; t; 0)$. Điểm $A$ nằm trong hình tròn khi $IA \\le R \\Leftrightarrow \\left(\\dfrac{7}{5}\\right)^2 + \\left(t - \\dfrac{14}{5}\\right)^2 \\le 2^2 \\Leftrightarrow \\left|t - \\dfrac{14}{5}\\right| \\le \\sqrt{4 - \\dfrac{49}{25}} = \\dfrac{\\sqrt{51}}{5}$.<br>Quãng đường tâm hình tròn đi được khi che khuất điểm $A$ là $s = \\dfrac{2\\sqrt{51}}{5}\\text{ (cm)}$. Thời gian che khuất là $t = \\dfrac{s}{v} = \\dfrac{2\\sqrt{51}}{25} \\approx 0,57\\text{ (s)}$."
+        explanation: "Gọi $A(x; y; 0)$ là giao điểm của tia nhìn $MN$ với mặt phẳng $(Oxy)$.<br>Ta có $\\overrightarrow{MN} = (2; 4; -15)$ cùng hướng với $\\overrightarrow{MA} = (x - 1; y - 2; -3)$, suy ra tỉ số $\\frac{-3}{-15} = \\frac{1}{5} \\Rightarrow x - 1 = \\frac{2}{5}$ và $y - 2 = \\frac{4}{5}$, tức $A\\left(\\frac{7}{5}; \\frac{14}{5}; 0\\right)$.<br>Tâm $I(0; 5t; 0)$ của đĩa tròn di chuyển trên trục $Oy$ luôn cách điểm $A$ một khoảng $IA = \\sqrt{\\left(\\frac{7}{5}\\right)^2 + \\left(5t - \\frac{14}{5}\\right)^2}$.<br>Tấm bìa che khuất tầm nhìn khi $IA \\le R = 2 \\Leftrightarrow \\left(5t - \\frac{14}{5}\\right)^2 \\le 4 - \\frac{49}{25} = \\frac{51}{25}$.<br>Vậy khoảng thời gian che khuất là $\\Delta t = \\frac{2\\sqrt{51}}{25} \\approx 0,57\\text{ (s)}$."
       },
       {
         id: 18,
@@ -939,7 +933,7 @@
         question: "Bạn Tiến làm một bài kiểm tra gồm $20$ câu hỏi trắc nghiệm nhiều lựa chọn. Mỗi câu hỏi có $4$ phương án trả lời và chỉ có một phương án đúng, trả lời đúng mỗi câu được $0,5$ điểm. Bạn ấy đã làm đúng $15$ câu, trong những câu còn lại có $2$ câu bạn ấy đã loại được một phương án sai. Do quá sát giờ nộp bài nên bạn ấy đã trả lời bằng cách chọn ngẫu nhiên. Tính xác suất để bạn Tiến được $9$ điểm (làm tròn đến hàng phần trăm).",
         figure: null,
         correctAnswer: "0.12",
-        explanation: "Để đạt $9$ điểm ($18$ câu đúng), bạn Tiến cần làm đúng thêm $18 - 15 = 3$ câu trong $5$ câu còn lại:<br>• Nhóm I gồm $2$ câu đã loại được $1$ phương án sai (xác suất đúng mỗi câu là $\\dfrac{1}{3}$, sai là $\\dfrac{2}{3}$).<br>• Nhóm II gồm $3$ câu chọn ngẫu nhiên trong $4$ phương án (xác suất đúng mỗi câu là $\\dfrac{1}{4}$, sai là $\\dfrac{3}{4}$).<br>Các trường hợp đúng đúng $3$ câu:<br>1) Đúng $0$ câu nhóm I, đúng $3$ câu nhóm II: $\\left(\\dfrac{2}{3}\\right)^2 \\cdot \\left(\\dfrac{1}{4}\\right)^3 = \\dfrac{4}{576}$.<br>2) Đúng $1$ câu nhóm I, đúng $2$ câu nhóm II: $C_2^1 \\cdot \\dfrac{1}{3} \\cdot \\dfrac{2}{3} \\cdot C_3^2 \\left(\\dfrac{1}{4}\\right)^2 \\cdot \\dfrac{3}{4} = \\dfrac{36}{576}$.<br>3) Đúng $2$ câu nhóm I, đúng $1$ câu nhóm II: $\\left(\\dfrac{1}{3}\\right)^2 \\cdot C_3^1 \\cdot \\dfrac{1}{4} \\cdot \\left(\\dfrac{3}{4}\\right)^2 = \\dfrac{27}{576}$.<br>Tổng xác suất: $P = \\dfrac{4 + 36 + 27}{576} = \\dfrac{67}{576} \\approx 0,12$."
+        explanation: "Để đạt $9$ điểm cần đúng $18$ câu, tức trong $5$ câu còn lại phải đúng thêm $3$ câu (gồm nhóm I có $2$ câu xác suất đúng $\\frac{1}{3}$ và nhóm II có $3$ câu xác suất đúng $\\frac{1}{4}$).<br>• TH1: Đúng $2$ câu nhóm I và $1$ câu nhóm II: $P_1 = \\left(\\frac{1}{3}\\right)^2 \\cdot C_3^1 \\left(\\frac{1}{4}\\right)\\left(\\frac{3}{4}\\right)^2 = \\frac{27}{576}$.<br>• TH2: Đúng $1$ câu nhóm I và $2$ câu nhóm II: $P_2 = C_2^1 \\left(\\frac{1}{3}\\right)\\left(\\frac{2}{3}\\right) \\cdot C_3^2 \\left(\\frac{1}{4}\\right)^2\\left(\\frac{3}{4}\\right) = \\frac{36}{576}$.<br>• TH3: Đúng $0$ câu nhóm I và $3$ câu nhóm II: $P_3 = \\left(\\frac{2}{3}\\right)^2 \\cdot \\left(\\frac{1}{4}\\right)^3 = \\frac{4}{576}$.<br>Xác suất cần tìm là $P = \\frac{27 + 36 + 4}{576} = \\frac{67}{576} \\approx 0,1163 \\approx 0,12$."
       },
       {
         id: 19,
@@ -950,7 +944,7 @@
         question: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình vuông có cạnh bằng $4$. Mặt bên $SAB$ là tam giác đều và $SCD$ là tam giác vuông cân tại đỉnh $S$. Tính thể tích của khối chóp $S.ABCD$ (làm tròn đến hàng phần trăm).",
         figure: null,
         correctAnswer: "9.24",
-        explanation: "Gọi $I, J$ lần lượt là trung điểm của $AB$ và $CD$, $H$ là hình chiếu vuông góc của $S$ lên đáy $(ABCD)$.<br>Vì $\\Delta SAB$ đều cạnh $4$ nên $SI = 2\\sqrt{3}$ và $SI \\perp AB$. Vì $\\Delta SCD$ vuông cân tại $S$ có cạnh huyền $CD = 4$ nên $SJ = \\dfrac{CD}{2} = 2$ và $SJ \\perp CD$.<br>Ta có $IJ = AD = 4$. Xét $\\Delta SIJ$ có $SI^2 + SJ^2 = (2\\sqrt{3})^2 + 2^2 = 12 + 4 = 16 = IJ^2$, suy ra $\\Delta SIJ$ vuông tại $S$.<br>Đường cao $SH$ của $\\Delta SIJ$ vuông tại $S$ thỏa mãn: $\\dfrac{1}{SH^2} = \\dfrac{1}{SI^2} + \\dfrac{1}{SJ^2} = \\dfrac{1}{12} + \\dfrac{1}{4} = \\dfrac{1}{3} \\Rightarrow SH = \\sqrt{3}$.<br>Thể tích khối chóp: $V_{S.ABCD} = \\dfrac{1}{3} S_{ABCD} \\cdot SH = \\dfrac{1}{3} \\cdot 4^2 \\cdot \\sqrt{3} = \\dfrac{16\\sqrt{3}}{3} \\approx 9,24$."
+        explanation: "Gọi $I, J$ lần lượt là trung điểm của $AB$ và $CD$, $H$ là hình chiếu vuông góc của $S$ lên mặt phẳng $(ABCD)$.<br>Vì $\\Delta SAB$ đều cạnh $4$ nên $SI = 2\\sqrt{3}$ và $SI \\perp AB$; $\\Delta SCD$ vuông cân tại $S$ nên $SJ = 2$ và $SJ \\perp CD$.<br>Suy ra $AB \\perp (SIJ)$ và $H \\in IJ$, với $IJ = 4$.<br>Xét $\\Delta SIJ$ có $SI^2 + SJ^2 = (2\\sqrt{3})^2 + 2^2 = 16 = IJ^2 \\Rightarrow \\Delta SIJ$ vuông tại $S$.<br>Đường cao $SH = \\frac{SI \\cdot SJ}{IJ} = \\frac{2\\sqrt{3} \\cdot 2}{4} = \\sqrt{3}$.<br>Thể tích khối chóp là $V = \\frac{1}{3} S_{ABCD} \\cdot SH = \\frac{1}{3} \\cdot 4^2 \\cdot \\sqrt{3} = \\frac{16\\sqrt{3}}{3} \\approx 9,24$."
       },
       {
         id: 20,
@@ -958,32 +952,32 @@
         level: "Thông hiểu",
         points: 500000,
         title: "Câu 20 (Phần 3 - Vượt Chướng Ngại Vật)",
-        question: "Tìm tổng giá trị lớn nhất và nhỏ nhất của hàm số $y = (x^2 + x + 1)e^{-x}$ trên đoạn $[-1; 0]$ (làm tròn đến hàng phần chục).",
+        question: "Tổng giá trị lớn nhất và nhỏ nhất của hàm số $y = (x^2 + x + 1)e^{-x}$ trên đoạn $[-1; 0]$ (làm tròn đến hàng phần chục).",
         figure: null,
         correctAnswer: "3.7",
-        explanation: "Hàm số liên tục trên đoạn $[-1; 0]$ và có đạo hàm:<br>$y' = (2x + 1)e^{-x} - (x^2 + x + 1)e^{-x} = (-x^2 + x)e^{-x} = x(1 - x)e^{-x}$.<br>Với mọi $x \\in (-1; 0)$, ta có $x < 0$, $1 - x > 0$ và $e^{-x} > 0$ nên $y' < 0$, hàm số nghịch biến trên đoạn $[-1; 0]$.<br>Do đó $\\max_{[-1; 0]} y = y(-1) = (1 - 1 + 1)e^1 = e$ và $\\min_{[-1; 0]} y = y(0) = 1$.<br>Tổng giá trị lớn nhất và nhỏ nhất là $e + 1 \\approx 2,718 + 1 \\approx 3,7$."
+        explanation: "Hàm số liên tục trên $[-1; 0]$ và có đạo hàm:<br>$y' = (2x + 1)e^{-x} - (x^2 + x + 1)e^{-x} = (-x^2 + x)e^{-x}$.<br>Với mọi $x \\in (-1; 0)$, ta có $-x^2 + x = x(1 - x) < 0$ và $e^{-x} > 0$, nên $y' < 0$.<br>Do đó hàm số nghịch biến trên $[-1; 0]$, suy ra $\\max_{[-1; 0]} y = y(-1) = e$ và $\\min_{[-1; 0]} y = y(0) = 1$.<br>Tổng cần tìm là $1 + e \\approx 3,718 \\approx 3,7$."
       },
       {
         id: 21,
         part: 3,
-        level: "Vận dụng",
+        level: "Thông hiểu",
         points: 500000,
         title: "Câu 21 (Phần 3 - Vượt Chướng Ngại Vật)",
-        question: "Người ta bơm xăng vào bình xăng của một chiếc xe ô tô. Biết thể tích $V$ (lít) của xăng được bơm vào bình phụ thuộc theo thời gian $t$ (phút) được cho bởi công thức $V(t) = \\dfrac{35}{4}(3t - t^2 + t^3) + 4$ với $0 \\le t \\le 1$. Gọi $V'(t)$ là tốc độ bơm của xăng vào bình. Xác định thể tích (lít) của xăng trong bình tại thời điểm mà tốc độ bơm đạt nhỏ nhất (làm tròn đến hàng phần chục).",
+        question: "Người ta bơm xăng vào bình xăng của một chiếc xe ô tô. Biết thể tích $V$ (lít) của xăng được bơm vào bình phụ thuộc theo thời gian $t$ (phút) được cho bởi công thức $V(t) = \\frac{35}{4}(3t - t^2 + t^3) + 4$ với $0 \\le t \\le 1$. Gọi $V'(t)$ là tốc độ bơm của xăng vào bình. Xác định thể tích (lít) của xăng trong bình tại thời điểm mà tốc độ bơm đạt nhỏ nhất (làm tròn đến hàng phần chục).",
         figure: null,
         correctAnswer: "12.1",
-        explanation: "Tốc độ bơm xăng vào bình tại thời điểm $t \\in [0; 1]$ là:<br>$v(t) = V'(t) = \\dfrac{35}{4}(3 - 2t + 3t^2)$.<br>Tam thức bậc hai $g(t) = 3t^2 - 2t + 3$ có hệ số $a = 3 > 0$ nên đạt giá trị nhỏ nhất tại đỉnh $t = -\\dfrac{-2}{2 \\cdot 3} = \\dfrac{1}{3} \\in [0; 1]$.<br>Thể tích xăng trong bình tại thời điểm $t = \\dfrac{1}{3}$ phút là:<br>$V\\left(\\dfrac{1}{3}\\right) = \\dfrac{35}{4}\\left(3 \\cdot \\dfrac{1}{3} - \\left(\\dfrac{1}{3}\\right)^2 + \\left(\\dfrac{1}{3}\\right)^3\\right) + 4 = \\dfrac{35}{4} \\cdot \\dfrac{25}{27} + 4 = \\dfrac{875}{108} + 4 \\approx 8,10 + 4 = 12,1\\text{ (lít)}$."
+        explanation: "Tốc độ bơm xăng vào bình tại thời điểm $t \\in [0; 1]$ là:<br>$V'(t) = \\frac{35}{4}(3 - 2t + 3t^2)$.<br>Tam thức bậc hai $g(t) = 3t^2 - 2t + 3$ có đỉnh tại $t = -\\frac{-2}{2 \\cdot 3} = \\frac{1}{3} \\in [0; 1]$, nên tốc độ bơm $V'(t)$ đạt nhỏ nhất tại $t = \\frac{1}{3}$ (phút).<br>Thể tích xăng trong bình tại thời điểm $t = \\frac{1}{3}$ là:<br>$V\\left(\\frac{1}{3}\\right) = \\frac{35}{4}\\left(3 \\cdot \\frac{1}{3} - \\frac{1}{9} + \\frac{1}{27}\\right) + 4 = \\frac{35}{4} \\cdot \\frac{25}{27} + 4 = \\frac{1307}{108} \\approx 12,1$ (lít)."
       },
       {
         id: 22,
         part: 3,
-        level: "Vận dụng",
+        level: "Thông hiểu",
         points: 600000,
         title: "Câu 22 (Phần 3 - Vượt Chướng Ngại Vật)",
-        question: "Khảo sát thời gian sử dụng điện thoại trong một ngày của mỗi học sinh trong lớp học có $42$ học sinh thu được mẫu số liệu ghép nhóm ở bảng bên. Biết thời gian sử dụng điện thoại trung bình của lớp trên là $40$ phút. Hỏi lớp học trên có nhiều nhất bao nhiêu bạn có thời gian sử dụng điện thoại dưới mức trung bình của lớp?",
+        question: "Khảo sát thời gian sử dụng điện thoại trong một ngày của mỗi học sinh trong lớp học có $42$ học sinh thu được mẫu số liệu ghép nhóm sau. Biết thời gian sử dụng điện thoại trung bình của lớp trên là $40$ phút. Hỏi lớp học trên có nhiều nhất bao nhiêu bạn có thời gian sử dụng điện thoại dưới mức trung bình của lớp?",
         figure: "table_p3_c6_0101",
         correctAnswer: "26",
-        explanation: "Tổng số học sinh của lớp là $42$ nên $7 + a + b + 6 + 3 = 42 \\Leftrightarrow a + b = 26$ (1).<br>Giá trị đại diện của $5$ nhóm lần lượt là $10; 30; 50; 70; 90$. Theo giả thiết thời gian trung bình bằng $40$ phút:<br>$\\dfrac{7 \\cdot 10 + 30a + 50b + 6 \\cdot 70 + 3 \\cdot 90}{42} = 40 \\Leftrightarrow 70 + 30a + 50b + 420 + 270 = 1680 \\Leftrightarrow 30a + 50b = 920$ (2).<br>Giải hệ phương trình (1) và (2) ta được $a = 19$ và $b = 7$.<br>Các học sinh có thời gian sử dụng điện thoại dưới mức trung bình $40$ phút nằm trọn trong hai nhóm đầu $[0; 20)$ và $[20; 40)$, nên có nhiều nhất $7 + 19 = 26$ bạn."
+        explanation: "Tổng số học sinh của lớp là $42$ nên $7 + a + b + 6 + 3 = 42 \\Leftrightarrow a + b = 26$ (1).<br>Các giá trị đại diện của $5$ nhóm lần lượt là $10, 30, 50, 70, 90$. Vì số trung bình bằng $40$ nên:<br>$\\frac{7 \\cdot 10 + 30a + 50b + 6 \\cdot 70 + 3 \\cdot 90}{42} = 40 \\Leftrightarrow 30a + 50b = 1680 - 760 = 920$ (2).<br>Giải hệ (1) và (2) ta được $a = 19$ và $b = 7$.<br>Các học sinh có thời gian sử dụng dưới mức trung bình ($40$ phút) thuộc hai nhóm $[0; 20)$ và $[20; 40)$, nên có nhiều nhất $7 + 19 = 26$ bạn."
       }
     ];
   </script>
@@ -1024,8 +1018,10 @@
 
     function ensureAudio() {
       if (!audioCtx) {
-        const Ctx = window.AudioContext || window.webkitAudioContext;
-        if (Ctx) audioCtx = new Ctx();
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
       }
       if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
@@ -1034,13 +1030,29 @@
 
     function toggleSound() {
       isSoundOn = !isSoundOn;
-      document.getElementById('soundIcon').className = isSoundOn ? 'fas fa-volume-up' : 'fas fa-volume-mute text-rose-400';
+      const icon = document.getElementById('soundIcon');
+      if (icon) {
+        icon.className = isSoundOn ? 'fas fa-volume-up' : 'fas fa-volume-mute text-rose-400';
+      }
+      if (isSoundOn) ensureAudio();
     }
 
-    // Âm thanh đám đông vỗ tay chúc mừng + nhạc chuông chiến thắng khi trả lời đúng
+    // Âm thanh đám đông vỗ tay chúc mừng + giọng đọc "CHÍNH XÁC!" + nhạc chuông chiến thắng khi trả lời đúng
     function playCorrectEffect() {
       if (!isSoundOn) return;
       ensureAudio();
+
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance('Chính xác!');
+          utter.lang = 'vi-VN';
+          utter.rate = 1.05;
+          utter.pitch = 1.15;
+          window.speechSynthesis.speak(utter);
+        } catch (e) {}
+      }
+
       if (!audioCtx) return;
       const now = audioCtx.currentTime;
 
@@ -1058,13 +1070,13 @@
         osc.stop(now + i * 0.08 + 0.52);
       });
 
-      // Tiếng vỗ tay đám đông cổ vũ sinh động
-      const bufferSize = audioCtx.sampleRate * 1.7;
+      // Tiếng vỗ tay đám đông cổ vũ sinh động kéo dài
+      const bufferSize = audioCtx.sampleRate * 2.2;
       const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const output = noiseBuffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
         const env = Math.sin((i / audioCtx.sampleRate) * Math.PI * 14) * 0.5 + 0.5;
-        output[i] = (Math.random() * 2 - 1) * env * Math.exp(-i / (audioCtx.sampleRate * 1.25));
+        output[i] = (Math.random() * 2 - 1) * env * Math.exp(-i / (audioCtx.sampleRate * 1.5));
       }
       const whiteNoise = audioCtx.createBufferSource();
       whiteNoise.buffer = noiseBuffer;
@@ -1072,7 +1084,7 @@
       filter.type = 'bandpass';
       filter.frequency.value = 1200;
       const clapGain = audioCtx.createGain();
-      clapGain.gain.setValueAtTime(0.32, now);
+      clapGain.gain.setValueAtTime(0.35, now);
       whiteNoise.connect(filter);
       filter.connect(clapGain);
       clapGain.connect(audioCtx.destination);
@@ -1120,7 +1132,7 @@
       });
     }
 
-    /* ================= VẼ BẢNG BIẾN THIÊN, BẢNG XÉT DẤU & ĐỒ THỊ (SVG) ================= */
+    /* ================= VẼ BẢNG BIẾN THIÊN, BẢNG TẦN SỐ & ĐỒ THỊ (SVG) ================= */
     function renderSVGFigure(figKey) {
       const box = document.getElementById('questionFigure');
       if (!figKey) {
@@ -1132,301 +1144,325 @@
 
       const figures = {
         graph_c1_0101: `
-          <svg width="215" height="175" viewBox="0 0 215 175">
-            <line x1="15" y1="115" x2="200" y2="115" stroke="#0f172a" stroke-width="1.6"/>
-            <line x1="105" y1="162" x2="105" y2="12" stroke="#0f172a" stroke-width="1.6"/>
-            <!-- Đồ thị y = -x^3 + 3x + 1: CT(-1; -1), CĐ(1; 3), cắt Oy tại (0; 1) -->
-            <path d="M 48 16 C 62 125, 72 135, 80 135 C 92 135, 118 45, 132 45 C 142 45, 154 78, 168 162" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>
-            <circle cx="105" cy="90" r="3" fill="#0f172a"/>
-            <circle cx="105" cy="115" r="2.5" fill="#0f172a"/>
-            <text x="92" y="128" font-size="11" font-weight="bold">O</text>
-            <text x="93" y="94" font-size="11" font-weight="bold">1</text>
-            <text x="190" y="109" font-size="11" font-weight="bold">x</text>
-            <text x="111" y="20" font-size="11" font-weight="bold">y</text>
+          <svg width="265" height="220" viewBox="0 0 225 190" class="bg-emerald-950 rounded-xl p-1">
+            <!-- Hệ lưới tọa độ chuẩn: 1 đơn vị = 25px, Gốc O(105, 115) -->
+            <g stroke="#065f46" stroke-width="0.8">
+              <line x1="30" y1="40" x2="190" y2="40"/><line x1="30" y1="65" x2="190" y2="65"/>
+              <line x1="30" y1="90" x2="190" y2="90"/><line x1="30" y1="140" x2="190" y2="140"/>
+              <line x1="55" y1="15" x2="55" y2="175"/><line x1="80" y1="15" x2="80" y2="175"/>
+              <line x1="130" y1="15" x2="130" y2="175"/><line x1="155" y1="15" x2="155" y2="175"/>
+            </g>
+            <!-- Trục Ox (y=115) và Oy (x=105) -->
+            <line x1="25" y1="115" x2="195" y2="115" stroke="#ffffff" stroke-width="1.6"/>
+            <polygon points="195,112 201,115 195,118" fill="#ffffff"/>
+            <line x1="105" y1="175" x2="105" y2="14" stroke="#ffffff" stroke-width="1.6"/>
+            <polygon points="102,14 105,8 108,14" fill="#ffffff"/>
+            <!-- Đồ thị chính xác y = -x^3 + 3x + 1 đi qua (-2;3)->(55,40), (-1;-1)->(80,140), (0;1)->(105,90), (1;3)->(130,40), (2;-1)->(155,140) -->
+            <path d="M 52 24 C 62 98, 70 140, 80 140 C 92 140, 118 40, 130 40 C 140 40, 148 82, 158 156" fill="none" stroke="#facc15" stroke-width="2.6"/>
+            <circle cx="105" cy="90" r="3.5" fill="#f87171"/>
+            <text x="91" y="128" font-size="11" font-weight="bold" fill="#ffffff">O</text>
+            <text x="93" y="93" font-size="11" font-weight="bold" fill="#fde047">1</text>
+            <text x="188" y="108" font-size="12" font-weight="bold" fill="#ffffff">x</text>
+            <text x="111" y="20" font-size="12" font-weight="bold" fill="#ffffff">y</text>
           </svg>`,
         fig_c3_0101: `
-          <svg width="225" height="175" viewBox="0 0 225 175">
+          <svg width="250" height="190" viewBox="0 0 225 175" class="bg-emerald-950 rounded-xl p-1">
             <!-- Đáy dưới A'B'C'D' -->
-            <line x1="35" y1="145" x2="145" y2="145" stroke="#0f172a" stroke-width="1.8"/>
-            <line x1="145" y1="145" x2="188" y2="112" stroke="#0f172a" stroke-width="1.8"/>
-            <line x1="35" y1="145" x2="78" y2="112" stroke="#475569" stroke-width="1.5" stroke-dasharray="4"/>
-            <line x1="78" y1="112" x2="188" y2="112" stroke="#475569" stroke-width="1.5" stroke-dasharray="4"/>
+            <line x1="35" y1="145" x2="145" y2="145" stroke="#ffffff" stroke-width="1.9"/>
+            <line x1="145" y1="145" x2="188" y2="112" stroke="#ffffff" stroke-width="1.9"/>
+            <line x1="35" y1="145" x2="78" y2="112" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4"/>
+            <line x1="78" y1="112" x2="188" y2="112" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4"/>
             <!-- Đáy trên ABCD -->
-            <polygon points="35,58 145,58 188,25 78,25" fill="none" stroke="#0f172a" stroke-width="1.8"/>
+            <polygon points="35,58 145,58 188,25 78,25" fill="none" stroke="#ffffff" stroke-width="1.9"/>
             <!-- Cạnh bên -->
-            <line x1="35" y1="58" x2="35" y2="145" stroke="#0f172a" stroke-width="1.8"/>
-            <line x1="145" y1="58" x2="145" y2="145" stroke="#0f172a" stroke-width="1.8"/>
-            <line x1="188" y1="25" x2="188" y2="112" stroke="#0f172a" stroke-width="1.8"/>
-            <line x1="78" y1="25" x2="78" y2="112" stroke="#475569" stroke-width="1.5" stroke-dasharray="4"/>
-            <text x="20" y="58" font-size="11" font-weight="bold">A</text>
-            <text x="66" y="22" font-size="11" font-weight="bold">B</text>
-            <text x="192" y="25" font-size="11" font-weight="bold">C</text>
-            <text x="148" y="56" font-size="11" font-weight="bold">D</text>
-            <text x="18" y="152" font-size="11" font-weight="bold">A'</text>
-            <text x="64" y="108" font-size="11" font-weight="bold">B'</text>
-            <text x="192" y="116" font-size="11" font-weight="bold">C'</text>
-            <text x="148" y="152" font-size="11" font-weight="bold">D'</text>
+            <line x1="35" y1="58" x2="35" y2="145" stroke="#ffffff" stroke-width="1.9"/>
+            <line x1="145" y1="58" x2="145" y2="145" stroke="#ffffff" stroke-width="1.9"/>
+            <line x1="188" y1="25" x2="188" y2="112" stroke="#ffffff" stroke-width="1.9"/>
+            <line x1="78" y1="25" x2="78" y2="112" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4"/>
+            <text x="19" y="58" font-size="12" font-weight="bold" fill="#fde047">A</text>
+            <text x="65" y="22" font-size="12" font-weight="bold" fill="#ffffff">B</text>
+            <text x="192" y="25" font-size="12" font-weight="bold" fill="#ffffff">C</text>
+            <text x="148" y="56" font-size="12" font-weight="bold" fill="#ffffff">D</text>
+            <text x="17" y="152" font-size="12" font-weight="bold" fill="#ffffff">A'</text>
+            <text x="63" y="108" font-size="12" font-weight="bold" fill="#ffffff">B'</text>
+            <text x="192" y="116" font-size="12" font-weight="bold" fill="#fde047">C'</text>
+            <text x="148" y="152" font-size="12" font-weight="bold" fill="#fde047">D'</text>
           </svg>`,
         bbt_c6_0101: `
-          <div class="text-slate-900 text-xs overflow-x-auto">
-            <table class="border-collapse border border-slate-800 text-center font-bold min-w-[270px]">
-              <tr>
-                <td class="border border-slate-800 px-2 py-1 bg-slate-100">x</td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">-∞</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">-1</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">1</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-r border-slate-800 px-1.5 py-1">+∞</td>
+          <div class="text-white text-sm md:text-base overflow-x-auto">
+            <table class="border-collapse border-2 border-emerald-400 text-center font-bold bg-emerald-950">
+              <tr class="border-b-2 border-emerald-400 bg-emerald-900">
+                <td class="border-r-2 border-emerald-400 px-3 py-1.5 text-amber-300">$x$</td>
+                <td class="px-2.5 py-1.5">$-\\infty$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$-1$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$1$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$+\\infty$</td>
+              </tr>
+              <tr class="border-b-2 border-emerald-400">
+                <td class="border-r-2 border-emerald-400 px-3 py-1.5 text-amber-300">$y'$</td>
+                <td></td>
+                <td class="text-emerald-300">$+$</td>
+                <td class="border-x-2 border-emerald-400 w-1.5 bg-emerald-900"></td>
+                <td class="text-emerald-300">$+$</td>
+                <td>$0$</td>
+                <td class="text-rose-300">$-$</td>
+                <td></td>
               </tr>
               <tr>
-                <td class="border border-slate-800 px-2 py-1 bg-slate-100">y'</td>
-                <td class="border-b border-slate-800"></td>
-                <td class="border-b border-slate-800">+</td>
-                <td class="border-b border-slate-800 font-black">||</td>
-                <td class="border-b border-slate-800">+</td>
-                <td class="border-b border-slate-800">0</td>
-                <td class="border-b border-slate-800">-</td>
-                <td class="border-b border-r border-slate-800"></td>
-              </tr>
-              <tr>
-                <td class="border border-slate-800 px-2 py-3 bg-slate-100">y</td>
-                <td class="border-b border-slate-800 align-bottom pb-1">2</td>
-                <td class="border-b border-slate-800 text-red-600">↗</td>
-                <td class="border-b border-slate-800 align-top pt-1">4 <span class="font-black">||</span> <span class="align-bottom"></span></td>
-                <td class="border-b border-slate-800 text-red-600">↗</td>
-                <td class="border-b border-slate-800 align-top pt-1">3</td>
-                <td class="border-b border-slate-800 text-red-600">↘</td>
-                <td class="border-b border-r border-slate-800 align-bottom pb-1">-1</td>
+                <td class="border-r-2 border-emerald-400 px-3 py-3 text-amber-300">$y$</td>
+                <td class="align-bottom pb-1">$2$</td>
+                <td class="text-emerald-300 text-lg">$\\nearrow$</td>
+                <td class="border-x-2 border-emerald-400 bg-emerald-900 align-top pt-1 text-xs">$4 \\;\\vert\\; -\\infty$</td>
+                <td class="text-emerald-300 text-lg">$\\nearrow$</td>
+                <td class="align-top pt-1 text-amber-300">$3$</td>
+                <td class="text-rose-300 text-lg">$\\searrow$</td>
+                <td class="align-bottom pb-1">$-1$</td>
               </tr>
             </table>
           </div>`,
         bbt_c8_0101: `
-          <div class="text-slate-900 text-xs overflow-x-auto">
-            <table class="border-collapse border border-slate-800 text-center font-bold min-w-[270px]">
-              <tr>
-                <td class="border border-slate-800 px-2 py-1 bg-slate-100">x</td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">-∞</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">-2</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">1</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-r border-slate-800 px-1.5 py-1">+∞</td>
+          <div class="text-white text-sm md:text-base overflow-x-auto">
+            <table class="border-collapse border-2 border-emerald-400 text-center font-bold bg-emerald-950">
+              <tr class="border-b-2 border-emerald-400 bg-emerald-900">
+                <td class="border-r-2 border-emerald-400 px-3 py-1.5 text-amber-300">$x$</td>
+                <td class="px-2.5 py-1.5">$-\\infty$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$-2$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$1$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$+\\infty$</td>
+              </tr>
+              <tr class="border-b-2 border-emerald-400">
+                <td class="border-r-2 border-emerald-400 px-3 py-1.5 text-amber-300">$f'(x)$</td>
+                <td></td>
+                <td class="text-rose-300">$-$</td>
+                <td>$0$</td>
+                <td class="text-emerald-300">$+$</td>
+                <td>$0$</td>
+                <td class="text-rose-300">$-$</td>
+                <td></td>
               </tr>
               <tr>
-                <td class="border border-slate-800 px-2 py-1 bg-slate-100">f'(x)</td>
-                <td class="border-b border-slate-800"></td>
-                <td class="border-b border-slate-800">-</td>
-                <td class="border-b border-slate-800">0</td>
-                <td class="border-b border-slate-800">+</td>
-                <td class="border-b border-slate-800">0</td>
-                <td class="border-b border-slate-800">-</td>
-                <td class="border-b border-r border-slate-800"></td>
-              </tr>
-              <tr>
-                <td class="border border-slate-800 px-2 py-3 bg-slate-100">f(x)</td>
-                <td class="border-b border-slate-800 align-top pt-1">+∞</td>
-                <td class="border-b border-slate-800 text-red-600">↘</td>
-                <td class="border-b border-slate-800 align-bottom pb-1">-2</td>
-                <td class="border-b border-slate-800 text-red-600">↗</td>
-                <td class="border-b border-slate-800 align-top pt-1">3</td>
-                <td class="border-b border-slate-800 text-red-600">↘</td>
-                <td class="border-b border-r border-slate-800 align-bottom pb-1">-∞</td>
+                <td class="border-r-2 border-emerald-400 px-3 py-3 text-amber-300">$f(x)$</td>
+                <td class="align-top pt-1">$+\\infty$</td>
+                <td class="text-rose-300 text-lg">$\\searrow$</td>
+                <td class="align-bottom pb-1 text-amber-300">$-2$</td>
+                <td class="text-emerald-300 text-lg">$\\nearrow$</td>
+                <td class="align-top pt-1 text-amber-300">$3$</td>
+                <td class="text-rose-300 text-lg">$\\searrow$</td>
+                <td class="align-bottom pb-1">$-\\infty$</td>
               </tr>
             </table>
           </div>`,
         table_c9_0101: `
-          <div class="text-slate-900 text-xs overflow-x-auto">
-            <table class="border-collapse border border-slate-800 text-center font-bold">
-              <tr class="bg-emerald-100">
-                <th class="border border-slate-800 px-2 py-1.5 text-left">Điểm</th>
-                <th class="border border-slate-800 px-2 py-1.5">[0; 2)</th>
-                <th class="border border-slate-800 px-2 py-1.5">[2; 4)</th>
-                <th class="border border-slate-800 px-2 py-1.5">[4; 6)</th>
-                <th class="border border-slate-800 px-2 py-1.5">[6; 8)</th>
-                <th class="border border-slate-800 px-2 py-1.5">[8; 10)</th>
+          <div class="text-white text-sm md:text-base overflow-x-auto">
+            <table class="border-collapse border-2 border-emerald-400 text-center font-bold bg-emerald-950">
+              <tr class="bg-emerald-800 text-amber-300">
+                <th class="border border-emerald-400 px-3 py-2 text-left">Điểm</th>
+                <th class="border border-emerald-400 px-3 py-2">$[0; 2)$</th>
+                <th class="border border-emerald-400 px-3 py-2">$[2; 4)$</th>
+                <th class="border border-emerald-400 px-3 py-2">$[4; 6)$</th>
+                <th class="border border-emerald-400 px-3 py-2">$[6; 8)$</th>
+                <th class="border border-emerald-400 px-3 py-2">$[8; 10)$</th>
               </tr>
               <tr>
-                <td class="border border-slate-800 px-2 py-1.5 text-left bg-slate-100">Số học sinh</td>
-                <td class="border border-slate-800 px-2 py-1.5">0</td>
-                <td class="border border-slate-800 px-2 py-1.5">2</td>
-                <td class="border border-slate-800 px-2 py-1.5">10</td>
-                <td class="border border-slate-800 px-2 py-1.5">18</td>
-                <td class="border border-slate-800 px-2 py-1.5">10</td>
+                <td class="border border-emerald-400 px-3 py-2 text-left bg-emerald-900 text-amber-200">Số học sinh</td>
+                <td class="border border-emerald-400 px-3 py-2 text-white">0</td>
+                <td class="border border-emerald-400 px-3 py-2 text-white">2</td>
+                <td class="border border-emerald-400 px-3 py-2 text-white">10</td>
+                <td class="border border-emerald-400 px-3 py-2 text-white">18</td>
+                <td class="border border-emerald-400 px-3 py-2 text-white">10</td>
               </tr>
             </table>
           </div>`,
         bbt_c10_0101: `
-          <div class="text-slate-900 text-xs overflow-x-auto">
-            <table class="border-collapse border border-slate-800 text-center font-bold min-w-[270px]">
-              <tr>
-                <td class="border border-slate-800 px-2 py-1 bg-slate-100">x</td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">-∞</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">-3</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">-2</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">1</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-r border-slate-800 px-1.5 py-1">+∞</td>
+          <div class="text-white text-sm md:text-base overflow-x-auto">
+            <table class="border-collapse border-2 border-emerald-400 text-center font-bold bg-emerald-950">
+              <tr class="border-b-2 border-emerald-400 bg-emerald-900">
+                <td class="border-r-2 border-emerald-400 px-3 py-1.5 text-amber-300">$x$</td>
+                <td class="px-2.5 py-1.5">$-\\infty$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$-3$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$-2$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$1$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$+\\infty$</td>
+              </tr>
+              <tr class="border-b-2 border-emerald-400">
+                <td class="border-r-2 border-emerald-400 px-3 py-1.5 text-amber-300">$y'$</td>
+                <td></td>
+                <td class="text-rose-300">$-$</td>
+                <td>$0$</td>
+                <td class="text-emerald-300">$+$</td>
+                <td class="border-x-2 border-emerald-400 bg-emerald-900"></td>
+                <td class="text-emerald-300">$+$</td>
+                <td>$0$</td>
+                <td class="text-rose-300">$-$</td>
+                <td></td>
               </tr>
               <tr>
-                <td class="border border-slate-800 px-2 py-1 bg-slate-100">y'</td>
-                <td class="border-b border-slate-800"></td>
-                <td class="border-b border-slate-800">-</td>
-                <td class="border-b border-slate-800">0</td>
-                <td class="border-b border-slate-800">+</td>
-                <td class="border-b border-slate-800 font-black">||</td>
-                <td class="border-b border-slate-800">+</td>
-                <td class="border-b border-slate-800">0</td>
-                <td class="border-b border-slate-800">-</td>
-                <td class="border-b border-r border-slate-800"></td>
-              </tr>
-              <tr>
-                <td class="border border-slate-800 px-2 py-3 bg-slate-100">y</td>
-                <td class="border-b border-slate-800 align-top pt-1">+∞</td>
-                <td class="border-b border-slate-800 text-red-600">↘</td>
-                <td class="border-b border-slate-800 align-bottom pb-1">5</td>
-                <td class="border-b border-slate-800 text-red-600">↗</td>
-                <td class="border-b border-slate-800 font-black">||</td>
-                <td class="border-b border-slate-800 text-red-600">↗</td>
-                <td class="border-b border-slate-800 align-top pt-1">0</td>
-                <td class="border-b border-slate-800 text-red-600">↘</td>
-                <td class="border-b border-r border-slate-800 align-bottom pb-1">-∞</td>
+                <td class="border-r-2 border-emerald-400 px-3 py-3 text-amber-300">$y$</td>
+                <td class="align-top pt-1">$+\\infty$</td>
+                <td class="text-rose-300 text-lg">$\\searrow$</td>
+                <td class="align-bottom pb-1">$5$</td>
+                <td class="text-emerald-300 text-lg">$\\nearrow$</td>
+                <td class="border-x-2 border-emerald-400 bg-emerald-900 text-xs">$+\\infty \\;\\vert\\; -\\infty$</td>
+                <td class="text-emerald-300 text-lg">$\\nearrow$</td>
+                <td class="align-top pt-1 text-amber-300">$0$</td>
+                <td class="text-rose-300 text-lg">$\\searrow$</td>
+                <td class="align-bottom pb-1">$-\\infty$</td>
               </tr>
             </table>
           </div>`,
         graph_p2_c1_0101: `
-          <svg width="225" height="175" viewBox="0 0 225 175">
-            <line x1="15" y1="68" x2="210" y2="68" stroke="#0f172a" stroke-width="1.5"/>
-            <line x1="88" y1="162" x2="88" y2="12" stroke="#0f172a" stroke-width="1.5"/>
-            <!-- TCĐ x = 1 -->
-            <line x1="118" y1="14" x2="118" y2="160" stroke="#0f172a" stroke-width="1.3"/>
-            <!-- TCN y = -1 -->
-            <line x1="18" y1="98" x2="205" y2="98" stroke="#0f172a" stroke-width="1.3"/>
-            <!-- f(x) = (-x + 2)/(x - 1) -->
-            <path d="M 22 106 Q 68 110, 88 128 Q 104 142, 111 160" fill="none" stroke="#dc2626" stroke-width="2.4"/>
-            <path d="M 124 14 Q 130 48, 148 68 Q 168 86, 202 91" fill="none" stroke="#dc2626" stroke-width="2.4"/>
-            <circle cx="88" cy="128" r="3" fill="#1d4ed8"/>
-            <circle cx="148" cy="68" r="3" fill="#1d4ed8"/>
-            <text x="74" y="62" font-size="10" font-weight="bold">O</text>
-            <text x="121" y="62" font-size="10" font-weight="bold">1</text>
-            <text x="148" y="62" font-size="10" font-weight="bold">2</text>
-            <text x="72" y="102" font-size="10" font-weight="bold">-1</text>
-            <text x="72" y="132" font-size="10" font-weight="bold">-2</text>
-            <text x="198" y="62" font-size="10" font-weight="bold">x</text>
-            <text x="76" y="20" font-size="10" font-weight="bold">y</text>
+          <svg width="265" height="215" viewBox="0 0 225 185" class="bg-emerald-950 rounded-xl p-1">
+            <!-- Hệ trục tọa độ chuẩn: 1 đơn vị = 24px, Gốc O(88, 88) -->
+            <g stroke="#065f46" stroke-width="0.8">
+              <line x1="20" y1="40" x2="205" y2="40"/><line x1="20" y1="64" x2="205" y2="64"/>
+              <line x1="20" y1="112" x2="205" y2="112"/><line x1="20" y1="136" x2="205" y2="136"/>
+              <line x1="40" y1="15" x2="40" y2="168"/><line x1="64" y1="15" x2="64" y2="168"/>
+              <line x1="112" y1="15" x2="112" y2="168"/><line x1="136" y1="15" x2="136" y2="168"/>
+              <line x1="160" y1="15" x2="160" y2="168"/>
+            </g>
+            <!-- Trục Ox (y=88) và Oy (x=88) -->
+            <line x1="16" y1="88" x2="208" y2="88" stroke="#ffffff" stroke-width="1.6"/>
+            <polygon points="208,85 214,88 208,91" fill="#ffffff"/>
+            <line x1="88" y1="170" x2="88" y2="14" stroke="#ffffff" stroke-width="1.6"/>
+            <polygon points="85,14 88,8 91,14" fill="#ffffff"/>
+            <!-- Tiệm cận đứng x = 1 -> x = 88 + 24 = 112 -->
+            <line x1="112" y1="14" x2="112" y2="168" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="4"/>
+            <!-- Tiệm cận ngang y = -1 -> y = 88 + 24 = 112 -->
+            <line x1="16" y1="112" x2="205" y2="112" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="4"/>
+            <!-- Nhánh trái y = (-x + 2)/(x - 1) đi qua (-1;-1.5)->(64,124), (0;-2)->(88,136) -->
+            <path d="M 18 118 Q 58 122, 88 136 Q 100 148, 105 168" fill="none" stroke="#facc15" stroke-width="2.5"/>
+            <!-- Nhánh phải y = (-x + 2)/(x - 1) đi qua (2;0)->(136,88), (3;-0.5)->(160,100) -->
+            <path d="M 119 14 Q 124 62, 136 88 Q 154 102, 205 107" fill="none" stroke="#facc15" stroke-width="2.5"/>
+            <!-- Điểm đặc biệt (2;0) và (0;-2) -->
+            <circle cx="136" cy="88" r="3.2" fill="#f87171"/>
+            <circle cx="88" cy="136" r="3.2" fill="#f87171"/>
+            <text x="74" y="82" font-size="11" font-weight="bold" fill="#ffffff">O</text>
+            <text x="115" y="82" font-size="11" font-weight="bold" fill="#fde047">1</text>
+            <text x="134" y="82" font-size="11" font-weight="bold" fill="#fca5a5">2</text>
+            <text x="70" y="116" font-size="11" font-weight="bold" fill="#fde047">-1</text>
+            <text x="70" y="140" font-size="11" font-weight="bold" fill="#fca5a5">-2</text>
+            <text x="200" y="81" font-size="12" font-weight="bold" fill="#ffffff">x</text>
+            <text x="94" y="20" font-size="12" font-weight="bold" fill="#ffffff">y</text>
           </svg>`,
         bbt_p2_c3_0101: `
-          <div class="text-slate-900 text-xs overflow-x-auto">
-            <table class="border-collapse border border-slate-800 text-center font-bold min-w-[270px]">
-              <tr>
-                <td class="border border-slate-800 px-2 py-1 bg-slate-100">x</td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">-∞</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">0</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-slate-800 px-1.5 py-1">3</td>
-                <td class="border-t border-b border-slate-800 px-2 py-1"></td>
-                <td class="border-t border-b border-r border-slate-800 px-1.5 py-1">+∞</td>
+          <div class="text-white text-sm md:text-base overflow-x-auto">
+            <table class="border-collapse border-2 border-emerald-400 text-center font-bold bg-emerald-950">
+              <tr class="border-b-2 border-emerald-400 bg-emerald-900">
+                <td class="border-r-2 border-emerald-400 px-3 py-1.5 text-amber-300">$x$</td>
+                <td class="px-2.5 py-1.5">$-\\infty$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$0$</td>
+                <td class="px-2 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$3$</td>
+                <td class="px-2.5 py-1.5"></td>
+                <td class="px-2.5 py-1.5">$+\\infty$</td>
+              </tr>
+              <tr class="border-b-2 border-emerald-400">
+                <td class="border-r-2 border-emerald-400 px-3 py-1.5 text-amber-300">$f'(x)$</td>
+                <td></td>
+                <td class="text-emerald-300">$+$</td>
+                <td>$0$</td>
+                <td class="text-rose-300">$-$</td>
+                <td>$0$</td>
+                <td class="text-emerald-300">$+$</td>
+                <td></td>
               </tr>
               <tr>
-                <td class="border border-slate-800 px-2 py-1 bg-slate-100">f'(x)</td>
-                <td class="border-b border-slate-800"></td>
-                <td class="border-b border-slate-800">+</td>
-                <td class="border-b border-slate-800">0</td>
-                <td class="border-b border-slate-800">-</td>
-                <td class="border-b border-slate-800">0</td>
-                <td class="border-b border-slate-800">+</td>
-                <td class="border-b border-r border-slate-800"></td>
-              </tr>
-              <tr>
-                <td class="border border-slate-800 px-2 py-3 bg-slate-100">f(x)</td>
-                <td class="border-b border-slate-800 align-bottom pb-1">-∞</td>
-                <td class="border-b border-slate-800 text-red-600">↗</td>
-                <td class="border-b border-slate-800 align-top pt-1">2</td>
-                <td class="border-b border-slate-800 text-red-600">↘</td>
-                <td class="border-b border-slate-800 align-bottom pb-1">-4</td>
-                <td class="border-b border-slate-800 text-red-600">↗</td>
-                <td class="border-b border-r border-slate-800 align-top pt-1">+∞</td>
+                <td class="border-r-2 border-emerald-400 px-3 py-3 text-amber-300">$f(x)$</td>
+                <td class="align-bottom pb-1">$-\\infty$</td>
+                <td class="text-emerald-300 text-lg">$\\nearrow$</td>
+                <td class="align-top pt-1 text-amber-300">$2$</td>
+                <td class="text-rose-300 text-lg">$\\searrow$</td>
+                <td class="align-bottom pb-1 text-amber-300">$-4$</td>
+                <td class="text-emerald-300 text-lg">$\\nearrow$</td>
+                <td class="align-top pt-1">$+\\infty$</td>
               </tr>
             </table>
           </div>`,
         fig_p2_c4_0101: `
-          <svg width="245" height="195" viewBox="0 0 245 195">
-            <!-- Hệ trục Oxyz -->
-            <line x1="92" y1="118" x2="62" y2="178" stroke="#0f172a" stroke-width="1.4"/>
-            <line x1="92" y1="118" x2="215" y2="118" stroke="#0f172a" stroke-width="1.4"/>
-            <line x1="92" y1="118" x2="92" y2="14" stroke="#0f172a" stroke-width="1.4"/>
+          <svg width="260" height="220" viewBox="0 0 245 205" class="bg-emerald-950 rounded-xl p-1">
+            <!-- Trục Oz, Oy, Ox tại gốc O(92, 128) -->
+            <line x1="92" y1="128" x2="92" y2="16" stroke="#ffffff" stroke-width="1.6"/>
+            <polygon points="89,16 92,10 95,16" fill="#ffffff"/>
+            <line x1="92" y1="128" x2="212" y2="128" stroke="#ffffff" stroke-width="1.6"/>
+            <polygon points="212,125 218,128 212,131" fill="#ffffff"/>
+            <line x1="92" y1="128" x2="54" y2="188" stroke="#ffffff" stroke-width="1.6"/>
+            <polygon points="51,185 51,192 57,189" fill="#ffffff"/>
             <!-- Đáy ABC -->
-            <line x1="36" y1="118" x2="152" y2="118" stroke="#0f172a" stroke-width="1.4" stroke-dasharray="4"/>
-            <line x1="36" y1="118" x2="72" y2="160" stroke="#0f172a" stroke-width="1.8"/>
-            <line x1="72" y1="160" x2="152" y2="118" stroke="#0f172a" stroke-width="1.8"/>
-            <line x1="36" y1="118" x2="112" y2="139" stroke="#475569" stroke-width="1.3" stroke-dasharray="4"/>
+            <line x1="36" y1="128" x2="156" y2="128" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4"/>
+            <line x1="36" y1="128" x2="66" y2="169" stroke="#ffffff" stroke-width="1.9"/>
+            <line x1="66" y1="169" x2="156" y2="128" stroke="#ffffff" stroke-width="1.9"/>
             <!-- Đáy trên A'B'C' -->
-            <polygon points="92,34 128,76 208,34" fill="rgba(56,189,248,0.1)" stroke="#0f172a" stroke-width="1.8"/>
-            <!-- Cạnh bên -->
-            <line x1="36" y1="118" x2="92" y2="34" stroke="#0f172a" stroke-width="1.8"/>
-            <line x1="72" y1="160" x2="128" y2="76" stroke="#0f172a" stroke-width="1.8"/>
-            <line x1="152" y1="118" x2="208" y2="34" stroke="#0f172a" stroke-width="1.8"/>
-            <circle cx="110" cy="55" r="2.5" fill="#dc2626"/>
-            <circle cx="112" cy="139" r="2.5" fill="#dc2626"/>
-            <text x="80" y="112" font-size="10" font-weight="bold">O</text>
-            <text x="22" y="122" font-size="11" font-weight="bold">A</text>
-            <text x="60" y="166" font-size="11" font-weight="bold">B</text>
-            <text x="155" y="128" font-size="11" font-weight="bold">C</text>
-            <text x="76" y="36" font-size="11" font-weight="bold">A'</text>
-            <text x="132" y="80" font-size="11" font-weight="bold">B'</text>
-            <text x="212" y="36" font-size="11" font-weight="bold">C'</text>
-            <text x="114" y="54" font-size="10" font-weight="bold" fill="#dc2626">E</text>
-            <text x="115" y="148" font-size="10" font-weight="bold" fill="#dc2626">M</text>
-            <text x="56" y="74" font-size="10" font-weight="bold">5</text>
-            <text x="52" y="182" font-size="10" font-weight="bold">x</text>
-            <text x="218" y="122" font-size="10" font-weight="bold">y</text>
-            <text x="96" y="18" font-size="10" font-weight="bold">z</text>
+            <polygon points="92,42 122,83 212,42" fill="none" stroke="#ffffff" stroke-width="1.9"/>
+            <!-- Cạnh bên lăng trụ -->
+            <line x1="36" y1="128" x2="92" y2="42" stroke="#ffffff" stroke-width="1.9"/>
+            <line x1="66" y1="169" x2="122" y2="83" stroke="#ffffff" stroke-width="1.9"/>
+            <line x1="156" y1="128" x2="212" y2="42" stroke="#ffffff" stroke-width="1.9"/>
+            <!-- Điểm M và E -->
+            <circle cx="111" cy="148.5" r="3.2" fill="#facc15"/>
+            <circle cx="107" cy="62.5" r="3.2" fill="#facc15"/>
+            <text x="77" y="123" font-size="11" font-weight="bold" fill="#ffffff">O</text>
+            <text x="20" y="132" font-size="12" font-weight="bold" fill="#ffffff">A</text>
+            <text x="69" y="182" font-size="12" font-weight="bold" fill="#fde047">B</text>
+            <text x="158" y="142" font-size="12" font-weight="bold" fill="#ffffff">C</text>
+            <text x="74" y="42" font-size="12" font-weight="bold" fill="#fde047">A'</text>
+            <text x="125" y="88" font-size="12" font-weight="bold" fill="#ffffff">B'</text>
+            <text x="215" y="44" font-size="12" font-weight="bold" fill="#ffffff">C'</text>
+            <text x="114" y="159" font-size="11" font-weight="bold" fill="#facc15">M</text>
+            <text x="112" y="61" font-size="11" font-weight="bold" fill="#facc15">E</text>
+            <text x="56" y="86" font-size="11" font-weight="bold" fill="#38bdf8">5</text>
+            <text x="97" y="18" font-size="12" font-weight="bold" fill="#ffffff">z</text>
+            <text x="205" y="121" font-size="12" font-weight="bold" fill="#ffffff">y</text>
+            <text x="41" y="192" font-size="12" font-weight="bold" fill="#ffffff">x</text>
           </svg>`,
         fig_p3_c1_0101: `
-          <svg width="245" height="170" viewBox="0 0 245 170">
-            <!-- Người quan sát tại M -->
-            <circle cx="38" cy="96" r="10" fill="#fde68a" stroke="#0f172a" stroke-width="1.5"/>
-            <rect x="28" y="108" width="20" height="32" rx="5" fill="#f97316" stroke="#0f172a" stroke-width="1.5"/>
-            <line x1="33" y1="140" x2="33" y2="160" stroke="#0f172a" stroke-width="2"/>
-            <line x1="43" y1="140" x2="43" y2="160" stroke="#0f172a" stroke-width="2"/>
-            <text x="48" y="92" font-size="11" font-weight="bold">M</text>
-            <!-- Tấm bìa hình tròn trên (Oxy) -->
-            <ellipse cx="122" cy="68" rx="34" ry="12" fill="#c7d2fe" stroke="#0f172a" stroke-width="2.2"/>
-            <!-- Tia nhìn MN -->
-            <line x1="48" y1="96" x2="94" y2="75" stroke="#64748b" stroke-width="1.4"/>
-            <line x1="148" y1="52" x2="215" y2="22" stroke="#64748b" stroke-width="1.4"/>
-            <text x="216" y="20" font-size="11" font-weight="bold">N</text>
+          <svg width="265" height="175" viewBox="0 0 245 160" class="bg-emerald-950 rounded-xl p-1">
+            <!-- Đường thẳng nhìn MN -->
+            <line x1="36" y1="122" x2="215" y2="24" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="4"/>
+            <!-- Tấm bìa hình tròn trên mặt (Oxy) -->
+            <ellipse cx="122" cy="75" rx="34" ry="11" fill="#a78bfa" fill-opacity="0.45" stroke="#facc15" stroke-width="2.2"/>
+            <!-- Mắt quan sát tại M và vật tại N -->
+            <circle cx="36" cy="122" r="4" fill="#4ade80"/>
+            <circle cx="215" cy="24" r="4" fill="#f87171"/>
+            <text x="20" y="114" font-size="12" font-weight="bold" fill="#4ade80">M(1;2;3)</text>
+            <text x="165" y="18" font-size="12" font-weight="bold" fill="#fca5a5">N(3;6;-12)</text>
+            <text x="95" y="102" font-size="11" font-weight="bold" fill="#fde047">Tấm bìa (R = 2)</text>
           </svg>`,
         table_p3_c6_0101: `
-          <div class="text-slate-900 text-xs overflow-x-auto">
-            <table class="border-collapse border border-slate-800 text-center font-bold">
-              <tr class="bg-amber-100">
-                <th class="border border-slate-800 px-2 py-1.5 text-left">Thời gian (phút)</th>
-                <th class="border border-slate-800 px-2 py-1.5">[0; 20)</th>
-                <th class="border border-slate-800 px-2 py-1.5">[20; 40)</th>
-                <th class="border border-slate-800 px-2 py-1.5">[40; 60)</th>
-                <th class="border border-slate-800 px-2 py-1.5">[60; 80)</th>
-                <th class="border border-slate-800 px-2 py-1.5">[80; 100)</th>
+          <div class="text-white text-sm md:text-base overflow-x-auto">
+            <table class="border-collapse border-2 border-emerald-400 text-center font-bold bg-emerald-950">
+              <tr class="bg-emerald-800 text-amber-300">
+                <th class="border border-emerald-400 px-3 py-2 text-left">Thời gian (phút)</th>
+                <th class="border border-emerald-400 px-3 py-2">$[0; 20)$</th>
+                <th class="border border-emerald-400 px-3 py-2">$[20; 40)$</th>
+                <th class="border border-emerald-400 px-3 py-2">$[40; 60)$</th>
+                <th class="border border-emerald-400 px-3 py-2">$[60; 80)$</th>
+                <th class="border border-emerald-400 px-3 py-2">$[80; 100)$</th>
               </tr>
               <tr>
-                <td class="border border-slate-800 px-2 py-1.5 text-left bg-slate-100">Số học sinh</td>
-                <td class="border border-slate-800 px-2 py-1.5">7</td>
-                <td class="border border-slate-800 px-2 py-1.5">a</td>
-                <td class="border border-slate-800 px-2 py-1.5">b</td>
-                <td class="border border-slate-800 px-2 py-1.5">6</td>
-                <td class="border border-slate-800 px-2 py-1.5">3</td>
+                <td class="border border-emerald-400 px-3 py-2 text-left bg-emerald-900 text-amber-200">Số học sinh</td>
+                <td class="border border-emerald-400 px-3 py-2 text-white">7</td>
+                <td class="border border-emerald-400 px-3 py-2 text-amber-300">$a$</td>
+                <td class="border border-emerald-400 px-3 py-2 text-amber-300">$b$</td>
+                <td class="border border-emerald-400 px-3 py-2 text-white">6</td>
+                <td class="border border-emerald-400 px-3 py-2 text-white">3</td>
               </tr>
             </table>
           </div>`
       };
 
       box.innerHTML = figures[figKey] || '';
+      renderMath(box);
     }
 
     function renderMath(targetEl) {
