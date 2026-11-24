@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đấu Trường Toán Học 11 - Ôn Tập Cuối Học Kì I - THẦY HÒA</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Hệ thống nạp KaTeX hai tầng CDN (jsDelivr + dự phòng tự động cdnjs) giúp hiển thị công thức toán sắc nét -->
+    <link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script>
+        (function () {
+            window.__katexQueue = [];
+            window.__katexReady = false;
+            window.__onKaTeXReady = function (fn) {
+                if (window.__katexReady && typeof window.renderMathInElement === 'function') {
+                    fn();
+                } else {
+                    window.__katexQueue.push(fn);
+                }
+            };
+
+            function flushKaTeXQueue() {
+                if (typeof window.renderMathInElement !== 'function') return;
+                window.__katexReady = true;
+                while (window.__katexQueue.length > 0) {
+                    const task = window.__katexQueue.shift();
+                    try { task(); } catch (e) {}
+                }
+            }
+
+            function loadScript(src, onLoad, onError) {
+                const s = document.createElement('script');
+                s.src = src;
+                s.crossOrigin = 'anonymous';
+                s.onload = onLoad;
+                s.onerror = onError;
+                document.head.appendChild(s);
+            }
+
+            function loadFromFallbackCDN() {
+                if (window.__katexFallbackLoaded) return;
+                window.__katexFallbackLoaded = true;
+                const cssEl = document.getElementById('katex-css');
+                if (cssEl) {
+                    cssEl.href = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css';
+                }
+                loadScript(
+                    'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js',
+                    function () {
+                        loadScript(
+                            'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js',
+                            flushKaTeXQueue,
+                            function () {}
+                        );
+                    },
+                    function () {}
+                );
+            }
+
+            const fallbackTimer = setTimeout(function () {
+                if (!window.__katexReady) loadFromFallbackCDN();
+            }, 1500);
+
+            loadScript(
+                'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js',
+                function () {
+                    loadScript(
+                        'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js',
+                        function () {
+                            clearTimeout(fallbackTimer);
+                            flushKaTeXQueue();
+                        },
+                        loadFromFallbackCDN
+                    );
+                },
+                loadFromFallbackCDN
+            );
+        })();
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;800&display=swap');
+
+        :root {
+            --board-bg: #0f4c3a;
+            --board-dark: #093326;
+            --gold: #fbbf24;
+            --gold-bright: #fef08a;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            /* Phông nền xanh nhạt sân khấu truyền hình kết hợp bảng xanh học đường tương phản cao */
+            background: radial-gradient(circle at 50% 0%, #bae6fd 0%, #38bdf8 30%, #0369a1 75%, #0c4a6e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Khung bảng xanh chữ trắng độ tương phản cao, ngồi cuối lớp vẫn nhìn rõ */
+        .chalkboard-stage {
+            background: linear-gradient(160deg, #115e46 0%, #0a3d2e 60%, #06281e 100%);
+            border: 8px solid #78350f;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 0 35px rgba(0, 0, 0, 0.65);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        /* Đèn pha sân khấu truyền hình */
+        .spotlight-beam {
+            position: absolute;
+            top: -40px;
+            width: 320px;
+            height: 450px;
+            background: linear-gradient(180deg, rgba(254, 240, 138, 0.22) 0%, rgba(254, 240, 138, 0) 100%);
+            clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Chuông vàng lớn ở vị trí trung tâm */
+        .golden-bell-hero {
+            filter: drop-shadow(0 0 24px rgba(251, 191, 36, 0.9));
+            animation: bellFloat 3.2s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .golden-bell-hero:hover {
+            transform: scale(1.08);
+        }
+        .bell-ringing {
+            animation: bellShake 0.6s ease-in-out 3 !important;
+        }
+
+        @keyframes bellFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-7px) rotate(3deg); }
+        }
+        @keyframes bellShake {
+            0%, 100% { transform: rotate(0deg) scale(1.1); }
+            20% { transform: rotate(-18deg) scale(1.15); }
+            40% { transform: rotate(18deg) scale(1.15); }
+            60% { transform: rotate(-14deg) scale(1.12); }
+            80% { transform: rotate(14deg) scale(1.12); }
+        }
+
+        /* Nhân vật hoạt hình MC đồng hành */
+        .mascot-bob {
+            animation: mascotBob 2.6s ease-in-out infinite;
+        }
+        @keyframes mascotBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Nút đáp án phong cách Game Show */
+        .option-btn {
+            background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%);
+            border: 2.5px solid #fbbf24;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.25);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:hover:not(:disabled) {
+            background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+            border-color: #fef08a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(251, 191, 36, 0.45);
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+        .option-btn.eliminated {
+            opacity: 0.22;
+            pointer-events: none;
+            border-color: #64748b;
+        }
+
+        /* Hiệu ứng ánh sáng khi trả lời đúng */
+        .state-correct {
+            background: linear-gradient(180deg, #16a34a 0%, #14532d 100%) !important;
+            border-color: #fef08a !important;
+            animation: glowVictory 0.75s infinite alternate;
+        }
+        @keyframes glowVictory {
+            from { box-shadow: 0 0 12px #4ade80, 0 0 24px #22c55e; }
+            to { box-shadow: 0 0 28px #fef08a, 0 0 48px #4ade80; }
+        }
+
+        /* Hiệu ứng loại khi trả lời sai */
+        .state-wrong {
+            background: linear-gradient(180deg, #dc2626 0%, #7f1d1d 100%) !important;
+            border-color: #fca5a5 !important;
+            animation: shakeWrong 0.45s ease-in-out;
+        }
+        @keyframes shakeWrong {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        /* Pháo giấy chiến thắng khi vượt qua câu cuối */
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 16px;
+            top: -20px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            to {
+                transform: translateY(105vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .mono-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body class="p-2 sm:p-4 md:p-6 flex flex-col justify-between">
+
+    <!-- =========================================================================
+         CẤU HÌNH KẾT NỐI GOOGLE APPS SCRIPT (HARDCODE NGẦM - KHÔNG HIỂN THỊ TRÊN UI)
+         Giáo viên dán URL Web App vào biến APPS_SCRIPT_URL bên dưới khi triển khai
+         ========================================================================= -->
+    <script>
+        const APPS_SCRIPT_URL = ""; // Dán URL Google Apps Script Web App vào đây
+    </script>
+
+    <!-- ================= HEADER THƯƠNG HIỆU THẦY HÒA & CHỈ SỐ TRÒ CHƠI ================= -->
+    <header class="w-full max-w-7xl mx-auto chalkboard-stage px-4 py-3 mb-4 flex flex-wrap items-center justify-between gap-3">
+        <!-- Thương hiệu THẦY HÒA -->
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-300 to-amber-500 border-2 border-white flex items-center justify-center text-emerald-950 font-black text-xl shadow-lg">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 bg-amber-400 text-emerald-950 font-black text-xs rounded-full uppercase tracking-wider shadow">THẦY HÒA</span>
+                    <span class="text-xs font-bold text-sky-200 hidden sm:inline">TOÁN 11 – GDPT 2018 – KNTTVCS</span>
+                </div>
+                <h1 class="text-base sm:text-xl font-black text-white tracking-wide mt-0.5">
+                    ÔN TẬP CUỐI HỌC KÌ I – TOÁN 11 (THPT MINH KHAI – HÀ TĨNH)
+                </h1>
+            </div>
+        </div>
+
+        <!-- Khu vực thông số HUD khi đang chơi -->
+        <div id="hud-bar" class="hidden flex flex-wrap items-center gap-2 sm:gap-3">
+            <!-- Cấp độ & XP -->
+            <div class="bg-black/40 border border-sky-400/50 px-3 py-1.5 rounded-xl flex items-center gap-2">
+                <i class="fa-solid fa-medal text-sky-300"></i>
+                <div class="text-xs">
+                    <div id="hud-rank" class="font-bold text-sky-200">Tân Binh Toán 11</div>
+                    <div id="hud-xp" class="mono-font text-amber-300 font-extrabold">0 XP</div>
+                </div>
+            </div>
+
+            <!-- Đồng hồ đếm thời gian làm bài (Không giới hạn mỗi câu) -->
+            <div class="bg-black/40 border border-amber-400/50 px-3 py-1.5 rounded-xl flex items-center gap-2" title="Không giới hạn thời gian trả lời từng câu">
+                <i class="fa-solid fa-stopwatch text-amber-400"></i>
+                <span id="hud-timer" class="mono-font text-base sm:text-lg font-extrabold text-amber-200">00:00</span>
+            </div>
+
+            <!-- Điểm chinh phục mốc 10.000.000 -->
+            <div class="bg-black/40 border border-emerald-400/60 px-3 py-1.5 rounded-xl flex items-center gap-2">
+                <i class="fa-solid fa-coins text-amber-400"></i>
+                <span id="hud-score" class="mono-font text-base sm:text-lg font-extrabold text-emerald-300">0 Đ</span>
+            </div>
+
+            <!-- Nút bật/tắt âm thanh -->
+            <button id="btn-sound" onclick="toggleSound()" class="p-2.5 bg-amber-400/20 hover:bg-amber-400/35 border border-amber-400 rounded-xl text-amber-300 transition" title="Bật/Tắt âm thanh">
+                <i id="icon-sound" class="fa-solid fa-volume-high"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ================= SÂN KHẤU CHÍNH GAME SHOW ================= -->
+    <main class="w-full max-w-7xl mx-auto flex-1 chalkboard-stage p-4 sm:p-6 md:p-8 flex flex-col justify-center overflow-hidden">
+        <!-- Ánh sáng sân khấu -->
+        <div class="spotlight-beam left-1/4 -translate-x-1/2"></div>
+        <div class="spotlight-beam right-1/4 translate-x-1/2"></div>
+
+        <!-- =====================================================================
+             MÀN HÌNH 1: SẢNH CHỜ, CHUÔNG VÀNG TRUNG TÂM & LUẬT CHƠI RÕ RÀNG
+             ===================================================================== -->
+        <section id="screen-welcome" class="relative z-10 flex flex-col items-center text-center space-y-5 py-2">
+            <!-- Chuông vàng lớn ở vị trí trung tâm + Nhân vật hoạt hình MC -->
+            <div class="flex items-center justify-center gap-6">
+                <div onclick="ringBellSound()" class="golden-bell-hero text-amber-400 text-6xl sm:text-7xl select-none" title="Bấm rung chuông vàng!">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <!-- Nhân vật hoạt hình MC đồng hành -->
+                <div class="mascot-bob w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-b from-sky-300 to-blue-600 p-1.5 border-2 border-amber-300 shadow-xl hidden sm:block">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <circle cx="50" cy="50" r="45" fill="#064e3b"/>
+                        <polygon points="50,12 18,26 50,40 82,26" fill="#fbbf24"/>
+                        <circle cx="50" cy="56" r="21" fill="#fde68a"/>
+                        <rect x="35" y="49" width="12" height="9" rx="2" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+                        <rect x="53" y="49" width="12" height="9" rx="2" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+                        <line x1="47" y1="53" x2="53" y2="53" stroke="#1e293b" stroke-width="2.5"/>
+                        <circle cx="41" cy="53.5" r="2" fill="#0f172a"/>
+                        <circle cx="59" cy="53.5" r="2" fill="#0f172a"/>
+                        <path d="M 43 64 Q 50 70 57 64" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M 24 92 C 26 76, 74 76, 76 92 Z" fill="#10b981"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div>
+                <span class="inline-block px-4 py-1 rounded-full bg-amber-400/20 border border-amber-300 text-amber-200 text-xs sm:text-sm font-extrabold uppercase tracking-widest mb-2">
+                    GAME SHOW TRUYỀN HÌNH TOÁN HỌC 11 – THẦY HÒA
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-black text-white uppercase leading-tight drop-shadow">
+                    CHINH PHỤC ĐỈNH CAO 10.000.000 ĐIỂM
+                </h2>
+                <p class="text-sky-200 text-sm sm:text-base font-medium mt-1">
+                    Chuyên đề: <strong class="text-amber-300">Đề Kiểm Tra Cuối Kì I Toán 11 — Trường THPT Nguyễn Thị Minh Khai (Hà Tĩnh)</strong> (Dãy số – Cấp số cộng – Cấp số nhân, Giới hạn – Hàm số liên tục, Đường thẳng & Mặt phẳng song song trong không gian)
+                </p>
+            </div>
+
+            <!-- Bảng Luật chơi & Cấu trúc 3 hình thức kết hợp (22 câu hỏi chuẩn đề tải lên) -->
+            <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-3 text-left">
+                <div class="bg-black/35 border border-amber-400/40 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 text-amber-300 font-black text-sm uppercase mb-1">
+                        <i class="fa-solid fa-crown"></i> Chặng 1: Ai Là Triệu Phú
+                    </div>
+                    <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+                        <strong>Câu 1 – 12:</strong> Trắc nghiệm 4 lựa chọn (xáo trộn ngẫu nhiên A/B/C/D). Có quyền trợ giúp <strong>50:50</strong> và <strong>Hỏi Chuyên Gia</strong>. Mỗi câu đúng đạt <strong>350.000 điểm</strong>.
+                    </p>
+                </div>
+                <div class="bg-black/35 border border-sky-400/40 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 text-sky-300 font-black text-sm uppercase mb-1">
+                        <i class="fa-solid fa-bolt"></i> Chặng 2: Đấu Trường Toán Học
+                    </div>
+                    <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+                        <strong>Câu 13 – 16:</strong> Xét tính Đúng/Sai cho 4 mệnh đề a, b, c, d. Chấm điểm lũy tiến chuẩn GDPT 2018: 1 ý (55.000đ), 2 ý (137.500đ), 3 ý (275.000đ), 4 ý (<strong>550.000 điểm</strong>).
+                    </p>
+                </div>
+                <div class="bg-black/35 border border-rose-400/40 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 text-rose-300 font-black text-sm uppercase mb-1">
+                        <i class="fa-solid fa-mountain-sun"></i> Chặng 3: Vượt Chướng Ngại Vật
+                    </div>
+                    <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+                        <strong>Câu 17 – 22:</strong> Trả lời ngắn vận dụng thực tế & tính toán (mỗi câu <strong>600.000 điểm</strong>) để cán mốc <strong>10.000.000 điểm</strong> & nhận Huy hiệu Vàng!
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-950/80 border border-emerald-400/40 rounded-xl px-4 py-2 text-xs sm:text-sm text-amber-200 font-semibold max-w-3xl">
+                <i class="fa-solid fa-circle-info mr-1 text-amber-400"></i>
+                <strong>Quy tắc:</strong> KHÔNG GIỚI HẠN THỜI GIAN TRẢ LỜI CHO MỖI CÂU HỎI. Sau mỗi câu đều có phân tích định hướng giải chi tiết. Hoàn thành đủ 22 thử thách để ghi danh Bảng Vàng!
+            </div>
+
+            <!-- Form nhập thông tin thí sinh & chọn chế độ -->
+            <div class="w-full max-w-xl bg-black/40 border border-amber-400/50 rounded-2xl p-4 space-y-3">
+                <div id="form-warning" class="hidden bg-rose-600/90 text-white text-xs font-bold px-3 py-2 rounded-lg">
+                    Vui lòng nhập đầy đủ Họ và tên cùng Lớp học để bắt đầu!
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+                    <div>
+                        <label class="block text-xs font-bold text-amber-300 uppercase mb-1">Họ và tên học sinh:</label>
+                        <input type="text" id="input-name" placeholder="VD: Nguyễn Hoàng Nam" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-amber-300 uppercase mb-1">Lớp:</label>
+                        <input type="text" id="input-class" placeholder="VD: 11A2" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                    <button onclick="startGame('individual')" class="py-3 px-5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-black text-sm sm:text-base uppercase shadow-lg transition transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-user-astronaut mr-1.5"></i> Chế Độ Cá Nhân
+                    </button>
+                    <button onclick="openTeacherLobby()" class="py-3 px-5 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-black text-sm sm:text-base uppercase shadow-lg transition transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-chalkboard-user mr-1.5"></i> Chế Độ Cả Lớp (GV)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             MÀN HÌNH 2: MÀN HÌNH ĐIỀU KHIỂN DÀNH CHO GIÁO VIÊN (CHẾ ĐỘ CẢ LỚP)
+             Cấu trúc đồng bộ máy chủ thực tế (không giả lập dữ liệu cục bộ)
+             ===================================================================== -->
+        <section id="screen-teacher" class="hidden relative z-10 flex-col space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-emerald-500/40 pb-3">
+                <div>
+                    <span class="px-3 py-1 bg-sky-500 text-white text-xs font-black rounded-full uppercase">BẢNG ĐIỀU KHIỂN GIÁO VIÊN – CHẾ ĐỘ CẢ LỚP</span>
+                    <h2 class="text-xl sm:text-2xl font-black text-amber-300 mt-1">THEO DÕI THI ĐẤU TRỰC TIẾP TRÊN LỚP</h2>
+                </div>
+                <button onclick="backToWelcome()" class="px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 text-white text-xs sm:text-sm font-bold transition">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Quay lại Sảnh chính
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-black/40 border border-sky-400/40 rounded-2xl p-4 space-y-2">
+                    <div class="text-xs font-bold text-sky-300 uppercase">Trạng thái kết nối máy chủ lớp học</div>
+                    <div id="server-sync-status" class="text-sm font-extrabold text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-satellite-dish animate-pulse"></i>
+                        <span>Sẵn sàng đồng bộ qua máy chủ</span>
+                    </div>
+                    <p class="text-xs text-emerald-200 leading-relaxed">
+                        Học sinh mở trò chơi trên thiết bị riêng, nhập Họ tên & Lớp và chọn <strong>Chế Độ Cá Nhân</strong>. Kết quả sau khi hoàn thành sẽ tự động đổ về Bảng Xếp Hạng bên cạnh.
+                    </p>
+                </div>
+
+                <div class="bg-black/40 border border-amber-400/40 rounded-2xl p-4 flex flex-col justify-center items-center text-center">
+                    <div class="text-xs font-bold text-amber-300 uppercase">Số thí sinh đã ghi nhận từ máy chủ</div>
+                    <div id="teacher-player-count" class="mono-font text-4xl font-black text-white my-1">0</div>
+                    <div class="text-xs text-emerald-300">Tự động cập nhật mỗi 5 giây</div>
+                </div>
+
+                <div class="bg-black/40 border border-emerald-400/40 rounded-2xl p-4 flex flex-col justify-between">
+                    <div class="text-xs font-bold text-emerald-300 uppercase">Điều khiển phiên học</div>
+                    <button onclick="fetchLeaderboardFromServer(true)" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-black text-sm uppercase transition">
+                        <i class="fa-solid fa-rotate mr-1.5"></i> Làm mới Bảng Xếp Hạng
+                    </button>
+                    <button onclick="startGameFromTeacher()" class="w-full py-2.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-emerald-950 font-black text-sm uppercase transition mt-2">
+                        <i class="fa-solid fa-play mr-1.5"></i> Chiếu Đề Trực Tiếp Lên Bảng
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bảng xếp hạng trực tiếp của lớp -->
+            <div class="bg-black/45 border border-amber-400/40 rounded-2xl p-4">
+                <h3 class="text-amber-300 font-black text-base uppercase mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-trophy"></i> Bảng Xếp Hạng Thi Đấu Cả Lớp (Thời gian thực từ máy chủ)
+                </h3>
+                <div class="overflow-x-auto max-h-72 rounded-xl border border-emerald-700/60">
+                    <table class="w-full text-sm text-left text-white">
+                        <thead class="bg-emerald-900 text-amber-300 uppercase text-xs sticky top-0">
+                            <tr>
+                                <th class="py-2.5 px-3 text-center">Hạng</th>
+                                <th class="py-2.5 px-3">Họ tên</th>
+                                <th class="py-2.5 px-3 text-center">Lớp</th>
+                                <th class="py-2.5 px-3 text-right">Điểm số</th>
+                                <th class="py-2.5 px-3 text-center">Thời gian làm bài</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teacher-leaderboard-body" class="divide-y divide-emerald-800/60">
+                            <tr>
+                                <td colspan="5" class="py-6 text-center text-emerald-300">Đang chờ dữ liệu đồng bộ từ máy chủ lớp học...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             MÀN HÌNH 3: SÂN KHẤU CHƠI GAME (3 HÌNH THỨC KẾT HỢP)
+             ===================================================================== -->
+        <section id="screen-game" class="hidden relative z-10 flex-col space-y-4">
+            <!-- Thanh trạng thái chặng, tiến trình & quyền trợ giúp -->
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-500/40 pb-3">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span id="stage-badge" class="px-3 py-1 rounded-full bg-amber-400 text-emerald-950 font-black text-xs sm:text-sm uppercase shadow">
+                        Chặng 1: Ai Là Triệu Phú
+                    </span>
+                    <span id="level-badge" class="px-2.5 py-1 rounded-full bg-sky-500/30 border border-sky-300/60 text-sky-100 font-bold text-xs">
+                        Nhận biết
+                    </span>
+                    <span id="progress-text" class="text-amber-200 font-extrabold text-sm sm:text-base ml-1">
+                        Câu 1 / 22
+                    </span>
+                </div>
+
+                <!-- Quyền trợ giúp (Chỉ hiện ở Chặng 1 - Ai là triệu phú) -->
+                <div id="lifelines-bar" class="flex items-center gap-2">
+                    <button id="btn-5050" onclick="useFiftyFifty()" class="px-3 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-500 border border-amber-300 text-white font-black text-xs sm:text-sm shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-scissors text-amber-300"></i> 50:50
+                    </button>
+                    <button id="btn-expert" onclick="useAskExpert()" class="px-3 py-1.5 rounded-full bg-teal-600 hover:bg-teal-500 border border-amber-300 text-white font-black text-xs sm:text-sm shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-tie text-amber-300"></i> Hỏi Chuyên Gia
+                    </button>
+                </div>
+            </div>
+
+            <!-- Thanh tiến trình trực quan 22 mốc -->
+            <div class="w-full bg-black/40 h-2.5 rounded-full overflow-hidden border border-emerald-600/50">
+                <div id="progress-bar-fill" class="bg-gradient-to-r from-amber-400 via-yellow-300 to-emerald-400 h-full transition-all duration-500" style="width: 4.5%;"></div>
+            </div>
+
+            <!-- Hộp gợi ý của Chuyên gia (khi kích hoạt) -->
+            <div id="expert-hint-box" class="hidden bg-indigo-950/90 border-2 border-sky-400 rounded-2xl p-3.5 flex items-start gap-3 shadow-lg">
+                <div class="w-10 h-10 rounded-full bg-sky-400 text-indigo-950 flex items-center justify-center font-black shrink-0 text-lg">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div class="text-xs sm:text-sm text-sky-100 leading-relaxed">
+                    <div class="font-black text-amber-300 uppercase mb-0.5">Tư vấn từ Chuyên Gia Toán Học Thầy Hòa:</div>
+                    <div id="expert-hint-text"></div>
+                </div>
+            </div>
+
+            <!-- Khu vực Đề bài + Hình vẽ minh họa (Bố cục 2 cột linh hoạt, không làm che khuất đề bài) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-black/40 border-2 border-amber-400/70 rounded-2xl p-4 sm:p-6 shadow-xl">
+                <div id="question-text-col" class="lg:col-span-12 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span id="question-value-tag" class="text-xs font-extrabold text-amber-300 uppercase tracking-wider">
+                            Giá trị câu hỏi: +350.000 điểm
+                        </span>
+                        <span class="text-xs text-emerald-300 italic">Không giới hạn thời gian suy nghĩ</span>
+                    </div>
+                    <div id="question-content" class="text-base sm:text-xl md:text-2xl font-bold text-white leading-relaxed">
+                        Đang tải câu hỏi...
+                    </div>
+                </div>
+
+                <!-- Khung hình vẽ SVG / Bảng số liệu (chỉ hiện khi câu hỏi có hình minh họa) -->
+                <div id="question-diagram-col" class="hidden lg:col-span-5 flex flex-col items-center justify-center bg-emerald-950/85 border border-emerald-500/50 rounded-xl p-3">
+                    <div id="question-diagram-svg" class="w-full max-w-[300px] flex justify-center"></div>
+                    <span class="text-[11px] text-emerald-300 mt-1 italic">Hình vẽ / Bảng số liệu theo đề bài</span>
+                </div>
+            </div>
+
+            <!-- HÌNH THỨC 1: TRẮC NGHIỆM 4 LỰA CHỌN (AI LÀ TRIỆU PHÚ) -->
+            <div id="area-mcq" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                <!-- Các nút A, B, C, D được render và xáo trộn ngẫu nhiên bằng JS -->
+            </div>
+
+            <!-- HÌNH THỨC 2: TRẮC NGHIỆM ĐÚNG / SAI 4 Ý a, b, c, d (ĐẤU TRƯỜNG TOÁN HỌC) -->
+            <div id="area-tf4" class="hidden flex-col space-y-3">
+                <div class="text-xs sm:text-sm text-amber-200 font-bold text-center">
+                    Chọn <strong>ĐÚNG</strong> hoặc <strong>SAI</strong> cho từng mệnh đề a), b), c), d) dưới đây rồi bấm <strong>Xác nhận đáp án</strong>:
+                </div>
+                <div id="tf4-list" class="space-y-2.5">
+                    <!-- 4 mệnh đề a, b, c, d render bằng JS -->
+                </div>
+                <div class="flex justify-center pt-2">
+                    <button id="btn-submit-tf4" onclick="submitTF4()" class="py-3 px-8 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-black text-sm sm:text-base uppercase shadow-lg transition">
+                        <i class="fa-solid fa-check-double mr-1.5"></i> Xác Nhận 4 Mệnh Đề
+                    </button>
+                </div>
+            </div>
+
+            <!-- HÌNH THỨC 3: TRẢ LỜI NGẮN (VƯỢT CHƯỚNG NGẠI VẬT) -->
+            <div id="area-short" class="hidden flex-col items-center space-y-3 bg-black/35 border border-amber-400/50 rounded-2xl p-5">
+                <label for="short-answer-input" class="text-sm sm:text-base font-bold text-amber-200 text-center">
+                    Nhập kết quả số của bạn (ví dụ: <span class="mono-font text-white">28</span> hoặc <span class="mono-font text-white">1,5</span> hoặc <span class="mono-font text-white">-6</span>):
+                </label>
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md">
+                    <input type="text" id="short-answer-input" placeholder="Nhập đáp số..." class="w-full px-4 py-3 rounded-xl bg-emerald-950 border-2 border-amber-400 text-white text-center mono-font text-xl font-black focus:outline-none focus:ring-2 focus:ring-amber-300">
+                    <button id="btn-submit-short" onclick="submitShortAnswer()" class="w-full sm:w-auto whitespace-nowrap py-3.5 px-7 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-black text-base uppercase shadow-lg transition">
+                        Chốt Đáp Án
+                    </button>
+                </div>
+            </div>
+
+            <!-- HỘP PHẢN HỒI SƯ PHẠM & PHÂN TÍCH ĐỊNH HƯỚNG GIẢI CHI TIẾT -->
+            <div id="feedback-panel" class="hidden rounded-2xl p-4 sm:p-5 border-2 space-y-3 shadow-2xl transition-all">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                    <div class="flex items-center gap-2.5">
+                        <span id="feedback-icon" class="text-2xl sm:text-3xl"></span>
+                        <h3 id="feedback-title" class="text-lg sm:text-xl font-black uppercase"></h3>
+                    </div>
+                    <span id="feedback-points-earned" class="mono-font px-3 py-1 rounded-full bg-black/40 text-amber-300 font-extrabold text-sm"></span>
+                </div>
+
+                <div id="feedback-explanation" class="bg-black/45 border border-white/15 rounded-xl p-3.5 text-sm sm:text-base text-white leading-relaxed">
+                    <!-- Phân tích định hướng giải bám sát lời giải chi tiết của đề -->
+                </div>
+
+                <div class="flex justify-end">
+                    <button id="btn-next-question" onclick="nextQuestion()" class="py-2.5 px-7 rounded-full bg-amber-400 hover:bg-amber-300 text-emerald-950 font-black text-sm sm:text-base uppercase shadow-lg transition flex items-center gap-2">
+                        <span>Thử thách tiếp theo</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             MÀN HÌNH 4: VINH DANH CHIẾN THẮNG, HUY HIỆU & BẢNG XẾP HẠNG
+             ===================================================================== -->
+        <section id="screen-result" class="hidden relative z-10 flex-col items-center text-center space-y-5 py-2">
+            <div class="relative">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-600 border-4 border-white flex items-center justify-center text-emerald-950 text-4xl sm:text-5xl shadow-2xl mx-auto">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+            </div>
+
+            <div>
+                <span id="result-badge-title" class="px-4 py-1 rounded-full bg-amber-400 text-emerald-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow">
+                    DANH HIỆU: BẬC THẦY TOÁN HỌC 11
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-black text-white uppercase mt-2">
+                    CHÚC MỪNG HOÀN THÀNH ĐẤU TRƯỜNG!
+                </h2>
+                <p class="text-emerald-200 text-sm sm:text-base mt-1">
+                    Thí sinh: <strong id="res-name" class="text-amber-300"></strong> — Lớp: <strong id="res-class" class="text-amber-300"></strong>
+                </p>
+            </div>
+
+            <!-- Bảng tổng kết thành tích -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-3xl">
+                <div class="bg-black/45 border border-amber-400/50 rounded-2xl p-3.5">
+                    <div class="text-xs text-emerald-300 uppercase font-bold">Tổng Điểm</div>
+                    <div id="res-score" class="mono-font text-xl sm:text-2xl font-black text-amber-400 mt-1">0</div>
+                </div>
+                <div class="bg-black/45 border border-sky-400/50 rounded-2xl p-3.5">
+                    <div class="text-xs text-emerald-300 uppercase font-bold">Kinh Nghiệm (XP)</div>
+                    <div id="res-xp" class="mono-font text-xl sm:text-2xl font-black text-sky-300 mt-1">+0 XP</div>
+                </div>
+                <div class="bg-black/45 border border-emerald-400/50 rounded-2xl p-3.5">
+                    <div class="text-xs text-emerald-300 uppercase font-bold">Số Câu Hoàn Hảo</div>
+                    <div id="res-correct-count" class="mono-font text-xl sm:text-2xl font-black text-emerald-300 mt-1">0 / 22</div>
+                </div>
+                <div class="bg-black/45 border border-purple-400/50 rounded-2xl p-3.5">
+                    <div class="text-xs text-emerald-300 uppercase font-bold">Thời Gian</div>
+                    <div id="res-time" class="mono-font text-xl sm:text-2xl font-black text-purple-300 mt-1">00:00</div>
+                </div>
+            </div>
+
+            <!-- Tiến bộ cá nhân lưu cục bộ trên máy học sinh -->
+            <div id="personal-progress-note" class="text-xs sm:text-sm text-sky-200 bg-sky-950/60 border border-sky-400/40 px-4 py-2 rounded-xl max-w-2xl"></div>
+
+            <!-- Bảng Xếp Hạng Lớp Học -->
+            <div class="w-full max-w-3xl bg-black/45 border border-amber-400/50 rounded-2xl p-4 text-left">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-amber-300 font-black text-sm sm:text-base uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-ranking-star"></i> Bảng Xếp Hạng Lớp Học
+                    </h3>
+                    <span id="sync-indicator" class="text-[11px] text-emerald-300">Đang cập nhật...</span>
+                </div>
+                <div class="overflow-x-auto max-h-52 rounded-xl border border-emerald-800">
+                    <table class="w-full text-xs sm:text-sm text-white">
+                        <thead class="bg-emerald-900 text-amber-300 uppercase sticky top-0">
+                            <tr>
+                                <th class="py-2 px-3 text-center">#</th>
+                                <th class="py-2 px-3 text-left">Họ tên</th>
+                                <th class="py-2 px-3 text-center">Lớp</th>
+                                <th class="py-2 px-3 text-right">Điểm số</th>
+                                <th class="py-2 px-3 text-center">Thời gian làm bài</th>
+                            </tr>
+                        </thead>
+                        <tbody id="result-leaderboard-body" class="divide-y divide-emerald-800/60">
+                            <!-- Dữ liệu xếp hạng -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Nút Chơi Lại reset sạch hoàn toàn -->
+            <div class="pt-1">
+                <button onclick="resetAndPlayAgain()" class="py-3.5 px-9 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-black text-base uppercase shadow-xl transition transform hover:scale-105">
+                    <i class="fa-solid fa-rotate-left mr-2"></i> Chơi Lại Từ Đầu
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER THƯƠNG HIỆU -->
+    <footer class="w-full max-w-7xl mx-auto text-center py-3 text-xs text-white/90 font-semibold drop-shadow">
+        Bản quyền thuộc về <strong>THẦY HÒA</strong> • Học liệu số Toán 11 (Chương trình GDPT 2018 – KNTTVCS).
+    </footer>
+
+    <!-- =========================================================================
+         KHU VỰC DỮ LIỆU CÂU HỎI & MÃ NGUỒN JAVASCRIPT (CÓ CHÚ THÍCH TIẾNG VIỆT)
+         ========================================================================= -->
+    <script>
+        /* =====================================================================
+           1. NGÂN HÀNG DỮ LIỆU 22 CÂU HỎI BÁM SÁT ĐỀ THI CUỐI KÌ I TOÁN 11
+              TRƯỜNG THPT NGUYỄN THỊ MINH KHAI – HÀ TĨNH (NĂM HỌC 2025 - 2026)
+           - Giữ nguyên 100% nội dung toán học, công thức và hình vẽ hình học không gian
+             từ Mã đề 1101 & Mã đề 1102 cùng hướng dẫn chấm chính thức của trường.
+           - Tỉ lệ mức độ tư duy chuẩn 22 câu:
+             + Nhận biết: 7 câu (~31,8%) — Câu 1, 2, 3, 4, 5, 6, 7
+             + Thông hiểu: 9 câu (~40,9%) — Câu 8, 9, 10, 11, 12, 13, 14, 15, 17
+             + Vận dụng: 6 câu (~27,3%) — Câu 16, 18, 19, 20, 21, 22
+           - Tổng điểm tối đa: 12 x 350.000 + 4 x 550.000 + 6 x 600.000 = 10.000.000 điểm.
+           ===================================================================== */
+        const QUESTION_BANK = [
+            // ================= CHẶNG 1: AI LÀ TRIỆU PHÚ TOÁN HỌC (12 CÂU MCQ - MÃ ĐỀ 1101) =================
+            {
+                id: 1,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Nhận biết',
+                points: 350000,
+                text: "Trong các mệnh đề sau, mệnh đề nào <strong>sai</strong>?",
+                options: [
+                    "Hai mặt phẳng cùng song song với một mặt phẳng thứ ba thì chúng song song với nhau.",
+                    "Hai mặt phẳng song song thì không có điểm chung.",
+                    "Hai mặt phẳng song song với nhau thì mọi đường thẳng nằm trong mặt phẳng này đều song song với mặt phẳng kia.",
+                    "Một mặt phẳng cắt hai mặt phẳng song song cho trước theo hai giao tuyến thì hai giao tuyến song song với nhau."
+                ],
+                correctIndex: 0,
+                hint: "Xét trường hợp hai mặt phẳng phân biệt hay có thể trùng nhau khi cùng song song với mặt phẳng thứ ba.",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 1):</strong> Hai mặt phẳng <em>phân biệt</em> cùng song song với một mặt phẳng thứ ba mới song song với nhau; nếu thiếu điều kiện phân biệt, hai mặt phẳng đó có thể <strong>trùng nhau</strong> nên mệnh đề B trong đề gốc là sai."
+            },
+            {
+                id: 2,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Nhận biết',
+                points: 350000,
+                text: "Cho dãy $(u_n)$ có $\\lim u_n = 3$, dãy $(v_n)$ có $\\lim v_n = 5$. Khi đó, $\\lim(u_n \\cdot v_n)$ bằng:",
+                options: [
+                    "$15$.",
+                    "$8$.",
+                    "$3$.",
+                    "$5$."
+                ],
+                correctIndex: 0,
+                hint: "Áp dụng định lí về giới hạn hữu hạn của tích hai dãy số: $\\lim(u_n \\cdot v_n) = \\lim u_n \\cdot \\lim v_n$.",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 2):</strong> Theo quy tắc tính giới hạn hữu hạn của dãy số, ta có $\\lim(u_n \\cdot v_n) = (\\lim u_n) \\cdot (\\lim v_n) = 3 \\cdot 5 = 15$."
+            },
+            {
+                id: 3,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Nhận biết',
+                points: 350000,
+                text: "Trong các dãy số sau, dãy số nào <strong>không phải</strong> cấp số cộng?",
+                options: [
+                    "$3; 1; -1; -2; -4$.",
+                    "$\\dfrac{1}{2}; \\dfrac{3}{2}; \\dfrac{5}{2}; \\dfrac{7}{2}; \\dfrac{9}{2}$.",
+                    "$-8; -6; -4; -2; 0$.",
+                    "$1; 1; 1; 1; 1$."
+                ],
+                correctIndex: 0,
+                hint: "Kiểm tra hiệu của hai số hạng liên tiếp $u_{k+1} - u_k$ xem có không đổi hay không.",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 4):</strong> Ở dãy $3; 1; -1; -2; -4$, ta thấy $1 - 3 = -2$ và $-1 - 1 = -2$, nhưng $-2 - (-1) = -1 \\neq -2$ nên hiệu hai số hạng liên tiếp không không đổi; do đó đây không phải là cấp số cộng."
+            },
+            {
+                id: 4,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Nhận biết',
+                points: 350000,
+                text: "Cho hình hộp $ABCD.A'B'C'D'$. Khẳng định nào sau đây là <strong>đúng</strong>?",
+                options: [
+                    "Hai mặt $(ADD'A')$ và $(BCC'B')$ là hai mặt phẳng đối diện.",
+                    "Hai cạnh $AA'$ và $B'C'$ là hai cạnh đối diện.",
+                    "Hai đỉnh $A$ và $C$ là hai đỉnh đối diện.",
+                    "Hai cạnh $AA'$ và $DD'$ là hai cạnh đối diện."
+                ],
+                correctIndex: 0,
+                hint: "Quan sát hình hộp $ABCD.A'B'C'D'$: hai mặt bên đối diện là $(ADD'A')$ và $(BCC'B')$.",
+                diagram: `
+                    <svg viewBox="0 0 225 175" class="w-full h-auto">
+                        <line x1="38" y1="142" x2="145" y2="142" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="145" y1="142" x2="185" y2="112" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="38" y1="142" x2="78" y2="112" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="5,4"/>
+                        <line x1="78" y1="112" x2="185" y2="112" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="5,4"/>
+                        <polygon points="48,52 155,52 195,22 88,22" fill="rgba(255,255,255,0.06)" stroke="#fff" stroke-width="1.6"/>
+                        <polygon points="88,22 48,52 38,142 78,112" fill="rgba(251,191,36,0.18)" stroke="#fbbf24" stroke-width="1.6"/>
+                        <polygon points="195,22 155,52 145,142 185,112" fill="rgba(56,189,248,0.18)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="48" y1="52" x2="38" y2="142" stroke="#fbbf24" stroke-width="1.6"/>
+                        <line x1="155" y1="52" x2="145" y2="142" stroke="#38bdf8" stroke-width="1.6"/>
+                        <text x="78" y="17" fill="#fbbf24" font-size="11" font-weight="bold">A</text>
+                        <text x="198" y="24" fill="#38bdf8" font-size="11" font-weight="bold">B</text>
+                        <text x="158" y="56" fill="#38bdf8" font-size="11" font-weight="bold">C</text>
+                        <text x="34" y="54" fill="#fbbf24" font-size="11" font-weight="bold">D</text>
+                        <text x="62" y="109" fill="#fbbf24" font-size="11" font-weight="bold">A'</text>
+                        <text x="188" y="115" fill="#38bdf8" font-size="11" font-weight="bold">B'</text>
+                        <text x="147" y="155" fill="#38bdf8" font-size="11" font-weight="bold">C'</text>
+                        <text x="23" y="150" fill="#fbbf24" font-size="11" font-weight="bold">D'</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 5):</strong> Trong hình hộp $ABCD.A'B'C'D'$, hai mặt phẳng $(ADD'A')$ và $(BCC'B')$ là hai mặt bên đối diện và song song với nhau."
+            },
+            {
+                id: 5,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Nhận biết',
+                points: 350000,
+                text: "Dãy số $(u_n)$ được gọi là dãy số tăng nếu:",
+                options: [
+                    "$u_{n+1} > u_n$ với mọi $n \\in \\mathbb{N}^*$.",
+                    "$u_{n+1} > u_{n+2}$ với mọi $n \\in \\mathbb{N}^*$.",
+                    "$u_{n+1} < u_n$ với mọi $n \\in \\mathbb{N}^*$.",
+                    "$u_{n+3} < u_{n+2}$ với mọi $n \\in \\mathbb{N}^*$."
+                ],
+                correctIndex: 0,
+                hint: "Nhớ lại định nghĩa dãy số tăng trong SGK Toán 11: số hạng đứng sau lớn hơn số hạng đứng ngay trước nó.",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 9):</strong> Theo định nghĩa, dãy số $(u_n)$ được gọi là dãy số tăng nếu ta có $u_{n+1} > u_n$ với mọi $n \\in \\mathbb{N}^*$."
+            },
+            {
+                id: 6,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Nhận biết',
+                points: 350000,
+                text: "Hàm số nào trong các hàm số dưới đây <strong>không</strong> liên tục trên $\\mathbb{R}$?",
+                options: [
+                    "$y = \\dfrac{x}{x + 1}$.",
+                    "$y = x^2 + 6x + 20$.",
+                    "$y = \\dfrac{x}{x^2 + x + 2}$.",
+                    "$y = \\cos x$."
+                ],
+                correctIndex: 0,
+                hint: "Tìm hàm số có tập xác định khác $\\mathbb{R}$ (mẫu thức có nghiệm thực).",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 10):</strong> Hàm phân thức $y = \\dfrac{x}{x + 1}$ có tập xác định $D = \\mathbb{R} \\setminus \\{-1\\}$ nên gián đoạn tại $x = -1$, do đó không liên tục trên $\\mathbb{R}$. Ba hàm còn lại đều có tập xác định là $\\mathbb{R}$ và liên tục trên $\\mathbb{R}$."
+            },
+            {
+                id: 7,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Nhận biết',
+                points: 350000,
+                text: "Cho hình lăng trụ $ABC.A'B'C'$. Khẳng định nào sau đây <strong>sai</strong>?",
+                options: [
+                    "$AA' \\parallel (AA'C'C)$.",
+                    "$AC \\parallel (A'B'C')$.",
+                    "$AA' \\parallel (BCC'B')$.",
+                    "$B'C' \\parallel (ABC)$."
+                ],
+                correctIndex: 0,
+                hint: "Xét vị trí tương đối giữa cạnh bên $AA'$ và mặt bên $(AA'C'C)$.",
+                diagram: `
+                    <svg viewBox="0 0 220 175" class="w-full h-auto">
+                        <polygon points="48,45 178,45 112,72" fill="rgba(251,191,36,0.12)" stroke="#fef08a" stroke-width="1.6"/>
+                        <line x1="48" y1="132" x2="178" y2="132" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="5,4"/>
+                        <line x1="48" y1="132" x2="112" y2="158" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="178" y1="132" x2="112" y2="158" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="48" y1="45" x2="48" y2="132" stroke="#fbbf24" stroke-width="1.8"/>
+                        <line x1="178" y1="45" x2="178" y2="132" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="112" y1="72" x2="112" y2="158" stroke="#fff" stroke-width="1.6"/>
+                        <text x="34" y="47" fill="#fbbf24" font-size="11" font-weight="bold">A'</text>
+                        <text x="182" y="47" fill="#fff" font-size="11" font-weight="bold">C'</text>
+                        <text x="108" y="86" fill="#fff" font-size="11" font-weight="bold">B'</text>
+                        <text x="34" y="135" fill="#fbbf24" font-size="11" font-weight="bold">A</text>
+                        <text x="182" y="135" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="108" y="170" fill="#fff" font-size="11" font-weight="bold">B</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 12):</strong> Đường thẳng $AA'$ nằm hoàn toàn trong mặt phẳng $(AA'C'C)$ ($AA' \\subset (AA'C'C)$) nên không thể song song với $(AA'C'C)$."
+            },
+            {
+                id: 8,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Thông hiểu',
+                points: 350000,
+                text: "Cho hình hộp $ABCD.A'B'C'D'$. Mặt phẳng $(A'BD)$ song song với mặt phẳng nào trong các mặt phẳng sau đây?",
+                options: [
+                    "$(CB'D')$.",
+                    "$(BCA')$.",
+                    "$(BC'D)$.",
+                    "$(BDA')$."
+                ],
+                correctIndex: 0,
+                hint: "Sử dụng tính chất các hình bình hành $A'B'CD$ và $A'D'CB$ để chỉ ra hai đường thẳng cắt nhau của $(A'BD)$ song song với $(CB'D')$.",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 3):</strong> Trong hình hộp $ABCD.A'B'C'D'$, ta có $BD \\parallel B'D'$ và $A'D \\parallel B'C$. Vì $BD, A'D$ cắt nhau trong $(A'BD)$ và $B'D', B'C$ cắt nhau trong $(CB'D')$ nên <strong>$(A'BD) \\parallel (CB'D')$</strong>."
+            },
+            {
+                id: 9,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Thông hiểu',
+                points: 350000,
+                text: "Kết quả của $\\lim \\dfrac{n^3 - 2n}{3n^2 + n - 2}$ là:",
+                options: [
+                    "$+\\infty$.",
+                    "$-\\infty$.",
+                    "$0$.",
+                    "$\\dfrac{1}{3}$."
+                ],
+                correctIndex: 0,
+                hint: "Chia cả tử và mẫu cho lũy thừa bậc cao nhất của mẫu là $n^2$: $\\dfrac{n - \\frac{2}{n}}{3 + \\frac{1}{n} - \\frac{2}{n^2}}$.",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 6):</strong> Chia cả tử và mẫu cho $n^2$, ta được $\\lim \\dfrac{n - \\frac{2}{n}}{3 + \\frac{1}{n} - \\frac{2}{n^2}}$. Vì $\\lim\\left(n - \\frac{2}{n}\\right) = +\\infty$ và $\\lim\\left(3 + \\frac{1}{n} - \\frac{2}{n^2}\\right) = 3 > 0$ nên giới hạn bằng <strong>$+\\infty$</strong>."
+            },
+            {
+                id: 10,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Thông hiểu',
+                points: 350000,
+                text: "Cho cấp số nhân $(u_n)$ có số hạng đầu $u_1 = 5$ và công bội $q = -2$. Số hạng thứ sáu của $(u_n)$ là:",
+                options: [
+                    "$u_6 = -160$.",
+                    "$u_6 = -320$.",
+                    "$u_6 = 320$.",
+                    "$u_6 = 160$."
+                ],
+                correctIndex: 0,
+                hint: "Áp dụng công thức số hạng tổng quát của cấp số nhân: $u_n = u_1 \\cdot q^{n-1}$ với $n = 6$.",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 7):</strong> Áp dụng công thức $u_6 = u_1 \\cdot q^5 = 5 \\cdot (-2)^5 = 5 \\cdot (-32) = -160$."
+            },
+            {
+                id: 11,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Thông hiểu',
+                points: 350000,
+                text: "Cho cấp số nhân $(u_n)$ có $u_1 = -3$ và $q = -2$. Tổng $10$ số hạng đầu tiên của cấp số nhân đã cho là:",
+                options: [
+                    "$S_{10} = 1023$.",
+                    "$S_{10} = -511$.",
+                    "$S_{10} = -1025$.",
+                    "$S_{10} = 1025$."
+                ],
+                correctIndex: 0,
+                hint: "Áp dụng công thức tính tổng $n$ số hạng đầu của cấp số nhân: $S_n = u_1 \\cdot \\dfrac{1 - q^n}{1 - q}$.",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 8):</strong> Ta có $S_{10} = u_1 \\cdot \\dfrac{1 - q^{10}}{1 - q} = (-3) \\cdot \\dfrac{1 - (-2)^{10}}{1 - (-2)} = (-3) \\cdot \\dfrac{1 - 1024}{3} = 1023$."
+            },
+            {
+                id: 12,
+                stage: 1,
+                type: 'MCQ',
+                level: 'Thông hiểu',
+                points: 350000,
+                text: "Giới hạn $\\lim\\limits_{x \\to 1} \\dfrac{x^2 - 2x + 3}{x + 1}$ bằng:",
+                options: [
+                    "$1$.",
+                    "$2$.",
+                    "$0$.",
+                    "$3$."
+                ],
+                correctIndex: 0,
+                hint: "Thay trực tiếp $x = 1$ vào biểu thức vì mẫu thức tại $x = 1$ khác $0$.",
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Câu 11):</strong> Vì hàm phân thức xác định tại $x = 1$ nên $\\lim\\limits_{x \\to 1} \\dfrac{x^2 - 2x + 3}{x + 1} = \\dfrac{1^2 - 2\\cdot 1 + 3}{1 + 1} = \\dfrac{2}{2} = 1$."
+            },
+
+            // ================= CHẶNG 2: ĐẤU TRƯỜNG TOÁN HỌC – ĐÚNG / SAI 4 Ý (4 CÂU - MÃ ĐỀ 1101 & 1102) =================
+            {
+                id: 13,
+                stage: 2,
+                type: 'TF4',
+                level: 'Thông hiểu',
+                maxPoints: 550000,
+                text: "Cho lăng trụ tam giác $MNP.M'N'P'$. Gọi $I$ và $J$ lần lượt là trung điểm của $MN$ và $M'N'$. Xét tính đúng, sai của các mệnh đề sau:",
+                diagram: `
+                    <svg viewBox="0 0 225 180" class="w-full h-auto">
+                        <!-- Đáy trên M'N'P' -->
+                        <polygon points="45,42 182,42 115,68" fill="rgba(251,191,36,0.1)" stroke="#fef08a" stroke-width="1.6"/>
+                        <!-- Đáy dưới MNP -->
+                        <line x1="45" y1="132" x2="182" y2="132" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="5,4"/>
+                        <line x1="45" y1="132" x2="115" y2="158" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="182" y1="132" x2="115" y2="158" stroke="#fff" stroke-width="1.6"/>
+                        <!-- Cạnh bên -->
+                        <line x1="45" y1="42" x2="45" y2="132" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="182" y1="42" x2="182" y2="132" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="115" y1="68" x2="115" y2="158" stroke="#fff" stroke-width="1.6"/>
+                        <!-- Trung điểm I của MN, J của M'N' -->
+                        <line x1="80" y1="145" x2="80" y2="55" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3,2"/>
+                        <line x1="80" y1="145" x2="182" y2="42" stroke="#fbbf24" stroke-width="1.4"/>
+                        <line x1="80" y1="55" x2="182" y2="132" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="3,2"/>
+                        <circle cx="80" cy="145" r="3" fill="#fbbf24"/>
+                        <circle cx="80" cy="55" r="3" fill="#fbbf24"/>
+                        <text x="30" y="44" fill="#fff" font-size="11" font-weight="bold">M'</text>
+                        <text x="186" y="44" fill="#fff" font-size="11" font-weight="bold">P'</text>
+                        <text x="112" y="82" fill="#fff" font-size="11" font-weight="bold">N'</text>
+                        <text x="30" y="135" fill="#fff" font-size="11" font-weight="bold">M</text>
+                        <text x="186" y="135" fill="#fff" font-size="11" font-weight="bold">P</text>
+                        <text x="112" y="170" fill="#fff" font-size="11" font-weight="bold">N</text>
+                        <text x="67" y="153" fill="#fbbf24" font-size="11" font-weight="bold">I</text>
+                        <text x="67" y="61" fill="#fbbf24" font-size="11" font-weight="bold">J</text>
+                    </svg>
+                `,
+                statements: [
+                    { label: "a)", text: "$IJ \\parallel MP'$.", answer: false },
+                    { label: "b)", text: "$(MNP) \\parallel (M'N'P')$.", answer: true },
+                    { label: "c)", text: "$PP'$ song song với $(IP'J)$.", answer: false },
+                    { label: "d)", text: "Giao tuyến của $(PM'N')$ và $(P'MN)$ là đường thẳng đi qua giao điểm của hai đường thẳng $PJ$ và $P'I$.", answer: false }
+                ],
+                explanation: "<strong>Phân tích từng mệnh đề (Mã đề 1101 – Phần II – Câu 1 — Đáp án chính thức: S-Đ-S-S):</strong><br>• <strong>a) Sai:</strong> $IJ \\parallel MM'$ và $MM'$ cắt $MP'$ tại $M$ nên $IJ$ chéo với $MP'$.<br>• <strong>b) Đúng:</strong> Hai mặt đáy của hình lăng trụ luôn song song với nhau.<br>• <strong>c) Sai:</strong> Vì $IJ \\parallel PP'$ nên $PP' \\subset (IP'J)$, do đó $PP'$ không song song với $(IP'J)$.<br>• <strong>d) Sai:</strong> Theo hướng dẫn chấm chính thức của trường (S-Đ-S-S), $PJ \\subset (PM'N')$ và $P'I \\subset (P'MN)$ cắt nhau tại $O$ thuộc giao tuyến, nhưng mệnh đề trong đề phát biểu sai cấu trúc ký hiệu mặt phẳng $(P'MN')$."
+            },
+            {
+                id: 14,
+                stage: 2,
+                type: 'TF4',
+                level: 'Thông hiểu',
+                maxPoints: 550000,
+                text: "Cho dãy số hữu hạn gồm các số hạng: $8; 11; 14; 17; 20$. Xét tính đúng, sai của các mệnh đề sau:",
+                statements: [
+                    { label: "a)", text: "Dãy số đã cho không phải cấp số cộng.", answer: false },
+                    { label: "b)", text: "Nếu dãy số đã cho là một cấp số cộng thì công sai của cấp số cộng là $d = 3$.", answer: true },
+                    { label: "c)", text: "Số hạng tổng quát của dãy số đã cho là $u_n = -4 + 3n$ ($1 \\le n \\le 5$).", answer: false },
+                    { label: "d)", text: "Tổng tất cả số hạng của dãy số bằng $70$.", answer: true }
+                ],
+                explanation: "<strong>Phân tích từng mệnh đề (Mã đề 1101 – Phần II – Câu 2 — Đáp án chính thức: S-Đ-S-Đ):</strong><br>• <strong>a) Sai:</strong> Hiệu hai số hạng liên tiếp luôn bằng $3$ nên đây là một cấp số cộng.<br>• <strong>b) Đúng:</strong> Công sai $d = 11 - 8 = 3$.<br>• <strong>c) Sai:</strong> Số hạng tổng quát phải là $u_n = u_1 + (n - 1)d = 8 + (n - 1)\\cdot 3 = 5 + 3n$ (với $n = 1$ thì $-4 + 3\\cdot 1 = -1 \\neq 8$).<br>• <strong>d) Đúng:</strong> Tổng $5$ số hạng là $8 + 11 + 14 + 17 + 20 = 70$."
+            },
+            {
+                id: 15,
+                stage: 2,
+                type: 'TF4',
+                level: 'Thông hiểu',
+                maxPoints: 550000,
+                text: "Cho dãy số hữu hạn gồm các số hạng: $21; 24; 27; 30; 33$. Xét tính đúng, sai của các mệnh đề sau:",
+                statements: [
+                    { label: "a)", text: "Dãy số đã cho là cấp số cộng.", answer: true },
+                    { label: "b)", text: "Nếu dãy số đã cho là một cấp số cộng thì công sai của cấp số cộng là $d = 2$.", answer: false },
+                    { label: "c)", text: "Số hạng tổng quát của dãy số đã cho là $u_n = 18 + 3n$ ($1 \\le n \\le 5$).", answer: true },
+                    { label: "d)", text: "Tổng tất cả số hạng của dãy số bằng $134$.", answer: false }
+                ],
+                explanation: "<strong>Phân tích từng mệnh đề (Mã đề 1102 – Phần II – Câu 1 — Đáp án chính thức: Đ-S-Đ-S):</strong><br>• <strong>a) Đúng:</strong> Dãy số có hiệu hai số hạng liên tiếp không đổi bằng $3$ nên là cấp số cộng.<br>• <strong>b) Sai:</strong> Công sai $d = 24 - 21 = 3 \\neq 2$.<br>• <strong>c) Đúng:</strong> $u_n = 21 + (n - 1)\\cdot 3 = 18 + 3n$.<br>• <strong>d) Sai:</strong> Tổng $5$ số hạng là $21 + 24 + 27 + 30 + 33 = 135 \\neq 134$."
+            },
+            {
+                id: 16,
+                stage: 2,
+                type: 'TF4',
+                level: 'Vận dụng',
+                maxPoints: 550000,
+                text: "Cho lăng trụ tam giác $ABC.A'B'C'$. Gọi $M$ và $N$ lần lượt là trung điểm của $BC$ và $B'C'$. Xét tính đúng, sai của các mệnh đề sau:",
+                statements: [
+                    { label: "a)", text: "$(ABC) \\parallel (A'B'C')$.", answer: true },
+                    { label: "b)", text: "$MN \\parallel AB$.", answer: false },
+                    { label: "c)", text: "$AA'$ song song với $(AMN)$.", answer: false },
+                    { label: "d)", text: "Giao tuyến của $(AB'C')$ và $(A'BC)$ là đường thẳng đi qua giao điểm của hai đường thẳng $AN$ và $A'M$.", answer: true }
+                ],
+                explanation: "<strong>Phân tích từng mệnh đề (Mã đề 1102 – Phần II – Câu 2 — Đáp án chính thức: Đ-S-S-Đ):</strong><br>• <strong>a) Đúng:</strong> Hai đáy của hình lăng trụ luôn song song với nhau.<br>• <strong>b) Sai:</strong> $MN \\parallel BB'$ và $BB'$ cắt $AB$ tại $B$ nên $MN$ chéo với $AB$.<br>• <strong>c) Sai:</strong> Vì $MN \\parallel AA'$ nên $AA' \\subset (AMN)$, không song song với $(AMN)$.<br>• <strong>d) Đúng:</strong> Gọi $I = AN \\cap A'M$, vì $AN \\subset (AB'C')$ và $A'M \\subset (A'BC)$ nên $I$ là điểm chung, do đó giao tuyến đi qua $I$ (và song song với $BC, B'C'$)."
+            },
+
+            // ================= CHẶNG 3: VƯỢT CHƯỚNG NGẠI VẬT – TRẢ LỜI NGẮN (6 CÂU - MÃ ĐỀ 1101) =================
+            {
+                id: 17,
+                stage: 3,
+                type: 'SHORT',
+                level: 'Thông hiểu',
+                points: 600000,
+                text: "Giá trị của $\\lim\\limits_{x \\to 1} \\dfrac{x^2 + 25x - 26}{x - 1}$ bằng bao nhiêu?",
+                correctValues: ["27"],
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Phần III – Câu 1):</strong> Phân tích tử thức $x^2 + 25x - 26 = (x - 1)(x + 26)$. Khi đó $\\lim\\limits_{x \\to 1} \\dfrac{(x - 1)(x + 26)}{x - 1} = \\lim\\limits_{x \\to 1} (x + 26) = 1 + 26 = 27$."
+            },
+            {
+                id: 18,
+                stage: 3,
+                type: 'SHORT',
+                level: 'Vận dụng',
+                points: 600000,
+                text: "Cho hình lăng trụ $ABC.A'B'C'$. Gọi $I, J$ lần lượt là trung điểm $BC$ và $CC'$. Đường thẳng $AB$ cắt mặt phẳng $(A'IJ)$ tại $K$. Tỉ số $\\dfrac{KB}{AB}$ có giá trị bằng bao nhiêu (kết quả làm tròn đến hàng phần trăm)?",
+                correctValues: ["0,33", "0.33"],
+                diagram: `
+                    <svg viewBox="0 0 235 180" class="w-full h-auto">
+                        <!-- Lăng trụ ABC.A'B'C' -->
+                        <polygon points="48,35 178,35 108,62" fill="rgba(255,255,255,0.06)" stroke="#fff" stroke-width="1.5"/>
+                        <line x1="48" y1="128" x2="178" y2="128" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <line x1="48" y1="128" x2="108" y2="152" stroke="#fff" stroke-width="1.5"/>
+                        <line x1="178" y1="128" x2="108" y2="152" stroke="#fff" stroke-width="1.5"/>
+                        <line x1="48" y1="35" x2="48" y2="128" stroke="#fff" stroke-width="1.5"/>
+                        <line x1="178" y1="35" x2="178" y2="128" stroke="#fff" stroke-width="1.5"/>
+                        <line x1="108" y1="62" x2="108" y2="152" stroke="#fff" stroke-width="1.5"/>
+                        <!-- Kéo dài AB tới K -->
+                        <line x1="108" y1="152" x2="128" y2="160" stroke="#fbbf24" stroke-width="1.8"/>
+                        <!-- Trung điểm I của BC, J của CC' -->
+                        <line x1="143" y1="140" x2="178" y2="81.5" stroke="#fbbf24" stroke-width="1.6"/>
+                        <line x1="128" y1="160" x2="143" y2="140" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        <circle cx="143" cy="140" r="2.8" fill="#fbbf24"/>
+                        <circle cx="178" cy="81.5" r="2.8" fill="#fbbf24"/>
+                        <circle cx="128" cy="160" r="3" fill="#4ade80"/>
+                        <text x="34" y="38" fill="#fff" font-size="11" font-weight="bold">A'</text>
+                        <text x="182" y="38" fill="#fff" font-size="11" font-weight="bold">C'</text>
+                        <text x="104" y="76" fill="#fff" font-size="11" font-weight="bold">B'</text>
+                        <text x="34" y="131" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="182" y="131" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="96" y="162" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="147" y="144" fill="#fbbf24" font-size="11" font-weight="bold">I</text>
+                        <text x="183" y="84" fill="#fbbf24" font-size="11" font-weight="bold">J</text>
+                        <text x="132" y="168" fill="#4ade80" font-size="11" font-weight="bold">K</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Phần III – Câu 2):</strong> Trong $(BCC'B')$, đường thẳng $IJ$ cắt $BB'$ tại $E$. Vì $I$ là trung điểm $BC$ và $J$ là trung điểm $CC'$ nên $EB = JC = \\dfrac{1}{2}CC' = \\dfrac{1}{2}BB' \\Rightarrow \\dfrac{EB}{EA'} = \\dfrac{EB}{BB'} = \\dfrac{1}{2}$? Chú ý $E$ nằm ngoài đoạn $BB'$ về phía $B$: $EA' = AB$ không song song, mà trong $(ABB'A')$, $A'E$ cắt $AB$ tại $K$. Theo định lí Thalès với $BE \\parallel AA'$ ta có $\\dfrac{KB}{KA} = \\dfrac{BE}{AA'} = \\dfrac{1}{2} \\Rightarrow \\dfrac{KB}{AB} = \\dfrac{1}{3} \\approx 0,33$."
+            },
+            {
+                id: 19,
+                stage: 3,
+                type: 'SHORT',
+                level: 'Vận dụng',
+                points: 600000,
+                text: "Cho hàm số $f(x) = \\begin{cases} \\dfrac{2x^2 - 3x - 2}{x - 2} & \\text{khi } x \\neq 2 \\\\ m & \\text{khi } x = 2 \\end{cases}$. Với giá trị nào của tham số $m$ thì hàm số đã cho liên tục tại điểm $x_0 = 2$?",
+                correctValues: ["5"],
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Phần III – Câu 3):</strong> Ta có $\\lim\\limits_{x \\to 2} f(x) = \\lim\\limits_{x \\to 2} \\dfrac{(x - 2)(2x + 1)}{x - 2} = \\lim\\limits_{x \\to 2} (2x + 1) = 5$. Để hàm số liên tục tại $x_0 = 2$ thì $m = f(2) = 5$."
+            },
+            {
+                id: 20,
+                stage: 3,
+                type: 'SHORT',
+                level: 'Vận dụng',
+                points: 600000,
+                text: "Cho cấp số nhân $(u_n)$ có công bội $q > 0$ thỏa mãn $\\begin{cases} u_1 + u_4 = 11 \\\\ u_3 + u_6 = 99 \\end{cases}$. Giá trị của $q$ bằng bao nhiêu?",
+                correctValues: ["3"],
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Phần III – Câu 4):</strong> Ta có $u_3 + u_6 = q^2(u_1 + u_4) \\Leftrightarrow 99 = q^2 \\cdot 11 \\Leftrightarrow q^2 = 9$. Vì $q > 0$ nên $q = 3$."
+            },
+            {
+                id: 21,
+                stage: 3,
+                type: 'SHORT',
+                level: 'Vận dụng',
+                points: 600000,
+                text: "Bạn Quang đang tiết kiệm tiền để mua một chiếc máy tính cầm tay Casio FX-880BTG có giá $700$ nghìn đồng. Trong tháng đầu tiên, bạn Quang để dành được $100$ nghìn đồng. Mỗi tháng tiếp theo bạn Quang để dành được $50$ nghìn đồng và đưa vào số tiền tiết kiệm của mình. Hỏi ít nhất vào tháng thứ bao nhiêu thì bạn Quang mới có đủ tiền để mua chiếc máy tính đó?",
+                correctValues: ["13"],
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Phần IV – Câu 2):</strong> Tổng số tiền bạn Quang tiết kiệm được vào tháng thứ $n$ lập thành cấp số cộng với $u_1 = 100$ và $d = 50$: $u_n = 100 + (n - 1)\\cdot 50 = 50n + 50$. Để đủ tiền mua máy tính thì $50n + 50 \\ge 700 \\Leftrightarrow n \\ge 13$. Vậy ít nhất vào <strong>tháng thứ 13</strong>."
+            },
+            {
+                id: 22,
+                stage: 3,
+                type: 'SHORT',
+                level: 'Vận dụng',
+                points: 600000,
+                text: "Cho tứ diện đều $ABCD$ cạnh $a = 15\\text{ cm}$. Gọi $G$ là trọng tâm tam giác $ABD$, điểm $M, H$ lần lượt thuộc cạnh $CD, AD$ sao cho $DM = 2MC$ và $DH = 2HA$. Gọi $E$ là giao điểm $DG$ cắt $BH$. Mặt phẳng $(\\alpha)$ đi qua $E$ song song $(ABC)$ cắt $BM$ tại $F$. Tính độ dài đoạn thẳng $EF$ (đơn vị: $\\text{cm}$).",
+                correctValues: ["6"],
+                diagram: `
+                    <svg viewBox="0 0 225 180" class="w-full h-auto">
+                        <line x1="108" y1="18" x2="32" y2="122" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="108" y1="18" x2="105" y2="162" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="108" y1="18" x2="195" y2="112" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="32" y1="122" x2="105" y2="162" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="105" y1="162" x2="195" y2="112" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="32" y1="122" x2="195" y2="112" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="5,4"/>
+                        <!-- Điểm H trên AD, M trên CD -->
+                        <line x1="32" y1="122" x2="106" y2="114" stroke="#fef08a" stroke-width="1.3"/>
+                        <line x1="105" y1="162" x2="70" y2="70" stroke="#fef08a" stroke-width="1.3"/>
+                        <line x1="106" y1="114" x2="165" y2="128.7" stroke="#38bdf8" stroke-width="1.3"/>
+                        <line x1="32" y1="122" x2="165" y2="128.7" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="3,2"/>
+                        <!-- Đoạn EF -->
+                        <line x1="76.4" y1="117.2" x2="111.8" y2="126" stroke="#fbbf24" stroke-width="2.2"/>
+                        <circle cx="106" cy="114" r="2.6" fill="#fef08a"/>
+                        <circle cx="165" cy="128.7" r="2.6" fill="#fef08a"/>
+                        <circle cx="76.4" cy="117.2" r="2.8" fill="#fbbf24"/>
+                        <circle cx="111.8" cy="126" r="2.8" fill="#fbbf24"/>
+                        <text x="103" y="13" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="18" y="125" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="101" y="175" fill="#fff" font-size="11" font-weight="bold">D</text>
+                        <text x="199" y="114" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="110" y="112" fill="#fef08a" font-size="10" font-weight="bold">H</text>
+                        <text x="169" y="136" fill="#fef08a" font-size="10" font-weight="bold">M</text>
+                        <text x="64" y="113" fill="#fbbf24" font-size="10" font-weight="bold">E</text>
+                        <text x="112" y="137" fill="#fbbf24" font-size="10" font-weight="bold">F</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Mã đề 1101 – Phần IV – Câu 3):</strong> Theo hướng dẫn chấm chính thức của trường: Vì $\\dfrac{DM}{DC} = \\dfrac{DH}{DA} = \\dfrac{2}{3} \\Rightarrow MH \\parallel AC$ và $MH = \\dfrac{2}{3}a$. Gọi $K = DG \\cap AB$ ($K$ là trung điểm $AB$), ta có $\\dfrac{DG}{DK} = \\dfrac{DH}{DA} = \\dfrac{2}{3} \\Rightarrow HG \\parallel AK$ và $HG = \\dfrac{2}{3}AK = \\dfrac{2}{3}BK$. Theo định lí Thalès: $\\dfrac{HE}{BE} = \\dfrac{HG}{BK} = \\dfrac{2}{3} \\Rightarrow \\dfrac{BE}{BH} = \\dfrac{3}{5}$. Vì $EF \\parallel MH$ nên $EF = \\dfrac{3}{5}MH = \\dfrac{3}{5} \\cdot \\dfrac{2}{3}a = \\dfrac{2}{5}a$. Với $a = 15\\text{ cm}$, ta được $EF = \\dfrac{2}{5} \\cdot 15 = 6\\text{ (cm)}$."
+            }
+        ];
+
+        /* =====================================================================
+           2. TRẠNG THÁI TRÒ CHƠI & HỆ THỐNG ÂM THANH (WEB AUDIO API + SPEECH)
+           ===================================================================== */
+        const gameState = {
+            mode: 'individual',
+            playerName: '',
+            playerClass: '',
+            currentIdx: 0,
+            score: 0,
+            xp: 0,
+            perfectCount: 0,
+            seconds: 0,
+            timerId: null,
+            leaderboardPollId: null,
+            soundOn: true,
+            used5050: false,
+            usedExpert: false,
+            currentShuffledOptions: []
+        };
+
+        let audioCtx = null;
+
+        function ensureAudio() {
+            if (!audioCtx) {
+                const Ctx = window.AudioContext || window.webkitAudioContext;
+                if (Ctx) audioCtx = new Ctx();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function toggleSound() {
+            gameState.soundOn = !gameState.soundOn;
+            const icon = document.getElementById('icon-sound');
+            icon.className = gameState.soundOn ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+        }
+
+        // Tiếng chuông vàng ngân vang
+        function ringBellSound() {
+            const bell = document.querySelector('.golden-bell-hero');
+            if (bell) {
+                bell.classList.remove('bell-ringing');
+                void bell.offsetWidth;
+                bell.classList.add('bell-ringing');
+            }
+            if (!gameState.soundOn) return;
+            ensureAudio();
+            if (!audioCtx) return;
+
+            const now = audioCtx.currentTime;
+            const freqs = [880, 1318.5, 1760];
+            freqs.forEach((f, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(f, now + idx * 0.04);
+                gain.gain.setValueAtTime(0.18 / (idx + 1), now + idx * 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 1.1);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now + idx * 0.04);
+                osc.stop(now + 1.1);
+            });
+        }
+
+        // Âm thanh đám đông vỗ tay chúc mừng + hợp âm vui + giọng đọc "CHÍNH XÁC" khi trả lời ĐÚNG
+        function playCrowdApplauseAndFanfare() {
+            if (!gameState.soundOn) return;
+            ensureAudio();
+
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utter = new SpeechSynthesisUtterance("Chính xác!");
+                    utter.lang = 'vi-VN';
+                    utter.rate = 1.08;
+                    utter.pitch = 1.12;
+                    window.speechSynthesis.speak(utter);
+                }
+            } catch (e) {}
+
+            if (!audioCtx) return;
+
+            const now = audioCtx.currentTime;
+
+            // 1. Tiếng vỗ tay đám đông cổ vũ kéo dài sinh động
+            const duration = 2.6;
+            const bufferSize = audioCtx.sampleRate * duration;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                const envelope = Math.sin((i / bufferSize) * Math.PI);
+                const flutter = 0.65 + 0.35 * Math.sin(i * 0.0045);
+                data[i] = (Math.random() * 2 - 1) * envelope * flutter;
+            }
+
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buffer;
+
+            const bandpass = audioCtx.createBiquadFilter();
+            bandpass.type = 'bandpass';
+            bandpass.frequency.setValueAtTime(1150, now);
+            bandpass.Q.setValueAtTime(0.6, now);
+
+            const clapGain = audioCtx.createGain();
+            clapGain.gain.setValueAtTime(0.32, now);
+            clapGain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+
+            noise.connect(bandpass);
+            bandpass.connect(clapGain);
+            clapGain.connect(audioCtx.destination);
+            noise.start(now);
+
+            // 2. Hợp âm kèn chiến thắng ngắn
+            const notes = [523.25, 659.25, 783.99, 1046.5];
+            notes.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, now + i * 0.09);
+                g.gain.setValueAtTime(0.14, now + i * 0.09);
+                g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.09 + 0.55);
+                osc.connect(g);
+                g.connect(audioCtx.destination);
+                osc.start(now + i * 0.09);
+                osc.stop(now + i * 0.09 + 0.55);
+            });
+        }
+
+        // Nhạc báo không vui khi trả lời SAI
+        function playSadWrongTone() {
+            if (!gameState.soundOn) return;
+            ensureAudio();
+            if (!audioCtx) return;
+
+            const now = audioCtx.currentTime;
+            const notes = [311.13, 277.18, 233.08];
+            notes.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(freq, now + i * 0.22);
+                gain.gain.setValueAtTime(0.12, now + i * 0.22);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.22 + 0.45);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now + i * 0.22);
+                osc.stop(now + i * 0.22 + 0.45);
+            });
+        }
+
+        // Hiệu ứng pháo giấy chiến thắng khi vượt qua câu cuối
+        function launchVictoryConfetti() {
+            const colors = ['#fbbf24', '#38bdf8', '#4ade80', '#f472b6', '#ffffff'];
+            for (let i = 0; i < 65; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + 'vw';
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDuration = (2.2 + Math.random() * 2.2) + 's';
+                piece.style.animationDelay = (Math.random() * 0.6) + 's';
+                document.body.appendChild(piece);
+                setTimeout(() => piece.remove(), 5000);
+            }
+        }
+
+        /* =====================================================================
+           3. ĐIỀU HƯỚNG MÀN HÌNH & KHỞI TẠO LƯỢT CHƠI
+           ===================================================================== */
+        function hideAllScreens() {
+            ['screen-welcome', 'screen-teacher', 'screen-game', 'screen-result'].forEach(id => {
+                const el = document.getElementById(id);
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            });
+        }
+
+        function startGame(mode) {
+            const nameVal = document.getElementById('input-name').value.trim();
+            const classVal = document.getElementById('input-class').value.trim();
+            const warningEl = document.getElementById('form-warning');
+
+            if (!nameVal || !classVal) {
+                warningEl.classList.remove('hidden');
+                return;
+            }
+            warningEl.classList.add('hidden');
+
+            // Dừng mọi timer cũ trước khi tạo timer mới (chống nhân đôi bộ đếm giờ)
+            clearInterval(gameState.timerId);
+            clearInterval(gameState.leaderboardPollId);
+
+            gameState.mode = mode;
+            gameState.playerName = nameVal;
+            gameState.playerClass = classVal;
+            gameState.currentIdx = 0;
+            gameState.score = 0;
+            gameState.xp = 0;
+            gameState.perfectCount = 0;
+            gameState.seconds = 0;
+            gameState.used5050 = false;
+            gameState.usedExpert = false;
+
+            const btn5050 = document.getElementById('btn-5050');
+            const btnExpert = document.getElementById('btn-expert');
+            btn5050.disabled = false;
+            btn5050.classList.remove('opacity-40', 'line-through');
+            btnExpert.disabled = false;
+            btnExpert.classList.remove('opacity-40', 'line-through');
+
+            updateHUD();
+            ringBellSound();
+
+            hideAllScreens();
+            document.getElementById('hud-bar').classList.remove('hidden');
+            document.getElementById('hud-bar').classList.add('flex');
+
+            const gameScreen = document.getElementById('screen-game');
+            gameScreen.classList.remove('hidden');
+            gameScreen.classList.add('flex');
+
+            // Bắt đầu đồng hồ đếm tổng thời gian làm bài
+            gameState.timerId = setInterval(() => {
+                gameState.seconds++;
+                document.getElementById('hud-timer').innerText = formatTime(gameState.seconds);
+            }, 1000);
+
+            renderCurrentQuestion();
+        }
+
+        // Chế độ Cả lớp: Mở màn hình điều khiển của Giáo viên
+        function openTeacherLobby() {
+            clearInterval(gameState.timerId);
+            clearInterval(gameState.leaderboardPollId);
+
+            hideAllScreens();
+            document.getElementById('hud-bar').classList.add('hidden');
+            const teacherScreen = document.getElementById('screen-teacher');
+            teacherScreen.classList.remove('hidden');
+            teacherScreen.classList.add('flex');
+
+            fetchLeaderboardFromServer(true);
+            gameState.leaderboardPollId = setInterval(() => {
+                fetchLeaderboardFromServer(true);
+            }, 5000);
+        }
+
+        function startGameFromTeacher() {
+            document.getElementById('input-name').value = "Trình Chiếu Lớp Học";
+            document.getElementById('input-class').value = "Toán 11";
+            startGame('class-projector');
+        }
+
+        function backToWelcome() {
+            clearInterval(gameState.timerId);
+            clearInterval(gameState.leaderboardPollId);
+            hideAllScreens();
+            document.getElementById('hud-bar').classList.add('hidden');
+            document.getElementById('screen-welcome').classList.remove('hidden');
+        }
+
+        function formatTime(sec) {
+            const m = String(Math.floor(sec / 60)).padStart(2, '0');
+            const s = String(sec % 60).padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function updateHUD() {
+            document.getElementById('hud-score').innerText = gameState.score.toLocaleString('vi-VN') + ' Đ';
+            document.getElementById('hud-xp').innerText = gameState.xp + ' XP';
+
+            let rankTitle = "Tân Binh Toán 11";
+            if (gameState.score >= 8500000) rankTitle = "Quán Quân Toán Học 11";
+            else if (gameState.score >= 5500000) rankTitle = "Chuyên Gia Giải Toán";
+            else if (gameState.score >= 2500000) rankTitle = "Chiến Binh Tri Thức";
+            document.getElementById('hud-rank').innerText = rankTitle;
+        }
+
+        /* =====================================================================
+           4. HIỂN THỊ CÂU HỎI & XÁO TRỘN NGẪU NHIÊN ĐÁP ÁN A/B/C/D
+           ===================================================================== */
+        function renderCurrentQuestion() {
+            const q = QUESTION_BANK[gameState.currentIdx];
+            if (!q) {
+                finishGame();
+                return;
+            }
+
+            document.getElementById('feedback-panel').classList.add('hidden');
+            document.getElementById('expert-hint-box').classList.add('hidden');
+
+            const total = QUESTION_BANK.length;
+            document.getElementById('progress-text').innerText = `Câu ${gameState.currentIdx + 1} / ${total}`;
+            document.getElementById('level-badge').innerText = q.level;
+            document.getElementById('progress-bar-fill').style.width = `${((gameState.currentIdx + 1) / total) * 100}%`;
+
+            const stageBadge = document.getElementById('stage-badge');
+            const lifelinesBar = document.getElementById('lifelines-bar');
+            const valueTag = document.getElementById('question-value-tag');
+
+            if (q.stage === 1) {
+                stageBadge.innerText = "Chặng 1: Ai Là Triệu Phú";
+                stageBadge.className = "px-3 py-1 rounded-full bg-amber-400 text-emerald-950 font-black text-xs sm:text-sm uppercase shadow";
+                lifelinesBar.classList.remove('hidden');
+                valueTag.innerText = `Giá trị câu hỏi: +${q.points.toLocaleString('vi-VN')} điểm`;
+            } else if (q.stage === 2) {
+                stageBadge.innerText = "Chặng 2: Đấu Trường Toán Học";
+                stageBadge.className = "px-3 py-1 rounded-full bg-sky-400 text-slate-950 font-black text-xs sm:text-sm uppercase shadow";
+                lifelinesBar.classList.add('hidden');
+                valueTag.innerText = `Tối đa 4 ý đúng: +${q.maxPoints.toLocaleString('vi-VN')} điểm`;
+            } else {
+                stageBadge.innerText = "Chặng 3: Vượt Chướng Ngại Vật";
+                stageBadge.className = "px-3 py-1 rounded-full bg-rose-500 text-white font-black text-xs sm:text-sm uppercase shadow";
+                lifelinesBar.classList.add('hidden');
+                valueTag.innerText = `Chinh phục thử thách: +${q.points.toLocaleString('vi-VN')} điểm`;
+            }
+
+            // Hiển thị nội dung câu hỏi và hình vẽ SVG / bảng số liệu tách biệt, không làm che khuất đề bài
+            document.getElementById('question-content').innerHTML = q.text;
+            const textCol = document.getElementById('question-text-col');
+            const diagCol = document.getElementById('question-diagram-col');
+            const diagSvg = document.getElementById('question-diagram-svg');
+
+            if (q.diagram) {
+                textCol.className = "lg:col-span-7 space-y-2";
+                diagCol.classList.remove('hidden');
+                diagSvg.innerHTML = q.diagram;
+            } else {
+                textCol.className = "lg:col-span-12 space-y-2";
+                diagCol.classList.add('hidden');
+                diagSvg.innerHTML = "";
+            }
+
+            document.getElementById('area-mcq').classList.add('hidden');
+            document.getElementById('area-tf4').classList.add('hidden');
+            document.getElementById('area-short').classList.add('hidden');
+
+            if (q.type === 'MCQ') {
+                renderMCQArea(q);
+            } else if (q.type === 'TF4') {
+                renderTF4Area(q);
+            } else if (q.type === 'SHORT') {
+                renderShortArea(q);
+            }
+
+            renderMathTypeset();
+        }
+
+        // Render trắc nghiệm 4 lựa chọn với thuật toán xáo trộn ngẫu nhiên Fisher-Yates
+        function renderMCQArea(q) {
+            const area = document.getElementById('area-mcq');
+            area.classList.remove('hidden');
+            area.innerHTML = '';
+
+            const items = q.options.map((opt, idx) => ({
+                text: opt,
+                isCorrect: idx === q.correctIndex
+            }));
+            for (let i = items.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [items[i], items[j]] = [items[j], items[i]];
+            }
+            gameState.currentShuffledOptions = items;
+
+            const letters = ['A', 'B', 'C', 'D'];
+            items.forEach((item, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn p-4 text-left flex items-center gap-3.5 text-white font-bold text-base sm:text-lg w-full';
+                btn.dataset.index = index;
+                btn.onclick = () => handleMCQChoice(index, btn);
+                btn.innerHTML = `
+                    <span class="w-9 h-9 rounded-full bg-amber-400 text-emerald-950 font-black flex items-center justify-center shrink-0 text-base shadow">${letters[index]}</span>
+                    <span class="flex-1 leading-snug">${item.text}</span>
+                `;
+                area.appendChild(btn);
+            });
+        }
+
+        function handleMCQChoice(chosenIdx, chosenBtn) {
+            const q = QUESTION_BANK[gameState.currentIdx];
+            const buttons = document.querySelectorAll('#area-mcq button');
+            buttons.forEach(b => b.disabled = true);
+
+            const isCorrect = gameState.currentShuffledOptions[chosenIdx].isCorrect;
+            const correctIdx = gameState.currentShuffledOptions.findIndex(o => o.isCorrect);
+            const letters = ['A', 'B', 'C', 'D'];
+
+            if (isCorrect) {
+                chosenBtn.classList.add('state-correct');
+                gameState.score += q.points;
+                gameState.xp += 120;
+                gameState.perfectCount++;
+                updateHUD();
+                playCrowdApplauseAndFanfare();
+                showFeedback(true, `CHÍNH XÁC! Đáp án ${letters[chosenIdx]} hoàn toàn đúng.`, `+${q.points.toLocaleString('vi-VN')} điểm`, q.explanation);
+            } else {
+                chosenBtn.classList.add('state-wrong');
+                if (buttons[correctIdx]) buttons[correctIdx].classList.add('state-correct');
+                playSadWrongTone();
+                showFeedback(false, `CHƯA CHÍNH XÁC! Đáp án đúng phải là ${letters[correctIdx]}.`, `+0 điểm`, q.explanation);
+            }
+        }
+
+        // Quyền trợ giúp 50:50
+        function useFiftyFifty() {
+            if (gameState.used5050) return;
+            const buttons = Array.from(document.querySelectorAll('#area-mcq button'));
+            if (buttons.length < 4 || buttons[0].disabled) return;
+
+            gameState.used5050 = true;
+            const btn5050 = document.getElementById('btn-5050');
+            btn5050.disabled = true;
+            btn5050.classList.add('opacity-40', 'line-through');
+
+            const wrongIndices = [];
+            gameState.currentShuffledOptions.forEach((opt, idx) => {
+                if (!opt.isCorrect) wrongIndices.push(idx);
+            });
+
+            wrongIndices.sort(() => Math.random() - 0.5);
+            wrongIndices.slice(0, 2).forEach(idx => {
+                buttons[idx].classList.add('eliminated');
+                buttons[idx].disabled = true;
+            });
+        }
+
+        // Quyền trợ giúp Hỏi Chuyên Gia
+        function useAskExpert() {
+            if (gameState.usedExpert) return;
+            const buttons = Array.from(document.querySelectorAll('#area-mcq button'));
+            if (buttons.length === 0 || buttons[0].disabled) return;
+
+            gameState.usedExpert = true;
+            const btnExpert = document.getElementById('btn-expert');
+            btnExpert.disabled = true;
+            btnExpert.classList.add('opacity-40', 'line-through');
+
+            const q = QUESTION_BANK[gameState.currentIdx];
+            const correctIdx = gameState.currentShuffledOptions.findIndex(o => o.isCorrect);
+            const letters = ['A', 'B', 'C', 'D'];
+
+            document.getElementById('expert-hint-text').innerHTML = `${q.hint} Theo phân tích bài toán, phương án chính xác là <strong>${letters[correctIdx]}</strong>.`;
+            const box = document.getElementById('expert-hint-box');
+            box.classList.remove('hidden');
+            renderMathTypeset(box);
+        }
+
+        // Render Chặng 2: Trắc nghiệm Đúng / Sai 4 ý a, b, c, d
+        let tf4Selections = [null, null, null, null];
+
+        function renderTF4Area(q) {
+            const area = document.getElementById('area-tf4');
+            area.classList.remove('hidden');
+            area.classList.add('flex');
+
+            tf4Selections = [null, null, null, null];
+            const list = document.getElementById('tf4-list');
+            list.innerHTML = '';
+
+            const submitBtn = document.getElementById('btn-submit-tf4');
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('hidden');
+
+            q.statements.forEach((st, idx) => {
+                const row = document.createElement('div');
+                row.id = `tf4-row-${idx}`;
+                row.className = 'bg-black/40 border border-emerald-500/50 rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition';
+                row.innerHTML = `
+                    <div class="text-sm sm:text-base font-semibold text-white flex-1">
+                        <span class="text-amber-300 font-black mr-1.5">${st.label}</span> ${st.text}
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <button type="button" id="tf4-btn-${idx}-true" onclick="pickTF4(${idx}, true)" class="px-4 py-2 rounded-lg border-2 border-emerald-400/60 bg-emerald-950/70 hover:bg-emerald-700 text-emerald-200 font-black text-xs sm:text-sm transition">
+                            ĐÚNG
+                        </button>
+                        <button type="button" id="tf4-btn-${idx}-false" onclick="pickTF4(${idx}, false)" class="px-4 py-2 rounded-lg border-2 border-rose-400/60 bg-rose-950/70 hover:bg-rose-700 text-rose-200 font-black text-xs sm:text-sm transition">
+                            SAI
+                        </button>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        function pickTF4(rowIdx, val) {
+            tf4Selections[rowIdx] = val;
+            const btnT = document.getElementById(`tf4-btn-${rowIdx}-true`);
+            const btnF = document.getElementById(`tf4-btn-${rowIdx}-false`);
+
+            btnT.className = val === true
+                ? 'px-4 py-2 rounded-lg border-2 border-white bg-emerald-500 text-emerald-950 font-black text-xs sm:text-sm shadow-lg'
+                : 'px-4 py-2 rounded-lg border-2 border-emerald-400/50 bg-emerald-950/70 text-emerald-200 font-black text-xs sm:text-sm opacity-75';
+
+            btnF.className = val === false
+                ? 'px-4 py-2 rounded-lg border-2 border-white bg-rose-500 text-white font-black text-xs sm:text-sm shadow-lg'
+                : 'px-4 py-2 rounded-lg border-2 border-rose-400/50 bg-rose-950/70 text-rose-200 font-black text-xs sm:text-sm opacity-75';
+        }
+
+        function submitTF4() {
+            if (tf4Selections.includes(null)) {
+                const box = document.getElementById('expert-hint-box');
+                document.getElementById('expert-hint-text').innerHTML = "Bạn hãy chọn đầy đủ <strong>ĐÚNG</strong> hoặc <strong>SAI</strong> cho cả 4 mệnh đề a), b), c), d) trước khi xác nhận nhé!";
+                box.classList.remove('hidden');
+                return;
+            }
+            document.getElementById('expert-hint-box').classList.add('hidden');
+
+            const q = QUESTION_BANK[gameState.currentIdx];
+            const submitBtn = document.getElementById('btn-submit-tf4');
+            submitBtn.disabled = true;
+            submitBtn.classList.add('hidden');
+
+            let correctCount = 0;
+            q.statements.forEach((st, idx) => {
+                document.getElementById(`tf4-btn-${idx}-true`).disabled = true;
+                document.getElementById(`tf4-btn-${idx}-false`).disabled = true;
+                const row = document.getElementById(`tf4-row-${idx}`);
+                if (tf4Selections[idx] === st.answer) {
+                    correctCount++;
+                    row.classList.add('border-emerald-400', 'bg-emerald-900/50');
+                } else {
+                    row.classList.add('border-rose-400', 'bg-rose-900/50');
+                }
+            });
+
+            // Quy đổi điểm lũy tiến chuẩn GDPT 2018 (tối đa 550.000đ cho mỗi câu Chặng 2: 10% - 25% - 50% - 100%)
+            const scoreTable = [0, 55000, 137500, 275000, 550000];
+            const earned = scoreTable[correctCount];
+            gameState.score += earned;
+            gameState.xp += correctCount * 50;
+            if (correctCount === 4) gameState.perfectCount++;
+            updateHUD();
+
+            if (correctCount >= 3) {
+                playCrowdApplauseAndFanfare();
+                showFeedback(true, `XUẤT SẮC! Bạn trả lời chính xác ${correctCount}/4 mệnh đề.`, `+${earned.toLocaleString('vi-VN')} điểm`, q.explanation);
+            } else {
+                playSadWrongTone();
+                showFeedback(false, `BẠN ĐẠT ${correctCount}/4 MỆNH ĐỀ ĐÚNG. Cùng xem giải thích chi tiết nhé!`, `+${earned.toLocaleString('vi-VN')} điểm`, q.explanation);
+            }
+        }
+
+        // Render Chặng 3: Vượt Chướng Ngại Vật (Trả lời ngắn)
+        function renderShortArea(q) {
+            const area = document.getElementById('area-short');
+            area.classList.remove('hidden');
+            area.classList.add('flex');
+
+            const input = document.getElementById('short-answer-input');
+            const btn = document.getElementById('btn-submit-short');
+            input.value = '';
+            input.disabled = false;
+            btn.disabled = false;
+            btn.classList.remove('hidden');
+        }
+
+        function submitShortAnswer() {
+            const input = document.getElementById('short-answer-input');
+            const raw = input.value.trim().replace(/\s+/g, '');
+            if (!raw) return;
+
+            const q = QUESTION_BANK[gameState.currentIdx];
+            input.disabled = true;
+            const btn = document.getElementById('btn-submit-short');
+            btn.disabled = true;
+            btn.classList.add('hidden');
+
+            const normalizedUser = raw.replace(',', '.');
+            const isCorrect = q.correctValues.some(ans => ans.replace(',', '.') === normalizedUser);
+
+            if (isCorrect) {
+                gameState.score += q.points;
+                gameState.xp += 200;
+                gameState.perfectCount++;
+                updateHUD();
+                playCrowdApplauseAndFanfare();
+                showFeedback(true, `CHÍNH XÁC! Bạn đã vượt qua chướng ngại vật với đáp số ${q.correctValues[0]}.`, `+${q.points.toLocaleString('vi-VN')} điểm`, q.explanation);
+            } else {
+                playSadWrongTone();
+                showFeedback(false, `CHƯA CHÍNH XÁC! Đáp số đúng của thử thách này là ${q.correctValues[0]}.`, `+0 điểm`, q.explanation);
+            }
+        }
+
+        // Hiển thị phản hồi kèm giải thích định hướng giải
+        function showFeedback(isSuccess, title, earnedText, explanationHtml) {
+            const panel = document.getElementById('feedback-panel');
+            const icon = document.getElementById('feedback-icon');
+            const titleEl = document.getElementById('feedback-title');
+            const earnedEl = document.getElementById('feedback-points-earned');
+            const expEl = document.getElementById('feedback-explanation');
+            const nextBtn = document.getElementById('btn-next-question');
+
+            if (isSuccess) {
+                panel.className = 'rounded-2xl p-4 sm:p-5 border-2 border-emerald-300 bg-emerald-950/95 space-y-3 shadow-2xl';
+                icon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+                titleEl.className = 'text-lg sm:text-xl font-black uppercase text-emerald-300';
+            } else {
+                panel.className = 'rounded-2xl p-4 sm:p-5 border-2 border-rose-400 bg-rose-950/95 space-y-3 shadow-2xl';
+                icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i>';
+                titleEl.className = 'text-lg sm:text-xl font-black uppercase text-rose-300';
+            }
+
+            titleEl.innerText = title;
+            earnedEl.innerText = earnedText;
+            expEl.innerHTML = explanationHtml;
+
+            const isLast = gameState.currentIdx === QUESTION_BANK.length - 1;
+            nextBtn.querySelector('span').innerText = isLast ? 'Xem Kết Quả Vinh Danh' : 'Thử thách tiếp theo';
+
+            panel.classList.remove('hidden');
+            renderMathTypeset(panel);
+        }
+
+        function nextQuestion() {
+            gameState.currentIdx++;
+            if (gameState.currentIdx < QUESTION_BANK.length) {
+                renderCurrentQuestion();
+            } else {
+                finishGame();
+            }
+        }
+
+        function renderMathTypeset(target = document.body) {
+            const doRender = () => {
+                if (typeof window.renderMathInElement === 'function') {
+                    window.renderMathInElement(target, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                }
+            };
+            if (typeof window.__onKaTeXReady === 'function') {
+                window.__onKaTeXReady(doRender);
+            } else {
+                doRender();
+            }
+        }
+
+        /* =====================================================================
+           5. KẾT THÚC TRÒ CHƠI, LƯU TIẾN BỘ & ĐỒNG BỘ GOOGLE APPS SCRIPT
+           ===================================================================== */
+        function finishGame() {
+            clearInterval(gameState.timerId);
+            gameState.timerId = null;
+
+            hideAllScreens();
+            const resScreen = document.getElementById('screen-result');
+            resScreen.classList.remove('hidden');
+            resScreen.classList.add('flex');
+
+            ringBellSound();
+            playCrowdApplauseAndFanfare();
+            launchVictoryConfetti();
+
+            const timeFormatted = formatTime(gameState.seconds);
+            document.getElementById('res-name').innerText = gameState.playerName;
+            document.getElementById('res-class').innerText = gameState.playerClass;
+            document.getElementById('res-score').innerText = gameState.score.toLocaleString('vi-VN');
+            document.getElementById('res-xp').innerText = `+${gameState.xp} XP`;
+            document.getElementById('res-correct-count').innerText = `${gameState.perfectCount} / ${QUESTION_BANK.length}`;
+            document.getElementById('res-time').innerText = timeFormatted;
+
+            let badge = "CHIẾN BINH TOÁN HỌC 11";
+            if (gameState.score === 10000000) badge = "HUYỀN THOẠI TRIỆU PHÚ TOÁN HỌC 11";
+            else if (gameState.score >= 7500000) badge = "BẬC THẦY GIẢI TOÁN HỌC KÌ I";
+            else if (gameState.score >= 5000000) badge = "CHUYÊN GIA TƯ DUY TOÁN HỌC";
+            document.getElementById('result-badge-title').innerText = `DANH HIỆU: ${badge}`;
+
+            // Lưu tiến bộ cá nhân tạm thời trên trình duyệt để học sinh thấy mình giỏi lên
+            savePersonalProgress(gameState.score, timeFormatted);
+
+            // Gửi kết quả lên Google Apps Script qua POST với 4 khóa JSON chuẩn xác
+            const recordPayload = {
+                "Họ tên": gameState.playerName,
+                "Lớp": gameState.playerClass,
+                "Điểm số": gameState.score,
+                "Thời gian làm bài": timeFormatted
+            };
+            postResultToAppsScript(recordPayload);
+
+            // Tải và cập nhật định kỳ Bảng xếp hạng từ Apps Script
+            fetchLeaderboardFromServer(false, recordPayload);
+            clearInterval(gameState.leaderboardPollId);
+            gameState.leaderboardPollId = setInterval(() => {
+                fetchLeaderboardFromServer(false, recordPayload);
+            }, 5000);
+        }
+
+        function savePersonalProgress(currentScore, timeStr) {
+            try {
+                const key = 'thayhoa_toan11_hk1_best';
+                const prev = JSON.parse(localStorage.getItem(key) || 'null');
+                const noteEl = document.getElementById('personal-progress-note');
+                if (!prev) {
+                    localStorage.setItem(key, JSON.stringify({ bestScore: currentScore, attempts: 1 }));
+                    noteEl.innerHTML = `<i class="fa-solid fa-seedling text-emerald-400 mr-1"></i> Đây là lần chinh phục đầu tiên của bạn! Kỷ lục cá nhân đã được ghi nhận: <strong>${currentScore.toLocaleString('vi-VN')} điểm</strong>.`;
+                } else {
+                    const attempts = (prev.attempts || 1) + 1;
+                    const best = Math.max(prev.bestScore || 0, currentScore);
+                    localStorage.setItem(key, JSON.stringify({ bestScore: best, attempts }));
+                    if (currentScore > prev.bestScore) {
+                        noteEl.innerHTML = `<i class="fa-solid fa-fire text-amber-400 mr-1"></i> <strong>TUYỆT VỜI!</strong> Bạn đã phá kỷ lục cũ (${prev.bestScore.toLocaleString('vi-VN')} điểm) ở lần thử thứ ${attempts}!`;
+                    } else {
+                        noteEl.innerHTML = `<i class="fa-solid fa-chart-line text-sky-400 mr-1"></i> Lần thử thứ ${attempts} • Kỷ lục cá nhân cao nhất của bạn: <strong>${best.toLocaleString('vi-VN')} điểm</strong>.`;
+                    }
+                }
+            } catch (e) {}
+        }
+
+        // Gửi (fetch POST) dữ liệu tới Google Apps Script Web App URL
+        function postResultToAppsScript(payload) {
+            if (!APPS_SCRIPT_URL) return;
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(() => {});
+        }
+
+        // Gọi GET tới Apps Script Web App URL để lấy & sắp xếp Bảng xếp hạng
+        function fetchLeaderboardFromServer(isTeacherView, fallbackCurrentRecord = null) {
+            const syncEl = document.getElementById('sync-indicator');
+            if (!APPS_SCRIPT_URL) {
+                if (syncEl) syncEl.innerText = "Sẵn sàng đồng bộ máy chủ";
+                if (isTeacherView) {
+                    document.getElementById('teacher-player-count').innerText = "0";
+                } else if (fallbackCurrentRecord) {
+                    renderLeaderboardTable('result-leaderboard-body', [fallbackCurrentRecord]);
+                }
+                return;
+            }
+
+            fetch(APPS_SCRIPT_URL)
+                .then(res => res.json())
+                .then(json => {
+                    if (json && json.status === 'ok' && Array.isArray(json.data)) {
+                        const sorted = [...json.data].sort((a, b) => {
+                            const scoreDiff = (Number(b["Điểm số"]) || 0) - (Number(a["Điểm số"]) || 0);
+                            if (scoreDiff !== 0) return scoreDiff;
+                            return String(a["Thời gian làm bài"] || "").localeCompare(String(b["Thời gian làm bài"] || ""));
+                        });
+
+                        if (isTeacherView) {
+                            document.getElementById('teacher-player-count').innerText = sorted.length;
+                            renderLeaderboardTable('teacher-leaderboard-body', sorted);
+                        } else {
+                            if (syncEl) syncEl.innerText = "Đã đồng bộ trực tuyến";
+                            renderLeaderboardTable('result-leaderboard-body', sorted);
+                        }
+                    }
+                })
+                .catch(() => {
+                    if (syncEl) syncEl.innerText = "Đang chờ phản hồi máy chủ...";
+                });
+        }
+
+        function renderLeaderboardTable(tbodyId, rows) {
+            const tbody = document.getElementById(tbodyId);
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (!rows || rows.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-5 text-center text-emerald-300">Chưa có thí sinh nào trên bảng xếp hạng.</td></tr>`;
+                return;
+            }
+
+            rows.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                tr.className = index === 0 ? 'bg-amber-400/15 font-bold' : (index % 2 === 0 ? 'bg-black/20' : 'bg-black/35');
+                const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : (index + 1)));
+                tr.innerHTML = `
+                    <td class="py-2 px-3 text-center font-black text-amber-300">${medal}</td>
+                    <td class="py-2 px-3 text-left">${row["Họ tên"] || ""}</td>
+                    <td class="py-2 px-3 text-center">${row["Lớp"] || ""}</td>
+                    <td class="py-2 px-3 text-right mono-font font-extrabold text-emerald-300">${Number(row["Điểm số"] || 0).toLocaleString('vi-VN')}</td>
+                    <td class="py-2 px-3 text-center mono-font text-amber-200">${row["Thời gian làm bài"] || ""}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        /* =====================================================================
+           6. RESET SẠCH TOÀN BỘ DỮ LIỆU KHI BẤM "CHƠI LẠI"
+           ===================================================================== */
+        function resetAndPlayAgain() {
+            clearInterval(gameState.timerId);
+            clearInterval(gameState.leaderboardPollId);
+
+            gameState.currentIdx = 0;
+            gameState.score = 0;
+            gameState.xp = 0;
+            gameState.perfectCount = 0;
+            gameState.seconds = 0;
+            gameState.timerId = null;
+            gameState.leaderboardPollId = null;
+            gameState.used5050 = false;
+            gameState.usedExpert = false;
+            gameState.currentShuffledOptions = [];
+            tf4Selections = [null, null, null, null];
+
+            document.getElementById('hud-timer').innerText = '00:00';
+            document.getElementById('hud-score').innerText = '0 Đ';
+            document.getElementById('hud-xp').innerText = '0 XP';
+
+            hideAllScreens();
+            document.getElementById('hud-bar').classList.add('hidden');
+            document.getElementById('screen-welcome').classList.remove('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const shortInput = document.getElementById('short-answer-input');
+            if (shortInput) {
+                shortInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !shortInput.disabled) {
+                        submitShortAnswer();
+                    }
+                });
+            }
+            renderMathTypeset();
+        });
+    </script>
+</body>
+</html>
