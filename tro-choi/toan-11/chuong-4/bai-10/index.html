@@ -1,26 +1,9 @@
-<!-- NÚT QUAY VỀ TRANG CHỦ THẦY HÒA -->
-<div style="padding:12px 15px;">
-  <a href="https://thay-hoa.vercel.app/"
-     style="
-       display:inline-block;
-       background:linear-gradient(135deg,#1769d2,#7957d5);
-       color:white;
-       padding:12px 22px;
-       border-radius:12px;
-       font-weight:bold;
-       font-size:15px;
-       text-decoration:none;
-       box-shadow:0 4px 12px #0002;
-     ">
-    🏠 TRANG CHỦ THẦY HÒA
-  </a>
-</div>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đấu Trường Toán Học 11 - Đường Thẳng & Mặt Phẳng - THẦY HÒA</title>
+    <title>Đấu Trường Toán Học 11 - Đường Thẳng Và Mặt Phẳng Trong Không Gian - THẦY HÒA</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,10 +11,79 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- KaTeX hiển thị công thức Toán học sắc nét -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- Hệ thống nạp KaTeX hai tầng CDN (jsDelivr + dự phòng tự động cdnjs) giúp chạy mượt 100% trên Vercel -->
+    <link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script>
+        (function () {
+            window.__katexQueue = [];
+            window.__katexReady = false;
+            window.__onKaTeXReady = function (fn) {
+                if (window.__katexReady && typeof window.renderMathInElement === 'function') {
+                    fn();
+                } else {
+                    window.__katexQueue.push(fn);
+                }
+            };
+
+            function flushKaTeXQueue() {
+                if (typeof window.renderMathInElement !== 'function') return;
+                window.__katexReady = true;
+                while (window.__katexQueue.length > 0) {
+                    const task = window.__katexQueue.shift();
+                    try { task(); } catch (e) {}
+                }
+            }
+
+            function loadScript(src, onLoad, onError) {
+                const s = document.createElement('script');
+                s.src = src;
+                s.crossOrigin = 'anonymous';
+                s.onload = onLoad;
+                s.onerror = onError;
+                document.head.appendChild(s);
+            }
+
+            function loadFromFallbackCDN() {
+                if (window.__katexFallbackLoaded) return;
+                window.__katexFallbackLoaded = true;
+                const cssEl = document.getElementById('katex-css');
+                if (cssEl) {
+                    cssEl.href = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css';
+                }
+                loadScript(
+                    'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js',
+                    function () {
+                        loadScript(
+                            'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js',
+                            flushKaTeXQueue,
+                            function () {}
+                        );
+                    },
+                    function () {}
+                );
+            }
+
+            // Nạp tầng 1 từ jsDelivr, nếu sau 1.5s chưa xong tự động kích hoạt dự phòng cdnjs
+            const fallbackTimer = setTimeout(function () {
+                if (!window.__katexReady) loadFromFallbackCDN();
+            }, 1500);
+
+            loadScript(
+                'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js',
+                function () {
+                    loadScript(
+                        'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js',
+                        function () {
+                            clearTimeout(fallbackTimer);
+                            flushKaTeXQueue();
+                        },
+                        loadFromFallbackCDN
+                    );
+                },
+                loadFromFallbackCDN
+            );
+        })();
+    </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;800&display=swap');
@@ -189,10 +241,10 @@
             <div>
                 <div class="flex items-center gap-2">
                     <span class="px-2.5 py-0.5 bg-amber-400 text-emerald-950 font-black text-xs rounded-full uppercase tracking-wider shadow">THẦY HÒA</span>
-                    <span class="text-xs font-bold text-sky-200 hidden sm:inline">TOÁN 11 – GDPT 2018</span>
+                    <span class="text-xs font-bold text-sky-200 hidden sm:inline">TOÁN 11 – GDPT 2018 – KNTTVCS</span>
                 </div>
                 <h1 class="text-base sm:text-xl font-black text-white tracking-wide mt-0.5">
-                    ĐƯỜNG THẲNG & MẶT PHẲNG TRONG KHÔNG GIAN
+                    BÀI 10: ĐƯỜNG THẲNG VÀ MẶT PHẲNG TRONG KHÔNG GIAN
                 </h1>
             </div>
         </div>
@@ -250,7 +302,7 @@
                     CHINH PHỤC ĐỈNH CAO 10.000.000 ĐIỂM
                 </h2>
                 <p class="text-sky-200 text-sm sm:text-base font-medium mt-1">
-                    Chuyên đề: <strong class="text-amber-300">Đường thẳng và Mặt phẳng trong không gian</strong> (Luyện tập – Vận dụng)
+                    Chuyên đề: <strong class="text-amber-300">Đường thẳng và mặt phẳng trong không gian</strong> (Toán 11 – KNTTVCS)
                 </p>
             </div>
 
@@ -596,8 +648,12 @@
          ========================================================================= -->
     <script>
         /* =====================================================================
-           1. NGÂN HÀNG DỮ LIỆU CÂU HỎI (ĐỀ TEST 01 & 02 - ĐƯỜNG THẲNG & MẶT PHẲNG)
+           1. NGÂN HÀNG DỮ LIỆU CÂU HỎI (BÀI 10: ĐƯỜNG THẲNG VÀ MẶT PHẲNG TRONG KHÔNG GIAN)
            - Giáo viên có thể dễ dàng chỉnh sửa nội dung, công thức LaTeX hoặc đáp án tại đây.
+           - Bao quát đầy đủ các mạch kiến thức của Bài 10 (Toán 11 - KNTTVCS 2018):
+             Các tính chất thừa nhận của hình học không gian, cách xác định một mặt phẳng,
+             hình chóp và hình tứ diện, giao tuyến của hai mặt phẳng, giao điểm của đường thẳng
+             và mặt phẳng, cùng ứng dụng thực tiễn (giá đỡ 3 chân, mái nhà, kim tự tháp).
            - Tỉ lệ tư duy: 30% Nhận biết (5 câu) - 40% Thông hiểu (7 câu) - 30% Vận dụng (6 câu).
            - Tổng điểm tối đa: 10 x 400.000 + 4 x 750.000 + 4 x 750.000 = 10.000.000 điểm.
            ===================================================================== */
@@ -609,11 +665,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Cho hình chóp $S.ABCD$. Giao tuyến của hai mặt phẳng $(SAB)$ và $(SBC)$ là đường thẳng nào trong các đường thẳng sau?",
-                options: ["$SB$.", "$SA$.", "$SD$.", "$AC$."],
+                text: "Trong các yếu tố sau, yếu tố nào xác định một mặt phẳng duy nhất trong không gian?",
+                options: [
+                    "Ba điểm phân biệt không thẳng hàng.",
+                    "Ba điểm phân biệt bất kì.",
+                    "Một điểm và một đường thẳng đi qua điểm đó.",
+                    "Bốn điểm phân biệt bất kì."
+                ],
                 correctIndex: 0,
-                hint: "Hãy tìm hai điểm chung phân biệt cùng thuộc cả hai mặt phẳng $(SAB)$ và $(SBC)$.",
-                explanation: "<strong>Định hướng giải:</strong> Hai mặt phẳng $(SAB)$ và $(SBC)$ có hai điểm chung phân biệt là $S$ và $B$. Do đó giao tuyến của hai mặt phẳng này chính là đường thẳng $SB$."
+                hint: "Nhớ lại tính chất thừa nhận số 2 về sự xác định mặt phẳng qua 3 điểm.",
+                explanation: "<strong>Định hướng giải:</strong> Theo tính chất thừa nhận của hình học không gian: Qua <strong>ba điểm không thẳng hàng</strong> có một và chỉ một mặt phẳng. Nếu ba điểm thẳng hàng thì có vô số mặt phẳng đi qua."
             },
             {
                 id: 2,
@@ -621,11 +682,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Một hình chóp có đáy là ngũ giác có số mặt và số cạnh lần lượt là:",
-                options: ["$6$ mặt, $10$ cạnh.", "$6$ mặt, $8$ cạnh.", "$6$ mặt, $12$ cạnh.", "$5$ mặt, $10$ cạnh."],
+                text: "Nếu một đường thẳng $d$ có hai điểm phân biệt $A$ và $B$ cùng thuộc mặt phẳng $(P)$ thì khẳng định nào sau đây đúng?",
+                options: [
+                    "Mọi điểm của đường thẳng $d$ đều thuộc mặt phẳng $(P)$.",
+                    "Đường thẳng $d$ chỉ có đúng hai điểm chung với $(P)$.",
+                    "Đường thẳng $d$ cắt mặt phẳng $(P)$ tại trung điểm của $AB$.",
+                    "Đường thẳng $d$ nằm ngoài mặt phẳng $(P)$."
+                ],
                 correctIndex: 0,
-                hint: "Hình chóp có đáy là đa giác $n$ cạnh sẽ có $n + 1$ mặt và $2n$ cạnh.",
-                explanation: "<strong>Định hướng giải:</strong> Hình chóp đáy ngũ giác ($n = 5$) gồm $5$ mặt bên và $1$ mặt đáy nên có tất cả $6$ mặt; gồm $5$ cạnh bên và $5$ cạnh đáy nên có tất cả $10$ cạnh."
+                hint: "Vận dụng tính chất thừa nhận số 3 về quan hệ liên thuộc giữa đường thẳng và mặt phẳng.",
+                explanation: "<strong>Định hướng giải:</strong> Nếu một đường thẳng có <strong>hai điểm phân biệt</strong> thuộc một mặt phẳng thì <strong>mọi điểm của đường thẳng đều thuộc mặt phẳng đó</strong> (tức là đường thẳng nằm trọn trong mặt phẳng)."
             },
             {
                 id: 3,
@@ -633,16 +699,29 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Một mặt phẳng hoàn toàn được xác định nếu biết nó thỏa điều kiện nào sau đây?",
+                text: "Trong không gian, một hình tứ diện $ABCD$ có tất cả bao nhiêu mặt và bao nhiêu cạnh?",
                 options: [
-                    "Đi qua hai đường thẳng cắt nhau.",
-                    "Đi qua ba điểm bất kỳ.",
-                    "Đi qua một đường thẳng và một điểm.",
-                    "Đi qua bốn điểm bất kỳ trong không gian."
+                    "$4$ mặt và $6$ cạnh.",
+                    "$4$ mặt và $4$ cạnh.",
+                    "$6$ mặt và $4$ cạnh.",
+                    "$5$ mặt và $8$ cạnh."
                 ],
                 correctIndex: 0,
-                hint: "Nhớ lại các cách xác định một mặt phẳng trong không gian (ba điểm không thẳng hàng, một điểm và một đường thẳng không đi qua nó, hai đường thẳng cắt nhau).",
-                explanation: "<strong>Định hướng giải:</strong> Theo tiên đề hình học không gian, có một và chỉ một mặt phẳng đi qua hai đường thẳng cắt nhau. Các phương án còn lại sai vì thiếu điều kiện không thẳng hàng hoặc điểm nằm ngoài đường thẳng."
+                hint: "Liệt kê các mặt tam giác và các cạnh nối từng cặp đỉnh trong 4 đỉnh không đồng phẳng $A, B, C, D$.",
+                diagram: `
+                    <svg viewBox="0 0 220 175" class="w-full h-auto">
+                        <polygon points="30,145 125,155 190,125" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="105" y1="22" x2="30" y2="145" stroke="#38bdf8" stroke-width="1.8"/>
+                        <line x1="105" y1="22" x2="125" y2="155" stroke="#38bdf8" stroke-width="1.8"/>
+                        <line x1="105" y1="22" x2="190" y2="125" stroke="#38bdf8" stroke-width="1.8"/>
+                        <line x1="30" y1="145" x2="190" y2="125" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="4,3"/>
+                        <text x="101" y="15" fill="#fef08a" font-size="12" font-weight="bold">A</text>
+                        <text x="16" y="150" fill="#fef08a" font-size="12" font-weight="bold">B</text>
+                        <text x="125" y="168" fill="#fef08a" font-size="12" font-weight="bold">C</text>
+                        <text x="194" y="129" fill="#fef08a" font-size="12" font-weight="bold">D</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải:</strong> Hình tứ diện $ABCD$ được tạo bởi 4 điểm không đồng phẳng nên có <strong>$4$ mặt tam giác</strong> là $(ABC), (ABD), (ACD), (BCD)$ và <strong>$6$ cạnh</strong> là $AB, AC, AD, BC, BD, CD$."
             },
             {
                 id: 4,
@@ -650,41 +729,33 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Cho bốn điểm không đồng phẳng, ta có thể xác định được nhiều nhất bao nhiêu mặt phẳng phân biệt từ bốn điểm đã cho?",
-                options: ["$4$.", "$3$.", "$2$.", "$6$."],
+                text: "Nếu hai mặt phẳng phân biệt $(P)$ và $(Q)$ có một điểm chung $M$ thì chúng có bao nhiêu điểm chung khác nữa?",
+                options: [
+                    "Vô số điểm chung cùng nằm trên một đường thẳng duy nhất đi qua $M$.",
+                    "Không còn điểm chung nào khác ngoài điểm $M$.",
+                    "Chỉ có thêm đúng một điểm chung thứ hai.",
+                    "Vô số điểm chung tạo thành một đường tròn tâm $M$."
+                ],
                 correctIndex: 0,
-                hint: "Bốn điểm không đồng phẳng tạo thành một hình tứ diện. Mỗi bộ 3 điểm xác định một mặt phẳng.",
-                explanation: "<strong>Định hướng giải:</strong> Vì bốn điểm không đồng phẳng nên không có ba điểm nào thẳng hàng. Cứ $3$ điểm xác định một mặt phẳng nên số mặt phẳng phân biệt lập được là $C_4^3 = 4$ mặt phẳng."
+                hint: "Nhớ lại tính chất về giao tuyến của hai mặt phẳng phân biệt có điểm chung.",
+                explanation: "<strong>Định hướng giải:</strong> Nếu hai mặt phẳng phân biệt có một điểm chung thì chúng có một <strong>đường thẳng chung duy nhất</strong> chứa tất cả các điểm chung của hai mặt phẳng đó (gọi là <em>giao tuyến</em>)."
             },
             {
                 id: 5,
                 stage: 1,
                 type: 'MCQ',
-                level: 'Thông hiểu',
+                level: 'Nhận biết',
                 points: 400000,
-                text: "Cho hình chóp $S.ABCD$ có $AC \\cap BD = M$ và $AB \\cap CD = N$. Giao tuyến của mặt phẳng $(SAC)$ và mặt phẳng $(SBD)$ là đường thẳng nào trong các đường thẳng sau?",
-                options: ["$SM$.", "$SN$.", "$SB$.", "$SC$."],
+                text: "Trong thực tế, vì sao giá đỡ máy ảnh, giá vẽ tranh hay kiềng đun bếp thường được thiết kế có đúng $3$ chân thay vì $4$ chân?",
+                options: [
+                    "Vì ba đầu chân không thẳng hàng luôn xác định một mặt phẳng duy nhất nên giá đỡ đứng vững, không bị cập kênh.",
+                    "Vì ba chân giúp giảm một nửa trọng lượng của thiết bị.",
+                    "Vì ba điểm bất kì luôn thẳng hàng nên dễ cân bằng trọng tâm.",
+                    "Vì bốn điểm trong không gian luôn cùng nằm trên một mặt phẳng."
+                ],
                 correctIndex: 0,
-                hint: "Tìm giao điểm của hai đường chéo $AC$ và $BD$ nằm trong mặt phẳng đáy $(ABCD)$.",
-                diagram: `
-                    <svg viewBox="0 0 220 170" class="w-full h-auto">
-                        <polygon points="110,15 30,120 85,150 185,135 165,95" fill="none" stroke="#6ee7b7" stroke-width="1.5"/>
-                        <line x1="110" y1="15" x2="85" y2="150" stroke="#fbbf24" stroke-width="1.8"/>
-                        <line x1="110" y1="15" x2="185" y2="135" stroke="#fbbf24" stroke-width="1.8"/>
-                        <line x1="110" y1="15" x2="165" y2="95" stroke="#6ee7b7" stroke-width="1.3" stroke-dasharray="4,3"/>
-                        <line x1="30" y1="120" x2="185" y2="135" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,3"/>
-                        <line x1="85" y1="150" x2="165" y2="95" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,3"/>
-                        <line x1="110" y1="15" x2="114" y2="128" stroke="#f87171" stroke-width="2.2"/>
-                        <circle cx="114" cy="128" r="3.5" fill="#f87171"/>
-                        <text x="106" y="12" fill="#fef08a" font-size="12" font-weight="bold">S</text>
-                        <text x="16" y="124" fill="#fff" font-size="11">A</text>
-                        <text x="80" y="164" fill="#fff" font-size="11">B</text>
-                        <text x="190" y="138" fill="#fff" font-size="11">C</text>
-                        <text x="168" y="92" fill="#fff" font-size="11">D</text>
-                        <text x="118" y="124" fill="#fca5a5" font-size="11" font-weight="bold">M</text>
-                    </svg>
-                `,
-                explanation: "<strong>Định hướng giải:</strong> Ta có $S$ là điểm chung thứ nhất của $(SAC)$ và $(SBD)$. Vì $M = AC \\cap BD$ với $AC \\subset (SAC)$ và $BD \\subset (SBD)$ nên $M$ là điểm chung thứ hai. Vậy $(SAC) \\cap (SBD) = SM$."
+                hint: "Liên hệ với tính chất xác định mặt phẳng qua 3 điểm không thẳng hàng.",
+                explanation: "<strong>Định hướng giải:</strong> Theo tính chất thừa nhận: Qua ba điểm không thẳng hàng luôn xác định <strong>một mặt phẳng duy nhất</strong>. Do đó, giá đỡ 3 chân luôn tiếp xúc đồng thời cả 3 chân với mặt đất bằng phẳng, không bao giờ bị bập bênh như chân thứ 4 có thể nằm ngoài mặt phẳng của 3 chân kia."
             },
             {
                 id: 6,
@@ -692,16 +763,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình chóp $S.ABCD$ có đáy là hình thang $ABCD$ ($AD \\parallel BC$). Gọi $I$ là giao điểm của $AB$ và $DC$, $M$ là trung điểm $SC$. $DM$ cắt mặt phẳng $(SAB)$ tại $J$. Khẳng định nào sau đây <strong>sai</strong>?",
+                text: "Trong không gian, cho $4$ điểm không đồng phẳng. Có thể xác định được bao nhiêu mặt phẳng phân biệt từ các điểm đã cho?",
                 options: [
-                    "$JM \\subset mp(SAB)$.",
-                    "$S, I, J$ thẳng hàng.",
-                    "$DM \\subset mp(SCI)$.",
-                    "$SI = (SAB) \\cap (SCD)$."
+                    "$4$ mặt phẳng.",
+                    "$6$ mặt phẳng.",
+                    "$3$ mặt phẳng.",
+                    "$1$ mặt phẳng."
                 ],
                 correctIndex: 0,
-                hint: "Điểm $M$ là trung điểm của cạnh bên $SC$, liệu $M$ có nằm trong mặt phẳng $(SAB)$ không?",
-                explanation: "<strong>Định hướng giải:</strong> Ta có $(SAB) \\cap (SCD) = SI$. Vì $J = DM \\cap (SAB)$ nên $J \\in (SAB) \\cap (SCD) \\Rightarrow S, I, J$ thẳng hàng. Còn điểm $M \\in SC$ nên $M \\notin (SAB)$, do đó đường thẳng $JM$ không thể nằm trong $mp(SAB)$."
+                hint: "Vì 4 điểm không đồng phẳng nên không có 3 điểm nào thẳng hàng; cứ chọn 3 điểm sẽ tạo thành 1 mặt phẳng.",
+                explanation: "<strong>Định hướng giải:</strong> Vì $4$ điểm $A, B, C, D$ không đồng phẳng nên không có ba điểm nào thẳng hàng. Cứ $3$ điểm trong $4$ điểm đó xác định một mặt phẳng duy nhất. Vậy số mặt phẳng phân biệt là $C_4^3 = 4$ mặt phẳng."
             },
             {
                 id: 7,
@@ -709,16 +780,35 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho tứ diện $ABCD$. $G$ là trọng tâm tam giác $BCD$. Giao tuyến của hai mặt phẳng $(ACD)$ và $(GAB)$ là:",
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là tứ giác lồi, hai đường chéo $AC$ và $BD$ cắt nhau tại điểm $O$. Giao tuyến của hai mặt phẳng $(SAC)$ và $(SBD)$ là:",
                 options: [
-                    "$AN$, $N$ là trung điểm $CD$.",
-                    "$AM$, $M$ là trung điểm $AB$.",
-                    "$AH$, $H$ là hình chiếu của $B$ trên $CD$.",
-                    "$AK$, $K$ là hình chiếu của $C$ trên $BD$."
+                    "Đường thẳng $SO$.",
+                    "Đường thẳng $SA$.",
+                    "Đường thẳng $AC$.",
+                    "Đường thẳng $BD$."
                 ],
                 correctIndex: 0,
-                hint: "Kéo dài $BG$ trong mặt phẳng $(BCD)$ sẽ cắt cạnh $CD$ tại trung điểm của nó.",
-                explanation: "<strong>Định hướng giải:</strong> $A$ là điểm chung thứ nhất của $(ACD)$ và $(GAB)$. Gọi $N$ là trung điểm $CD$, vì $G$ là trọng tâm $\\Delta BCD$ nên $N \\in BG \\subset (GAB)$, đồng thời $N \\in CD \\subset (ACD)$. Vậy giao tuyến là $AN$."
+                hint: "Tìm hai điểm chung phân biệt của hai mặt phẳng $(SAC)$ và $(SBD)$.",
+                diagram: `
+                    <svg viewBox="0 0 230 180" class="w-full h-auto">
+                        <polygon points="30,145 110,162 195,130 140,108" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="105" y1="20" x2="30" y2="145" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="105" y1="20" x2="110" y2="162" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="105" y1="20" x2="195" y2="130" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="105" y1="20" x2="140" y2="108" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="4,3"/>
+                        <line x1="30" y1="145" x2="195" y2="130" stroke="#6ee7b7" stroke-width="1.3" stroke-dasharray="3,3"/>
+                        <line x1="110" y1="162" x2="140" y2="108" stroke="#6ee7b7" stroke-width="1.3" stroke-dasharray="3,3"/>
+                        <line x1="105" y1="20" x2="124" y2="136" stroke="#fbbf24" stroke-width="2.2"/>
+                        <circle cx="124" cy="136" r="3.2" fill="#fbbf24"/>
+                        <text x="101" y="14" fill="#fef08a" font-size="11" font-weight="bold">S</text>
+                        <text x="16" y="150" fill="#fef08a" font-size="11" font-weight="bold">A</text>
+                        <text x="108" y="174" fill="#fef08a" font-size="11" font-weight="bold">B</text>
+                        <text x="199" y="134" fill="#fef08a" font-size="11" font-weight="bold">C</text>
+                        <text x="144" y="106" fill="#fef08a" font-size="11" font-weight="bold">D</text>
+                        <text x="128" y="147" fill="#fbbf24" font-size="11" font-weight="bold">O</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải:</strong> Ta có $S$ là điểm chung thứ nhất của $(SAC)$ và $(SBD)$. Mặt khác, $O = AC \\cap BD$ nên $O \\in AC \\subset (SAC)$ và $O \\in BD \\subset (SBD)$, suy ra $O$ là điểm chung thứ hai. Vậy giao tuyến là đường thẳng <strong>$SO$</strong>."
             },
             {
                 id: 8,
@@ -726,16 +816,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình chóp $S.ABCD$ có đáy là hình thang $ABCD$ ($AD \\parallel BC$). Gọi $M$ là trung điểm $CD$. Giao tuyến của hai mặt phẳng $(MSB)$ và $(SAC)$ là:",
+                text: "Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm của $AB$ và $AC$. Điểm $P$ thuộc cạnh $AD$ sao cho $AP = 2PD$. Giao điểm của đường thẳng $NP$ và mặt phẳng $(BCD)$ là:",
                 options: [
-                    "$SI$, $I$ là giao điểm $AC$ và $BM$.",
-                    "$SJ$, $J$ là giao điểm $AM$ và $BD$.",
-                    "$SO$, $O$ là giao điểm $AC$ và $BD$.",
-                    "$SP$, $P$ là giao điểm $AB$ và $CD$."
+                    "Giao điểm của đường thẳng $NP$ và đường thẳng $CD$.",
+                    "Giao điểm của đường thẳng $NP$ và đường thẳng $BC$.",
+                    "Trung điểm của cạnh $CD$.",
+                    "Điểm $D$."
                 ],
                 correctIndex: 0,
-                hint: "Trong mặt phẳng đáy $(ABCD)$, tìm giao điểm của $BM \\subset (MSB)$ và $AC \\subset (SAC)$.",
-                explanation: "<strong>Định hướng giải:</strong> $S$ là điểm chung thứ nhất. Trong mặt phẳng đáy $(ABCD)$, gọi $I = AC \\cap BM$. Khi đó $I \\in AC \\subset (SAC)$ và $I \\in BM \\subset (MSB)$, suy ra giao tuyến là $SI$."
+                hint: "Xét mặt phẳng phụ $(ACD)$ chứa đường thẳng $NP$ và tìm giao tuyến của $(ACD)$ với $(BCD)$.",
+                explanation: "<strong>Định hướng giải:</strong> Trong mặt phẳng $(ACD)$, vì $\\frac{AN}{AC} = \\frac{1}{2} \\ne \\frac{AP}{AD} = \\frac{2}{3}$ nên hai đường thẳng $NP$ và $CD$ cắt nhau tại một điểm $E$. Vì $E \\in CD \\subset (BCD)$ nên $E$ chính là giao điểm của $NP$ với mặt phẳng $(BCD)$."
             },
             {
                 id: 9,
@@ -743,28 +833,33 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm $AB$ và $CD$. Mặt phẳng $(\\alpha)$ qua $MN$ cắt $AD$ và $BC$ lần lượt tại $P, Q$. Biết $MP$ cắt $NQ$ tại $I$. Ba điểm nào sau đây thẳng hàng?",
-                options: ["$I, B, D$.", "$I, A, C$.", "$I, A, B$.", "$I, C, D$."],
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là tứ giác có các cặp cạnh đối không song song. Gọi $E$ là giao điểm của $AB$ và $CD$. Giao tuyến của hai mặt phẳng $(SAB)$ và $(SCD)$ là:",
+                options: [
+                    "Đường thẳng $SE$.",
+                    "Đường thẳng $AC$.",
+                    "Đường thẳng $BD$.",
+                    "Đường thẳng đi qua $S$ và song song với $AB$."
+                ],
                 correctIndex: 0,
-                hint: "Đường thẳng $MP$ nằm trong mặt phẳng $(ABD)$, còn $NQ$ nằm trong mặt phẳng $(CBD)$.",
-                explanation: "<strong>Định hướng giải:</strong> Ta có $I = MP \\cap NQ$. Mà $MP \\subset (ABD)$ và $NQ \\subset (CBD)$ nên $I \\in (ABD) \\cap (CBD) = BD$. Do đó ba điểm $I, B, D$ thẳng hàng."
+                hint: "Tìm hai điểm chung phân biệt của $(SAB)$ và $(SCD)$ từ đỉnh $S$ và giao điểm $E = AB \\cap CD$.",
+                explanation: "<strong>Định hướng giải:</strong> Ta có $S \\in (SAB) \\cap (SCD)$. Ngoài ra, $E = AB \\cap CD$ nên $E \\in AB \\subset (SAB)$ và $E \\in CD \\subset (SCD)$. Vậy giao tuyến của $(SAB)$ và $(SCD)$ là đường thẳng <strong>$SE$</strong>."
             },
             {
                 id: 10,
                 stage: 1,
                 type: 'MCQ',
-                level: 'Vận dụng',
+                level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $M, N$ lần lượt là trung điểm của cạnh $SA, BC$. Giao tuyến của hai mặt phẳng $(MND)$ và $(SBC)$ là:",
+                text: "Cho hình chóp $S.ABCD$. Gọi $M$ là một điểm nằm trên đoạn thẳng $SC$ ($M$ khác $S$ và $C$). Giao điểm của đường thẳng $AM$ và mặt phẳng $(SBD)$ là:",
                 options: [
-                    "$NI$ (với $I$ là điểm trên cạnh $SB$ và $SI = \\frac{2}{3}SB$).",
-                    "$MN$.",
-                    "$NF$ (với $F$ là trung điểm cạnh $SB$).",
-                    "$NE$ (với $E$ là giao điểm của $MD$ và $SB$)."
+                    "Giao điểm của $AM$ và $SO$ (với $O = AC \\cap BD$).",
+                    "Giao điểm của $AM$ và $SB$.",
+                    "Giao điểm của $AM$ và $SD$.",
+                    "Điểm $S$."
                 ],
                 correctIndex: 0,
-                hint: "Trong $(ABCD)$, gọi $E = DN \\cap AB$. Khi đó $I = EM \\cap SB$ là trọng tâm tam giác $SAE$.",
-                explanation: "<strong>Định hướng giải:</strong> Trong $(ABCD)$, gọi $E = DN \\cap AB$. Vì $N$ là trung điểm $BC$ và $DC \\parallel AB$ nên $A$ là trung điểm $BE$. Trong $(SAB)$, gọi $I = EM \\cap SB \\Rightarrow NI = (MND) \\cap (SBC)$. Tam giác $SAE$ có hai trung tuyến $SB, EM$ cắt nhau tại trọng tâm $I$ nên $SI = \\frac{2}{3}SB$."
+                hint: "Chọn mặt phẳng phụ $(SAC)$ chứa đường thẳng $AM$, rồi tìm giao tuyến của $(SAC)$ với $(SBD)$.",
+                explanation: "<strong>Định hướng giải:</strong> Chọn mặt phẳng phụ $(SAC)$ chứa $AM$. Gọi $O = AC \\cap BD \\Rightarrow (SAC) \\cap (SBD) = SO$. Trong mặt phẳng $(SAC)$, đường thẳng $AM$ cắt $SO$ tại điểm $I$. Vì $I \\in SO \\subset (SBD)$ nên $I$ là giao điểm của $AM$ và $(SBD)$."
             },
 
             // ================= CHẶNG 2: ĐẤU TRƯỜNG ĐÚNG / SAI 4 Ý (4 CÂU) =================
@@ -772,16 +867,16 @@
                 id: 11,
                 stage: 2,
                 type: 'TF4',
-                level: 'Nhận biết',
+                level: 'Thông hiểu',
                 maxPoints: 750000,
-                text: "Trong không gian, cho hai đường thẳng $a, b$ và mặt phẳng $(P)$. Xét tính đúng, sai của các mệnh đề sau:",
+                text: "Trong không gian, xét các mệnh đề về điểm, đường thẳng và mặt phẳng sau đây:",
                 statements: [
-                    { label: "a)", text: "Nếu $a$ đi qua một điểm thuộc $(P)$ thì $a$ nằm trong $(P)$.", answer: false },
-                    { label: "b)", text: "Nếu $a$ đi qua hai điểm phân biệt thuộc $(P)$ thì $a$ nằm trong $(P)$.", answer: true },
-                    { label: "c)", text: "Nếu $a$ và $b$ cùng nằm trong $(P)$ thì giao điểm (nếu có) của $a$ và $b$ cũng thuộc $(P)$.", answer: true },
-                    { label: "d)", text: "Nếu $a$ nằm trong $(P)$ và $a$ cắt $b$ thì $b$ nằm trong $(P)$.", answer: false }
+                    { label: "a)", text: "Có duy nhất một mặt phẳng đi qua một điểm và một đường thẳng cho trước.", answer: false },
+                    { label: "b)", text: "Hai đường thẳng cắt nhau xác định một mặt phẳng duy nhất chứa cả hai đường thẳng đó.", answer: true },
+                    { label: "c)", text: "Nếu ba điểm phân biệt $A, B, C$ cùng thuộc hai mặt phẳng phân biệt $(P)$ và $(Q)$ thì ba điểm $A, B, C$ thẳng hàng.", answer: true },
+                    { label: "d)", text: "Hình chóp tam giác còn được gọi là hình tứ diện.", answer: true }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Sai:</strong> Đường thẳng $a$ đi qua $1$ điểm của $(P)$ có thể cắt $(P)$ tại điểm đó.<br>• <strong>b) Đúng:</strong> Theo tính chất thừa nhận: đường thẳng đi qua $2$ điểm phân biệt của $(P)$ thì mọi điểm của nó đều thuộc $(P)$.<br>• <strong>c) Đúng:</strong> Giao điểm của $a$ và $b$ thuộc $a$, mà $a \\subset (P)$ nên điểm đó thuộc $(P)$.<br>• <strong>d) Sai:</strong> Đường thẳng $b$ cắt $a \\subset (P)$ thì $b$ vẫn có thể cắt mặt phẳng $(P)$."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Sai:</strong> Chỉ xác định duy nhất một mặt phẳng khi điểm đó <em>không nằm trên</em> đường thẳng; nếu điểm nằm trên đường thẳng thì có vô số mặt phẳng.<br>• <strong>b) Đúng:</strong> Hai đường thẳng cắt nhau xác định một mặt phẳng duy nhất.<br>• <strong>c) Đúng:</strong> Các điểm chung của hai mặt phẳng phân biệt $(P)$ và $(Q)$ đều nằm trên giao tuyến $d$ duy nhất của chúng nên $A, B, C$ thẳng hàng.<br>• <strong>d) Đúng:</strong> Hình chóp có đáy là tam giác có 4 đỉnh không đồng phẳng nên chính là hình tứ diện."
             },
             {
                 id: 12,
@@ -789,45 +884,45 @@
                 type: 'TF4',
                 level: 'Thông hiểu',
                 maxPoints: 750000,
-                text: "Cho hình chóp $S.ABCD$, biết $AB$ cắt $CD$ tại $E$, $AC$ cắt $BD$ tại $F$ trong mặt phẳng đáy $(ABCD)$. Xét tính đúng, sai của các khẳng định sau:",
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là tứ giác lồi với $AB$ cắt $CD$ tại $E$, $AD$ cắt $BC$ tại $F$ và $AC$ cắt $BD$ tại $O$. Xét tính đúng, sai của các khẳng định sau:",
                 statements: [
-                    { label: "a)", text: "Đường thẳng $EF$ nằm trong mặt phẳng $(ABCD)$.", answer: true },
-                    { label: "b)", text: "$AB$ là giao tuyến của hai mặt phẳng $(SAB)$ và $(ABCD)$.", answer: true },
-                    { label: "c)", text: "$SF$ là giao tuyến của $(SAB)$ và $(SCD)$, $SE$ là giao tuyến của $(SAC)$ và $(SBD)$.", answer: false },
-                    { label: "d)", text: "Gọi $G = EF \\cap AD$, khi đó $SG$ là giao tuyến của mặt phẳng $(SEF)$ và mặt phẳng $(SAD)$.", answer: true }
+                    { label: "a)", text: "Hình chóp $S.ABCD$ có $5$ mặt và $8$ cạnh.", answer: true },
+                    { label: "b)", text: "Giao tuyến của hai mặt phẳng $(SAD)$ và $(SBC)$ là đường thẳng $SF$.", answer: true },
+                    { label: "c)", text: "Giao tuyến của hai mặt phẳng $(SAB)$ và $(SCD)$ là đường thẳng $SO$.", answer: false },
+                    { label: "d)", text: "Ba điểm $E, O, F$ không thẳng hàng.", answer: true }
                 ],
                 diagram: `
-                    <svg viewBox="0 0 220 175" class="w-full h-auto">
-                        <polygon points="105,12 35,105 70,135 140,125 130,90" fill="none" stroke="#6ee7b7" stroke-width="1.5"/>
-                        <line x1="105" y1="12" x2="70" y2="135" stroke="#fbbf24" stroke-width="1.5"/>
-                        <line x1="105" y1="12" x2="140" y2="125" stroke="#fbbf24" stroke-width="1.5"/>
-                        <line x1="35" y1="105" x2="115" y2="165" stroke="#38bdf8" stroke-width="1.2"/>
-                        <line x1="130" y1="90" x2="115" y2="165" stroke="#38bdf8" stroke-width="1.2"/>
-                        <line x1="105" y1="12" x2="115" y2="165" stroke="#f87171" stroke-width="1.6"/>
-                        <text x="102" y="10" fill="#fef08a" font-size="11" font-weight="bold">S</text>
-                        <text x="23" y="106" fill="#fff" font-size="10">A</text>
-                        <text x="58" y="142" fill="#fff" font-size="10">B</text>
-                        <text x="145" y="128" fill="#fff" font-size="10">C</text>
-                        <text x="134" y="88" fill="#fff" font-size="10">D</text>
-                        <text x="120" y="168" fill="#fca5a5" font-size="11" font-weight="bold">E</text>
+                    <svg viewBox="0 0 230 180" class="w-full h-auto">
+                        <polygon points="35,142 110,162 185,128 135,105" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="102" y1="20" x2="35" y2="142" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="102" y1="20" x2="110" y2="162" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="102" y1="20" x2="185" y2="128" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="102" y1="20" x2="135" y2="105" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="4,3"/>
+                        <line x1="35" y1="142" x2="185" y2="128" stroke="#6ee7b7" stroke-width="1.2" stroke-dasharray="3,3"/>
+                        <line x1="110" y1="162" x2="135" y2="105" stroke="#6ee7b7" stroke-width="1.2" stroke-dasharray="3,3"/>
+                        <text x="98" y="14" fill="#fef08a" font-size="11" font-weight="bold">S</text>
+                        <text x="21" y="147" fill="#fef08a" font-size="11" font-weight="bold">A</text>
+                        <text x="108" y="174" fill="#fef08a" font-size="11" font-weight="bold">B</text>
+                        <text x="189" y="132" fill="#fef08a" font-size="11" font-weight="bold">C</text>
+                        <text x="139" y="103" fill="#fef08a" font-size="11" font-weight="bold">D</text>
                     </svg>
                 `,
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Vì $E, F \\in (ABCD)$ nên đường thẳng $EF \\subset (ABCD)$.<br>• <strong>b) Đúng:</strong> Hai điểm $A, B$ cùng thuộc $(SAB)$ và $(ABCD)$.<br>• <strong>c) Sai:</strong> Bị đảo ngược! $E = AB \\cap CD \\Rightarrow (SAB) \\cap (SCD) = SE$; còn $F = AC \\cap BD \\Rightarrow (SAC) \\cap (SBD) = SF$.<br>• <strong>d) Đúng:</strong> $S$ và $G$ là hai điểm chung phân biệt của $(SEF)$ và $(SAD)$."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Hình chóp tứ giác $S.ABCD$ gồm 1 mặt đáy, 4 mặt bên (5 mặt) và 4 cạnh đáy, 4 cạnh bên (8 cạnh).<br>• <strong>b) Đúng:</strong> $S$ và $F = AD \\cap BC$ là hai điểm chung của $(SAD)$ và $(SBC)$ nên giao tuyến là $SF$.<br>• <strong>c) Sai:</strong> Giao tuyến của $(SAB)$ và $(SCD)$ là $SE$ (với $E = AB \\cap CD$), còn $SO$ là giao tuyến của $(SAC)$ và $(SBD)$.<br>• <strong>d) Đúng:</strong> Trong tứ giác lồi $ABCD$, đường thẳng nối giao điểm hai cặp cạnh đối $EF$ không đi qua giao điểm hai đường chéo $O$."
             },
             {
                 id: 13,
                 stage: 2,
                 type: 'TF4',
-                level: 'Thông hiểu',
+                level: 'Vận dụng',
                 maxPoints: 750000,
-                text: "Cho tứ diện $ABCD$. Gọi $I, J$ lần lượt là trung điểm của $AD, BC$, $M$ là một điểm trên cạnh $AB$, $N$ là một điểm trên cạnh $AC$. Xét tính đúng, sai của các mệnh đề sau:",
+                text: "Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm của các cạnh $AB, AC$; điểm $P$ thuộc cạnh $AD$ sao cho $AP = 3PD$. Xét tính đúng, sai của các mệnh đề sau:",
                 statements: [
-                    { label: "a)", text: "$IJ$ là giao tuyến của hai mặt phẳng $(IBC)$ và $(JAD)$.", answer: true },
-                    { label: "b)", text: "$ND$ là giao tuyến của hai mặt phẳng $(MND)$ và $(ADC)$.", answer: true },
-                    { label: "c)", text: "$BI$ là giao tuyến của hai mặt phẳng $(BCI)$ và $(ABD)$.", answer: true },
-                    { label: "d)", text: "Giao tuyến của hai mặt phẳng $(IBC)$ và $(DMN)$ song song với đường thẳng $IJ$.", answer: false }
+                    { label: "a)", text: "Ba đường thẳng $MN, NP, PM$ đồng phẳng.", answer: true },
+                    { label: "b)", text: "Giao tuyến của mặt phẳng $(MNP)$ và mặt phẳng $(BCD)$ đi qua giao điểm của $NP$ và $CD$.", answer: true },
+                    { label: "c)", text: "Đường thẳng $MP$ cắt đường thẳng $BD$ tại điểm $K$ thỏa mãn $BD = DK$.", answer: false },
+                    { label: "d)", text: "Mặt phẳng $(MNP)$ cắt tứ diện $ABCD$ theo thiết diện là một hình tứ giác.", answer: true }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> $I \\in AD \\subset (JAD)$ và $J \\in BC \\subset (IBC)$ nên $(IBC) \\cap (JAD) = IJ$.<br>• <strong>b) Đúng:</strong> Hai điểm chung là $N$ và $D$.<br>• <strong>c) Đúng:</strong> Hai điểm chung là $B$ và $I$.<br>• <strong>d) Sai:</strong> Trong $(ACD)$ gọi $E = DN \\cap CI$, trong $(ABD)$ gọi $F = DM \\cap BI$. Giao tuyến là $EF$ cắt $IJ$ chứ không song song với $IJ$ với $M, N$ bất kỳ."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Ba điểm $M, N, P$ không thẳng hàng nên xác định mặt phẳng $(MNP)$ chứa cả ba đường thẳng $MN, NP, PM$.<br>• <strong>b) Đúng:</strong> Điểm $E = NP \\cap CD$ thuộc cả $(MNP)$ và $(BCD)$ nên giao tuyến của hai mặt phẳng này đi qua $E$.<br>• <strong>c) Sai:</strong> Trong $\\Delta ABD$, $M$ là trung điểm $AB$ và $\\frac{AP}{AD} = \\frac{3}{4}$. Áp dụng định lí Menelaus cho $\\Delta ABD$ với cát tuyến $MPK$: $\\frac{MA}{MB} \\cdot \\frac{KB}{KD} \\cdot \\frac{PD}{PA} = 1 \\Rightarrow 1 \\cdot \\frac{KB}{KD} \\cdot \\frac{1}{3} = 1 \\Rightarrow KB = 3KD \\Rightarrow BD = 2KD$.<br>• <strong>d) Đúng:</strong> Giao tuyến của $(MNP)$ với $(BCD)$ cắt hai cạnh $BC, CD$ (hoặc $BD, CD$) nên mặt phẳng $(MNP)$ cắt đúng 4 mặt của tứ diện, tạo thiết diện là một tứ giác."
             },
             {
                 id: 14,
@@ -835,14 +930,14 @@
                 type: 'TF4',
                 level: 'Vận dụng',
                 maxPoints: 750000,
-                text: "Cho hình bình hành $ABCD$ và một điểm $S$ không thuộc mặt phẳng $(ABCD)$, các điểm $M, N$ lần lượt là trung điểm của đoạn thẳng $AB, SC$. Gọi $O = AC \\cap BD$. Xét tính đúng, sai:",
+                text: "Một khối bê tông trang trí kiến trúc có dạng hình tứ diện đều $ABCD$ cạnh bằng $6\\text{ dm}$. Người thợ cắt khối bê tông bởi mặt phẳng $(\\alpha)$ đi qua trung điểm $M$ của $AB$, trung điểm $N$ của $AC$ và trung điểm $P$ của $AD$. Xét tính đúng, sai của các khẳng định sau:",
                 statements: [
-                    { label: "a)", text: "$SO$ là giao tuyến của hai mặt phẳng $(SAC)$ và $(SBD)$.", answer: true },
-                    { label: "b)", text: "Giao điểm $I$ của đường thẳng $AN$ và mặt phẳng $(SBD)$ là điểm nằm trên đường thẳng $SO$.", answer: true },
-                    { label: "c)", text: "Giao điểm $J$ của đường thẳng $MN$ và mặt phẳng $(SBD)$ là điểm nằm trên đường thẳng $SD$.", answer: false },
-                    { label: "d)", text: "Ba điểm $I, J, B$ thẳng hàng.", answer: true }
+                    { label: "a)", text: "Mặt phẳng $(\\alpha)$ cắt mặt phẳng $(BCD)$ theo một giao tuyến là đoạn thẳng nằm trong tam giác $BCD$.", answer: false },
+                    { label: "b)", text: "Thiết diện của khối bê tông cắt bởi mặt phẳng $(\\alpha)$ là tam giác $MNP$.", answer: true },
+                    { label: "c)", text: "Tam giác $MNP$ là tam giác đều có cạnh bằng $3\\text{ dm}$.", answer: true },
+                    { label: "d)", text: "Chu vi của mặt cắt thiết diện $MNP$ bằng $9\\text{ dm}$.", answer: true }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> $S$ và $O$ cùng thuộc $(SAC)$ và $(SBD)$.<br>• <strong>b) Đúng:</strong> Trong $(SAC)$, $I = AN \\cap SO \\Rightarrow I = AN \\cap (SBD)$.<br>• <strong>c) Sai:</strong> Trong $(ABCD)$ gọi $P = CM \\cap BD$. Trong $(SCM)$, $J = MN \\cap SP$ nên $J$ nằm trên $SP$ (không nằm trên $SD$).<br>• <strong>d) Đúng:</strong> Ba điểm $B, I, J$ cùng thuộc giao tuyến của hai mặt phẳng $(ABN)$ và $(SBD)$ nên thẳng hàng."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Sai:</strong> Vì $M, N, P$ lần lượt là trung điểm các cạnh bên $AB, AC, AD$ nên mặt phẳng $(MNP)$ không có điểm chung với mặt đáy $(BCD)$ (hai mặt phẳng này song song).<br>• <strong>b) Đúng:</strong> $(MNP)$ chỉ cắt ba mặt $(ABC), (ACD), (ABD)$ theo ba đoạn giao tuyến $MN, NP, PM$ nên thiết diện là $\\Delta MNP$.<br>• <strong>c) Đúng:</strong> $MN, NP, PM$ là các đường trung bình của các tam giác đều cạnh $6\\text{ dm}$ nên $MN = NP = PM = 3\\text{ dm}$.<br>• <strong>d) Đúng:</strong> Chu vi tam giác đều $MNP$ cạnh $3\\text{ dm}$ là $3 \\times 3 = 9\\text{ dm}$."
             },
 
             // ================= CHẶNG 3: VƯỢT CHƯỚNG NGẠI VẬT – TRẢ LỜI NGẮN (4 CÂU) =================
@@ -852,9 +947,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là tứ giác lồi. Gọi $N, P$ lần lượt là trung điểm của $SB$ và $AD$. Gọi $I$ là trung điểm của $NP$ và $G$ là giao điểm của $SI$ với $mp(ABCD)$. Tính tỉ số $\\frac{IS}{IG}$.",
-                correctValues: ["3", "3.0", "3,0"],
-                explanation: "<strong>Định hướng giải:</strong> Trong mặt phẳng $(SBP)$, đường thẳng $SI$ cắt $BP$ tại $G$. Qua $N$ kẻ đường thẳng song song với $SG$ cắt $BP$ tại $H$. Vì $N$ là trung điểm $SB$ nên $H$ là trung điểm $BG$ và $NH = \\frac{1}{2}SG$. Vì $I$ là trung điểm $NP$ và $IG \\parallel NH$ nên $IG$ là đường trung bình của $\\Delta PNH \\Rightarrow IG = \\frac{1}{2}NH = \\frac{1}{4}SG$. Suy ra $IS = \\frac{3}{4}SG$, vậy $\\frac{IS}{IG} = 3$."
+                text: "Cho tứ diện $ABCD$. Gọi $M$ là trung điểm của cạnh $AB$, $G$ là trọng tâm tam giác $BCD$. Đường thẳng $MG$ cắt mặt phẳng $(ACD)$ tại điểm $I$. Biết độ dài đoạn thẳng $MG = 4\\text{ cm}$, tính độ dài đoạn thẳng $GI$ (đơn vị: $\\text{cm}$).",
+                correctValues: ["2", "2.0", "2,0"],
+                explanation: "<strong>Định hướng giải:</strong> Gọi $N$ là trung điểm của $CD$. Vì $G$ là trọng tâm $\\Delta BCD$ nên $G \\in BN$ và $\\frac{BG}{BN} = \\frac{2}{3}$. Trong mặt phẳng $(ABN)$, đường thẳng $MG$ cắt $AN$ tại $I$ (vì $AN \\subset (ACD)$ nên $I = MG \\cap (ACD)$). Áp dụng định lí Menelaus cho $\\Delta BMN$ với cát tuyến $AGI$: $\\frac{AB}{AM} \\cdot \\frac{IM}{IG} \\cdot \\frac{GN}{GB} = 1 \\Rightarrow 2 \\cdot \\frac{IM}{IG} \\cdot \\frac{1}{2} = 1 \\Rightarrow IM = IG$. Do đó $GI = \\frac{1}{2}MG = \\frac{4}{2} = 2\\text{ cm}$."
             },
             {
                 id: 16,
@@ -862,9 +957,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Cho hình chóp $S.ABCD$ có đáy là hình thang $ABCD$ với $AD \\parallel BC$ và $AD = 2BC$. Gọi $M$ là điểm trên cạnh $SD$ thỏa mãn $SM = \\frac{1}{3}SD$. Mặt phẳng $(ABM)$ cắt cạnh bên $SC$ tại điểm $N$. Tính tỉ số $\\frac{SN}{SC}$ (viết dưới dạng số thập phân).",
-                correctValues: ["0,5", "0.5", "1/2"],
-                explanation: "<strong>Định hướng giải:</strong> Gọi $F = AB \\cap CD$. Vì $BC \\parallel AD$ và $AD = 2BC$ nên $C$ là trung điểm $DF$. Trong $(SCD)$, nối $FM$ cắt $SC$ tại $N$. Kẻ $CE \\parallel MN$ ($E \\in SD$), do $C$ là trung điểm $DF$ nên $E$ là trung điểm $MD$, suy ra $SM = ME = ED$. Xét $\\Delta SCE$ có $M$ là trung điểm $SE$ và $MN \\parallel CE$ nên $N$ là trung điểm $SC \\Rightarrow \\frac{SN}{SC} = \\frac{1}{2} = 0,5$."
+                text: "Cho tứ diện đều $ABCD$ có tất cả các cạnh đều bằng $8\\text{ cm}$. Gọi $M, N, P$ lần lượt là trung điểm của các cạnh $AB, BC, CD$. Tính chu vi của thiết diện tạo bởi mặt phẳng $(MNP)$ và tứ diện $ABCD$ (đơn vị: $\\text{cm}$).",
+                correctValues: ["16", "16.0", "16,0"],
+                explanation: "<strong>Định hướng giải:</strong> Gọi $Q$ là trung điểm của $AD$. Khi đó $MQ$ và $NP$ cùng là đường trung bình ứng với cạnh $BD$ nên $MQ \\parallel NP$ và $MQ = NP = \\frac{1}{2}BD = 4\\text{ cm}$. Suy ra $Q \\in (MNP)$ và thiết diện là tứ giác $MNPQ$. Tương tự, $MN = PQ = \\frac{1}{2}AC = 4\\text{ cm}$. Vậy chu vi thiết diện $MNPQ$ là $4 \\times 4 = 16\\text{ cm}$."
             },
             {
                 id: 17,
@@ -872,9 +967,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình chữ nhật. Gọi $M, N$ theo thứ tự là trọng tâm $\\Delta SAB$ và $\\Delta SCD$. Gọi $G$ là giao điểm của đường thẳng $MN$ với mặt phẳng $(SAC)$, $O$ là tâm của hình chữ nhật $ABCD$. Khi đó tỉ số $\\frac{SG}{GO}$ bằng bao nhiêu?",
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M$ là trung điểm của cạnh $SC$. Đường thẳng $AM$ cắt mặt phẳng $(SBD)$ tại điểm $I$. Tính tỉ số $\\frac{IA}{IM}$.",
                 correctValues: ["2", "2.0", "2,0"],
-                explanation: "<strong>Định hướng giải:</strong> Gọi $E, F$ lần lượt là trung điểm $AB, CD$. Trong $(SEF)$, $G = MN \\cap SO$. Vì $M, N$ là trọng tâm $\\Delta SAB, \\Delta SCD$ nên $\\frac{SM}{SE} = \\frac{SN}{SF} = \\frac{2}{3} \\Rightarrow MN \\parallel EF$. Áp dụng định lý Thales trong $\\Delta SOE$ ta có $\\frac{SG}{SO} = \\frac{SM}{SE} = \\frac{2}{3} \\Rightarrow \\frac{SG}{GO} = 2$."
+                explanation: "<strong>Định hướng giải:</strong> Trong mặt phẳng $(SAC)$, giao tuyến của $(SAC)$ và $(SBD)$ là $SO$ nên $I = AM \\cap SO$. Trong tam giác $SAC$, hai đường trung tuyến $AM$ và $SO$ cắt nhau tại $I$, suy ra $I$ là trọng tâm của $\\Delta SAC$. Theo tính chất trọng tâm tam giác, ta có $\\frac{IA}{IM} = 2$."
             },
             {
                 id: 18,
@@ -882,9 +977,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Cho hình chóp $S.ABCD$ đáy $ABCD$ là hình bình hành. $M, N$ lần lượt là trung điểm của $AB$ và $SC$. $I$ là giao điểm của $AN$ và $(SBD)$, $J$ là giao điểm của $MN$ với $(SBD)$. Khi đó tỉ số $\\frac{IB}{IJ}$ bằng bao nhiêu?",
-                correctValues: ["4", "4.0", "4,0"],
-                explanation: "<strong>Định hướng giải:</strong> Gọi $O = AC \\cap BD$. Trong $(SAC)$, $I = AN \\cap SO$ nên $I$ là trọng tâm $\\Delta SAC \\Rightarrow \\frac{NI}{IA} = \\frac{1}{2}$. Trong $(ABN)$, $J = MN \\cap BI$. Gọi $K$ là trung điểm $SD$, ta chứng minh được $B, I, J, K$ thẳng hàng và $AKMN$ là hình bình hành ($AK \\parallel MN$), $J$ là trung điểm $BK$. Do $AK \\parallel MN$ nên $\\frac{IJ}{IK} = \\frac{NI}{IA} = \\frac{1}{2} \\Rightarrow \\frac{IJ}{JK} = \\frac{1}{3} = \\frac{IJ}{BJ} \\Rightarrow \\frac{IB}{IJ} = 4$."
+                text: "Một mô hình kim tự tháp dạng hình chóp tứ giác đều $S.ABCD$ có tất cả các cạnh đều bằng $6\\text{ dm}$. Người ta cắt mô hình bởi mặt phẳng $(\\alpha)$ đi qua trung điểm $M$ của $SA$, trung điểm $N$ của $SB$ và tâm $O$ của đáy $ABCD$ tạo thành thiết diện hình thang cân $MNPQ$. Tính chiều cao của hình thang cân $MNPQ$ (đơn vị: $\\text{dm}$, làm tròn kết quả đến hàng phần trăm).",
+                correctValues: ["2.6", "2,6", "2.60", "2,60"],
+                explanation: "<strong>Định hướng giải:</strong> Mặt phẳng $(MNO)$ cắt mặt đáy $(ABCD)$ theo giao tuyến đi qua $O$ và cắt $BC, AD$ tại trung điểm $P, Q$ của chúng. Thiết diện là hình thang cân $MNPQ$ có đáy nhỏ $MN = \\frac{1}{2}AB = 3\\text{ dm}$, đáy lớn $PQ = AB = 6\\text{ dm}$. Cạnh bên $MQ$ là đường trung bình của tam giác đều $SAD$ cạnh $6\\text{ dm}$ nên $MQ = \\frac{1}{2}SD = 3\\text{ dm}$. Chiều cao hình thang cân là $h = \\sqrt{MQ^2 - \\left(\\frac{PQ - MN}{2}\\right)^2} = \\sqrt{3^2 - 1,5^2} = \\frac{3\\sqrt{3}}{2} \\approx 2,60\\text{ dm}$."
             }
         ];
 
@@ -944,31 +1039,43 @@
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(f, now);
-                gain.gain.setValueAtTime(0.18 / (idx + 1), now);
-                gain.gain.exponentialRampToValueAtTime(0.0008, now + 1.4);
+                osc.frequency.setValueAtTime(f, now + idx * 0.04);
+                gain.gain.setValueAtTime(0.18 / (idx + 1), now + idx * 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 1.1);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 1.4);
+                osc.start(now + idx * 0.04);
+                osc.stop(now + 1.1);
             });
         }
 
-        // Âm thanh đám đông vỗ tay chúc mừng + hợp âm vui khi trả lời ĐÚNG
+        // Âm thanh đám đông vỗ tay chúc mừng + hợp âm vui + giọng đọc "CHÍNH XÁC" khi trả lời ĐÚNG
         function playCrowdApplauseAndFanfare() {
             if (!gameState.soundOn) return;
             ensureAudio();
+
+            // Phát giọng đọc chúc mừng "Chính xác!" bằng Web Speech API (nếu trình duyệt hỗ trợ)
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utter = new SpeechSynthesisUtterance("Chính xác!");
+                    utter.lang = 'vi-VN';
+                    utter.rate = 1.08;
+                    utter.pitch = 1.12;
+                    window.speechSynthesis.speak(utter);
+                }
+            } catch (e) {}
+
             if (!audioCtx) return;
 
             const now = audioCtx.currentTime;
 
-            // 1. Tiếng vỗ tay đám đông sinh động (lọc nhiễu trắng theo nhịp vỗ tay)
-            const duration = 2.4;
+            // 1. Tiếng vỗ tay đám đông cổ vũ kéo dài sinh động
+            const duration = 2.6;
             const bufferSize = audioCtx.sampleRate * duration;
             const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
             const data = buffer.getChannelData(0);
             for (let i = 0; i < bufferSize; i++) {
-                // Tạo hiệu ứng nhiều bàn tay vỗ rào rào tự nhiên
                 const envelope = Math.sin((i / bufferSize) * Math.PI);
                 const flutter = 0.65 + 0.35 * Math.sin(i * 0.0045);
                 data[i] = (Math.random() * 2 - 1) * envelope * flutter;
@@ -1510,14 +1617,21 @@
         }
 
         function renderMathTypeset(target = document.body) {
-            if (window.renderMathInElement) {
-                renderMathInElement(target, {
-                    delimiters: [
-                        { left: '$$', right: '$$', display: true },
-                        { left: '$', right: '$', display: false }
-                    ],
-                    throwOnError: false
-                });
+            const doRender = () => {
+                if (typeof window.renderMathInElement === 'function') {
+                    window.renderMathInElement(target, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                }
+            };
+            if (typeof window.__onKaTeXReady === 'function') {
+                window.__onKaTeXReady(doRender);
+            } else {
+                doRender();
             }
         }
 
