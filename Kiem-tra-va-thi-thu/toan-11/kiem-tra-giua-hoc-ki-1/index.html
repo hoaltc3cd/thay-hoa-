@@ -1,487 +1,770 @@
-<!-- NÚT QUAY VỀ TRANG CHỦ THẦY HÒA -->
-<div style="padding:12px 15px;">
-  <a href="https://thay-hoa.vercel.app/"
-     style="
-       display:inline-block;
-       background:linear-gradient(135deg,#1769d2,#7957d5);
-       color:white;
-       padding:12px 22px;
-       border-radius:12px;
-       font-weight:bold;
-       font-size:15px;
-       text-decoration:none;
-       box-shadow:0 4px 12px #0002;
-     ">
-    🏠 TRANG CHỦ THẦY HÒA
-  </a>
+
+<!-- THƯ VIỆN ĐỀ KIỂM TRA GIỮA KÌ 1 - TOÁN 11 -->
+<div class="math11-exam-library">
+
+  <!-- NÚT TRANG CHỦ -->
+  <div class="home-area">
+    <a href="https://thay-hoa.vercel.app/" class="home-btn">
+      🏠 TRANG CHỦ THẦY HÒA
+    </a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="exam-header">
+    <div class="header-icon">📚</div>
+    <h1>THƯ VIỆN ĐỀ KIỂM TRA GIỮA KÌ 1</h1>
+    <div class="header-brand">CHINH PHỤC TOÁN HỌC – THẦY HÒA</div>
+    <p>Học tập chủ động – Rèn luyện tư duy – Bứt phá điểm số</p>
+  </header>
+
+  <!-- NỘI DUNG -->
+  <div class="exam-container">
+
+    <!-- THANH TÌM KIẾM -->
+    <div class="search-box">
+      <span>🔍</span>
+      <input
+        id="search"
+        type="text"
+        placeholder="Tìm kiếm tên đề kiểm tra..."
+        autocomplete="off"
+      >
+    </div>
+
+    <!-- BỐ CỤC CHÍNH -->
+    <div class="exam-main">
+
+      <!-- DANH SÁCH ĐỀ -->
+      <aside class="exam-sidebar">
+
+        <div class="section-heading">
+          <span>📂</span>
+          <h3>DANH SÁCH ĐỀ</h3>
+        </div>
+
+        <div class="list-count" id="listCount">
+          Danh sách tài liệu
+        </div>
+
+        <div id="fileList" class="file-list"></div>
+
+        <div class="sidebar-hint">
+          💡 Chọn một tài liệu để xem hoặc tải xuống.
+        </div>
+
+      </aside>
+
+      <!-- KHUNG XEM TÀI LIỆU -->
+      <section class="exam-viewer">
+
+        <div class="viewer-heading">
+          <div class="viewer-title">
+            <span>📄</span>
+            <h3 id="currentTitle">Chọn một đề để xem</h3>
+          </div>
+          <span class="viewer-label">XEM TÀI LIỆU</span>
+        </div>
+
+        <!-- NÚT CHỨC NĂNG -->
+        <div class="viewer-actions">
+
+          <a
+            id="downloadBtn"
+            href="#"
+            class="action-btn download-btn"
+            style="display:none"
+          >
+            ⬇ TẢI TÀI LIỆU
+          </a>
+
+          <button
+            id="newTabBtn"
+            type="button"
+            class="action-btn newtab-btn"
+          >
+            ↗ MỞ TAB MỚI
+          </button>
+
+        </div>
+
+        <!-- KHUNG PDF -->
+        <div class="pdf-container" id="pdfContainer">
+          <iframe
+            id="pdfViewer"
+            title="Trình xem đề PDF"
+            src="about:blank"
+          ></iframe>
+
+          <div class="initial-message" id="initialMessage">
+            <div class="initial-icon">📖</div>
+            <h3>CHƯA CHỌN TÀI LIỆU</h3>
+            <p>Vui lòng chọn một đề kiểm tra ở danh sách bên trái để bắt đầu xem.</p>
+          </div>
+        </div>
+
+        <!-- THÔNG BÁO WORD -->
+        <div id="docxNotice" class="docx-notice" hidden>
+          <div class="word-icon">📝</div>
+          <h3>TÀI LIỆU WORD</h3>
+          <p>Tài liệu này có định dạng Microsoft Word (.docx).</p>
+          <p>Nhấn nút <strong>TẢI TÀI LIỆU</strong> để tải về và mở bằng Word.</p>
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="exam-footer">
+    <strong>THẦY HÒA – CHINH PHỤC TOÁN HỌC</strong>
+    <p>Cổng học tập số – Học tập và phát triển mỗi ngày</p>
+  </footer>
+
 </div>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Thư viện đề giữa kì 1 - Toán 11 | THẦY HÒA</title>
-
 <style>
-* {
-    box-sizing: border-box;
+/* =================================
+   GIAO DIỆN THƯ VIỆN TOÁN 11
+================================= */
+
+.math11-exam-library {
+  --navy: #10264b;
+  --blue: #1769d2;
+  --cyan: #13a9c9;
+  --purple: #7957d5;
+  --text: #17243b;
+  --muted: #64748b;
+  --border: #e3eaf3;
+  --bg: #f3f6fc;
+
+  max-width: 1200px;
+  margin: 15px auto;
+  padding: 10px 15px 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f1f5f9;
-    color: #172554;
+.math11-exam-library *,
+.math11-exam-library *::before,
+.math11-exam-library *::after {
+  box-sizing: border-box;
+}
+
+/* NÚT TRANG CHỦ */
+.math11-exam-library .home-area {
+  margin-bottom: 15px;
+}
+
+.math11-exam-library .home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 17px;
+  color: white;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px #1769d225;
+  transition: .25s;
+}
+
+.math11-exam-library .home-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 16px #1769d235;
 }
 
 /* HEADER */
-header {
-    background: linear-gradient(120deg,#102c54,#1765a5,#087eaa);
-    color: white;
-    padding: 30px 15px;
-    text-align: center;
+.math11-exam-library .exam-header {
+  padding: 25px 15px 23px;
+  text-align: center;
+  color: white;
+  background: linear-gradient(120deg, #10264b, #1769d2 65%, #087eaa);
+  border-radius: 15px;
+  box-shadow: 0 5px 16px #10264b20;
 }
 
-header h1 {
-    margin: 0 0 12px;
-    font-size: 27px;
+.math11-exam-library .header-icon {
+  font-size: 34px;
+  margin-bottom: 8px;
 }
 
-header p {
-    margin: 7px 0;
-    line-height: 1.5;
+.math11-exam-library .exam-header h1 {
+  margin: 0 0 10px;
+  color: white;
+  font-size: clamp(20px, 3vw, 27px);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.math11-exam-library .header-brand {
+  margin-bottom: 7px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .6px;
+}
+
+.math11-exam-library .exam-header p {
+  margin: 0;
+  color: #e8f2ff;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 /* CONTAINER */
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
+.math11-exam-library .exam-container {
+  padding-top: 17px;
 }
 
 /* THANH TÌM KIẾM */
-.toolbar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
+.math11-exam-library .search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  margin-bottom: 14px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #10264b08;
+  transition: .2s;
 }
 
-input {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #cbd5e1;
-    border-radius: 9px;
-    font-size: 15px;
-    outline: none;
+.math11-exam-library .search-box:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px #1769d215;
 }
 
-input:focus {
-    border-color: #0284c7;
-    box-shadow: 0 0 0 3px #0284c720;
+.math11-exam-library .search-box span {
+  font-size: 17px;
+}
+
+.math11-exam-library .search-box input {
+  width: 100%;
+  min-width: 0;
+  height: 45px;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+  box-shadow: none;
+}
+
+.math11-exam-library .search-box input:focus {
+  border: none;
+  box-shadow: none;
 }
 
 /* BỐ CỤC CHÍNH */
-.main {
-    display: grid;
-    grid-template-columns: 310px 1fr;
-    gap: 18px;
-    align-items: start;
+.math11-exam-library .exam-main {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
 }
 
-.sidebar,
-.viewer {
-    background: white;
-    border-radius: 13px;
-    padding: 18px;
-    box-shadow: 0 3px 12px #00000010;
-    min-width: 0;
+/* SIDEBAR VÀ VIEWER */
+.math11-exam-library .exam-sidebar,
+.math11-exam-library .exam-viewer {
+  min-width: 0;
+  padding: 15px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  box-shadow: 0 3px 12px #10264b0c;
 }
 
-.sidebar h3,
-.viewer h3 {
-    margin-top: 0;
-    color: #124c7b;
+/* TIÊU ĐỀ DANH SÁCH */
+.math11-exam-library .section-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.math11-exam-library .section-heading span {
+  font-size: 19px;
+}
+
+.math11-exam-library .section-heading h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.math11-exam-library .list-count {
+  margin: 10px 0;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 /* DANH SÁCH TÀI LIỆU */
-.file-item {
-    padding: 13px;
-    border: 1px solid #e2e8f0;
-    border-radius: 9px;
-    margin-bottom: 9px;
-    cursor: pointer;
-    line-height: 1.5;
-    overflow-wrap: anywhere;
-    transition: .2s;
+.math11-exam-library .file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
 
-.file-item:hover,
-.file-item.active {
-    background: #e0f2fe;
-    border-color: #0284c7;
+.math11-exam-library .file-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 10px 11px;
+  border: 1px solid #e6edf5;
+  border-radius: 9px;
+  background: #fff;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: .2s;
 }
 
-.file-item.active {
-    font-weight: bold;
+.math11-exam-library .file-item .file-icon {
+  flex-shrink: 0;
+  font-size: 18px;
 }
 
-.file-item:hover {
-    transform: translateX(3px);
+.math11-exam-library .file-item:hover {
+  background: #f0f7ff;
+  border-color: #93c5fd;
+  transform: translateX(2px);
+}
+
+.math11-exam-library .file-item.active {
+  background: #eaf3ff;
+  border-color: var(--blue);
+  color: #1556a0;
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+/* GỢI Ý */
+.math11-exam-library .sidebar-hint {
+  margin-top: 13px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f1f7ff;
+  color: #56708d;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* KHUNG XEM */
+.math11-exam-library .viewer-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.math11-exam-library .viewer-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.math11-exam-library .viewer-title > span {
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.math11-exam-library .viewer-title h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.math11-exam-library .viewer-label {
+  padding: 5px 9px;
+  border-radius: 20px;
+  background: #eaf2ff;
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 /* NÚT CHỨC NĂNG */
-.viewer-actions {
-    display: flex;
-    gap: 9px;
-    flex-wrap: wrap;
-    margin-bottom: 13px;
+.math11-exam-library .viewer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
-.viewer-actions a,
-.viewer-actions button {
-    display: inline-block;
-    border: none;
-    background: #0f766e;
-    color: white;
-    text-decoration: none;
-    padding: 11px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
+.math11-exam-library .action-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 9px 13px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s;
 }
 
-.viewer-actions button {
-    background: #1261a0;
+.math11-exam-library .action-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(.94);
 }
 
-.viewer-actions a:hover,
-.viewer-actions button:hover {
-    opacity: .85;
+.math11-exam-library .download-btn {
+  background: linear-gradient(135deg, #0f8b70, #0d9488);
 }
 
-/* KHUNG XEM PDF */
-.viewer iframe {
-    display: block;
-    width: 100%;
-    height: 720px;
-    border: 0;
-    border-radius: 8px;
-    background: #f8fafc;
+.math11-exam-library .newtab-btn {
+  background: linear-gradient(135deg, #1769d2, #347fe0);
+}
+
+/* KHUNG PDF */
+.math11-exam-library .pdf-container {
+  position: relative;
+  width: 100%;
+  height: 720px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #f5f8fc;
+}
+
+.math11-exam-library .pdf-container iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: white;
+}
+
+/* MÀN HÌNH CHƯA CHỌN */
+.math11-exam-library .initial-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  background: #f5f8fc;
+}
+
+.math11-exam-library .initial-message[hidden] {
+  display: none;
+}
+
+.math11-exam-library .initial-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.math11-exam-library .initial-message h3 {
+  margin: 0 0 8px;
+  color: var(--navy);
+  font-size: 16px;
+}
+
+.math11-exam-library .initial-message p {
+  max-width: 350px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 /* THÔNG BÁO WORD */
-.docx-notice {
-    padding: 55px 20px;
-    text-align: center;
-    background: #f0f9ff;
-    border: 1px dashed #0284c7;
-    border-radius: 10px;
-    color: #124c7b;
-    line-height: 1.8;
+.math11-exam-library .docx-notice {
+  padding: 55px 20px;
+  text-align: center;
+  background: #f0f7ff;
+  border: 1px dashed #7db7ed;
+  border-radius: 10px;
+  color: #385b7d;
+  line-height: 1.7;
 }
 
-.docx-notice h3 {
-    color: #1261a0;
+.math11-exam-library .docx-notice[hidden] {
+  display: none;
 }
 
-/* THÔNG BÁO */
-.empty {
-    text-align: center;
-    color: #64748b;
-    padding: 30px 10px;
+.math11-exam-library .word-icon {
+  font-size: 45px;
 }
 
-.hint {
-    font-size: 13px;
-    color: #64748b;
-    line-height: 1.6;
-    margin-top: 12px;
+.math11-exam-library .docx-notice h3 {
+  margin: 10px 0;
+  color: var(--blue);
+  font-size: 17px;
+}
+
+.math11-exam-library .docx-notice p {
+  margin: 7px 0;
+  font-size: 13px;
+}
+
+/* KHÔNG TÌM THẤY */
+.math11-exam-library .empty {
+  padding: 22px 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  background: #f8fafc;
+  border-radius: 8px;
 }
 
 /* FOOTER */
-footer {
-    text-align: center;
-    padding: 22px;
-    color: #64748b;
+.math11-exam-library .exam-footer {
+  margin-top: 18px;
+  padding: 15px 10px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.math11-exam-library .exam-footer strong {
+  color: var(--navy);
+  font-size: 13px;
+  letter-spacing: .4px;
+}
+
+.math11-exam-library .exam-footer p {
+  margin: 6px 0 0;
+  font-size: 12px;
+}
+
+/* TABLET */
+@media (max-width: 850px) {
+  .math11-exam-library .exam-main {
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .math11-exam-library .exam-sidebar,
+  .math11-exam-library .exam-viewer {
+    padding: 12px;
+  }
+
+  .math11-exam-library .pdf-container {
+    height: 650px;
+  }
 }
 
 /* ĐIỆN THOẠI */
-@media(max-width:800px) {
+@media (max-width: 650px) {
+  .math11-exam-library {
+    padding: 8px 10px 20px;
+  }
 
-    .main {
-        grid-template-columns: 1fr;
-    }
+  .math11-exam-library .exam-main {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 
-    .viewer iframe {
-        height: 600px;
-    }
+  .math11-exam-library .exam-header {
+    padding: 22px 12px;
+  }
 
-    header h1 {
-        font-size: 21px;
-    }
+  .math11-exam-library .exam-header h1 {
+    font-size: 20px;
+  }
 
-    .container {
-        padding: 12px;
-    }
+  .math11-exam-library .exam-sidebar,
+  .math11-exam-library .exam-viewer {
+    padding: 12px;
+  }
+
+  .math11-exam-library .pdf-container {
+    height: 570px;
+  }
 }
 
+/* ĐIỆN THOẠI NHỎ */
+@media (max-width: 380px) {
+  .math11-exam-library .exam-header h1 {
+    font-size: 18px;
+  }
+
+  .math11-exam-library .pdf-container {
+    height: 480px;
+  }
+
+  .math11-exam-library .action-btn {
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+}
 </style>
-</head>
-
-<body>
-
-<!-- HEADER -->
-<header>
-    <h1>📚 THƯ VIỆN ĐỀ KIỂM TRA GIỮA KÌ 1</h1>
-    <p><strong>CHINH PHỤC TOÁN HỌC – THẦY HÒA</strong></p>
-    <p>Học tập chủ động – Rèn luyện tư duy – Bứt phá điểm số</p>
-</header>
-
-<div class="container">
-
-    <!-- TÌM KIẾM -->
-    <div class="toolbar">
-        <input
-            id="search"
-            type="text"
-            placeholder="🔍 Tìm kiếm tên đề kiểm tra..."
-            oninput="renderList()">
-    </div>
-
-    <!-- NỘI DUNG -->
-    <div class="main">
-
-        <!-- DANH SÁCH -->
-        <div class="sidebar">
-
-            <h3>📂 DANH SÁCH ĐỀ</h3>
-
-            <div id="fileList"></div>
-
-            <p class="hint">
-                Chọn một tài liệu để xem hoặc tải xuống.
-            </p>
-
-        </div>
-
-        <!-- KHUNG XEM -->
-        <div class="viewer">
-
-            <h3 id="currentTitle">
-                📄 Chọn một đề để xem
-            </h3>
-
-            <div class="viewer-actions">
-
-                <a
-                    id="downloadBtn"
-                    href="#"
-                    download
-                    style="display:none">
-                    ⬇ Tải tài liệu
-                </a>
-
-                <button
-                    id="newTabBtn"
-                    type="button"
-                    onclick="openNewTab()">
-                    ↗ Mở tab mới
-                </button>
-
-            </div>
-
-            <!-- HIỂN THỊ PDF -->
-            <iframe
-                id="pdfViewer"
-                title="Trình xem đề PDF"
-                src="about:blank">
-            </iframe>
-
-            <!-- HIỂN THỊ WORD -->
-            <div
-                id="docxNotice"
-                class="docx-notice"
-                hidden>
-
-                <h3>📝 TÀI LIỆU WORD</h3>
-
-                <p>
-                    Tài liệu này có định dạng Microsoft Word (.docx).
-                </p>
-
-                <p>
-                    Nhấn nút <strong>Tải tài liệu</strong>
-                    để tải về và mở bằng Word.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- FOOTER -->
-<footer>
-    © THẦY HÒA – Cổng học tập số
-</footer>
 
 <script>
+(function () {
+  // =================================
+  // DANH SÁCH TÀI LIỆU
+  // =================================
 
-// ======================================
-// DANH SÁCH TÀI LIỆU
-// ======================================
+  const root = document.querySelector(".math11-exam-library");
+  if (!root) return;
 
-const pdfFiles = [
-   {
-        name: "Đề giữa kì 1 (docx)",
-        file: "./De-giua-kì-1-lop-11.docx",
-        type: "docx"
+  const pdfFiles = [
+    {
+      name: "Đề giữa kì 1 (Word)",
+      file: "./De-giua-kì-1-lop-11.docx",
+      type: "docx"
     },
     {
-        name: "Đề giữa kì 1 (PDF)",
-        file: "./de-giua-ki-1-toan-11-nam-2026-2027-truong-thcs-thpt-ngo-may-quang-ngai.pdf",
-        type: "pdf"
-    },    
-{
-        name: "Đề giữa kì 1 (PDF)",
-        file: "./de-giua-ky-1-toan-11-nam-2026-2027-truong-thpt-nguyen-hue-hue.pdf",
-        type: "pdf"
-    },    
-
-];
-
-let selectedFile = null;
-
-// ======================================
-// HIỂN THỊ DANH SÁCH
-// ======================================
-
-function renderList() {
-
-    const list = document.getElementById("fileList");
-    const search = document.getElementById("search");
-
-    if (!list || !search) {
-        console.error("Không tìm thấy fileList hoặc search trong HTML!");
-        return;
+      name: "Đề giữa kì 1 (PDF) – Trường THCS & THPT Ngô Mây",
+      file: "./de-giua-ki-1-toan-11-nam-2026-2027-truong-thcs-thpt-ngo-may-quang-ngai.pdf",
+      type: "pdf"
+    },
+    {
+      name: "Đề giữa kì 1 (PDF) – Trường THPT Nguyễn Huệ",
+      file: "./de-giua-ky-1-toan-11-nam-2026-2027-truong-thpt-nguyen-hue-hue.pdf",
+      type: "pdf"
     }
+  ];
 
+  let selectedFile = null;
+
+  const search = root.querySelector("#search");
+  const list = root.querySelector("#fileList");
+  const count = root.querySelector("#listCount");
+  const viewer = root.querySelector("#pdfViewer");
+  const initialMessage = root.querySelector("#initialMessage");
+  const notice = root.querySelector("#docxNotice");
+  const downloadBtn = root.querySelector("#downloadBtn");
+  const currentTitle = root.querySelector("#currentTitle");
+  const newTabBtn = root.querySelector("#newTabBtn");
+
+  // =================================
+  // HIỂN THỊ DANH SÁCH
+  // =================================
+
+  function renderList() {
     const keyword = search.value.trim().toLowerCase();
 
     const filtered = pdfFiles.filter(item =>
-        item.name.toLowerCase().includes(keyword)
+      item.name.toLowerCase().includes(keyword)
     );
 
     list.innerHTML = "";
+    count.textContent = "Có " + filtered.length + " tài liệu";
 
     if (filtered.length === 0) {
-        list.innerHTML =
-            '<div class="empty">Không tìm thấy đề kiểm tra.</div>';
-        return;
+      list.innerHTML =
+        '<div class="empty">Không tìm thấy đề kiểm tra phù hợp.</div>';
+      return;
     }
 
     filtered.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "file-item";
 
-        const div = document.createElement("div");
+      if (selectedFile === item) {
+        div.classList.add("active");
+      }
 
-        div.className = "file-item";
+      const icon = document.createElement("span");
+      icon.className = "file-icon";
+      icon.textContent = item.type === "pdf" ? "📕" : "📝";
 
-        if (selectedFile === item) {
-            div.classList.add("active");
-        }
+      const name = document.createElement("span");
+      name.textContent = item.name;
 
-        div.textContent =
-            (item.type === "pdf" ? "📕 " : "📝 ") + item.name;
+      div.appendChild(icon);
+      div.appendChild(name);
 
-        div.addEventListener("click", function() {
-            openPDF(item);
-        });
+      div.addEventListener("click", function () {
+        openFile(item);
+      });
 
-        list.appendChild(div);
-
+      list.appendChild(div);
     });
+  }
 
-}
+  // =================================
+  // MỞ TÀI LIỆU
+  // =================================
 
-// ======================================
-// MỞ TÀI LIỆU
-// ======================================
-
-function openPDF(item) {
-
+  function openFile(item) {
     selectedFile = item;
 
-    const viewer = document.getElementById("pdfViewer");
-    const notice = document.getElementById("docxNotice");
-    const downloadBtn = document.getElementById("downloadBtn");
-
-    document.getElementById("currentTitle").textContent =
-        "📄 " + item.name;
+    currentTitle.textContent = "📄 " + item.name;
 
     downloadBtn.href = item.file;
-    downloadBtn.style.display = "inline-block";
+    downloadBtn.style.display = "inline-flex";
 
     if (item.type === "pdf") {
+      viewer.style.display = "block";
+      viewer.src = item.file;
 
-        viewer.style.display = "block";
-        viewer.src = item.file;
+      initialMessage.hidden = true;
+      notice.hidden = true;
 
-        notice.hidden = true;
-
-        downloadBtn.removeAttribute("download");
-        downloadBtn.textContent = "⬇ Tải đề PDF";
+      downloadBtn.removeAttribute("download");
+      downloadBtn.textContent = "⬇ TẢI ĐỀ PDF";
 
     } else {
+      viewer.style.display = "none";
+      viewer.src = "about:blank";
 
-        viewer.style.display = "none";
-        viewer.src = "about:blank";
+      initialMessage.hidden = true;
+      notice.hidden = false;
 
-        notice.hidden = false;
-
-        downloadBtn.setAttribute("download", "");
-        downloadBtn.textContent = "⬇ Tải tài liệu Word";
-
+      downloadBtn.setAttribute("download", "");
+      downloadBtn.textContent = "⬇ TẢI TÀI LIỆU WORD";
     }
 
     renderList();
-}
+  }
 
-// ======================================
-// MỞ TAB MỚI
-// ======================================
+  // =================================
+  // MỞ TAB MỚI
+  // =================================
 
-function openNewTab() {
-
+  function openNewTab() {
     if (!selectedFile) {
-        alert("Vui lòng chọn một đề kiểm tra!");
-        return;
+      alert("Vui lòng chọn một đề kiểm tra!");
+      return;
     }
 
     if (selectedFile.type === "pdf") {
-        window.open(selectedFile.file, "_blank", "noopener");
+      window.open(selectedFile.file, "_blank", "noopener");
     } else {
-        document.getElementById("downloadBtn").click();
+      window.open(selectedFile.file, "_blank", "noopener");
     }
-}
+  }
 
-// ======================================
-// KHỞI ĐỘNG
-// ======================================
+  // =================================
+  // SỰ KIỆN
+  // =================================
 
-document.addEventListener("DOMContentLoaded", function() {
+  search.addEventListener("input", renderList);
+  newTabBtn.addEventListener("click", openNewTab);
 
-    renderList();
+  // Khởi động danh sách
+  renderList();
 
-    document.getElementById("search").addEventListener("input", renderList);
-
-});
-
+})();
 </script>
-
-</body>
-</html>
