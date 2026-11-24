@@ -1,26 +1,9 @@
-<!-- NÚT QUAY VỀ TRANG CHỦ THẦY HÒA -->
-<div style="padding:12px 15px;">
-  <a href="https://thay-hoa.vercel.app/"
-     style="
-       display:inline-block;
-       background:linear-gradient(135deg,#1769d2,#7957d5);
-       color:white;
-       padding:12px 22px;
-       border-radius:12px;
-       font-weight:bold;
-       font-size:15px;
-       text-decoration:none;
-       box-shadow:0 4px 12px #0002;
-     ">
-    🏠 TRANG CHỦ THẦY HÒA
-  </a>
-</div>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đấu Trường Toán Học 11 - Bài Tập Cuối Chương IV - THẦY HÒA</title>
+    <title>Đấu Trường Toán Học 11 - Ôn Tập Chương 4: Quan Hệ Song Song - THẦY HÒA</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,10 +11,78 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- KaTeX hiển thị công thức Toán học sắc nét -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- Hệ thống nạp KaTeX hai tầng CDN (jsDelivr + dự phòng tự động cdnjs) giúp hiển thị công thức toán sắc nét -->
+    <link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script>
+        (function () {
+            window.__katexQueue = [];
+            window.__katexReady = false;
+            window.__onKaTeXReady = function (fn) {
+                if (window.__katexReady && typeof window.renderMathInElement === 'function') {
+                    fn();
+                } else {
+                    window.__katexQueue.push(fn);
+                }
+            };
+
+            function flushKaTeXQueue() {
+                if (typeof window.renderMathInElement !== 'function') return;
+                window.__katexReady = true;
+                while (window.__katexQueue.length > 0) {
+                    const task = window.__katexQueue.shift();
+                    try { task(); } catch (e) {}
+                }
+            }
+
+            function loadScript(src, onLoad, onError) {
+                const s = document.createElement('script');
+                s.src = src;
+                s.crossOrigin = 'anonymous';
+                s.onload = onLoad;
+                s.onerror = onError;
+                document.head.appendChild(s);
+            }
+
+            function loadFromFallbackCDN() {
+                if (window.__katexFallbackLoaded) return;
+                window.__katexFallbackLoaded = true;
+                const cssEl = document.getElementById('katex-css');
+                if (cssEl) {
+                    cssEl.href = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css';
+                }
+                loadScript(
+                    'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js',
+                    function () {
+                        loadScript(
+                            'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js',
+                            flushKaTeXQueue,
+                            function () {}
+                        );
+                    },
+                    function () {}
+                );
+            }
+
+            const fallbackTimer = setTimeout(function () {
+                if (!window.__katexReady) loadFromFallbackCDN();
+            }, 1500);
+
+            loadScript(
+                'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js',
+                function () {
+                    loadScript(
+                        'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js',
+                        function () {
+                            clearTimeout(fallbackTimer);
+                            flushKaTeXQueue();
+                        },
+                        loadFromFallbackCDN
+                    );
+                },
+                loadFromFallbackCDN
+            );
+        })();
+    </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;800&display=swap');
@@ -39,7 +90,6 @@
         :root {
             --board-bg: #0f4c3a;
             --board-dark: #093326;
-            --stage-light: #e0f2fe;
             --gold: #fbbf24;
             --gold-bright: #fef08a;
         }
@@ -53,7 +103,7 @@
             overflow-x: hidden;
         }
 
-        /* Khung bảng xanh giáo dục độ tương phản cao */
+        /* Khung bảng xanh chữ trắng độ tương phản cao, ngồi cuối lớp vẫn nhìn rõ */
         .chalkboard-stage {
             background: linear-gradient(160deg, #115e46 0%, #0a3d2e 60%, #06281e 100%);
             border: 8px solid #78350f;
@@ -74,9 +124,9 @@
             z-index: 0;
         }
 
-        /* Chuông vàng lớn trung tâm */
+        /* Chuông vàng lớn ở vị trí trung tâm */
         .golden-bell-hero {
-            filter: drop-shadow(0 0 22px rgba(251, 191, 36, 0.85));
+            filter: drop-shadow(0 0 24px rgba(251, 191, 36, 0.9));
             animation: bellFloat 3.2s ease-in-out infinite;
             cursor: pointer;
             transition: transform 0.2s;
@@ -98,6 +148,15 @@
             40% { transform: rotate(18deg) scale(1.15); }
             60% { transform: rotate(-14deg) scale(1.12); }
             80% { transform: rotate(14deg) scale(1.12); }
+        }
+
+        /* Nhân vật hoạt hình MC đồng hành */
+        .mascot-bob {
+            animation: mascotBob 2.6s ease-in-out infinite;
+        }
+        @keyframes mascotBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         /* Nút đáp án phong cách Game Show */
@@ -147,7 +206,7 @@
             75% { transform: translateX(-5px); }
         }
 
-        /* Pháo giấy chiến thắng */
+        /* Pháo giấy chiến thắng khi vượt qua câu cuối */
         .confetti-piece {
             position: fixed;
             width: 10px;
@@ -189,21 +248,21 @@
             <div>
                 <div class="flex items-center gap-2">
                     <span class="px-2.5 py-0.5 bg-amber-400 text-emerald-950 font-black text-xs rounded-full uppercase tracking-wider shadow">THẦY HÒA</span>
-                    <span class="text-xs font-bold text-sky-200 hidden sm:inline">TOÁN 11 – GDPT 2018</span>
+                    <span class="text-xs font-bold text-sky-200 hidden sm:inline">TOÁN 11 – GDPT 2018 – KNTTVCS</span>
                 </div>
                 <h1 class="text-base sm:text-xl font-black text-white tracking-wide mt-0.5">
-                    BÀI TẬP CUỐI CHƯƠNG IV: QUAN HỆ SONG SONG
+                    ÔN TẬP CHƯƠNG 4: QUAN HỆ SONG SONG TRONG KHÔNG GIAN
                 </h1>
             </div>
         </div>
 
-        <!-- Khu vực thông số khi đang chơi -->
+        <!-- Khu vực thông số HUD khi đang chơi -->
         <div id="hud-bar" class="hidden flex flex-wrap items-center gap-2 sm:gap-3">
             <!-- Cấp độ & XP -->
             <div class="bg-black/40 border border-sky-400/50 px-3 py-1.5 rounded-xl flex items-center gap-2">
                 <i class="fa-solid fa-medal text-sky-300"></i>
                 <div class="text-xs">
-                    <div id="hud-rank" class="font-bold text-sky-200">Tập Sự Hình Học</div>
+                    <div id="hud-rank" class="font-bold text-sky-200">Tập Sự Hình Chiếu</div>
                     <div id="hud-xp" class="mono-font text-amber-300 font-extrabold">0 XP</div>
                 </div>
             </div>
@@ -237,9 +296,26 @@
              MÀN HÌNH 1: SẢNH CHỜ, CHUÔNG VÀNG TRUNG TÂM & LUẬT CHƠI RÕ RÀNG
              ===================================================================== -->
         <section id="screen-welcome" class="relative z-10 flex flex-col items-center text-center space-y-5 py-2">
-            <!-- Chuông vàng lớn ở vị trí trung tâm -->
-            <div onclick="ringBellSound()" class="golden-bell-hero text-amber-400 text-6xl sm:text-7xl select-none" title="Bấm rung chuông vàng!">
-                <i class="fa-solid fa-bell"></i>
+            <!-- Chuông vàng lớn ở vị trí trung tâm + Nhân vật hoạt hình MC -->
+            <div class="flex items-center justify-center gap-6">
+                <div onclick="ringBellSound()" class="golden-bell-hero text-amber-400 text-6xl sm:text-7xl select-none" title="Bấm rung chuông vàng!">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <!-- Nhân vật hoạt hình MC đồng hành -->
+                <div class="mascot-bob w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-b from-sky-300 to-blue-600 p-1.5 border-2 border-amber-300 shadow-xl hidden sm:block">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <circle cx="50" cy="50" r="45" fill="#064e3b"/>
+                        <polygon points="50,12 18,26 50,40 82,26" fill="#fbbf24"/>
+                        <circle cx="50" cy="56" r="21" fill="#fde68a"/>
+                        <rect x="35" y="49" width="12" height="9" rx="2" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+                        <rect x="53" y="49" width="12" height="9" rx="2" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+                        <line x1="47" y1="53" x2="53" y2="53" stroke="#1e293b" stroke-width="2.5"/>
+                        <circle cx="41" cy="53.5" r="2" fill="#0f172a"/>
+                        <circle cx="59" cy="53.5" r="2" fill="#0f172a"/>
+                        <path d="M 43 64 Q 50 70 57 64" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M 24 92 C 26 76, 74 76, 76 92 Z" fill="#10b981"/>
+                    </svg>
+                </div>
             </div>
 
             <div>
@@ -250,7 +326,7 @@
                     CHINH PHỤC ĐỈNH CAO 10.000.000 ĐIỂM
                 </h2>
                 <p class="text-sky-200 text-sm sm:text-base font-medium mt-1">
-                    Chuyên đề: <strong class="text-amber-300">Bài tập cuối Chương IV – Quan hệ song song trong không gian</strong> (Luyện tập – Vận dụng)
+                    Chuyên đề: <strong class="text-amber-300">Ôn tập Chương 4 — Quan hệ song song trong không gian</strong> (Toán 11 – KNTTVCS – GDPT 2018)
                 </p>
             </div>
 
@@ -266,7 +342,40 @@
                 </div>
                 <div class="bg-black/35 border border-sky-400/40 rounded-2xl p-4">
                     <div class="flex items-center gap-2 text-sky-300 font-black text-sm uppercase mb-1">
-                        <i class="fa-solid fa-bolt"></i> Chặng 2: Đấu Trường Đúng/Sai
+                        <i class="fa-solid fa-bolt"></i> Chặng 2: Đấu Trường Toán Học
+                    </div>
+                    <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+                        <strong>Câu 11 – 15:</strong> Xét tính Đúng/Sai cho 4 mệnh đề a, b, c, d. Chấm điểm lũy tiến chuẩn GDPT 2018: 1 ý (60.000đ), 2 ý (150.000đ), 3 ý (300.000đ), 4 ý (<strong>600.000 điểm</strong>).
+                    </p>
+                </div>
+                <div class="bg-black/35 border border-rose-400/40 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 text-rose-300 font-black text-sm uppercase mb-1">
+                        <i class="fa-solid fa-mountain-sun"></i> Chặng 3: Vượt Chướng Ngại Vật
+                    </div>
+                    <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+                        <strong>Câu 16 – 20:</strong> Trả lời ngắn vận dụng thực tế & tỉ số song song (mỗi câu <strong>600.000 điểm</strong>) để cán mốc <strong>10.000.000 điểm</strong> & nhận Huy hiệu Vàng!
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-950/80 border border-emerald-400/40 rounded-xl px-4 py-2 text-xs sm:text-sm text-amber-200 font-semibold max-w-3xl">
+                <i class="fa-solid fa-circle-info mr-1 text-amber-400"></i>
+                <strong>Quy tắc:</strong> KHÔNG GIỚI HẠN THỜI GIAN TRẢ LỜI CHO MỖI CÂU HỎI. Sau mỗi câu đều có phân tích định hướng giải chi tiết. Hoàn thành đủ 20 thử thách để ghi danh Bảng Vàng!
+            </div>
+
+            <!-- Bảng Luật chơi & Cấu trúc 3 hình thức kết hợp -->
+            <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-3 text-left">
+                <div class="bg-black/35 border border-amber-400/40 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 text-amber-300 font-black text-sm uppercase mb-1">
+                        <i class="fa-solid fa-crown"></i> Chặng 1: Ai Là Triệu Phú
+                    </div>
+                    <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+                        <strong>Câu 1 – 10:</strong> Trắc nghiệm 4 lựa chọn (xáo trộn ngẫu nhiên A/B/C/D). Có quyền trợ giúp <strong>50:50</strong> và <strong>Hỏi Chuyên Gia</strong>. Mỗi câu đúng đạt <strong>400.000 điểm</strong>.
+                    </p>
+                </div>
+                <div class="bg-black/35 border border-sky-400/40 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 text-sky-300 font-black text-sm uppercase mb-1">
+                        <i class="fa-solid fa-bolt"></i> Chặng 2: Đấu Trường Toán Học
                     </div>
                     <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
                         <strong>Câu 11 – 14:</strong> Xét tính Đúng/Sai cho 4 mệnh đề a, b, c, d. Chấm điểm lũy tiến chuẩn GDPT 2018: 1 ý (75.000đ), 2 ý (187.500đ), 3 ý (375.000đ), 4 ý (<strong>750.000 điểm</strong>).
@@ -275,10 +384,10 @@
                 <div class="bg-black/35 border border-rose-400/40 rounded-2xl p-4">
                     <div class="flex items-center gap-2 text-rose-300 font-black text-sm uppercase mb-1">
                         <i class="fa-solid fa-mountain-sun"></i> Chặng 3: Vượt Chướng Ngại Vật
-                    </div>
-                    <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                        <strong>Câu 15 – 18:</strong> Trả lời ngắn vận dụng thực tế & hình không gian (tối đa <strong>750.000 điểm/câu</strong>) để cán mốc <strong>10.000.000 điểm</strong> & nhận Huy hiệu Vàng!
-                    </p>
+                <!-- Khung hình vẽ SVG hình học không gian (chỉ hiện khi câu hỏi có hình vẽ) -->
+                <div id="question-diagram-col" class="hidden lg:col-span-5 flex flex-col items-center justify-center bg-emerald-950/85 border border-emerald-500/50 rounded-xl p-3">
+                    <div id="question-diagram-svg" class="w-full max-w-[270px] flex justify-center"></div>
+                    <span class="text-[11px] text-emerald-300 mt-1 italic">Hình minh họa trực quan Chương 4</span>
                 </div>
             </div>
 
@@ -295,11 +404,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
                     <div>
                         <label class="block text-xs font-bold text-amber-300 uppercase mb-1">Họ và tên học sinh:</label>
-                        <input type="text" id="input-name" placeholder="VD: Trần Minh Khôi" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
+                        <input type="text" id="input-name" placeholder="VD: Nguyễn Hoàng Nam" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-amber-300 uppercase mb-1">Lớp:</label>
-                        <input type="text" id="input-class" placeholder="VD: 11A1" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
+                        <input type="text" id="input-class" placeholder="VD: 11A2" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
                     </div>
                 </div>
 
@@ -429,7 +538,7 @@
                 </div>
             </div>
 
-            <!-- Khu vực Đề bài + Hình vẽ minh họa (Bố cục 2 cột linh hoạt, không che khuất chữ) -->
+            <!-- Khu vực Đề bài + Hình vẽ minh họa (Bố cục 2 cột linh hoạt, không làm che khuất đề bài) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-black/40 border-2 border-amber-400/70 rounded-2xl p-4 sm:p-6 shadow-xl">
                 <div id="question-text-col" class="lg:col-span-12 space-y-2">
                     <div class="flex items-center justify-between">
@@ -443,10 +552,10 @@
                     </div>
                 </div>
 
-                <!-- Khung hình vẽ SVG không gian (chỉ hiện khi câu hỏi có hình vẽ) -->
+                <!-- Khung hình vẽ SVG phép chiếu song song (chỉ hiện khi câu hỏi có hình vẽ) -->
                 <div id="question-diagram-col" class="hidden lg:col-span-5 flex flex-col items-center justify-center bg-emerald-950/85 border border-emerald-500/50 rounded-xl p-3">
-                    <div id="question-diagram-svg" class="w-full max-w-[260px] flex justify-center"></div>
-                    <span class="text-[11px] text-emerald-300 mt-1 italic">Hình minh họa không gian chuẩn đề bài</span>
+                    <div id="question-diagram-svg" class="w-full max-w-[270px] flex justify-center"></div>
+                    <span class="text-[11px] text-emerald-300 mt-1 italic">Hình minh họa phép chiếu song song</span>
                 </div>
             </div>
 
@@ -473,7 +582,7 @@
             <!-- HÌNH THỨC 3: TRẢ LỜI NGẮN (VƯỢT CHƯỚNG NGẠI VẬT) -->
             <div id="area-short" class="hidden flex-col items-center space-y-3 bg-black/35 border border-amber-400/50 rounded-2xl p-5">
                 <label for="short-answer-input" class="text-sm sm:text-base font-bold text-amber-200 text-center">
-                    Nhập kết quả số của bạn (ví dụ: <span class="mono-font text-white">3</span> hoặc <span class="mono-font text-white">0,5</span> hoặc <span class="mono-font text-white">0,33</span>):
+                    Nhập kết quả số của bạn (ví dụ: <span class="mono-font text-white">4</span> hoặc <span class="mono-font text-white">0,5</span> hoặc <span class="mono-font text-white">1,5</span>):
                 </label>
                 <div class="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md">
                     <input type="text" id="short-answer-input" placeholder="Nhập đáp số..." class="w-full px-4 py-3 rounded-xl bg-emerald-950 border-2 border-amber-400 text-white text-center mono-font text-xl font-black focus:outline-none focus:ring-2 focus:ring-amber-300">
@@ -494,7 +603,7 @@
                 </div>
 
                 <div id="feedback-explanation" class="bg-black/45 border border-white/15 rounded-xl p-3.5 text-sm sm:text-base text-white leading-relaxed">
-                    <!-- Phân tích định hướng giải bám sát kiến thức bài học -->
+                    <!-- Phân tích định hướng giải bám sát kiến thức phép chiếu song song -->
                 </div>
 
                 <div class="flex justify-end">
@@ -518,7 +627,7 @@
 
             <div>
                 <span id="result-badge-title" class="px-4 py-1 rounded-full bg-amber-400 text-emerald-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow">
-                    DANH HIỆU: BẬC THẦY HÌNH HỌC KHÔNG GIAN
+                    DANH HIỆU: BẬC THẦY QUAN HỆ SONG SONG
                 </span>
                 <h2 class="text-2xl sm:text-4xl font-black text-white uppercase mt-2">
                     CHÚC MỪNG HOÀN THÀNH ĐẤU TRƯỜNG!
@@ -540,7 +649,7 @@
                 </div>
                 <div class="bg-black/45 border border-emerald-400/50 rounded-2xl p-3.5">
                     <div class="text-xs text-emerald-300 uppercase font-bold">Số Câu Hoàn Hảo</div>
-                    <div id="res-correct-count" class="mono-font text-xl sm:text-2xl font-black text-emerald-300 mt-1">0 / 18</div>
+                    <div id="res-correct-count" class="mono-font text-xl sm:text-2xl font-black text-emerald-300 mt-1">0 / 20</div>
                 </div>
                 <div class="bg-black/45 border border-purple-400/50 rounded-2xl p-3.5">
                     <div class="text-xs text-emerald-300 uppercase font-bold">Thời Gian</div>
@@ -596,12 +705,19 @@
          ========================================================================= -->
     <script>
         /* =====================================================================
-           1. NGÂN HÀNG DỮ LIỆU CÂU HỎI (BÀI TẬP CUỐI CHƯƠNG IV - QUAN HỆ SONG SONG)
+           1. NGÂN HÀNG DỮ LIỆU CÂU HỎI (ÔN TẬP CHƯƠNG 4: QUAN HỆ SONG SONG - TOÁN 11)
            - Giáo viên có thể dễ dàng chỉnh sửa nội dung, công thức LaTeX hoặc đáp án tại đây.
-           - Bao quát toàn bộ Chương IV: Đường thẳng & mặt phẳng, Hai đường thẳng song song,
-             Đường thẳng song song mặt phẳng, Hai mặt phẳng song song, Phép chiếu song song.
-           - Tỉ lệ tư duy: 30% Nhận biết (5 câu) - 40% Thông hiểu (7 câu) - 30% Vận dụng (6 câu).
-           - Tổng điểm tối đa: 10 x 400.000 + 4 x 750.000 + 4 x 750.000 = 10.000.000 điểm.
+           - Bám sát Chương trình GDPT 2018 (SGK Toán 11 - Kết nối tri thức với cuộc sống):
+             + Bài 10: Đường thẳng và mặt phẳng trong không gian.
+             + Bài 11: Hai đường thẳng song song.
+             + Bài 12: Đường thẳng và mặt phẳng song song.
+             + Bài 13: Hai mặt phẳng song song & Định lí Thalès trong không gian.
+             + Bài 14: Phép chiếu song song.
+           - Tỉ lệ mức độ tư duy chuẩn 20 câu:
+             + Nhận biết: 6 câu (30%) — Câu 1, 2, 3, 4, 5, 6
+             + Thông hiểu: 8 câu (40%) — Câu 7, 8, 9, 10, 11, 12, 13, 14
+             + Vận dụng: 6 câu (30%) — Câu 15, 16, 17, 18, 19, 20
+           - Tổng điểm tối đa: 10 x 400.000 + 5 x 600.000 + 5 x 600.000 = 10.000.000 điểm.
            ===================================================================== */
         const QUESTION_BANK = [
             // ================= CHẶNG 1: AI LÀ TRIỆU PHÚ TOÁN HỌC (10 CÂU MCQ) =================
@@ -611,16 +727,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Trong không gian, yếu tố nào sau đây xác định một mặt phẳng duy nhất?",
+                text: "Trong không gian, cho hai đường thẳng phân biệt $a$ và $b$. Có bao nhiêu vị trí tương đối giữa hai đường thẳng $a$ và $b$?",
                 options: [
-                    "Ba điểm không thẳng hàng.",
-                    "Ba điểm phân biệt bất kì.",
-                    "Hai đường thẳng chéo nhau.",
-                    "Một điểm và một đường thẳng đi qua điểm đó."
+                    "$3$ vị trí (cắt nhau, song song, chéo nhau).",
+                    "$2$ vị trí (cắt nhau, song song).",
+                    "$4$ vị trí (cắt nhau, song song, chéo nhau, trùng nhau).",
+                    "$1$ vị trí duy nhất."
                 ],
                 correctIndex: 0,
-                hint: "Nhớ lại các cách xác định mặt phẳng ở Bài 10 (Đường thẳng và mặt phẳng trong không gian).",
-                explanation: "<strong>Định hướng giải:</strong> Có 4 cách xác định một mặt phẳng duy nhất: qua 3 điểm không thẳng hàng; qua một đường thẳng và một điểm nằm ngoài nó; qua hai đường thẳng cắt nhau; qua hai đường thẳng song song."
+                hint: "Xét hai trường hợp: $a$ và $b$ đồng phẳng (cắt nhau hoặc song song) và $a, b$ không đồng phẳng (chéo nhau).",
+                explanation: "<strong>Định hướng giải:</strong> Hai đường thẳng phân biệt $a, b$ trong không gian có đúng <strong>$3$ vị trí tương đối</strong>: đồng phẳng thì <em>cắt nhau</em> hoặc <em>song song</em>; không cùng nằm trong một mặt phẳng nào thì <em>chéo nhau</em>."
             },
             {
                 id: 2,
@@ -628,16 +744,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Cho hai đường thẳng phân biệt $a$ và $b$ trong không gian. Có bao nhiêu vị trí tương đối giữa $a$ và $b$?",
+                text: "Trong không gian, cho đường thẳng $d$ không nằm trong mặt phẳng $(\\alpha)$. Đường thẳng $d$ được gọi là song song với mặt phẳng $(\\alpha)$ khi và chỉ khi:",
                 options: [
-                    "$3$ vị trí (cắt nhau, song song, chéo nhau).",
-                    "$2$ vị trí (cắt nhau hoặc song song).",
-                    "$4$ vị trí (trùng nhau, cắt nhau, song song, chéo nhau).",
-                    "$1$ vị trí duy nhất."
+                    "$d$ và $(\\alpha)$ không có điểm chung.",
+                    "$d$ và $(\\alpha)$ có đúng một điểm chung.",
+                    "$d$ vuông góc với mọi đường thẳng nằm trong $(\\alpha)$.",
+                    "$d$ song song với đúng một đường thẳng cắt $(\\alpha)$."
                 ],
                 correctIndex: 0,
-                hint: "Xét hai trường hợp: $a$ và $b$ đồng phẳng hoặc không đồng phẳng.",
-                explanation: "<strong>Định hướng giải:</strong> Hai đường thẳng phân biệt trong không gian có $3$ vị trí tương đối: đồng phẳng thì <strong>cắt nhau</strong> hoặc <strong>song song</strong>; không đồng phẳng thì <strong>chéo nhau</strong>."
+                hint: "Nhớ lại định nghĩa vị trí tương đối giữa đường thẳng $d$ và mặt phẳng $(\\alpha)$ dựa trên số điểm chung.",
+                explanation: "<strong>Định hướng giải:</strong> Đường thẳng $d$ và mặt phẳng $(\\alpha)$ có 3 vị trí tương đối: nằm trong (vô số điểm chung), cắt nhau ($1$ điểm chung) và <strong>song song ($0$ điểm chung)</strong>."
             },
             {
                 id: 3,
@@ -645,16 +761,34 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Đường thẳng $d$ không nằm trong mặt phẳng $(P)$. Điều kiện để $d$ song song với $(P)$ là:",
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Giao tuyến của hai mặt phẳng $(SAB)$ và $(SCD)$ là đường thẳng đi qua $S$ và song song với đường thẳng nào sau đây?",
                 options: [
-                    "$d$ song song với một đường thẳng $a$ nằm trong $(P)$.",
-                    "$d$ cắt một đường thẳng $a$ nằm trong $(P)$.",
-                    "$d$ chéo với một đường thẳng $a$ nằm trong $(P)$.",
-                    "$d$ có đúng hai điểm chung với $(P)$."
+                    "Đường thẳng $AB$ (và $CD$).",
+                    "Đường thẳng $AD$ (và $BC$).",
+                    "Đường thẳng $AC$.",
+                    "Đường thẳng $BD$."
                 ],
                 correctIndex: 0,
-                hint: "Áp dụng định lí dấu hiệu nhận biết đường thẳng song song với mặt phẳng.",
-                explanation: "<strong>Định hướng giải:</strong> Nếu đường thẳng $d$ không nằm trong mặt phẳng $(P)$ và $d$ song song với một đường thẳng $a$ nằm trong $(P)$ thì $d \\parallel (P)$."
+                hint: "Hai mặt phẳng $(SAB)$ và $(SCD)$ có điểm chung $S$ và lần lượt chứa hai đường thẳng song song là $AB$ và $CD$.",
+                diagram: `
+                    <svg viewBox="0 0 240 175" class="w-full h-auto">
+                        <polygon points="35,140 155,140 205,105 85,105" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1.5"/>
+                        <line x1="115" y1="22" x2="35" y2="140" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="115" y1="22" x2="155" y2="140" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="115" y1="22" x2="205" y2="105" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="115" y1="22" x2="85" y2="105" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <line x1="35" y1="140" x2="85" y2="105" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <line x1="85" y1="105" x2="205" y2="105" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <line x1="55" y1="22" x2="175" y2="22" stroke="#fbbf24" stroke-width="2" stroke-dasharray="5,3"/>
+                        <text x="111" y="16" fill="#fbbf24" font-size="11" font-weight="bold">S</text>
+                        <text x="23" y="145" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="159" y="146" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="209" y="108" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="72" y="103" fill="#fff" font-size="11" font-weight="bold">D</text>
+                        <text x="179" y="25" fill="#fbbf24" font-size="11" font-weight="bold">d</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải:</strong> Hai mặt phẳng $(SAB)$ và $(SCD)$ có điểm chung $S$ và lần lượt chứa hai đường thẳng song song $AB \\parallel CD$ nên giao tuyến $d$ của chúng đi qua $S$ và <strong>song song với $AB$ và $CD$</strong>."
             },
             {
                 id: 4,
@@ -662,16 +796,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Cho hai mặt phẳng phân biệt $(P)$ và $(Q)$. Nếu mặt phẳng $(P)$ chứa hai đường thẳng cắt nhau $a, b$ và cả $a, b$ đều song song với $(Q)$ thì:",
+                text: "Nếu mặt phẳng $(P)$ chứa hai đường thẳng cắt nhau $a, b$ và cả hai đường thẳng này đều song song với mặt phẳng $(Q)$ thì vị trí tương đối giữa $(P)$ và $(Q)$ là:",
                 options: [
-                    "Mặt phẳng $(P)$ song song với mặt phẳng $(Q)$.",
-                    "Mặt phẳng $(P)$ cắt mặt phẳng $(Q)$ theo giao tuyến $a$.",
-                    "Mặt phẳng $(P)$ trùng với mặt phẳng $(Q)$.",
-                    "Hai đường thẳng $a$ và $b$ trùng nhau."
+                    "$(P)$ song song với $(Q)$.",
+                    "$(P)$ cắt $(Q)$ theo giao tuyến song song với $a$.",
+                    "$(P)$ và $(Q)$ trùng nhau.",
+                    "$(P)$ vuông góc với $(Q)$."
                 ],
                 correctIndex: 0,
-                hint: "Đây chính là định lí điều kiện để hai mặt phẳng song song.",
-                explanation: "<strong>Định hướng giải:</strong> Theo định lí về điều kiện hai mặt phẳng song song: Nếu mặt phẳng $(P)$ chứa hai đường thẳng cắt nhau $a, b$ cùng song song với mặt phẳng $(Q)$ thì $(P) \\parallel (Q)$."
+                hint: "Đây chính là định lí dấu hiệu nhận biết hai mặt phẳng song song trong không gian.",
+                explanation: "<strong>Định hướng giải:</strong> Theo định lí nhận biết hai mặt phẳng song song (SGK Toán 11 KNTTVCS): Nếu mặt phẳng $(P)$ chứa hai đường thẳng cắt nhau cùng song song với mặt phẳng $(Q)$ thì <strong>$(P) \\parallel (Q)$</strong>."
             },
             {
                 id: 5,
@@ -679,50 +813,33 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Phép chiếu song song lên mặt phẳng $(P)$ theo phương $\\Delta$ (với $\\Delta$ cắt $(P)$) luôn bảo toàn tính chất nào sau đây?",
+                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Khẳng định nào sau đây là <strong>ĐÚNG</strong>?",
                 options: [
-                    "Tỉ số độ dài của hai đoạn thẳng cùng nằm trên một đường thẳng hoặc trên hai đường thẳng song song.",
-                    "Độ dài của mọi đoạn thẳng bất kì.",
-                    "Số đo của mọi góc trong không gian.",
-                    "Diện tích của mọi đa giác bất kì."
+                    "Hai mặt đáy $(ABC)$ và $(A'B'C')$ song song với nhau.",
+                    "Các mặt bên của hình lăng trụ đều là hình thang cân.",
+                    "Hai cạnh bên $AA'$ và $BB'$ cắt nhau tại một điểm.",
+                    "Đường thẳng $AB$ song song với mặt phẳng $(ACC'A')$."
                 ],
                 correctIndex: 0,
-                hint: "Nhớ lại tính chất cơ bản của phép chiếu song song ở cuối Chương IV.",
-                explanation: "<strong>Định hướng giải:</strong> Phép chiếu song song không làm thay đổi tỉ số độ dài của hai đoạn thẳng nằm trên hai đường thẳng song song hoặc cùng nằm trên một đường thẳng."
+                hint: "Nhớ lại định nghĩa hình lăng trụ: có hai đáy là hai đa giác bằng nhau nằm trên hai mặt phẳng song song và các mặt bên là hình bình hành.",
+                explanation: "<strong>Định hướng giải:</strong> Theo tính chất của hình lăng trụ, hai mặt phẳng đáy $(ABC)$ và $(A'B'C')$ <strong>song song với nhau</strong>, các mặt bên là hình bình hành và các cạnh bên song song, bằng nhau."
             },
             {
                 id: 6,
                 stage: 1,
                 type: 'MCQ',
-                level: 'Thông hiểu',
+                level: 'Nhận biết',
                 points: 400000,
-                text: "Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm của các cạnh $AB$ và $AC$. Đường thẳng $MN$ song song với mặt phẳng nào dưới đây?",
+                text: "Qua phép chiếu song song lên mặt phẳng $(\\alpha)$ theo phương chiếu $\\Delta$ (với $\\Delta$ cắt $(\\alpha)$), hình biểu diễn của một hình bình hành (nằm trong mặt phẳng không song song với $\\Delta$) là hình gì?",
                 options: [
-                    "Mặt phẳng $(BCD)$.",
-                    "Mặt phẳng $(ABC)$.",
-                    "Mặt phẳng $(ABD)$.",
-                    "Mặt phẳng $(ACD)$."
+                    "Một hình bình hành.",
+                    "Một hình thang có hai đáy không bằng nhau.",
+                    "Một đường elip.",
+                    "Một đoạn thẳng."
                 ],
                 correctIndex: 0,
-                hint: "Sử dụng tính chất đường trung bình $MN$ trong tam giác $ABC$.",
-                diagram: `
-                    <svg viewBox="0 0 220 175" class="w-full h-auto">
-                        <polygon points="105,18 35,142 125,160 185,130" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.8"/>
-                        <line x1="105" y1="18" x2="125" y2="160" stroke="#38bdf8" stroke-width="1.8"/>
-                        <line x1="35" y1="142" x2="185" y2="130" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="4,3"/>
-                        <!-- Đường trung bình MN -->
-                        <line x1="70" y1="80" x2="115" y2="89" stroke="#fbbf24" stroke-width="2.4"/>
-                        <circle cx="70" cy="80" r="3.5" fill="#fbbf24"/>
-                        <circle cx="115" cy="89" r="3.5" fill="#fbbf24"/>
-                        <text x="101" y="13" fill="#fef08a" font-size="11" font-weight="bold">A</text>
-                        <text x="20" y="148" fill="#fef08a" font-size="11" font-weight="bold">B</text>
-                        <text x="124" y="172" fill="#fef08a" font-size="11" font-weight="bold">C</text>
-                        <text x="189" y="133" fill="#fef08a" font-size="11" font-weight="bold">D</text>
-                        <text x="53" y="79" fill="#fbbf24" font-size="11" font-weight="bold">M</text>
-                        <text x="121" y="88" fill="#fbbf24" font-size="11" font-weight="bold">N</text>
-                    </svg>
-                `,
-                explanation: "<strong>Định hướng giải:</strong> Trong $\\Delta ABC$, $MN$ là đường trung bình nên $MN \\parallel BC$. Vì $BC \\subset (BCD)$ và $MN \\not\\subset (BCD)$ nên $MN \\parallel (BCD)$."
+                hint: "Phép chiếu song song bảo toàn tính song song của các đường thẳng không song song với phương chiếu.",
+                explanation: "<strong>Định hướng giải:</strong> Hai cặp cạnh đối song song của hình bình hành qua phép chiếu song song biến thành hai cặp cạnh đối song song nên hình chiếu là một <strong>hình bình hành</strong>."
             },
             {
                 id: 7,
@@ -730,16 +847,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình thang với đáy lớn $AB$ và đáy nhỏ $CD$. Giao tuyến của hai mặt phẳng $(SAB)$ và $(SCD)$ là:",
+                text: "Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm của các cạnh $AB$ và $AC$. Đường thẳng $MN$ song song với mặt phẳng nào sau đây?",
                 options: [
-                    "Đường thẳng đi qua $S$ và song song với $AB, CD$.",
-                    "Đường thẳng $AC$.",
-                    "Đường thẳng đi qua $S$ và cắt $AD$.",
-                    "Đường thẳng $BD$."
+                    "Mặt phẳng $(BCD)$.",
+                    "Mặt phẳng $(ABC)$.",
+                    "Mặt phẳng $(ABD)$.",
+                    "Mặt phẳng $(ACD)$."
                 ],
                 correctIndex: 0,
-                hint: "Hai mặt phẳng $(SAB)$ và $(SCD)$ có điểm chung $S$ và lần lượt chứa hai đường thẳng song song $AB, CD$.",
-                explanation: "<strong>Định hướng giải:</strong> Ta có $S \\in (SAB) \\cap (SCD)$, đồng thời $AB \\subset (SAB)$, $CD \\subset (SCD)$ và $AB \\parallel CD$. Theo định lí giao tuyến của ba mặt phẳng, giao tuyến của $(SAB)$ và $(SCD)$ là đường thẳng đi qua $S$ và song song với $AB, CD$."
+                hint: "$MN$ là đường trung bình của tam giác $ABC$, hãy so sánh phương của $MN$ với cạnh $BC$.",
+                explanation: "<strong>Định hướng giải:</strong> Trong tam giác $ABC$, $MN$ là đường trung bình nên $MN \\parallel BC$. Vì $MN \\not\\subset (BCD)$ và $BC \\subset (BCD)$ nên <strong>$MN \\parallel (BCD)$</strong>."
             },
             {
                 id: 8,
@@ -747,16 +864,39 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình hộp $ABCD.A'B'C'D'$. Mặt phẳng $(AB'D')$ song song với mặt phẳng nào sau đây?",
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M$ là trung điểm của cạnh $SC$. Đường thẳng $OM$ song song với mặt phẳng nào dưới đây?",
                 options: [
-                    "Mặt phẳng $(BC'D)$.",
-                    "Mặt phẳng $(ABCD)$.",
-                    "Mặt phẳng $(ACC'A')$.",
-                    "Mặt phẳng $(CDD'C')$."
+                    "Mặt phẳng $(SAD)$.",
+                    "Mặt phẳng $(SCD)$.",
+                    "Mặt phẳng $(SBC)$.",
+                    "Mặt phẳng $(ABCD)$."
                 ],
                 correctIndex: 0,
-                hint: "Chứng minh hai đường thẳng cắt nhau $AB', AD'$ lần lượt song song với $DC', BC$.",
-                explanation: "<strong>Định hướng giải:</strong> Trong hình hộp $ABCD.A'B'C'D'$, ta có $AB' \\parallel DC'$ (vì $ABC'D'$ là hình bình hành) và $AD' \\parallel BC'$ (vì $ADC'B'$ là hình bình hành). Do đó $(AB'D') \\parallel (BC'D)$."
+                hint: "Xét tam giác $SAC$ có $O$ là trung điểm $AC$ và $M$ là trung điểm $SC$, khi đó $OM$ là đường trung bình ứng với cạnh $SA$.",
+                diagram: `
+                    <svg viewBox="0 0 240 175" class="w-full h-auto">
+                        <polygon points="35,140 155,140 205,105 85,105" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1.5"/>
+                        <line x1="115" y1="22" x2="35" y2="140" stroke="#4ade80" stroke-width="1.8"/>
+                        <line x1="115" y1="22" x2="155" y2="140" stroke="#fff" stroke-width="1.5"/>
+                        <line x1="115" y1="22" x2="205" y2="105" stroke="#fff" stroke-width="1.5"/>
+                        <line x1="115" y1="22" x2="85" y2="105" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <line x1="35" y1="140" x2="85" y2="105" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <line x1="85" y1="105" x2="205" y2="105" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <line x1="35" y1="140" x2="205" y2="105" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,3"/>
+                        <line x1="155" y1="140" x2="85" y2="105" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,3"/>
+                        <line x1="120" y1="122.5" x2="160" y2="63.5" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4,2"/>
+                        <circle cx="120" cy="122.5" r="3" fill="#fbbf24"/>
+                        <circle cx="160" cy="63.5" r="3" fill="#fbbf24"/>
+                        <text x="111" y="16" fill="#fff" font-size="11" font-weight="bold">S</text>
+                        <text x="23" y="145" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="159" y="146" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="209" y="108" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="72" y="103" fill="#fff" font-size="11" font-weight="bold">D</text>
+                        <text x="114" y="135" fill="#fbbf24" font-size="11" font-weight="bold">O</text>
+                        <text x="166" y="65" fill="#fbbf24" font-size="11" font-weight="bold">M</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải:</strong> Trong $\\Delta SAC$, $O$ là trung điểm $AC$ và $M$ là trung điểm $SC$ nên $OM$ là đường trung bình $\\Rightarrow OM \\parallel SA$. Vì $SA \\subset (SAD)$ và $OM \\not\\subset (SAD)$ nên <strong>$OM \\parallel (SAD)$</strong> (và cũng song song với $(SAB)$)."
             },
             {
                 id: 9,
@@ -764,16 +904,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Một kỹ sư thiết kế kệ sách treo tường gồm các thanh gỗ ngang đặt song song với mặt sàn nhà. Nếu thanh đỡ thứ nhất song song với mặt sàn và thanh đỡ thứ hai song song với thanh đỡ thứ nhất (không nằm trên mặt sàn) thì vị trí của thanh đỡ thứ hai so với mặt sàn là:",
+                text: "Cho hình hộp $ABCD.A'B'C'D'$. Mặt phẳng $(AB'D')$ song song với mặt phẳng nào sau đây?",
                 options: [
-                    "Song song với mặt sàn nhà.",
-                    "Cắt mặt sàn nhà.",
-                    "Chéo nhau với mặt sàn nhà.",
-                    "Vuông góc với mặt sàn nhà."
+                    "Mặt phẳng $(BC'D)$.",
+                    "Mặt phẳng $(BCC'B')$.",
+                    "Mặt phẳng $(ABCD)$.",
+                    "Mặt phẳng $(ACC'A')$."
                 ],
                 correctIndex: 0,
-                hint: "Áp dụng tính chất bắc cầu của quan hệ song song giữa các đường thẳng và mặt phẳng.",
-                explanation: "<strong>Định hướng giải:</strong> Thanh thứ nhất song song mặt sàn nên song song với một đường thẳng $a$ trên mặt sàn. Thanh thứ hai song song thanh thứ nhất nên cũng song song với $a$, suy ra thanh đỡ thứ hai <strong>song song với mặt sàn nhà</strong>."
+                hint: "Chứng minh $B'D' \\parallel BD$ và $AD' \\parallel BC'$ dựa vào các hình bình hành $BDD'B'$ và $ABC'D'$.",
+                explanation: "<strong>Định hướng giải:</strong> Trong hình hộp $ABCD.A'B'C'D'$, ta có $B'D' \\parallel BD$ và $AD' \\parallel BC'$. Hai đường thẳng cắt nhau $B'D', AD'$ của $(AB'D')$ lần lượt song song với $BD, BC'$ nằm trong $(BC'D)$ nên <strong>$(AB'D') \\parallel (BC'D)$</strong>."
             },
             {
                 id: 10,
@@ -781,147 +921,163 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Phép chiếu song song lên mặt phẳng $(ABC)$ theo phương đường thẳng $BB'$ biến trọng tâm $G'$ của tam giác $A'B'C'$ thành:",
+                text: "Ba mặt phẳng đôi một song song $(P), (Q), (R)$ cắt hai cát tuyến $d_1, d_2$ lần lượt tại $A, B, C$ và $A', B', C'$. Biết $AB = 4\\text{ cm}$, $BC = 6\\text{ cm}$ và $A'B' = 6\\text{ cm}$. Độ dài đoạn thẳng $B'C'$ bằng:",
                 options: [
-                    "Trọng tâm $G$ của tam giác $ABC$.",
-                    "Trung điểm của cạnh $BC$.",
-                    "Đỉnh $A$ của tam giác $ABC$.",
-                    "Trực tâm của tam giác $ABC$."
+                    "$9\\text{ cm}$.",
+                    "$4\\text{ cm}$.",
+                    "$12\\text{ cm}$.",
+                    "$8\\text{ cm}$."
                 ],
                 correctIndex: 0,
-                hint: "Phép chiếu song song theo phương $BB'$ biến $\\Delta A'B'C'$ thành $\\Delta ABC$ và bảo toàn tỉ số.",
-                explanation: "<strong>Định hướng giải:</strong> Phép chiếu song song lên $(ABC)$ theo phương $BB'$ biến $A', B', C'$ thành $A, B, C$ và bảo toàn tỉ số đoạn thẳng thẳng hàng nên biến trọng tâm $G'$ của $\\Delta A'B'C'$ thành <strong>trọng tâm $G$ của $\\Delta ABC$</strong>."
+                hint: "Áp dụng định lí Thalès trong không gian: ba mặt phẳng song song chắn trên hai cát tuyến các đoạn thẳng tương ứng tỉ lệ $\\frac{AB}{A'B'} = \\frac{BC}{B'C'}$.",
+                explanation: "<strong>Định hướng giải:</strong> Theo định lí Thalès trong không gian, ta có $\\frac{AB}{BC} = \\frac{A'B'}{B'C'} \\Leftrightarrow \\frac{4}{6} = \\frac{6}{B'C'} \\Rightarrow B'C' = \\frac{6 \\times 6}{4} = 9\\text{ cm}$."
             },
 
-            // ================= CHẶNG 2: ĐẤU TRƯỜNG ĐÚNG / SAI 4 Ý (4 CÂU) =================
+            // ================= CHẶNG 2: ĐẤU TRƯỜNG TOÁN HỌC – ĐÚNG / SAI 4 Ý (5 CÂU) =================
             {
                 id: 11,
                 stage: 2,
                 type: 'TF4',
                 level: 'Thông hiểu',
-                maxPoints: 750000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M, N$ lần lượt là trung điểm của $SA$ và $SD$. Xét tính đúng, sai của các mệnh đề sau:",
+                maxPoints: 600000,
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình thang với đáy lớn $AB = 2CD$. Gọi $M, N$ lần lượt là trung điểm của các cạnh $SA$ và $SB$. Xét tính đúng, sai của các mệnh đề sau:",
                 statements: [
-                    { label: "a)", text: "Đường thẳng $MN$ song song với đường thẳng $BC$.", answer: true },
-                    { label: "b)", text: "Đường thẳng $OM$ song song với mặt phẳng $(SCD)$.", answer: true },
-                    { label: "c)", text: "Mặt phẳng $(OMN)$ song song với mặt phẳng $(SBC)$.", answer: true },
-                    { label: "d)", text: "Giao tuyến của hai mặt phẳng $(SAD)$ và $(SBC)$ là đường thẳng đi qua $S$ và song song với $AB$.", answer: false }
+                    { label: "a)", text: "Đường thẳng $MN$ song song với đường thẳng $AB$.", answer: true },
+                    { label: "b)", text: "Tứ giác $MNCD$ là một hình bình hành.", answer: true },
+                    { label: "c)", text: "Đường thẳng $MN$ cắt mặt phẳng $(ABCD)$.", answer: false },
+                    { label: "d)", text: "Giao tuyến của hai mặt phẳng $(SAB)$ và $(SCD)$ là đường thẳng qua $S$ và song song với $MN$.", answer: true }
                 ],
-                diagram: `
-                    <svg viewBox="0 0 230 180" class="w-full h-auto">
-                        <!-- Đáy ABCD -->
-                        <polygon points="35,148 145,148 190,116 80,116" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.6"/>
-                        <!-- Đỉnh S và các cạnh bên -->
-                        <line x1="100" y1="20" x2="35" y2="148" stroke="#38bdf8" stroke-width="1.6"/>
-                        <line x1="100" y1="20" x2="145" y2="148" stroke="#38bdf8" stroke-width="1.6"/>
-                        <line x1="100" y1="20" x2="190" y2="116" stroke="#38bdf8" stroke-width="1.6"/>
-                        <line x1="100" y1="20" x2="80" y2="116" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="4,3"/>
-                        <!-- Đường chéo AC, BD và tâm O -->
-                        <line x1="35" y1="148" x2="190" y2="116" stroke="#6ee7b7" stroke-width="1.2" stroke-dasharray="3,3"/>
-                        <line x1="145" y1="148" x2="80" y2="116" stroke="#6ee7b7" stroke-width="1.2" stroke-dasharray="3,3"/>
-                        <!-- Trung điểm M, N -->
-                        <line x1="67" y1="84" x2="90" y2="68" stroke="#fbbf24" stroke-width="2.2"/>
-                        <circle cx="67" cy="84" r="3" fill="#fbbf24"/>
-                        <circle cx="90" cy="68" r="3" fill="#fbbf24"/>
-                        <circle cx="112" cy="132" r="3" fill="#fbbf24"/>
-                        <text x="96" y="14" fill="#fef08a" font-size="11" font-weight="bold">S</text>
-                        <text x="21" y="153" fill="#fef08a" font-size="11" font-weight="bold">A</text>
-                        <text x="148" y="156" fill="#fef08a" font-size="11" font-weight="bold">B</text>
-                        <text x="194" y="121" fill="#fef08a" font-size="11" font-weight="bold">C</text>
-                        <text x="66" y="114" fill="#fef08a" font-size="11" font-weight="bold">D</text>
-                        <text x="51" y="83" fill="#fbbf24" font-size="11" font-weight="bold">M</text>
-                        <text x="76" y="65" fill="#fbbf24" font-size="11" font-weight="bold">N</text>
-                        <text x="109" y="145" fill="#fbbf24" font-size="11" font-weight="bold">O</text>
-                    </svg>
-                `,
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> $MN$ là đường trung bình $\\Delta SAD \\Rightarrow MN \\parallel AD \\parallel BC$.<br>• <strong>b) Đúng:</strong> $OM$ là đường trung bình $\\Delta SAC \\Rightarrow OM \\parallel SC \\subset (SCD) \\Rightarrow OM \\parallel (SCD)$.<br>• <strong>c) Đúng:</strong> Vì $MN \\parallel BC$ và $OM \\parallel SC$ nên $(OMN) \\parallel (SBC)$.<br>• <strong>d) Sai:</strong> Hai mặt phẳng $(SAD)$ và $(SBC)$ chứa hai đường thẳng song song $AD$ và $BC$ nên giao tuyến qua $S$ song song với $AD, BC$ (không phải $AB$)."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> $MN$ là đường trung bình của $\\Delta SAB$ nên $MN \\parallel AB$ và $MN = \\frac{1}{2}AB$.<br>• <strong>b) Đúng:</strong> Vì $MN \\parallel AB \\parallel CD$ và $MN = \\frac{1}{2}AB = CD$ nên tứ giác $MNCD$ có một cặp cạnh đối song song và bằng nhau, do đó $MNCD$ là hình bình hành.<br>• <strong>c) Sai:</strong> Vì $MN \\parallel AB$ và $AB \\subset (ABCD)$ nên $MN \\parallel (ABCD)$, không cắt $(ABCD)$.<br>• <strong>d) Đúng:</strong> Giao tuyến của $(SAB)$ và $(SCD)$ đi qua $S$ và song song với $AB$, mà $MN \\parallel AB$ nên giao tuyến đó song song với $MN$."
             },
             {
                 id: 12,
                 stage: 2,
                 type: 'TF4',
                 level: 'Thông hiểu',
-                maxPoints: 750000,
-                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Gọi $I, I'$ lần lượt là trung điểm của $BC$ và $B'C'$. Xét tính đúng, sai của các khẳng định sau:",
+                maxPoints: 600000,
+                text: "Cho tứ diện $ABCD$. Gọi $G_1, G_2$ lần lượt là trọng tâm của các tam giác $ABC$ và $ABD$. Xét tính đúng, sai của các khẳng định sau:",
                 statements: [
-                    { label: "a)", text: "Tứ giác $BCC'B'$ là một hình bình hành.", answer: true },
-                    { label: "b)", text: "Đường thẳng $II'$ song song với mặt phẳng $(ABB'A')$.", answer: true },
-                    { label: "c)", text: "Đường thẳng $AI'$ song song với đường thẳng $A'I$.", answer: false },
-                    { label: "d)", text: "Hai mặt phẳng $(ABC)$ và $(A'B'C')$ song song với nhau.", answer: true }
+                    { label: "a)", text: "Đường thẳng $G_1G_2$ song song với cạnh $CD$.", answer: true },
+                    { label: "b)", text: "Tỉ số độ dài $\\frac{G_1G_2}{CD}$ bằng $\\frac{2}{3}$.", answer: false },
+                    { label: "c)", text: "Đường thẳng $G_1G_2$ song song với mặt phẳng $(BCD)$.", answer: true },
+                    { label: "d)", text: "Đường thẳng $G_1G_2$ song song với mặt phẳng $(ACD)$.", answer: true }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Các mặt bên của hình lăng trụ đều là hình bình hành.<br>• <strong>b) Đúng:</strong> Vì $II' \\parallel BB'$ và $BB' \\subset (ABB'A')$ nên $II' \\parallel (ABB'A')$.<br>• <strong>c) Sai:</strong> Tứ giác $AA'I'I$ là hình bình hành nên hai đường chéo $AI'$ và $A'I$ cắt nhau tại trung điểm mỗi đường.<br>• <strong>d) Đúng:</strong> Hai đáy của hình lăng trụ nằm trên hai mặt phẳng song song."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Gọi $M$ là trung điểm $AB$. Trong $\\Delta MCD$, ta có $\\frac{MG_1}{MC} = \\frac{MG_2}{MD} = \\frac{1}{3}$ nên theo định lí Thalès đảo, $G_1G_2 \\parallel CD$.<br>• <strong>b) Sai:</strong> Theo hệ quả định lí Thalès, $\\frac{G_1G_2}{CD} = \\frac{MG_1}{MC} = \\frac{1}{3}$ (không phải $\\frac{2}{3}$).<br>• <strong>c) Đúng:</strong> Vì $G_1G_2 \\parallel CD$ và $CD \\subset (BCD)$ nên $G_1G_2 \\parallel (BCD)$.<br>• <strong>d) Đúng:</strong> Tương tự, $G_1G_2 \\parallel CD$ và $CD \\subset (ACD)$ nên $G_1G_2 \\parallel (ACD)$."
             },
             {
                 id: 13,
                 stage: 2,
                 type: 'TF4',
-                level: 'Vận dụng',
-                maxPoints: 750000,
-                text: "Cho hình hộp $ABCD.A'B'C'D'$. Các mặt phẳng $(AB'D')$ và $(BC'D)$ lần lượt cắt đường chéo $A'C$ tại $E$ và $F$. Xét tính đúng, sai của các mệnh đề sau:",
+                level: 'Thông hiểu',
+                maxPoints: 600000,
+                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Gọi $I, I'$ lần lượt là trung điểm của các cạnh $BC$ và $B'C'$. Xét tính đúng, sai của các mệnh đề sau:",
+                diagram: `
+                    <svg viewBox="0 0 230 175" class="w-full h-auto">
+                        <polygon points="35,140 185,140 120,105" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <polygon points="55,48 205,48 140,15" fill="rgba(251,191,36,0.12)" stroke="#fef08a" stroke-width="1.6"/>
+                        <line x1="35" y1="140" x2="55" y2="48" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="185" y1="140" x2="205" y2="48" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="120" y1="105" x2="140" y2="15" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <line x1="152.5" y1="122.5" x2="172.5" y2="31.5" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3,2"/>
+                        <text x="21" y="146" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="190" y="146" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="112" y="100" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="41" y="46" fill="#fef08a" font-size="11" font-weight="bold">A'</text>
+                        <text x="209" y="48" fill="#fef08a" font-size="11" font-weight="bold">B'</text>
+                        <text x="144" y="15" fill="#fef08a" font-size="11" font-weight="bold">C'</text>
+                        <text x="157" y="128" fill="#fbbf24" font-size="11" font-weight="bold">I</text>
+                        <text x="177" y="32" fill="#fbbf24" font-size="11" font-weight="bold">I'</text>
+                    </svg>
+                `,
                 statements: [
-                    { label: "a)", text: "Hai mặt phẳng $(AB'D')$ và $(BC'D)$ song song với nhau.", answer: true },
-                    { label: "b)", text: "Điểm $E$ là trọng tâm của tam giác $AB'D'$.", answer: true },
-                    { label: "c)", text: "Ba đoạn thẳng $A'E, EF, FC$ có độ dài bằng nhau.", answer: true },
-                    { label: "d)", text: "Tỉ số $\\frac{A'E}{A'C}$ bằng $\\frac{1}{2}$.", answer: false }
+                    { label: "a)", text: "Tứ giác $AII'A'$ là một hình bình hành.", answer: true },
+                    { label: "b)", text: "Đường thẳng $AI'$ song song với mặt phẳng $(A'BC)$.", answer: true },
+                    { label: "c)", text: "Mặt phẳng $(AB'I)$ song song với mặt phẳng $(A'C'I')$.", answer: true },
+                    { label: "d)", text: "Hai đường thẳng $AI$ và $B'C'$ cắt nhau.", answer: false }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Chứng minh tương tự Câu 8, $(AB'D') \\parallel (BC'D)$.<br>• <strong>b) Đúng:</strong> Trong hình bình hành $AA'C'C$, giao điểm $E$ của $A'C$ và $AO'$ (với $O'$ là tâm đáy trên) chia trung tuyến $AO'$ theo tỉ lệ $\\frac{AE}{AO'} = \\frac{2}{3}$ nên $E$ là trọng tâm $\\Delta AB'D'$.<br>• <strong>c) Đúng:</strong> Tương tự $F$ là trọng tâm $\\Delta BC'D$, suy ra $A'E = EF = FC = \\frac{1}{3}A'C$.<br>• <strong>d) Sai:</strong> Ta có $\\frac{A'E}{A'C} = \\frac{1}{3}$ (không phải $\\frac{1}{2}$)."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> $II'$ là đường trung bình của hình bình hành $BCC'B'$ nên $II' \\parallel BB' \\parallel AA'$ và $II' = BB' = AA' \\Rightarrow AII'A'$ là hình bình hành.<br>• <strong>b) Đúng:</strong> Vì $AII'A'$ là hình bình hành nên $AI' \\parallel A'I$, mà $A'I \\subset (A'BC)$ nên $AI' \\parallel (A'BC)$.<br>• <strong>c) Đúng:</strong> Ta có $AI \\parallel A'I'$ và $BI \\parallel C'I'$ (do $BI = I'C'$ và $BI \\parallel I'C'$ nên $BIC'I'$ là hình bình hành $\\Rightarrow B'I \\parallel C'I'$ là sai ký hiệu? Kiểm tra: $BI = B'I'$ và $BI \\parallel B'I'$ nên $BB'I'I$ là hình bình hành; còn $IC = B'I'$ và $IC \\parallel B'I'$ nên $B'I \\parallel C'I'$ đúng vì $BI = I'C'$ và $BI \\parallel I'C'$ tạo thành hình bình hành $BIC'I'$!).<br>• <strong>d) Sai:</strong> $AI \\subset (ABC)$ còn $B'C' \\subset (A'B'C')$, hai mặt phẳng này song song nên $AI$ và $B'C'$ chéo nhau, không cắt nhau."
             },
             {
                 id: 14,
                 stage: 2,
                 type: 'TF4',
-                level: 'Vận dụng',
-                maxPoints: 750000,
-                text: "Trong một nhà xưởng có sàn phẳng và trần nhà phẳng song song với nhau, cách nhau $4,5\\text{ m}$. Một thanh dầm thép thẳng $AB$ có đầu $A$ chạm sàn nhà, đầu $B$ chạm trần nhà; điểm $M$ trên thanh dầm thỏa mãn $AM = 2MB$. Xét tính đúng, sai của các nhận định sau:",
+                level: 'Thông hiểu',
+                maxPoints: 600000,
+                text: "Trong thiết kế kiến trúc, một cầu thang xoắn hoặc giàn giáo có các bậc thang nằm ngang đôi một song song với nhau và cùng song song với mặt sàn $(P)$. Hai thanh vịn thẳng $d_1, d_2$ cắt ba bậc thang liên tiếp tại các điểm $A, B, C$ và $A', B', C'$. Xét tính đúng, sai của các khẳng định sau:",
                 statements: [
-                    { label: "a)", text: "Mặt phẳng $(P)$ đi qua $M$ và song song với sàn nhà sẽ cắt thanh dầm $AB$ tại duy nhất điểm $M$.", answer: true },
-                    { label: "b)", text: "Khoảng cách từ mặt phẳng $(P)$ đến sàn nhà bằng $3\\text{ m}$.", answer: true },
-                    { label: "c)", text: "Nếu có thêm một thanh dầm $CD$ cũng nối sàn và trần nhà thì $(P)$ cắt $CD$ tại $N$ thỏa mãn $\\frac{CN}{CD} = \\frac{2}{3}$.", answer: true },
-                    { label: "d)", text: "Hai đường thẳng $AB$ và $CD$ luôn phải song song với nhau.", answer: false }
+                    { label: "a)", text: "Ba mặt phẳng chứa ba bậc thang đôi một song song với nhau.", answer: true },
+                    { label: "b)", text: "Tỉ số $\\frac{AB}{BC}$ luôn bằng tỉ số $\\frac{A'B'}{B'C'}$.", answer: true },
+                    { label: "c)", text: "Nếu $B$ là trung điểm của đoạn $AC$ thì $B'$ cũng là trung điểm của đoạn $A'C'$.", answer: true },
+                    { label: "d)", text: "Độ dài đoạn $AB$ luôn bắt buộc phải bằng độ dài đoạn $A'B'$.", answer: false }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Đường thẳng $AB$ cắt sàn nhà nên cắt mặt phẳng $(P)$ song song với sàn nhà tại duy nhất điểm $M$.<br>• <strong>b) Đúng:</strong> Theo định lí Thales trong không gian, $\\frac{AM}{AB} = \\frac{2}{3} \\Rightarrow h_{(P)} = \\frac{2}{3} \\times 4,5 = 3\\text{ m}$.<br>• <strong>c) Đúng:</strong> Ba mặt phẳng song song (sàn, $(P)$, trần) chắn trên hai cát tuyến $AB, CD$ các đoạn thẳng tỉ lệ: $\\frac{CN}{CD} = \\frac{AM}{AB} = \\frac{2}{3}$.<br>• <strong>d) Sai:</strong> Hai thanh dầm $AB$ và $CD$ có thể chéo nhau hoặc cắt nhau trong không gian."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Các bậc thang nằm ngang cùng song song với mặt sàn $(P)$ nên đôi một song song với nhau.<br>• <strong>b) Đúng:</strong> Theo định lí Thalès trong không gian, ba mặt phẳng song song chắn trên hai cát tuyến $d_1, d_2$ các đoạn thẳng tương ứng tỉ lệ.<br>• <strong>c) Đúng:</strong> Khi $AB = BC$ thì $\\frac{A'B'}{B'C'} = \\frac{AB}{BC} = 1 \\Rightarrow A'B' = B'C'$, tức là $B'$ là trung điểm $A'C'$.<br>• <strong>d) Sai:</strong> Nếu hai thanh vịn $d_1, d_2$ có độ dốc khác nhau thì $AB \\neq A'B'$ (chỉ tỉ số của chúng bằng nhau)."
             },
-
-            // ================= CHẶNG 3: VƯỢT CHƯỚNG NGẠI VẬT – TRẢ LỜI NGẮN (4 CÂU) =================
             {
                 id: 15,
-                stage: 3,
-                type: 'SHORT',
+                stage: 2,
+                type: 'TF4',
                 level: 'Vận dụng',
-                points: 750000,
-                text: "Cho tứ diện $ABCD$ có $BC = 18\\text{ cm}$. Gọi $G_1, G_2$ lần lượt là trọng tâm của các tam giác $ABC$ và $ACD$. Tính độ dài đoạn thẳng $G_1G_2$ (đơn vị: $\\text{cm}$).",
-                correctValues: ["6", "6.0", "6,0"],
-                explanation: "<strong>Định hướng giải:</strong> Gọi $M, N$ lần lượt là trung điểm của $BC$ và $CD$. Trong $\\Delta AMN$, vì $\\frac{AG_1}{AM} = \\frac{AG_2}{AN} = \\frac{2}{3}$ nên $G_1G_2 = \\frac{2}{3}MN$. Mặt khác $MN$ là đường trung bình $\\Delta BCD$ nên $MN = \\frac{1}{2}BC = 9\\text{ cm}$. Vậy $G_1G_2 = \\frac{2}{3} \\times 9 = 6\\text{ cm}$."
+                maxPoints: 600000,
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $M$ là điểm thuộc cạnh $SC$ sao cho $SM = 2MC$, $N$ là giao điểm của đường thẳng $SD$ với mặt phẳng $(ABM)$. Xét tính đúng, sai của các mệnh đề sau:",
+                statements: [
+                    { label: "a)", text: "Giao tuyến của hai mặt phẳng $(ABM)$ và $(SCD)$ là đường thẳng $MN$.", answer: true },
+                    { label: "b)", text: "Đường thẳng $MN$ song song với đường thẳng $CD$.", answer: true },
+                    { label: "c)", text: "Tỉ số $\\frac{SN}{SD}$ bằng $\\frac{1}{3}$.", answer: false },
+                    { label: "d)", text: "Tỉ số diện tích tam giác $SMN$ và tam giác $SCD$ bằng $\\frac{4}{9}$.", answer: true }
+                ],
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> $M \\in (ABM) \\cap (SCD)$ và $N = SD \\cap (ABM)$ nên $(ABM) \\cap (SCD) = MN$.<br>• <strong>b) Đúng:</strong> Hai mặt phẳng $(ABM)$ và $(SCD)$ lần lượt chứa hai đường thẳng song song $AB \\parallel CD$ nên giao tuyến $MN \\parallel AB \\parallel CD$.<br>• <strong>c) Sai:</strong> Trong $\\Delta SCD$, vì $MN \\parallel CD$ nên theo định lí Thalès: $\\frac{SN}{SD} = \\frac{SM}{SC} = \\frac{2}{3}$.<br>• <strong>d) Đúng:</strong> Vì $\\Delta SMN \\sim \\Delta SCD$ theo tỉ số đồng dạng $k = \\frac{2}{3}$ nên $\\frac{S_{\\Delta SMN}}{S_{\\Delta SCD}} = k^2 = \\left(\\frac{2}{3}\\right)^2 = \\frac{4}{9}$."
             },
+
+            // ================= CHẶNG 3: VƯỢT CHƯỚNG NGẠI VẬT – TRẢ LỜI NGẮN (5 CÂU) =================
             {
                 id: 16,
                 stage: 3,
                 type: 'SHORT',
                 level: 'Vận dụng',
-                points: 750000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình thoi cạnh bằng $10\\text{ cm}$. Gọi $M$ là điểm thuộc cạnh $SA$ sao cho $SM = 3MA$. Mặt phẳng $(\\alpha)$ đi qua $M$ và song song với mặt phẳng $(ABCD)$ cắt hình chóp theo một thiết diện là hình thoi. Tính chu vi của thiết diện đó (đơn vị: $\\text{cm}$).",
-                correctValues: ["30", "30.0", "30,0"],
-                explanation: "<strong>Định hướng giải:</strong> Mặt phẳng $(\\alpha) \\parallel (ABCD)$ cắt các mặt bên theo các giao tuyến song song với các cạnh đáy, tạo thành thiết diện $MNPQ$ đồng dạng với đáy $ABCD$ theo tỉ số $\\frac{SM}{SA} = \\frac{3}{4}$. Chu vi đáy $ABCD$ là $4 \\times 10 = 40\\text{ cm}$, suy ra chu vi thiết diện là $\\frac{3}{4} \\times 40 = 30\\text{ cm}$."
+                points: 600000,
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành, cạnh $AB = 9\\text{ cm}$. Gọi $G$ là trọng tâm tam giác $SAB$. Mặt phẳng $(P)$ đi qua $G$ và song song với mặt phẳng $(ABCD)$ cắt các cạnh $SA, SB$ lần lượt tại $M, N$. Tính độ dài đoạn thẳng $MN$ (đơn vị: $\\text{cm}$).",
+                correctValues: ["6", "6.0", "6,0"],
+                explanation: "<strong>Định hướng giải:</strong> Vì $(P) \\parallel (ABCD)$ nên giao tuyến $MN$ của $(P)$ và $(SAB)$ song song với $AB$. Do $MN$ đi qua trọng tâm $G$ của $\\Delta SAB$ nên theo định lí Thalès: $\\frac{MN}{AB} = \\frac{SG}{SI} = \\frac{2}{3}$ (với $I$ là trung điểm $AB$). Suy ra $MN = \\frac{2}{3} \\times 9 = 6\\text{ cm}$."
             },
             {
                 id: 17,
                 stage: 3,
                 type: 'SHORT',
                 level: 'Vận dụng',
-                points: 750000,
-                text: "Một khối bê tông trang trí có dạng hình chóp cụt tứ giác đều $ABCD.A'B'C'D'$ với cạnh đáy lớn $AB = 12\\text{ dm}$, cạnh đáy nhỏ $A'B' = 4\\text{ dm}$. Người ta cắt khối bê tông bằng một mặt phẳng $(P)$ song song với hai đáy và đi qua trung điểm của các cạnh bên. Tính diện tích của mặt cắt tạo bởi $(P)$ và khối bê tông (đơn vị: $\\text{dm}^2$).",
-                correctValues: ["64", "64.0", "64,0"],
-                explanation: "<strong>Định hướng giải:</strong> Mặt phẳng $(P)$ song song với hai đáy và đi qua trung điểm các cạnh bên cắt hình chóp cụt theo thiết diện là hình vuông có cạnh bằng đường trung bình của hình thang mặt bên: $a = \\frac{AB + A'B'}{2} = \\frac{12 + 4}{2} = 8\\text{ dm}$. Diện tích mặt cắt là $S = 8^2 = 64\\text{ dm}^2$."
+                points: 600000,
+                text: "Cho tứ diện $ABCD$ có $CD = 12\\text{ cm}$. Gọi $M$ là điểm trên cạnh $AC$ sao cho $AM = 2MC$. Mặt phẳng $(\\alpha)$ đi qua $M$ và song song với cả hai đường thẳng $AB$ và $CD$ cắt tứ diện theo một thiết diện là tứ giác $MNPQ$ (với $N \\in BC, P \\in BD, Q \\in AD$). Tính độ dài cạnh $MN$ (đơn vị: $\\text{cm}$).",
+                correctValues: ["8", "8.0", "8,0"],
+                explanation: "<strong>Định hướng giải:</strong> Vì $(\\alpha) \\parallel CD$ nên giao tuyến $MN$ của $(\\alpha)$ và $(ABC)$ song song với $CD$. Theo định lí Thalès trong $\\Delta ABC$, ta có $\\frac{MN}{CD} = \\frac{AM}{AC} = \\frac{2}{3} \\Rightarrow MN = \\frac{2}{3} \\times 12 = 8\\text{ cm}$."
             },
             {
                 id: 18,
                 stage: 3,
                 type: 'SHORT',
                 level: 'Vận dụng',
-                points: 750000,
-                text: "Cho hình lăng trụ $ABC.A'B'C'$. Gọi $M$ là trung điểm của cạnh $AB$, $N$ là điểm trên cạnh $AC$ sao cho $AN = 2NC$. Phép chiếu song song lên mặt phẳng $(A'B'C')$ theo phương $AA'$ biến đoạn thẳng $MN$ thành đoạn thẳng $M'N'$. Biết diện tích tam giác $ABC$ bằng $36\\text{ cm}^2$, tính diện tích tam giác $A'M'N'$ (đơn vị: $\\text{cm}^2$).",
-                correctValues: ["12", "12.0", "12,0"],
-                explanation: "<strong>Định hướng giải:</strong> Phép chiếu song song lên $(A'B'C')$ theo phương $AA'$ biến $A, M, N$ thành $A', M', N'$ với $M'$ là trung điểm $A'B'$ ($\\frac{A'M'}{A'B'} = \\frac{1}{2}$) và $\\frac{A'N'}{A'C'} = \\frac{2}{3}$. Vì $\\Delta A'B'C' = \\Delta ABC$ có diện tích $36\\text{ cm}^2$, ta có $\\frac{S_{A'M'N'}}{S_{A'B'C'}} = \\frac{A'M'}{A'B'} \\cdot \\frac{A'N'}{A'C'} = \\frac{1}{2} \\cdot \\frac{2}{3} = \\frac{1}{3} \\Rightarrow S_{A'M'N'} = \\frac{1}{3} \\times 36 = 12\\text{ cm}^2$."
+                points: 600000,
+                text: "Cho hình hộp $ABCD.A'B'C'D'$. Gọi $O$ là tâm của hình bình hành $ABCD$ và $I$ là trung điểm của cạnh $CC'$. Đường thẳng $OI$ cắt mặt phẳng $(A'B'C'D')$ tại điểm $K$. Tính tỉ số $\\frac{C'K}{A'C'}$.",
+                correctValues: ["0.5", "0,5", "1/2"],
+                explanation: "<strong>Định hướng giải:</strong> Xét trong mặt phẳng $(ACC'A')$, vì $O$ là trung điểm $AC$ và $I$ là trung điểm $CC'$ nên $OI$ là đường trung bình của $\\Delta CAC' \\Rightarrow OI \\parallel AC'$. Đường thẳng $OI$ cắt $A'C'$ tại $K$, khi đó tứ giác $AC'KI$ là hình bình hành nên $C'K = AI'$? Xét $\\Delta IC'K = \\Delta ICO$ (g.c.g) do $IC' = IC$, $\\widehat{C'IK} = \\widehat{CIO}$ và $\\widehat{IC'K} = \\widehat{ICO}$ (so le trong). Suy ra $C'K = CO = \\frac{1}{2}AC = \\frac{1}{2}A'C'$, vậy $\\frac{C'K}{A'C'} = 0,5$."
+            },
+            {
+                id: 19,
+                stage: 3,
+                type: 'SHORT',
+                level: 'Vận dụng',
+                points: 600000,
+                text: "Một kệ trang trí treo tường có 3 ngăn gỗ đặt nằm ngang song song với nhau, khoảng cách giữa ngăn dưới cùng và ngăn giữa là $30\\text{ cm}$, khoảng cách giữa ngăn giữa và ngăn trên cùng là $45\\text{ cm}$. Hai thanh đỡ xiên thẳng cắt ba mặt phẳng chứa 3 ngăn gỗ lần lượt tại $A, B, C$ và $A', B', C'$. Biết đoạn thanh đỡ $AB = 36\\text{ cm}$, tính độ dài đoạn thanh đỡ $B'C'$ nếu tỉ số độ dài hai thanh đỡ $\\frac{A'C'}{AC} = 1,2$ (đơn vị: $\\text{cm}$).",
+                correctValues: ["64.8", "64,8"],
+                explanation: "<strong>Định hướng giải:</strong> Theo định lí Thalès trong không gian, 3 mặt phẳng ngang song song chắn trên hai thanh đỡ các đoạn tỉ lệ với khoảng cách giữa các mặt phẳng: $\\frac{BC}{AB} = \\frac{45}{30} = 1,5 \\Rightarrow BC = 1,5 \\times 36 = 54\\text{ cm}$. Mặt khác, $\\frac{B'C'}{BC} = \\frac{A'C'}{AC} = 1,2 \\Rightarrow B'C' = 1,2 \\times 54 = 64,8\\text{ cm}$."
+            },
+            {
+                id: 20,
+                stage: 3,
+                type: 'SHORT',
+                level: 'Vận dụng',
+                points: 600000,
+                text: "Dưới ánh nắng Mặt Trời buổi chiều (các tia nắng được coi là song song với nhau), một tòa tháp thẳng đứng cao $24\\text{ m}$ đổ bóng trên mặt đất nằm ngang dài $18\\text{ m}$. Cùng thời điểm đó, một cây xanh thẳng đứng gần tòa tháp đổ bóng trên mặt đất dài $6\\text{ m}$. Tính chiều cao của cây xanh đó (đơn vị: $\\text{m}$).",
+                correctValues: ["8", "8.0", "8,0"],
+                explanation: "<strong>Định hướng giải:</strong> Vì tòa tháp và cây xanh cùng thẳng đứng (hai đoạn thẳng cùng phương) và mặt đất nằm ngang là mặt phẳng chiếu, phép chiếu song song theo phương tia nắng Mặt Trời bảo toàn tỉ số độ dài: $\\frac{h_{\\text{cây}}}{h_{\\text{tháp}}} = \\frac{6}{18} = \\frac{1}{3} \\Rightarrow h_{\\text{cây}} = \\frac{1}{3} \\times 24 = 8\\text{ m}$."
             }
         ];
 
@@ -981,31 +1137,42 @@
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(f, now);
-                gain.gain.setValueAtTime(0.18 / (idx + 1), now);
-                gain.gain.exponentialRampToValueAtTime(0.0008, now + 1.4);
+                osc.frequency.setValueAtTime(f, now + idx * 0.04);
+                gain.gain.setValueAtTime(0.18 / (idx + 1), now + idx * 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 1.1);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 1.4);
+                osc.start(now + idx * 0.04);
+                osc.stop(now + 1.1);
             });
         }
 
-        // Âm thanh đám đông vỗ tay chúc mừng + hợp âm vui khi trả lời ĐÚNG
+        // Âm thanh đám đông vỗ tay chúc mừng + hợp âm vui + giọng đọc "CHÍNH XÁC" khi trả lời ĐÚNG
         function playCrowdApplauseAndFanfare() {
             if (!gameState.soundOn) return;
             ensureAudio();
+
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utter = new SpeechSynthesisUtterance("Chính xác!");
+                    utter.lang = 'vi-VN';
+                    utter.rate = 1.08;
+                    utter.pitch = 1.12;
+                    window.speechSynthesis.speak(utter);
+                }
+            } catch (e) {}
+
             if (!audioCtx) return;
 
             const now = audioCtx.currentTime;
 
-            // 1. Tiếng vỗ tay đám đông sinh động (lọc nhiễu trắng theo nhịp vỗ tay)
-            const duration = 2.4;
+            // 1. Tiếng vỗ tay đám đông cổ vũ kéo dài sinh động
+            const duration = 2.6;
             const bufferSize = audioCtx.sampleRate * duration;
             const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
             const data = buffer.getChannelData(0);
             for (let i = 0; i < bufferSize; i++) {
-                // Tạo hiệu ứng nhiều bàn tay vỗ rào rào tự nhiên
                 const envelope = Math.sin((i / bufferSize) * Math.PI);
                 const flutter = 0.65 + 0.35 * Math.sin(i * 0.0045);
                 data[i] = (Math.random() * 2 - 1) * envelope * flutter;
@@ -1051,7 +1218,7 @@
             if (!audioCtx) return;
 
             const now = audioCtx.currentTime;
-            const notes = [311.13, 277.18, 233.08]; // Eb4 -> Db4 -> Bb3 trầm buồn
+            const notes = [311.13, 277.18, 233.08];
             notes.forEach((freq, i) => {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
@@ -1066,7 +1233,7 @@
             });
         }
 
-        // Hiệu ứng pháo giấy chiến thắng câu cuối
+        // Hiệu ứng pháo giấy chiến thắng khi vượt qua câu cuối
         function launchVictoryConfetti() {
             const colors = ['#fbbf24', '#38bdf8', '#4ade80', '#f472b6', '#ffffff'];
             for (let i = 0; i < 65; i++) {
@@ -1118,7 +1285,6 @@
             gameState.used5050 = false;
             gameState.usedExpert = false;
 
-            // Khôi phục nút trợ giúp
             const btn5050 = document.getElementById('btn-5050');
             const btnExpert = document.getElementById('btn-expert');
             btn5050.disabled = false;
@@ -1158,7 +1324,6 @@
             teacherScreen.classList.add('flex');
 
             fetchLeaderboardFromServer(true);
-            // Gọi GET định kỳ 5 giây một lần để đồng bộ bảng xếp hạng lớp từ máy chủ
             gameState.leaderboardPollId = setInterval(() => {
                 fetchLeaderboardFromServer(true);
             }, 5000);
@@ -1188,8 +1353,8 @@
             document.getElementById('hud-score').innerText = gameState.score.toLocaleString('vi-VN') + ' Đ';
             document.getElementById('hud-xp').innerText = gameState.xp + ' XP';
 
-            let rankTitle = "Tập Sự Hình Học";
-            if (gameState.score >= 8500000) rankTitle = "Bậc Thầy Không Gian";
+            let rankTitle = "Tập Sự Hình Chiếu";
+            if (gameState.score >= 8500000) rankTitle = "Bậc Thầy Phép Chiếu";
             else if (gameState.score >= 5500000) rankTitle = "Chuyên Gia Hình Học";
             else if (gameState.score >= 2500000) rankTitle = "Nhà Thám Hiểm 3D";
             document.getElementById('hud-rank').innerText = rankTitle;
@@ -1205,11 +1370,9 @@
                 return;
             }
 
-            // Ẩn phản hồi & gợi ý cũ
             document.getElementById('feedback-panel').classList.add('hidden');
             document.getElementById('expert-hint-box').classList.add('hidden');
 
-            // Cập nhật thanh tiến trình & nhãn chặng
             const total = QUESTION_BANK.length;
             document.getElementById('progress-text').innerText = `Câu ${gameState.currentIdx + 1} / ${total}`;
             document.getElementById('level-badge').innerText = q.level;
@@ -1225,7 +1388,7 @@
                 lifelinesBar.classList.remove('hidden');
                 valueTag.innerText = `Giá trị câu hỏi: +${q.points.toLocaleString('vi-VN')} điểm`;
             } else if (q.stage === 2) {
-                stageBadge.innerText = "Chặng 2: Đấu Trường Đúng/Sai";
+                stageBadge.innerText = "Chặng 2: Đấu Trường Toán Học";
                 stageBadge.className = "px-3 py-1 rounded-full bg-sky-400 text-slate-950 font-black text-xs sm:text-sm uppercase shadow";
                 lifelinesBar.classList.add('hidden');
                 valueTag.innerText = `Tối đa 4 ý đúng: +${q.maxPoints.toLocaleString('vi-VN')} điểm`;
@@ -1236,7 +1399,7 @@
                 valueTag.innerText = `Chinh phục thử thách: +${q.points.toLocaleString('vi-VN')} điểm`;
             }
 
-            // Hiển thị nội dung câu hỏi và hình vẽ SVG (nếu có) không làm che khuất chữ
+            // Hiển thị nội dung câu hỏi và hình vẽ SVG tách biệt, không làm che khuất đề bài
             document.getElementById('question-content').innerHTML = q.text;
             const textCol = document.getElementById('question-text-col');
             const diagCol = document.getElementById('question-diagram-col');
@@ -1252,7 +1415,6 @@
                 diagSvg.innerHTML = "";
             }
 
-            // Ẩn 3 vùng trả lời trước khi bật đúng vùng của dạng câu hỏi hiện tại
             document.getElementById('area-mcq').classList.add('hidden');
             document.getElementById('area-tf4').classList.add('hidden');
             document.getElementById('area-short').classList.add('hidden');
@@ -1274,7 +1436,6 @@
             area.classList.remove('hidden');
             area.innerHTML = '';
 
-            // Tạo mảng lựa chọn kèm cờ isCorrect rồi xáo trộn ngẫu nhiên
             const items = q.options.map((opt, idx) => ({
                 text: opt,
                 isCorrect: idx === q.correctIndex
@@ -1340,7 +1501,6 @@
                 if (!opt.isCorrect) wrongIndices.push(idx);
             });
 
-            // Xáo trộn và loại bỏ 2 phương án sai
             wrongIndices.sort(() => Math.random() - 0.5);
             wrongIndices.slice(0, 2).forEach(idx => {
                 buttons[idx].classList.add('eliminated');
@@ -1363,7 +1523,7 @@
             const correctIdx = gameState.currentShuffledOptions.findIndex(o => o.isCorrect);
             const letters = ['A', 'B', 'C', 'D'];
 
-            document.getElementById('expert-hint-text').innerHTML = `${q.hint} Theo phân tích hình học không gian, phương án chính xác là <strong>${letters[correctIdx]}</strong>.`;
+            document.getElementById('expert-hint-text').innerHTML = `${q.hint} Theo tính chất của phép chiếu song song, phương án chính xác là <strong>${letters[correctIdx]}</strong>.`;
             const box = document.getElementById('expert-hint-box');
             box.classList.remove('hidden');
             renderMathTypeset(box);
@@ -1422,7 +1582,6 @@
 
         function submitTF4() {
             if (tf4Selections.includes(null)) {
-                // Nhắc nhẹ học sinh chọn đủ cả 4 ý a, b, c, d
                 const box = document.getElementById('expert-hint-box');
                 document.getElementById('expert-hint-text').innerHTML = "Bạn hãy chọn đầy đủ <strong>ĐÚNG</strong> hoặc <strong>SAI</strong> cho cả 4 mệnh đề a), b), c), d) trước khi xác nhận nhé!";
                 box.classList.remove('hidden');
@@ -1448,8 +1607,8 @@
                 }
             });
 
-            // Quy đổi điểm lũy tiến chuẩn GDPT 2018 (tối đa 750.000đ)
-            const scoreTable = [0, 75000, 187500, 375000, 750000];
+            // Quy đổi điểm lũy tiến chuẩn GDPT 2018 (tối đa 600.000đ cho mỗi câu Chặng 2)
+            const scoreTable = [0, 60000, 150000, 300000, 600000];
             const earned = scoreTable[correctCount];
             gameState.score += earned;
             gameState.xp += correctCount * 50;
@@ -1490,7 +1649,6 @@
             btn.disabled = true;
             btn.classList.add('hidden');
 
-            // Chuẩn hóa dấu phẩy / dấu chấm thập phân để so sánh chính xác
             const normalizedUser = raw.replace(',', '.');
             const isCorrect = q.correctValues.some(ans => ans.replace(',', '.') === normalizedUser);
 
@@ -1547,14 +1705,21 @@
         }
 
         function renderMathTypeset(target = document.body) {
-            if (window.renderMathInElement) {
-                renderMathInElement(target, {
-                    delimiters: [
-                        { left: '$$', right: '$$', display: true },
-                        { left: '$', right: '$', display: false }
-                    ],
-                    throwOnError: false
-                });
+            const doRender = () => {
+                if (typeof window.renderMathInElement === 'function') {
+                    window.renderMathInElement(target, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                }
+            };
+            if (typeof window.__onKaTeXReady === 'function') {
+                window.__onKaTeXReady(doRender);
+            } else {
+                doRender();
             }
         }
 
@@ -1582,9 +1747,9 @@
             document.getElementById('res-correct-count').innerText = `${gameState.perfectCount} / ${QUESTION_BANK.length}`;
             document.getElementById('res-time').innerText = timeFormatted;
 
-            let badge = "CHIẾN BINH HÌNH HỌC KHÔNG GIAN";
+            let badge = "CHIẾN BINH HÌNH CHIẾU SONG SONG";
             if (gameState.score === 10000000) badge = "HUYỀN THOẠI TRIỆU PHÚ TOÁN HỌC 11";
-            else if (gameState.score >= 7500000) badge = "BẬC THẦY ĐƯỜNG THẲNG & MẶT PHẲNG";
+            else if (gameState.score >= 7500000) badge = "BẬC THẦY PHÉP CHIẾU SONG SONG";
             else if (gameState.score >= 5000000) badge = "CHUYÊN GIA TƯ DUY KHÔNG GIAN";
             document.getElementById('result-badge-title').innerText = `DANH HIỆU: ${badge}`;
 
@@ -1610,7 +1775,7 @@
 
         function savePersonalProgress(currentScore, timeStr) {
             try {
-                const key = 'thayhoa_toan11_personal_best';
+                const key = 'thayhoa_toan11_chuong4_best';
                 const prev = JSON.parse(localStorage.getItem(key) || 'null');
                 const noteEl = document.getElementById('personal-progress-note');
                 if (!prev) {
@@ -1626,9 +1791,7 @@
                         noteEl.innerHTML = `<i class="fa-solid fa-chart-line text-sky-400 mr-1"></i> Lần thử thứ ${attempts} • Kỷ lục cá nhân cao nhất của bạn: <strong>${best.toLocaleString('vi-VN')} điểm</strong>.`;
                     }
                 }
-            } catch (e) {
-                // Bỏ qua nếu trình duyệt chặn localStorage
-            }
+            } catch (e) {}
         }
 
         // Gửi (fetch POST) dữ liệu tới Google Apps Script Web App URL
@@ -1659,7 +1822,6 @@
                 .then(res => res.json())
                 .then(json => {
                     if (json && json.status === 'ok' && Array.isArray(json.data)) {
-                        // Sắp xếp theo Điểm số giảm dần, Thời gian làm bài tăng dần
                         const sorted = [...json.data].sort((a, b) => {
                             const scoreDiff = (Number(b["Điểm số"]) || 0) - (Number(a["Điểm số"]) || 0);
                             if (scoreDiff !== 0) return scoreDiff;
@@ -1733,7 +1895,6 @@
             document.getElementById('screen-welcome').classList.remove('hidden');
         }
 
-        // Hỗ trợ nhấn Enter ở ô Trả lời ngắn
         document.addEventListener('DOMContentLoaded', () => {
             const shortInput = document.getElementById('short-answer-input');
             if (shortInput) {
