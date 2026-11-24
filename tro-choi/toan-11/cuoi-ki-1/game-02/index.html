@@ -251,7 +251,7 @@
                     <span class="text-xs font-bold text-sky-200 hidden sm:inline">TOÁN 11 – GDPT 2018 – KNTTVCS</span>
                 </div>
                 <h1 class="text-base sm:text-xl font-black text-white tracking-wide mt-0.5">
-                    ÔN TẬP CUỐI HỌC KÌ I – TOÁN 11 (22 THỬ THÁCH)
+                    ÔN TẬP CUỐI HỌC KÌ I – TOÁN 11 (ĐỀ SỐ 02 – 22 THỬ THÁCH)
                 </h1>
             </div>
         </div>
@@ -326,7 +326,7 @@
                     CHINH PHỤC ĐỈNH CAO 10.000.000 ĐIỂM
                 </h2>
                 <p class="text-sky-200 text-sm sm:text-base font-medium mt-1">
-                    Chuyên đề: <strong class="text-amber-300">Ôn tập Kiểm tra Cuối Học kì I — Toán 11</strong> (Lượng giác, Dãy số – CSC – CSN, Giới hạn – Liên tục, Quan hệ song song, Thống kê)
+                    Chuyên đề: <strong class="text-amber-300">Đề Tham Khảo Số 02 — Kiểm tra Cuối Học kì I Toán 11</strong> (Hàm số & Phương trình lượng giác, Dãy số – CSC – CSN, Giới hạn – Hàm số liên tục, Quan hệ song song, Thống kê ghép nhóm)
                 </p>
             </div>
 
@@ -672,9 +672,10 @@
          ========================================================================= -->
     <script>
         /* =====================================================================
-           1. NGÂN HÀNG DỮ LIỆU 22 CÂU HỎI TRÍCH TỪ FILE PDF BỘ ĐỀ ÔN TẬP TOÁN 11
-           - Giữ nguyên 100% nội dung đề bài, công thức toán học, bảng số liệu và hình vẽ
-             từ các đề trong file PDF đã tải lên.
+           1. NGÂN HÀNG DỮ LIỆU 22 CÂU HỎI BÁM SÁT ĐỀ THAM KHẢO SỐ 02 (TOÁN 11)
+           - Giữ nguyên 100% nội dung toán học, công thức, bảng số liệu và hình vẽ
+             từ Đề số 02 (kèm 2 câu Đúng/Sai & 2 câu Trả lời ngắn bổ trợ cùng mạch kiến thức
+             từ bộ đề tải lên để đảm bảo đủ 22 thử thách & tỉ lệ 30% NB - 40% TH - 30% VD).
            - Tỉ lệ mức độ tư duy chuẩn 22 câu:
              + Nhận biết: 7 câu (~31,8%) — Câu 1, 2, 3, 4, 5, 6, 7
              + Thông hiểu: 9 câu (~40,9%) — Câu 8, 9, 10, 11, 12, 13, 14, 15, 17
@@ -682,37 +683,23 @@
            - Tổng điểm tối đa: 12 x 350.000 + 4 x 550.000 + 6 x 600.000 = 10.000.000 điểm.
            ===================================================================== */
         const QUESTION_BANK = [
-            // ================= CHẶNG 1: AI LÀ TRIỆU PHÚ TOÁN HỌC (12 CÂU MCQ) =================
+            // ================= CHẶNG 1: AI LÀ TRIỆU PHÚ TOÁN HỌC (12 CÂU MCQ - ĐỀ SỐ 02) =================
             {
                 id: 1,
                 stage: 1,
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 350000,
-                text: "Cho góc $\\widehat{MON} = 60^\\circ$. Xác định số đo của góc lượng giác $(OM, ON)$ được biểu diễn trong hình vẽ dưới đây:",
+                text: "Trong các hàm số sau, hàm số nào gián đoạn tại $x = 1$?",
                 options: [
-                    "$-300^\\circ$.",
-                    "$120^\\circ$.",
-                    "$60^\\circ$.",
-                    "$300^\\circ$."
+                    "$y = \\dfrac{2x + 1}{x - 1}$.",
+                    "$y = x^2 + 2x + 1$.",
+                    "$y = x^3 + 3x^2 + 2$.",
+                    "$y = 2x + 3$."
                 ],
                 correctIndex: 0,
-                hint: "Quan sát mũi tên cung lượng giác từ tia đầu $OM$ quay theo chiều cùng chiều kim đồng hồ (chiều âm) đến tia cuối $ON$.",
-                diagram: `
-                    <svg viewBox="0 0 220 175" class="w-full h-auto">
-                        <line x1="110" y1="92" x2="195" y2="92" stroke="#fff" stroke-width="2"/>
-                        <line x1="110" y1="92" x2="152" y2="20" stroke="#fff" stroke-width="2"/>
-                        <path d="M 135 92 A 25 25 0 0 0 122.5 70.3" fill="none" stroke="#38bdf8" stroke-width="1.6"/>
-                        <text x="142" y="76" fill="#38bdf8" font-size="11" font-weight="bold">60°</text>
-                        <path d="M 162 92 A 52 52 0 1 1 136 47" fill="none" stroke="#fbbf24" stroke-width="2.2"/>
-                        <polygon points="136,47 144,44 139,54" fill="#fbbf24"/>
-                        <circle cx="110" cy="92" r="3" fill="#fbbf24"/>
-                        <text x="95" y="102" fill="#fff" font-size="12" font-weight="bold">O</text>
-                        <text x="198" y="96" fill="#fff" font-size="12" font-weight="bold">M</text>
-                        <text x="155" y="18" fill="#fff" font-size="12" font-weight="bold">N</text>
-                    </svg>
-                `,
-                explanation: "<strong>Định hướng giải (Đề 7 – Câu 1):</strong> Từ tia $OM$ quay theo chiều cùng chiều kim đồng hồ (chiều âm) một góc $360^\\circ - 60^\\circ = 300^\\circ$ thì được tia $ON$. Vậy số đo góc lượng giác $(OM, ON)$ là <strong>$-300^\\circ$</strong>."
+                hint: "Hàm đa thức liên tục trên $\\mathbb{R}$, còn hàm phân thức hữu tỉ gián đoạn tại điểm làm cho mẫu thức bằng $0$.",
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 2):</strong> Hàm số $y = \\dfrac{2x + 1}{x - 1}$ có tập xác định $D = \\mathbb{R} \\setminus \\{1\\}$ nên không xác định và gián đoạn tại <strong>$x = 1$</strong>. Ba hàm còn lại đều là hàm đa thức nên liên tục trên toàn $\\mathbb{R}$."
             },
             {
                 id: 2,
@@ -720,16 +707,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 350000,
-                text: "Trong các hàm số sau, hàm số nào là hàm số chẵn?",
+                text: "Biểu thức $\\sin \\dfrac{\\pi}{4}$ có giá trị bằng:",
                 options: [
-                    "$y = \\cos x$.",
-                    "$y = \\cot x + x$.",
-                    "$y = \\sin^3 x$.",
-                    "$y = \\tan x$."
+                    "$\\dfrac{\\sqrt{2}}{2}$.",
+                    "$\\dfrac{1}{2}$.",
+                    "$-\\dfrac{1}{2}$.",
+                    "$-\\dfrac{\\sqrt{2}}{2}$."
                 ],
                 correctIndex: 0,
-                hint: "Kiểm tra điều kiện $f(-x) = f(x)$ với mọi $x$ thuộc tập xác định đối xứng.",
-                explanation: "<strong>Định hướng giải (Đề 7 – Câu 3):</strong> Hàm số $y = \\cos x$ có tập xác định $D = \\mathbb{R}$ đối xứng và $\\cos(-x) = \\cos x$ với mọi $x \\in \\mathbb{R}$ nên là <strong>hàm số chẵn</strong>. Các hàm số còn lại đều là hàm số lẻ."
+                hint: "Góc $\\dfrac{\\pi}{4} = 45^\\circ$ nằm ở góc phần tư thứ nhất nên giá trị $\\sin$ dương.",
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 3):</strong> Theo bảng giá trị lượng giác của các góc đặc biệt, ta có $\\sin \\dfrac{\\pi}{4} = \\sin 45^\\circ = \\dfrac{\\sqrt{2}}{2}$."
             },
             {
                 id: 3,
@@ -737,16 +724,34 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 350000,
-                text: "Cho cấp số cộng $(u_n)$, biết $u_1 = -3$ và $u_3 = 9$. Tìm công sai $d$ của cấp số cộng này.",
+                text: "Cho tứ diện $ABCD$ (tham khảo hình vẽ). Đường thẳng $AC$ và $BD$ là hai đường thẳng:",
                 options: [
-                    "$d = 6$.",
-                    "$d = -6$.",
-                    "$d = 12$.",
-                    "$d = -12$."
+                    "chéo nhau.",
+                    "song song nhau.",
+                    "trùng nhau.",
+                    "cắt nhau."
                 ],
                 correctIndex: 0,
-                hint: "Sử dụng công thức số hạng tổng quát của cấp số cộng: $u_3 = u_1 + 2d$.",
-                explanation: "<strong>Định hướng giải (Đề 11 – Câu 11):</strong> Ta có $u_3 = u_1 + 2d \\Leftrightarrow 9 = -3 + 2d \\Leftrightarrow 2d = 12 \\Leftrightarrow d = 6$."
+                hint: "Ba điểm $A, B, C$ xác định mặt phẳng $(ABC)$, còn đỉnh $D$ nằm ngoài mặt phẳng $(ABC)$.",
+                diagram: `
+                    <svg viewBox="0 0 220 175" class="w-full h-auto">
+                        <line x1="115" y1="22" x2="35" y2="115" stroke="#fff" stroke-width="1.8"/>
+                        <line x1="115" y1="22" x2="108" y2="152" stroke="#fff" stroke-width="1.8"/>
+                        <line x1="115" y1="22" x2="188" y2="118" stroke="#fff" stroke-width="1.8"/>
+                        <line x1="35" y1="115" x2="108" y2="152" stroke="#fff" stroke-width="1.8"/>
+                        <line x1="108" y1="152" x2="188" y2="118" stroke="#fff" stroke-width="1.8"/>
+                        <line x1="35" y1="115" x2="188" y2="118" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="5,4"/>
+                        <circle cx="115" cy="22" r="3" fill="#fbbf24"/>
+                        <circle cx="35" cy="115" r="3" fill="#fbbf24"/>
+                        <circle cx="108" cy="152" r="3" fill="#fbbf24"/>
+                        <circle cx="188" cy="118" r="3" fill="#fbbf24"/>
+                        <text x="111" y="16" fill="#fbbf24" font-size="12" font-weight="bold">A</text>
+                        <text x="20" y="119" fill="#fff" font-size="12" font-weight="bold">B</text>
+                        <text x="104" y="168" fill="#fff" font-size="12" font-weight="bold">D</text>
+                        <text x="193" y="122" fill="#fff" font-size="12" font-weight="bold">C</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 7):</strong> Hai cạnh đối $AC$ và $BD$ của tứ diện $ABCD$ không cùng nằm trong bất kì mặt phẳng nào nên chúng là hai đường thẳng <strong>chéo nhau</strong>."
             },
             {
                 id: 4,
@@ -754,16 +759,40 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 350000,
-                text: "Cho cấp số nhân $(u_n)$ có số hạng đầu $u_1 = 5$ và công bội $q = -2$. Số hạng thứ sáu của $(u_n)$ là:",
+                text: "Hình vẽ dưới đây là hình biểu diễn của hình nào?",
                 options: [
-                    "$u_6 = -160$.",
-                    "$u_6 = 320$.",
-                    "$u_6 = 160$.",
-                    "$u_6 = -320$."
+                    "Hình hộp.",
+                    "Hình lăng trụ tam giác.",
+                    "Hình chóp tam giác.",
+                    "Hình lăng trụ tứ giác."
                 ],
                 correctIndex: 0,
-                hint: "Áp dụng công thức số hạng tổng quát của cấp số nhân: $u_n = u_1 \\cdot q^{n-1}$.",
-                explanation: "<strong>Định hướng giải (Đề 1 – Câu 7):</strong> Số hạng thứ sáu của cấp số nhân là $u_6 = u_1 \\cdot q^5 = 5 \\cdot (-2)^5 = 5 \\cdot (-32) = -160$."
+                hint: "Quan sát đáy trên $ABCD$ và đáy dưới $A'B'C'D'$ đều là các hình bình hành song song và bằng nhau.",
+                diagram: `
+                    <svg viewBox="0 0 225 175" class="w-full h-auto">
+                        <!-- Đáy dưới A'B'C'D' -->
+                        <line x1="38" y1="142" x2="145" y2="142" stroke="#fff" stroke-width="1.7"/>
+                        <line x1="145" y1="142" x2="185" y2="112" stroke="#fff" stroke-width="1.7"/>
+                        <line x1="38" y1="142" x2="78" y2="112" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="5,4"/>
+                        <line x1="78" y1="112" x2="185" y2="112" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="5,4"/>
+                        <!-- Đáy trên ABCD -->
+                        <polygon points="48,52 155,52 195,22 88,22" fill="rgba(251,191,36,0.12)" stroke="#fef08a" stroke-width="1.7"/>
+                        <!-- Cạnh bên -->
+                        <line x1="48" y1="52" x2="38" y2="142" stroke="#fff" stroke-width="1.7"/>
+                        <line x1="155" y1="52" x2="145" y2="142" stroke="#fff" stroke-width="1.7"/>
+                        <line x1="195" y1="22" x2="185" y2="112" stroke="#fff" stroke-width="1.7"/>
+                        <line x1="88" y1="22" x2="78" y2="112" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="5,4"/>
+                        <text x="78" y="17" fill="#fef08a" font-size="11" font-weight="bold">A</text>
+                        <text x="198" y="24" fill="#fef08a" font-size="11" font-weight="bold">B</text>
+                        <text x="158" y="56" fill="#fef08a" font-size="11" font-weight="bold">C</text>
+                        <text x="34" y="54" fill="#fef08a" font-size="11" font-weight="bold">D</text>
+                        <text x="62" y="109" fill="#38bdf8" font-size="11" font-weight="bold">A'</text>
+                        <text x="188" y="115" fill="#fff" font-size="11" font-weight="bold">B'</text>
+                        <text x="147" y="155" fill="#fff" font-size="11" font-weight="bold">C'</text>
+                        <text x="23" y="150" fill="#fff" font-size="11" font-weight="bold">D'</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 8):</strong> Hình vẽ biểu diễn hình lăng trụ có đáy là hình bình hành $ABCD$, tức là <strong>hình hộp $ABCD.A'B'C'D'$</strong>."
             },
             {
                 id: 5,
@@ -771,16 +800,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 350000,
-                text: "Phát biểu nào sau đây là <strong>sai</strong>?",
+                text: "Cho $\\lim\\limits_{x \\to 2} f(x) = 5$. Giá trị của $\\lim\\limits_{x \\to 2} [2f(x)]$ bằng:",
                 options: [
-                    "$\\lim\\limits_{n \\to +\\infty} q^n = 0$ với $|q| > 1$.",
-                    "$\\lim\\limits_{n \\to +\\infty} u_n = c$ với $u_n = c$ là hằng số.",
-                    "$\\lim\\limits_{n \\to +\\infty} \\dfrac{1}{n} = 0$.",
-                    "$\\lim\\limits_{n \\to +\\infty} \\dfrac{1}{n^k} = 0$ với $k > 1$."
+                    "$10$.",
+                    "$7$.",
+                    "$4$.",
+                    "$5$."
                 ],
                 correctIndex: 0,
-                hint: "Điều kiện để dãy số $(q^n)$ có giới hạn bằng $0$ là $|q| < 1$.",
-                explanation: "<strong>Định hướng giải (Đề 2 – Câu 11):</strong> Ta có $\\lim\\limits_{n \\to +\\infty} q^n = 0$ khi $|q| < 1$. Với $|q| > 1$ thì $|q^n| \\to +\\infty$, nên phát biểu $\\lim\\limits_{n \\to +\\infty} q^n = 0$ với $|q| > 1$ là <strong>sai</strong>."
+                hint: "Áp dụng định lí về giới hạn hữu hạn của hàm số: $\\lim\\limits_{x \\to x_0} [c \\cdot f(x)] = c \\cdot \\lim\\limits_{x \\to x_0} f(x)$.",
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 9):</strong> Ta có $\\lim\\limits_{x \\to 2} [2f(x)] = 2 \\lim\\limits_{x \\to 2} f(x) = 2 \\cdot 5 = 10$."
             },
             {
                 id: 6,
@@ -788,16 +817,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 350000,
-                text: "Hàm số $y = \\dfrac{1}{x - 2}$ gián đoạn tại điểm nào dưới đây?",
+                text: "Khẳng định nào dưới đây là <strong>đúng</strong>?",
                 options: [
-                    "$x = 2$.",
-                    "$x = -2$.",
-                    "$x = 1$.",
-                    "$x = 0$."
+                    "Hàm số $y = \\tan x$ tuần hoàn với chu kì là $\\pi$.",
+                    "Hàm số $y = \\sin x$ tuần hoàn với chu kì là $\\pi$.",
+                    "Hàm số $y = \\cos x$ tuần hoàn với chu kì là $\\pi$.",
+                    "Hàm số $y = \\cot x$ tuần hoàn với chu kì là $2\\pi$."
                 ],
                 correctIndex: 0,
-                hint: "Hàm phân thức hữu tỉ gián đoạn tại điểm làm cho mẫu thức bằng $0$.",
-                explanation: "<strong>Định hướng giải (Đề 7 – Câu 11):</strong> Hàm số $y = \\dfrac{1}{x - 2}$ xác định trên $\\mathbb{R} \\setminus \\{2\\}$ nên không xác định và gián đoạn tại <strong>$x = 2$</strong>."
+                hint: "Nhớ lại chu kì tuần hoàn cơ bản của 4 hàm số lượng giác: $\\sin x, \\cos x$ có chu kì $2\\pi$; $\\tan x, \\cot x$ có chu kì $\\pi$.",
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 10):</strong> Hàm số $y = \\tan x$ là hàm số tuần hoàn với chu kì $T = \\pi$. Các hàm số $y = \\sin x, y = \\cos x$ tuần hoàn với chu kì $2\\pi$ và $y = \\cot x$ tuần hoàn với chu kì $\\pi$."
             },
             {
                 id: 7,
@@ -805,53 +834,54 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 350000,
-                text: "Cho hình chóp $S.ABCD$ (tham khảo hình vẽ). Gọi $O$ là giao điểm của $AC$ và $BD$, $I$ là giao điểm của $AB$ và $CD$. Giao tuyến của hai mặt phẳng $(SAB)$ và $(SCD)$ là:",
+                text: "Cho cấp số cộng $(u_n)$, biết $u_2 = 2$ và $u_3 = 8$. Giá trị của $u_4$ là:",
                 options: [
-                    "$SI$.",
-                    "$OI$.",
-                    "$SO$.",
-                    "$SA$."
+                    "$u_4 = 14$.",
+                    "$u_4 = 10$.",
+                    "$u_4 = 32$.",
+                    "$u_4 = 6$."
                 ],
                 correctIndex: 0,
-                hint: "Tìm hai điểm chung phân biệt của hai mặt phẳng $(SAB)$ và $(SCD)$.",
-                diagram: `
-                    <svg viewBox="0 0 245 185" class="w-full h-auto">
-                        <polygon points="30,115 95,140 165,120 120,95" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.5"/>
-                        <line x1="90" y1="20" x2="30" y2="115" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="90" y1="20" x2="95" y2="140" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="90" y1="20" x2="165" y2="120" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="90" y1="20" x2="120" y2="95" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4,3"/>
-                        <!-- Kéo dài AB và CD cắt nhau tại I -->
-                        <line x1="95" y1="140" x2="215" y2="186" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
-                        <line x1="165" y1="120" x2="215" y2="186" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
-                        <line x1="90" y1="20" x2="215" y2="186" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4,2"/>
-                        <circle cx="215" cy="182" r="3" fill="#fbbf24"/>
-                        <text x="86" y="15" fill="#fbbf24" font-size="11" font-weight="bold">S</text>
-                        <text x="18" y="118" fill="#fff" font-size="11" font-weight="bold">A</text>
-                        <text x="85" y="152" fill="#fff" font-size="11" font-weight="bold">B</text>
-                        <text x="169" y="121" fill="#fff" font-size="11" font-weight="bold">C</text>
-                        <text x="122" y="92" fill="#fff" font-size="11" font-weight="bold">D</text>
-                        <text x="220" y="182" fill="#fbbf24" font-size="11" font-weight="bold">I</text>
-                    </svg>
-                `,
-                explanation: "<strong>Định hướng giải (Đề 2 – Câu 5):</strong> $S$ là điểm chung thứ nhất của $(SAB)$ và $(SCD)$. Vì $I = AB \\cap CD$ nên $I \\in AB \\subset (SAB)$ và $I \\in CD \\subset (SCD)$, tức $I$ là điểm chung thứ hai. Vậy $(SAB) \\cap (SCD) = SI$."
+                hint: "Tính công sai $d = u_3 - u_2$, sau đó suy ra $u_4 = u_3 + d$.",
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 11):</strong> Công sai của cấp số cộng là $d = u_3 - u_2 = 8 - 2 = 6$. Suy ra $u_4 = u_3 + d = 8 + 6 = 14$."
             },
             {
                 id: 8,
                 stage: 1,
                 type: 'MCQ',
-                level: 'Thông hiểu',
+                level: 'Nhận biết',
                 points: 350000,
-                text: "Cho góc $\\alpha$ thỏa mãn $\\sin\\alpha = -\\dfrac{3}{5}$ và $\\pi < \\alpha < \\dfrac{3\\pi}{2}$. Giá trị của $\\cos\\alpha$ bằng:",
+                text: "Cho hình hộp $ABCD.A'B'C'D'$ (tham khảo hình vẽ). Mặt phẳng $(ABB'A')$ song song với mặt phẳng nào dưới đây?",
                 options: [
-                    "$-\\dfrac{4}{5}$.",
-                    "$\\dfrac{4}{5}$.",
-                    "$\\dfrac{16}{25}$.",
-                    "$-\\dfrac{16}{25}$."
+                    "$(CDD'C')$.",
+                    "$(ABCD)$.",
+                    "$(ADD'A')$.",
+                    "$(CBB'C')$."
                 ],
                 correctIndex: 0,
-                hint: "Dùng $\\cos^2\\alpha = 1 - \\sin^2\\alpha$ và xét dấu $\\cos\\alpha$ trên góc phần tư thứ III ($\\pi < \\alpha < \\dfrac{3\\pi}{2}$).",
-                explanation: "<strong>Định hướng giải (Đề 4 – Câu 11):</strong> Ta có $\\cos^2\\alpha = 1 - \\sin^2\\alpha = 1 - \\dfrac{9}{25} = \\dfrac{16}{25}$. Vì $\\pi < \\alpha < \\dfrac{3\\pi}{2}$ nên $\\cos\\alpha < 0$, suy ra <strong>$\\cos\\alpha = -\\dfrac{4}{5}$</strong>."
+                hint: "Tìm mặt bên đối diện với mặt bên $(ABB'A')$ trong hình hộp $ABCD.A'B'C'D'$.",
+                diagram: `
+                    <svg viewBox="0 0 225 175" class="w-full h-auto">
+                        <line x1="38" y1="142" x2="145" y2="142" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="145" y1="142" x2="185" y2="112" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="38" y1="142" x2="78" y2="112" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="5,4"/>
+                        <line x1="78" y1="112" x2="185" y2="112" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="5,4"/>
+                        <polygon points="48,52 155,52 195,22 88,22" fill="rgba(255,255,255,0.06)" stroke="#fff" stroke-width="1.6"/>
+                        <!-- Tô sáng mặt (ABB'A') -->
+                        <polygon points="88,22 195,22 185,112 78,112" fill="rgba(251,191,36,0.18)" stroke="#fbbf24" stroke-width="1.6"/>
+                        <line x1="48" y1="52" x2="38" y2="142" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="155" y1="52" x2="145" y2="142" stroke="#fff" stroke-width="1.6"/>
+                        <text x="78" y="17" fill="#fbbf24" font-size="11" font-weight="bold">A</text>
+                        <text x="198" y="24" fill="#fbbf24" font-size="11" font-weight="bold">B</text>
+                        <text x="158" y="56" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="34" y="54" fill="#fff" font-size="11" font-weight="bold">D</text>
+                        <text x="62" y="109" fill="#fbbf24" font-size="11" font-weight="bold">A'</text>
+                        <text x="188" y="115" fill="#fbbf24" font-size="11" font-weight="bold">B'</text>
+                        <text x="147" y="155" fill="#fff" font-size="11" font-weight="bold">C'</text>
+                        <text x="23" y="150" fill="#fff" font-size="11" font-weight="bold">D'</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 12):</strong> Trong hình hộp $ABCD.A'B'C'D'$, hai mặt bên đối diện $(ABB'A')$ và $(CDD'C')$ song song với nhau."
             },
             {
                 id: 9,
@@ -859,16 +889,42 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 350000,
-                text: "Cho cấp số nhân $(u_n)$ có $u_1 = -3$ và $q = -2$. Tổng $10$ số hạng đầu tiên của cấp số nhân đã cho là:",
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $M$ là trung điểm của $SC$, $G$ là trọng tâm tam giác $SBC$, điểm $E$ thuộc đoạn $BD$ sao cho $3BE = BD$ (tham khảo hình vẽ). Đường thẳng $EG$ song song với mặt phẳng nào dưới đây?",
                 options: [
-                    "$S_{10} = 1023$.",
-                    "$S_{10} = -511$.",
-                    "$S_{10} = -1025$.",
-                    "$S_{10} = 1025$."
+                    "$(SAC)$.",
+                    "$(SAB)$.",
+                    "$(SBC)$.",
+                    "$(SAD)$."
                 ],
                 correctIndex: 0,
-                hint: "Áp dụng công thức tính tổng $n$ số hạng đầu của cấp số nhân: $S_n = u_1 \\cdot \\dfrac{1 - q^n}{1 - q}$.",
-                explanation: "<strong>Định hướng giải (Đề 1 – Câu 8):</strong> Ta có $S_{10} = u_1 \\cdot \\dfrac{1 - q^{10}}{1 - q} = -3 \\cdot \\dfrac{1 - (-2)^{10}}{1 - (-2)} = -3 \\cdot \\dfrac{1 - 1024}{3} = 1023$."
+                hint: "Gọi $O = AC \\cap BD$. So sánh hai tỉ số $\\dfrac{BE}{BO}$ và $\\dfrac{BG}{BM}$ trong tam giác $BMO$ để áp dụng định lí Thalès đảo.",
+                diagram: `
+                    <svg viewBox="0 0 235 180" class="w-full h-auto">
+                        <polygon points="30,132 105,158 195,126 120,102" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1.5"/>
+                        <line x1="95" y1="20" x2="30" y2="132" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="95" y1="20" x2="105" y2="158" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="95" y1="20" x2="195" y2="126" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="95" y1="20" x2="120" y2="102" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <!-- Đường chéo BD -->
+                        <line x1="105" y1="158" x2="120" y2="102" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <!-- Trung tuyến BM -->
+                        <line x1="105" y1="158" x2="145" y2="73" stroke="#fef08a" stroke-width="1.3"/>
+                        <!-- Đoạn EG -->
+                        <line x1="110" y1="139.3" x2="131.7" y2="101.3" stroke="#fbbf24" stroke-width="2.2"/>
+                        <circle cx="145" cy="73" r="2.8" fill="#fef08a"/>
+                        <circle cx="131.7" cy="101.3" r="3" fill="#fbbf24"/>
+                        <circle cx="110" cy="139.3" r="3" fill="#fbbf24"/>
+                        <text x="90" y="15" fill="#fff" font-size="11" font-weight="bold">S</text>
+                        <text x="17" y="135" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="98" y="172" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="199" y="128" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="122" y="99" fill="#fff" font-size="11" font-weight="bold">D</text>
+                        <text x="150" y="73" fill="#fef08a" font-size="11" font-weight="bold">M</text>
+                        <text x="136" y="103" fill="#fbbf24" font-size="11" font-weight="bold">G</text>
+                        <text x="97" y="143" fill="#fbbf24" font-size="11" font-weight="bold">E</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 1):</strong> Gọi $O = AC \\cap BD$, ta có $BD = 2BO \\Rightarrow 3BE = 2BO \\Rightarrow \\dfrac{BE}{BO} = \\dfrac{2}{3}$. Lại có $G$ là trọng tâm $\\Delta SBC$ và $M$ là trung điểm $SC$ nên $\\dfrac{BG}{BM} = \\dfrac{2}{3}$. Theo định lí Thalès đảo suy ra $EG \\parallel MO \\subset (SAC)$, do đó <strong>$EG \\parallel (SAC)$</strong>."
             },
             {
                 id: 10,
@@ -876,35 +932,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 350000,
-                text: "Cho hình hộp $ABCD.A'B'C'D'$ (hình vẽ bên dưới). Mặt phẳng $(AB'D')$ song song với mặt phẳng nào sau đây?",
+                text: "Biết hàm số $f(x) = \\begin{cases} \\dfrac{x^2 + x - 2}{x - 1} & \\text{khi } x \\neq 1 \\\\ a & \\text{khi } x = 1 \\end{cases}$ liên tục tại $x = 1$. Khẳng định nào dưới đây đúng?",
                 options: [
-                    "$(C'BD)$.",
-                    "$(A'BD)$.",
-                    "$(D'BD)$.",
-                    "$(B'BD)$."
+                    "$a \\in (2; 5)$.",
+                    "$a \\in (5; 8)$.",
+                    "$a \\in (8; 12)$.",
+                    "$a \\in (-1; 2)$."
                 ],
                 correctIndex: 0,
-                hint: "Tìm hai đường thẳng cắt nhau trong $(AB'D')$ lần lượt song song với hai đường thẳng nằm trong $(C'BD)$.",
-                diagram: `
-                    <svg viewBox="0 0 230 175" class="w-full h-auto">
-                        <polygon points="35,142 135,142 185,112 85,112" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1.4"/>
-                        <polygon points="45,55 145,55 195,25 95,25" fill="rgba(251,191,36,0.1)" stroke="#fef08a" stroke-width="1.5"/>
-                        <line x1="45" y1="55" x2="35" y2="142" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="145" y1="55" x2="135" y2="142" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="195" y1="25" x2="185" y2="112" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="95" y1="25" x2="85" y2="112" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4,3"/>
-                        <polygon points="45,55 135,142 85,112" fill="rgba(251,191,36,0.22)" stroke="#fbbf24" stroke-width="1.6"/>
-                        <text x="33" y="53" fill="#fef08a" font-size="11" font-weight="bold">A</text>
-                        <text x="148" y="57" fill="#fef08a" font-size="11" font-weight="bold">B</text>
-                        <text x="199" y="25" fill="#fef08a" font-size="11" font-weight="bold">C</text>
-                        <text x="84" y="21" fill="#fef08a" font-size="11" font-weight="bold">D</text>
-                        <text x="20" y="150" fill="#fff" font-size="11" font-weight="bold">A'</text>
-                        <text x="137" y="153" fill="#fff" font-size="11" font-weight="bold">B'</text>
-                        <text x="189" y="116" fill="#fff" font-size="11" font-weight="bold">C'</text>
-                        <text x="69" y="110" fill="#fff" font-size="11" font-weight="bold">D'</text>
-                    </svg>
-                `,
-                explanation: "<strong>Định hướng giải (Đề 7 – Câu 9):</strong> Trong hình hộp $ABCD.A'B'C'D'$, ta có $AB' \\parallel DC'$ và $B'D' \\parallel BD$. Do đó $(AB'D') \\parallel (C'BD)$."
+                hint: "Hàm số liên tục tại $x = 1$ khi $\\lim\\limits_{x \\to 1} f(x) = f(1)$. Phân tích tử thức $x^2 + x - 2 = (x - 1)(x + 2)$.",
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 4):</strong> Ta có $\\lim\\limits_{x \\to 1} f(x) = \\lim\\limits_{x \\to 1} \\dfrac{(x - 1)(x + 2)}{x - 1} = \\lim\\limits_{x \\to 1} (x + 2) = 3$. Để hàm số liên tục tại $x = 1$ thì $a = f(1) = 3 \\in (2; 5)$."
             },
             {
                 id: 11,
@@ -912,16 +949,40 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 350000,
-                text: "Biết $\\lim\\limits_{x \\to 2} \\dfrac{x^2 + bx + c}{x - 2} = 5$ ($b, c \\in \\mathbb{R}$). Kết quả đúng của biểu thức $T = b + c$ là:",
+                text: "Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm của $AB$ và $BC$, $K$ thuộc đoạn $CD$ nhưng không trùng với trung điểm của $CD$ (tham khảo hình vẽ). Giao điểm của đường thẳng $BD$ với mặt phẳng $(MNK)$ là:",
                 options: [
-                    "$T = -5$.",
-                    "$T = -3$.",
-                    "$T = 1$.",
-                    "$T = -6$."
+                    "giao điểm của $BD$ với $NK$.",
+                    "giao điểm của $BD$ với $MN$.",
+                    "giao điểm của $BD$ với $AM$.",
+                    "giao điểm của $BD$ với $MK$."
                 ],
                 correctIndex: 0,
-                hint: "Vì mẫu tiến tới $0$ khi $x \\to 2$ mà giới hạn hữu hạn bằng $5$ nên tử thức phải nhận $x = 2$ làm nghiệm: $4 + 2b + c = 0$.",
-                explanation: "<strong>Định hướng giải (Đề 15 – Câu 12):</strong> Để giới hạn hữu hạn thì $x = 2$ là nghiệm của tử thức: $2^2 + 2b + c = 0 \\Rightarrow c = -2b - 4$. Khi đó $\\lim\\limits_{x \\to 2} \\dfrac{(x - 2)(x + b + 2)}{x - 2} = b + 4 = 5 \\Rightarrow b = 1 \\Rightarrow c = -6$. Vậy $T = b + c = 1 + (-6) = -5$."
+                hint: "Chọn mặt phẳng phụ $(BCD)$ chứa $BD$. Tìm giao tuyến của $(BCD)$ và $(MNK)$ là đường thẳng $NK$.",
+                diagram: `
+                    <svg viewBox="0 0 220 175" class="w-full h-auto">
+                        <line x1="115" y1="20" x2="35" y2="115" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="115" y1="20" x2="108" y2="152" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="115" y1="20" x2="188" y2="118" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="35" y1="115" x2="108" y2="152" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="108" y1="152" x2="188" y2="118" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="35" y1="115" x2="188" y2="118" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="5,4"/>
+                        <!-- Tam giác MNK -->
+                        <line x1="75" y1="67.5" x2="111.5" y2="116.5" stroke="#fbbf24" stroke-width="1.5"/>
+                        <line x1="111.5" y1="116.5" x2="136" y2="140" stroke="#fbbf24" stroke-width="1.6"/>
+                        <line x1="75" y1="67.5" x2="136" y2="140" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="3,2"/>
+                        <circle cx="75" cy="67.5" r="2.8" fill="#fbbf24"/>
+                        <circle cx="111.5" cy="116.5" r="2.8" fill="#fbbf24"/>
+                        <circle cx="136" cy="140" r="2.8" fill="#fbbf24"/>
+                        <text x="111" y="15" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="20" y="119" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="103" y="167" fill="#fff" font-size="11" font-weight="bold">D</text>
+                        <text x="193" y="122" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="60" y="67" fill="#fbbf24" font-size="11" font-weight="bold">M</text>
+                        <text x="113" y="112" fill="#fbbf24" font-size="11" font-weight="bold">N</text>
+                        <text x="140" y="149" fill="#fbbf24" font-size="11" font-weight="bold">K</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 5):</strong> Trong mặt phẳng $(BCD)$, vì $N$ là trung điểm $BC$ và $K$ không trùng trung điểm $CD$ nên $NK$ không song song với $BD$, do đó $NK$ cắt $BD$ tại điểm $I$. Vì $I \\in NK \\subset (MNK)$ nên $I$ chính là <strong>giao điểm của $BD$ với $NK$</strong>."
             },
             {
                 id: 12,
@@ -929,42 +990,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 350000,
-                text: "Thống kê điểm trung bình cuối học kì 1 môn Toán của một số học sinh lớp 11B1 được cho ở bảng sau. Số trung vị (làm tròn đến hàng phần trăm) của mẫu số liệu ghép nhóm trên là:",
+                text: "Cho một cấp số nhân có các số hạng đều âm, biết $u_2 = -6$ và $u_4 = -24$. Công bội $q$ của cấp số nhân đã cho là:",
                 options: [
-                    "$8,15$.",
-                    "$7,75$.",
-                    "$7,15$.",
-                    "$9,15$."
+                    "$q = 2$.",
+                    "$q = -2$.",
+                    "$q = 4$.",
+                    "$q = -4$."
                 ],
                 correctIndex: 0,
-                hint: "Tính cỡ mẫu $n = 78$, tìm vị trí $\\dfrac{n}{2} = 39$ thuộc nhóm $[8; 8,5)$ rồi áp dụng công thức tính trung vị ghép nhóm.",
-                diagram: `
-                    <table class="w-full text-[11px] text-center border border-emerald-400/60 bg-emerald-950/90 text-white rounded-lg overflow-hidden">
-                        <thead class="bg-emerald-800 text-amber-300">
-                            <tr>
-                                <th class="p-1.5 border border-emerald-600">Khoảng điểm</th>
-                                <th class="p-1.5 border border-emerald-600">$[6,5; 7)$</th>
-                                <th class="p-1.5 border border-emerald-600">$[7; 7,5)$</th>
-                                <th class="p-1.5 border border-emerald-600">$[7,5; 8)$</th>
-                                <th class="p-1.5 border border-emerald-600">$[8; 8,5)$</th>
-                                <th class="p-1.5 border border-emerald-600">$[8,5; 9)$</th>
-                                <th class="p-1.5 border border-emerald-600">$[9; 9,5)$</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="font-bold">
-                                <td class="p-1.5 border border-emerald-600 text-sky-200">Tần số</td>
-                                <td class="p-1.5 border border-emerald-600">8</td>
-                                <td class="p-1.5 border border-emerald-600">10</td>
-                                <td class="p-1.5 border border-emerald-600">16</td>
-                                <td class="p-1.5 border border-emerald-600 text-amber-300">24</td>
-                                <td class="p-1.5 border border-emerald-600">13</td>
-                                <td class="p-1.5 border border-emerald-600">7</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                `,
-                explanation: "<strong>Định hướng giải (Đề 2 – Câu 9):</strong> Cỡ mẫu $n = 8 + 10 + 16 + 24 + 13 + 7 = 78$, $\\dfrac{n}{2} = 39$. Tần số tích lũy đến nhóm $[7,5; 8)$ là $34 < 39$, đến nhóm $[8; 8,5)$ là $58$. Vậy nhóm chứa trung vị là $[8; 8,5)$ và $M_e = 8 + \\dfrac{39 - 34}{24} \\cdot 0,5 = 8 + \\dfrac{5}{48} \\approx 8,10$ (trong 4 phương án của đề chọn giá trị gần nhất <strong>$8,15$</strong>)."
+                hint: "Sử dụng $q^2 = \\dfrac{u_4}{u_2}$. Lưu ý điều kiện tất cả các số hạng đều âm nên công bội $q$ phải dương.",
+                explanation: "<strong>Định hướng giải (Đề 02 – Câu 6):</strong> Ta có $\\dfrac{u_4}{u_2} = q^2 \\Leftrightarrow q^2 = \\dfrac{-24}{-6} = 4 \\Leftrightarrow q = \\pm 2$. Vì các số hạng của cấp số nhân đều âm nên $q > 0$, suy ra <strong>$q = 2$</strong>."
             },
 
             // ================= CHẶNG 2: ĐẤU TRƯỜNG TOÁN HỌC – ĐÚNG / SAI 4 Ý (4 CÂU) =================
@@ -974,38 +1009,39 @@
                 type: 'TF4',
                 level: 'Thông hiểu',
                 maxPoints: 550000,
-                text: "Cho lăng trụ tam giác $MNP.M'N'P'$. Gọi $I$ và $J$ lần lượt là trung điểm của $MN$ và $M'N'$. Xét tính đúng, sai của các mệnh đề sau:",
+                text: "Cho hình chóp $S.ABCD$ có đáy là hình thang, $AB$ là đáy lớn và $AB = 2CD$. Gọi $I, J$ lần lượt là trung điểm của $AB$ và $SB$ (tham khảo hình vẽ). Xét tính đúng, sai của các mệnh đề sau:",
                 diagram: `
-                    <svg viewBox="0 0 220 175" class="w-full h-auto">
-                        <!-- Đáy trên M'N'P' -->
-                        <polygon points="45,42 155,42 115,18" fill="rgba(251,191,36,0.12)" stroke="#fef08a" stroke-width="1.5"/>
-                        <!-- Đáy dưới MNP -->
-                        <polygon points="45,142 155,142 115,118" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1.5"/>
-                        <!-- Cạnh bên -->
-                        <line x1="45" y1="42" x2="45" y2="142" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="155" y1="42" x2="155" y2="142" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="115" y1="18" x2="115" y2="118" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4,3"/>
-                        <!-- Trung điểm I, J -->
-                        <line x1="100" y1="42" x2="100" y2="142" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="4,2"/>
-                        <circle cx="100" cy="42" r="3" fill="#fbbf24"/>
-                        <circle cx="100" cy="142" r="3" fill="#fbbf24"/>
-                        <text x="27" y="44" fill="#fef08a" font-size="11" font-weight="bold">M'</text>
-                        <text x="159" y="44" fill="#fef08a" font-size="11" font-weight="bold">N'</text>
-                        <text x="115" y="14" fill="#fef08a" font-size="11" font-weight="bold">P'</text>
-                        <text x="97" y="36" fill="#fbbf24" font-size="11" font-weight="bold">J</text>
-                        <text x="28" y="148" fill="#fff" font-size="11" font-weight="bold">M</text>
-                        <text x="159" y="148" fill="#fff" font-size="11" font-weight="bold">N</text>
-                        <text x="118" y="115" fill="#fff" font-size="11" font-weight="bold">P</text>
-                        <text x="97" y="156" fill="#fbbf24" font-size="11" font-weight="bold">I</text>
+                    <svg viewBox="0 0 235 180" class="w-full h-auto">
+                        <!-- Đáy hình thang ABCD (AB đáy lớn) -->
+                        <polygon points="30,132 195,132 155,158 70,158" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1.5"/>
+                        <line x1="30" y1="132" x2="195" y2="132" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="4,3"/>
+                        <!-- Đỉnh S -->
+                        <line x1="95" y1="20" x2="30" y2="132" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="95" y1="20" x2="70" y2="158" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="95" y1="20" x2="155" y2="158" stroke="#fff" stroke-width="1.6"/>
+                        <line x1="95" y1="20" x2="195" y2="132" stroke="#fff" stroke-width="1.6"/>
+                        <!-- Trung điểm I của AB, J của SB -->
+                        <line x1="112.5" y1="132" x2="145" y2="76" stroke="#fbbf24" stroke-width="1.6" stroke-dasharray="3,2"/>
+                        <line x1="112.5" y1="132" x2="155" y2="158" stroke="#fbbf24" stroke-width="1.6" stroke-dasharray="3,2"/>
+                        <line x1="145" y1="76" x2="155" y2="158" stroke="#fbbf24" stroke-width="1.6"/>
+                        <circle cx="112.5" cy="132" r="3" fill="#fbbf24"/>
+                        <circle cx="145" cy="76" r="3" fill="#fbbf24"/>
+                        <text x="90" y="15" fill="#fff" font-size="11" font-weight="bold">S</text>
+                        <text x="17" y="135" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="199" y="135" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="58" y="168" fill="#fff" font-size="11" font-weight="bold">D</text>
+                        <text x="158" y="168" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="108" y="125" fill="#fbbf24" font-size="11" font-weight="bold">I</text>
+                        <text x="150" y="75" fill="#fbbf24" font-size="11" font-weight="bold">J</text>
                     </svg>
                 `,
                 statements: [
-                    { label: "a)", text: "$IJ \\parallel MP'$.", answer: false },
-                    { label: "b)", text: "$(MNP) \\parallel (M'N'P')$.", answer: true },
-                    { label: "c)", text: "$PP'$ song song $(IP'J)$.", answer: false },
-                    { label: "d)", text: "Giao tuyến của $(PM'N')$ và $(P'MN')$ là đường thẳng đi qua giao điểm của hai đường thẳng $PJ, P'I$.", answer: false }
+                    { label: "a)", text: "Đường thẳng $SA$ song song với $(CIJ)$.", answer: true },
+                    { label: "b)", text: "Đường thẳng $IC$ nằm trong $(CIJ)$.", answer: true },
+                    { label: "c)", text: "Hai đường thẳng $AD$ và $IC$ không song song.", answer: false },
+                    { label: "d)", text: "Hai mặt phẳng $(SAD)$ và $(CIJ)$ cắt nhau.", answer: false }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề (Đề 1 – Phần II – Bài 1):</strong><br>• <strong>a) Sai:</strong> Vì $IJ \\parallel MM'$ mà $MM'$ cắt $MP'$ tại $M$ nên $IJ$ không song song với $MP'$.<br>• <strong>b) Đúng:</strong> Hai đáy của hình lăng trụ nằm trong hai mặt phẳng song song.<br>• <strong>c) Sai:</strong> Vì $IJ \\parallel PP'$ và $P' \\in (IP'J)$ nên $PP' \\subset (IP'J)$, do đó $PP'$ không song song với $(IP'J)$.<br>• <strong>d) Sai:</strong> Giao điểm $K = PJ \\cap P'I$ thuộc $(PM'N')$ nhưng không thuộc $(P'MN')$ (vì $PJ, P'I \\subset (PP'IJ)$) nên giao tuyến không đi qua $K$."
+                explanation: "<strong>Phân tích từng mệnh đề (Đề 02 – Phần II – Câu 1):</strong><br>• <strong>a) Đúng:</strong> Trong $\\Delta SAB$, $IJ$ là đường trung bình nên $IJ \\parallel SA \\Rightarrow SA \\parallel (CIJ)$.<br>• <strong>b) Đúng:</strong> Vì $I, C \\in (CIJ)$ nên đường thẳng $IC \\subset (CIJ)$.<br>• <strong>c) Sai:</strong> Vì $AI = \\dfrac{1}{2}AB = CD$ và $AI \\parallel CD$ nên tứ giác $ADCI$ là hình bình hành, suy ra $AD \\parallel IC$.<br>• <strong>d) Sai:</strong> Ta có $SA \\parallel (CIJ)$ và $AD \\parallel IC \\subset (CIJ) \\Rightarrow AD \\parallel (CIJ)$, do đó $(SAD) \\parallel (CIJ)$ (không cắt nhau)."
             },
             {
                 id: 14,
@@ -1013,38 +1049,14 @@
                 type: 'TF4',
                 level: 'Thông hiểu',
                 maxPoints: 550000,
-                text: "Kết quả đo chiều cao (đơn vị: mét) của $100$ cây keo $3$ năm tuổi tại một nông trường được cho ở bảng sau. Xét tính đúng, sai của các mệnh đề:",
-                diagram: `
-                    <table class="w-full text-[11px] text-center border border-emerald-400/60 bg-emerald-950/90 text-white rounded-lg overflow-hidden">
-                        <thead class="bg-emerald-800 text-amber-300">
-                            <tr>
-                                <th class="p-1.5 border border-emerald-600">Chiều cao (m)</th>
-                                <th class="p-1.5 border border-emerald-600">$[8,4; 8,6)$</th>
-                                <th class="p-1.5 border border-emerald-600">$[8,6; 8,8)$</th>
-                                <th class="p-1.5 border border-emerald-600">$[8,8; 9,0)$</th>
-                                <th class="p-1.5 border border-emerald-600">$[9,0; 9,2)$</th>
-                                <th class="p-1.5 border border-emerald-600">$[9,2; 9,4)$</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="font-bold">
-                                <td class="p-1.5 border border-emerald-600 text-sky-200">Số cây</td>
-                                <td class="p-1.5 border border-emerald-600">5</td>
-                                <td class="p-1.5 border border-emerald-600">12</td>
-                                <td class="p-1.5 border border-emerald-600">25</td>
-                                <td class="p-1.5 border border-emerald-600 text-amber-300">44</td>
-                                <td class="p-1.5 border border-emerald-600">14</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                `,
+                text: "Cho hàm số $f(x) = \\sin x$. Xét tính đúng, sai của các mệnh đề sau:",
                 statements: [
-                    { label: "a)", text: "Số trung bình của mẫu số liệu ghép nhóm là $\\overline{x} = 8,9\\text{ (m)}$.", answer: false },
-                    { label: "b)", text: "Mẫu số liệu ghép nhóm trên có $5$ nhóm số liệu.", answer: true },
-                    { label: "c)", text: "Hiệu giữa tứ phân vị thứ ba và tứ phân vị thứ nhất bằng $2,06$.", answer: false },
-                    { label: "d)", text: "Số cây keo có chiều cao khoảng $9,1\\text{ (m)}$ là nhiều nhất.", answer: true }
+                    { label: "a)", text: "Đồ thị của hàm số $f(x) = \\sin x$ đi qua gốc tọa độ.", answer: true },
+                    { label: "b)", text: "$f\\left(\\dfrac{\\pi}{6}\\right) = \\dfrac{\\sqrt{3}}{2}$.", answer: false },
+                    { label: "c)", text: "Phương trình $f(x) = \\dfrac{\\sqrt{3}}{2}$ có nghiệm là $x = \\dfrac{\\pi}{3} + k2\\pi$ và $x = \\dfrac{2\\pi}{3} + k2\\pi$ ($k \\in \\mathbb{Z}$).", answer: true },
+                    { label: "d)", text: "Trên khoảng $(-2025\\pi; 2025\\pi)$ phương trình $f(x) = \\dfrac{\\sqrt{3}}{2}$ có $4040$ nghiệm.", answer: false }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề (Đề 1 – Phần II – Bài 2):</strong><br>• <strong>a) Sai:</strong> Giá trị đại diện là $8,5; 8,7; 8,9; 9,1; 9,3 \\Rightarrow \\overline{x} = \\dfrac{5\\cdot 8,5 + 12\\cdot 8,7 + 25\\cdot 8,9 + 44\\cdot 9,1 + 14\\cdot 9,3}{100} = 9,0\\text{ (m)}$.<br>• <strong>b) Đúng:</strong> Mẫu số liệu có $5$ nhóm.<br>• <strong>c) Sai:</strong> $Q_1 = 8,8 + \\dfrac{25 - 17}{25}\\cdot 0,2 = 8,864$; $Q_3 = 9,0 + \\dfrac{75 - 42}{44}\\cdot 0,2 = 9,15 \\Rightarrow \\Delta_Q = Q_3 - Q_1 = 0,286 \\neq 2,06$.<br>• <strong>d) Đúng:</strong> Nhóm $[9,0; 9,2)$ có tần số lớn nhất ($44$ cây) với giá trị đại diện là $9,1\\text{ m}$."
+                explanation: "<strong>Phân tích từng mệnh đề (Đề 02 – Phần II – Câu 2):</strong><br>• <strong>a) Đúng:</strong> Vì $f(0) = \\sin 0 = 0$ nên đồ thị đi qua gốc tọa độ $O(0; 0)$.<br>• <strong>b) Sai:</strong> $f\\left(\\dfrac{\\pi}{6}\\right) = \\sin \\dfrac{\\pi}{6} = \\dfrac{1}{2} \\neq \\dfrac{\\sqrt{3}}{2}$.<br>• <strong>c) Đúng:</strong> $\\sin x = \\dfrac{\\sqrt{3}}{2} = \\sin \\dfrac{\\pi}{3} \\Leftrightarrow x = \\dfrac{\\pi}{3} + k2\\pi$ hoặc $x = \\dfrac{2\\pi}{3} + k2\\pi$ ($k \\in \\mathbb{Z}$).<br>• <strong>d) Sai:</strong> Khoảng $(-2025\\pi; 2025\\pi)$ có độ dài $4050\\pi$ gồm đúng $2025$ chu kì $2\\pi$; mỗi chu kì có $2$ nghiệm nên có tất cả $2025 \\cdot 2 = 4050$ nghiệm (không phải $4040$)."
             },
             {
                 id: 15,
@@ -1052,14 +1064,49 @@
                 type: 'TF4',
                 level: 'Thông hiểu',
                 maxPoints: 550000,
-                text: "Cho hàm số $f(x) = \\begin{cases} x - 2 & \\text{khi } x < -1 \\\\ \\sqrt{x^2 + 1} & \\text{khi } x \\ge -1 \\end{cases}$. Xét tính đúng, sai của các mệnh đề sau:",
+                text: "Người ta tiến hành khảo sát tuổi thọ của một số máy chạy thể dục do hai công ty A và B sản xuất qua thực tế sử dụng. Kết quả được tóm tắt trong bảng sau. Xét tính đúng, sai của các mệnh đề:",
+                diagram: `
+                    <table class="w-full text-[11px] text-center border border-emerald-400/60 bg-emerald-950/90 text-white rounded-lg overflow-hidden">
+                        <thead class="bg-emerald-800 text-amber-300">
+                            <tr>
+                                <th class="p-1.5 border border-emerald-600">Tuổi thọ (năm)</th>
+                                <th class="p-1.5 border border-emerald-600">$[0; 2)$</th>
+                                <th class="p-1.5 border border-emerald-600">$[2; 4)$</th>
+                                <th class="p-1.5 border border-emerald-600">$[4; 6)$</th>
+                                <th class="p-1.5 border border-emerald-600">$[6; 8)$</th>
+                                <th class="p-1.5 border border-emerald-600">$[8; 10]$</th>
+                                <th class="p-1.5 border border-emerald-600">Cỡ mẫu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="font-bold">
+                                <td class="p-1.5 border border-emerald-600 text-sky-200">Công ty A</td>
+                                <td class="p-1.5 border border-emerald-600">3</td>
+                                <td class="p-1.5 border border-emerald-600">12</td>
+                                <td class="p-1.5 border border-emerald-600 text-amber-300">$y$</td>
+                                <td class="p-1.5 border border-emerald-600">12</td>
+                                <td class="p-1.5 border border-emerald-600">3</td>
+                                <td class="p-1.5 border border-emerald-600">$n_A = 50$</td>
+                            </tr>
+                            <tr class="font-bold">
+                                <td class="p-1.5 border border-emerald-600 text-emerald-300">Công ty B</td>
+                                <td class="p-1.5 border border-emerald-600">8</td>
+                                <td class="p-1.5 border border-emerald-600">9</td>
+                                <td class="p-1.5 border border-emerald-600">12</td>
+                                <td class="p-1.5 border border-emerald-600">12</td>
+                                <td class="p-1.5 border border-emerald-600">9</td>
+                                <td class="p-1.5 border border-emerald-600">$n_B = 50$</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `,
                 statements: [
-                    { label: "a)", text: "$f(-2) = \\sqrt{5}$.", answer: false },
-                    { label: "b)", text: "Giới hạn $\\lim\\limits_{x \\to (-1)^-} f(x) = -3$.", answer: true },
-                    { label: "c)", text: "Giới hạn $\\lim\\limits_{x \\to (-1)^+} f(x) = \\sqrt{2}$.", answer: true },
-                    { label: "d)", text: "Không tồn tại $\\lim\\limits_{x \\to -1} f(x)$.", answer: true }
+                    { label: "a)", text: "Giá trị đại diện của nhóm $[4; 6)$ là $5$.", answer: true },
+                    { label: "b)", text: "Độ dài của mỗi nhóm tuổi thọ đều bằng $3$.", answer: false },
+                    { label: "c)", text: "Giá trị của $y$ là $20$.", answer: true },
+                    { label: "d)", text: "Máy chạy thể dục của công ty A bền hơn máy chạy thể dục của công ty B.", answer: false }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề (Đề 2 – Phần II – Bài 2):</strong><br>• <strong>a) Sai:</strong> Vì $-2 < -1$ nên $f(-2) = -2 - 2 = -4 \\neq \\sqrt{5}$.<br>• <strong>b) Đúng:</strong> $\\lim\\limits_{x \\to (-1)^-} f(x) = \\lim\\limits_{x \\to (-1)^-} (x - 2) = -3$.<br>• <strong>c) Đúng:</strong> $\\lim\\limits_{x \\to (-1)^+} f(x) = \\lim\\limits_{x \\to (-1)^+} \\sqrt{x^2 + 1} = \\sqrt{2}$.<br>• <strong>d) Đúng:</strong> Giới hạn trái ($-3$) khác giới hạn phải ($\\sqrt{2}$) nên không tồn tại $\\lim\\limits_{x \\to -1} f(x)$."
+                explanation: "<strong>Phân tích từng mệnh đề (Đề 03 – Phần II – Câu 2):</strong><br>• <strong>a) Đúng:</strong> Giá trị đại diện của nhóm $[4; 6)$ là $\\dfrac{4 + 6}{2} = 5$.<br>• <strong>b) Sai:</strong> Độ dài mỗi nhóm đều bằng $2 - 0 = 4 - 2 = \\dots = 2$ (không phải $3$).<br>• <strong>c) Đúng:</strong> $y = 50 - (3 + 12 + 12 + 3) = 20$.<br>• <strong>d) Sai:</strong> Tuổi thọ trung bình của công ty A là $\\overline{x}_A = 5$ năm, còn công ty B là $\\overline{x}_B = \\dfrac{8\\cdot 1 + 9\\cdot 3 + 12\\cdot 5 + 12\\cdot 7 + 9\\cdot 9}{50} = 5,2 > 5$ năm nên máy của công ty B bền hơn."
             },
             {
                 id: 16,
@@ -1067,26 +1114,26 @@
                 type: 'TF4',
                 level: 'Vận dụng',
                 maxPoints: 550000,
-                text: "Một khu vực rừng tràm có diện tích ban đầu (đầu năm 2025) được ghi nhận là $15000$ héc-ta. Do ảnh hưởng của biến đổi khí hậu và xâm nhập mặn, diện tích rừng được dự báo bị suy giảm với tốc độ trung bình $4\\%$ mỗi năm. Xét tính đúng, sai của các mệnh đề sau:",
+                text: "Trong năm 2026, diện tích rừng trồng mới của tỉnh A là $P = 900\\text{ ha}$. Giả sử diện tích rừng trồng mới của tỉnh A mỗi năm tiếp theo đều tăng $r = 6\\%$ so với diện tích rừng trồng mới của năm liền trước. Gọi $P_n$ (đơn vị ha) là diện tích rừng trồng mới sau $n$ năm kể từ năm 2026. Xét tính đúng, sai của các mệnh đề:",
                 statements: [
-                    { label: "a)", text: "Diện tích của khu rừng vào đầu năm 2026 là $14400$ héc-ta.", answer: true },
-                    { label: "b)", text: "Diện tích của khu rừng vào đầu mỗi năm (sau năm 2025) lập thành một cấp số nhân với công bội $q = 0,96$.", answer: true },
-                    { label: "c)", text: "Diện tích khu rừng sau $n$ năm (kể từ đầu năm 2025) được tính theo công thức $15000 \\cdot 0,96^{n-1}$.", answer: false },
-                    { label: "d)", text: "Đến đầu năm 2035, diện tích khu rừng đã mất đi $5028$ héc-ta (làm tròn đến hàng đơn vị).", answer: true }
+                    { label: "a)", text: "Diện tích rừng trồng mới năm 2027 là $954\\text{ ha}$.", answer: true },
+                    { label: "b)", text: "Diện tích rừng trồng mới của tỉnh A năm 2028 hơn năm 2027 là $57,24\\text{ ha}$.", answer: true },
+                    { label: "c)", text: "Diện tích rừng trồng mới sau $2$ năm kể từ năm 2027 là $1071,8\\text{ ha}$ (làm tròn đến chữ số thập phân thứ nhất).", answer: false },
+                    { label: "d)", text: "Diện tích rừng trồng mới sau $n$ năm kể từ năm 2026 là $P_n = P(1 + r)^n$.", answer: true }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề (Đề 5 – Phần II – Bài 1):</strong><br>• <strong>a) Đúng:</strong> Đầu năm 2026: $15000 \\cdot (1 - 4\\%) = 15000 \\cdot 0,96 = 14400$ héc-ta.<br>• <strong>b) Đúng:</strong> Mỗi năm giảm $4\\%$ nên diện tích năm sau bằng $96\\%$ năm trước, lập thành cấp số nhân với công bội $q = 0,96$.<br>• <strong>c) Sai:</strong> Sau $n$ năm (đã qua $n$ chu kì giảm), diện tích khu rừng là $15000 \\cdot 0,96^n$ (không phải $15000 \\cdot 0,96^{n-1}$).<br>• <strong>d) Đúng:</strong> Từ đầu năm 2025 đến đầu năm 2035 là $10$ năm, diện tích mất đi là $15000 - 15000 \\cdot 0,96^{10} \\approx 5028$ héc-ta."
+                explanation: "<strong>Phân tích từng mệnh đề (Đề 04 – Phần II – Câu 1):</strong><br>• <strong>a) Đúng:</strong> Năm 2027 ($n = 1$): $P_1 = 900 \\cdot (1 + 6\\%) = 954\\text{ (ha)}$.<br>• <strong>b) Đúng:</strong> Năm 2028 ($n = 2$): $P_2 = 900 \\cdot 1,06^2 = 1011,24\\text{ (ha)} \\Rightarrow P_2 - P_1 = 57,24\\text{ (ha)}$.<br>• <strong>c) Sai:</strong> Sau $2$ năm kể từ năm 2027 là năm 2029 ($n = 3$): $P_3 = 900 \\cdot 1,06^3 = 1071,9144 \\approx 1071,9\\text{ (ha)} \\neq 1071,8\\text{ (ha)}$.<br>• <strong>d) Đúng:</strong> Công thức tăng trưởng mũ lập thành cấp số nhân: $P_n = P(1 + r)^n$."
             },
 
-            // ================= CHẶNG 3: VƯỢT CHƯỚNG NGẠI VẬT – TRẢ LỜI NGẮN (6 CÂU) =================
+            // ================= CHẶNG 3: VƯỢT CHƯỚNG NGẠI VẬT – TRẢ LỜI NGẮN (6 CÂU - ĐỀ SỐ 02) =================
             {
                 id: 17,
                 stage: 3,
                 type: 'SHORT',
                 level: 'Thông hiểu',
                 points: 600000,
-                text: "Biết $\\lim\\limits_{x \\to 1} \\dfrac{\\sqrt{3}(x - 1)}{3x^2 - 2x - 1} = \\dfrac{\\sqrt{a}}{b}$ với $\\dfrac{a}{b^2}$ là phân số tối giản và $a, b \\in \\mathbb{N}^*$. Tính $a + b$.",
-                correctValues: ["7"],
-                explanation: "<strong>Định hướng giải (Đề 1 – Phần III – Bài 2):</strong> Phân tích mẫu số $3x^2 - 2x - 1 = (x - 1)(3x + 1)$. Khi đó $\\lim\\limits_{x \\to 1} \\dfrac{\\sqrt{3}(x - 1)}{(x - 1)(3x + 1)} = \\lim\\limits_{x \\to 1} \\dfrac{\\sqrt{3}}{3x + 1} = \\dfrac{\\sqrt{3}}{4}$. Suy ra $a = 3, b = 4 \\Rightarrow a + b = 7$."
+                text: "Cho hàm số $f(x) = \\begin{cases} \\dfrac{x^2 - 4}{x - 2} & \\text{khi } x > 2 \\\\ mx + 1 & \\text{khi } x \\le 2 \\end{cases}$. Tìm giá trị của tham số $m$ để hàm số $f(x)$ liên tục tại $x_0 = 2$.",
+                correctValues: ["1,5", "1.5"],
+                explanation: "<strong>Định hướng giải (Đề 02 – Phần III – Câu 2):</strong> Ta có $f(2) = \\lim\\limits_{x \\to 2^-} f(x) = 2m + 1$ và $\\lim\\limits_{x \\to 2^+} f(x) = \\lim\\limits_{x \\to 2^+} \\dfrac{(x - 2)(x + 2)}{x - 2} = 4$. Để hàm số liên tục tại $x_0 = 2$ thì $2m + 1 = 4 \\Leftrightarrow m = \\dfrac{3}{2} = 1,5$."
             },
             {
                 id: 18,
@@ -1094,9 +1141,27 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 600000,
-                text: "Minh để các quả óc chó vào $20$ cái giỏ theo quy luật: Số quả ở giỏ sau luôn hơn số quả của giỏ ngay trước nó một lượng quả không đổi. Minh nhận thấy tổng số quả ở hai giỏ thứ $4$ và thứ $17$ là $42$ quả. Hỏi Minh đã bỏ tất cả bao nhiêu quả óc chó vào các giỏ?",
-                correctValues: ["420"],
-                explanation: "<strong>Định hướng giải (Đề 1 – Phần III – Bài 1):</strong> Số quả ở $20$ giỏ lập thành cấp số cộng $u_1, u_2, \\dots, u_{20}$. Vì $1 + 20 = 4 + 17 = 21$ nên $u_1 + u_{20} = u_4 + u_{17} = 42$. Tổng số quả óc chó là $S_{20} = \\dfrac{20(u_1 + u_{20})}{2} = 10 \\cdot 42 = 420$ quả."
+                text: "Nhà An (điểm $A$) và nhà Bình (điểm $B$) đều nằm ở trên bờ hồ của một cái hồ rộng có bán kính là $100\\text{ mét}$. Khoảng cách theo đường chim bay từ nhà An đến nhà Bình là $120\\text{ mét}$ (Tham khảo hình vẽ dưới đây). Khi đó nếu đi bộ trên bờ hồ thì quãng đường ngắn nhất từ nhà An đến nhà Bình là bao nhiêu mét? (Kết quả làm tròn đến hàng đơn vị).",
+                correctValues: ["129"],
+                diagram: `
+                    <svg viewBox="0 0 215 185" class="w-full h-auto">
+                        <circle cx="105" cy="95" r="70" fill="rgba(56,189,248,0.18)" stroke="#38bdf8" stroke-width="2"/>
+                        <!-- Điểm O, A, B -->
+                        <line x1="105" y1="95" x2="173.4" y2="80" stroke="#fef08a" stroke-width="1.5"/>
+                        <line x1="105" y1="95" x2="128" y2="161" stroke="#fef08a" stroke-width="1.5"/>
+                        <line x1="173.4" y1="80" x2="128" y2="161" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4,2"/>
+                        <path d="M 173.4 80 A 70 70 0 0 1 128 161" fill="none" stroke="#4ade80" stroke-width="3"/>
+                        <circle cx="105" cy="95" r="3" fill="#fff"/>
+                        <circle cx="173.4" cy="80" r="3.5" fill="#fbbf24"/>
+                        <circle cx="128" cy="161" r="3.5" fill="#fbbf24"/>
+                        <text x="91" y="95" fill="#fff" font-size="11" font-weight="bold">O</text>
+                        <text x="178" y="81" fill="#fbbf24" font-size="11" font-weight="bold">A</text>
+                        <text x="131" y="174" fill="#fbbf24" font-size="11" font-weight="bold">B</text>
+                        <text x="122" y="83" fill="#fef08a" font-size="10" font-weight="bold">100 m</text>
+                        <text x="120" y="128" fill="#fbbf24" font-size="10" font-weight="bold">120 m</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải (Đề 02 – Phần III – Câu 1):</strong> Gọi $M$ là trung điểm $AB \\Rightarrow MB = 60\\text{ m}$. Trong $\\Delta OMB$ vuông tại $M$: $\\sin \\widehat{MOB} = \\dfrac{MB}{OB} = \\dfrac{60}{100} = 0,6 \\Rightarrow \\alpha = \\widehat{AOB} = 2\\arcsin(0,6) \\approx 1,287\\text{ (rad)}$. Độ dài cung nhỏ $AB$ là $l = R\\alpha = 100 \\cdot 2\\arcsin(0,6) \\approx 128,7 \\approx 129\\text{ (m)}$."
             },
             {
                 id: 19,
@@ -1104,9 +1169,35 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 600000,
-                text: "Trong dịp Tết Nguyên Đán, nhu cầu sử dụng Internet (dữ liệu di động) của người dân tại một thành phố lớn thường xuyên thay đổi trong ngày. Lượng dữ liệu sử dụng $D$ (MegaBytes/phút) được tính tại thời điểm $t$ (giờ) trong một ngày (tính từ $0$ giờ) bởi công thức $D(t) = 4\\sin\\left(\\dfrac{\\pi}{12}(t - 10) + \\dfrac{\\pi}{6}\\right) + 20$ ($0 \\le t < 24$). Lượng dữ liệu sử dụng đạt mức cao nhất vào thời điểm nào trong ngày?",
-                correctValues: ["14"],
-                explanation: "<strong>Định hướng giải (Đề 2 – Phần III – Bài 3):</strong> $D(t)$ đạt giá trị lớn nhất bằng $24$ khi $\\sin\\left(\\dfrac{\\pi}{12}(t - 10) + \\dfrac{\\pi}{6}\\right) = 1 \\Leftrightarrow \\dfrac{\\pi}{12}(t - 10) + \\dfrac{\\pi}{6} = \\dfrac{\\pi}{2} + k2\\pi \\Leftrightarrow t = 14 + 24k$. Với $0 \\le t < 24$ ta được <strong>$t = 14$</strong> (14 giờ)."
+                text: "Một bảng xếp hạng đã tính điểm chuẩn hoá cho chỉ số nghiên cứu của một số trường đại học ở Việt Nam và thu được kết quả sau. Xác định điểm ngưỡng để đưa ra danh sách $25\\%$ trường đại học có chỉ số nghiên cứu tốt nhất Việt Nam (làm tròn kết quả đến hàng phần mười).",
+                correctValues: ["35,4", "35.4"],
+                diagram: `
+                    <table class="w-full text-[11px] text-center border border-emerald-400/60 bg-emerald-950/90 text-white rounded-lg overflow-hidden">
+                        <thead class="bg-emerald-800 text-amber-300">
+                            <tr>
+                                <th class="p-1.5 border border-emerald-600">Điểm</th>
+                                <th class="p-1.5 border border-emerald-600">Dưới 20</th>
+                                <th class="p-1.5 border border-emerald-600">$[20; 30)$</th>
+                                <th class="p-1.5 border border-emerald-600">$[30; 40)$</th>
+                                <th class="p-1.5 border border-emerald-600">$[40; 60)$</th>
+                                <th class="p-1.5 border border-emerald-600">$[60; 80)$</th>
+                                <th class="p-1.5 border border-emerald-600">$[80; 100)$</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="font-bold">
+                                <td class="p-1.5 border border-emerald-600 text-sky-200">Số trường</td>
+                                <td class="p-1.5 border border-emerald-600">4</td>
+                                <td class="p-1.5 border border-emerald-600">19</td>
+                                <td class="p-1.5 border border-emerald-600 text-amber-300">6</td>
+                                <td class="p-1.5 border border-emerald-600">2</td>
+                                <td class="p-1.5 border border-emerald-600">3</td>
+                                <td class="p-1.5 border border-emerald-600">1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `,
+                explanation: "<strong>Định hướng giải (Đề 02 – Phần III – Câu 3):</strong> Cỡ mẫu $n = 4 + 19 + 6 + 2 + 3 + 1 = 35$, $\\dfrac{3n}{4} = 26,25$. Nhóm chứa tứ phân vị thứ ba $Q_3$ là $[30; 40)$. Áp dụng công thức: $Q_3 = 30 + \\dfrac{26,25 - 23}{6} \\cdot 10 = \\dfrac{425}{12} \\approx 35,4$."
             },
             {
                 id: 20,
@@ -1114,9 +1205,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 600000,
-                text: "Biết rằng khi nung nóng một vật với nhiệt độ tăng từ $20^\\circ\\text{C}$, mỗi phút tăng $4^\\circ\\text{C}$ trong $70$ phút, sau đó giảm mỗi phút $2^\\circ\\text{C}$ trong $50$ phút. Hàm số biểu thị nhiệt độ ($^\\circ\\text{C}$) trong tủ theo thời gian $t$ (phút) có dạng $T(t) = \\begin{cases} 20 + 4t & \\text{khi } 0 \\le t \\le 70 \\\\ a - 2t & \\text{khi } 70 < t \\le 120 \\end{cases}$ ($a$ là hằng số). Biết rằng $T(t)$ là hàm liên tục trên tập xác định. Tìm $a$.",
-                correctValues: ["440"],
-                explanation: "<strong>Định hướng giải (Đề 2 – Phần III – Bài 4):</strong> Để $T(t)$ liên tục trên $[0; 120]$ thì $T(t)$ liên tục tại $t = 70 \\Leftrightarrow \\lim\\limits_{t \\to 70^+} T(t) = T(70) \\Leftrightarrow a - 2 \\cdot 70 = 20 + 4 \\cdot 70 \\Leftrightarrow a - 140 = 300 \\Leftrightarrow a = 440$."
+                text: "Một nhà thi đấu có $22$ hàng ghế dành cho khán giả. Hàng thứ nhất có $18$ ghế, hàng thứ hai có $19$ ghế, hàng thứ ba có $20$ ghế,... Cứ như thế, số ghế ở hàng sau nhiều hơn số ghế ở hàng trước là $1$ ghế. Hai hàng ghế cuối mỗi hàng bị thiếu $5$ ghế. Trong một giải thi đấu, ban tổ chức đã bán được hết số vé phát ra và số tiền thu được từ bán vé là $67870$ nghìn đồng. Giá tiền của mỗi vé bằng bao nhiêu nghìn đồng, biết số vé bán ra bằng số ghế dành cho khán giả của nhà thi đấu và các vé là đồng giá?",
+                correctValues: ["110"],
+                explanation: "<strong>Định hướng giải (Đề 02 – Phần III – Câu 4):</strong> Tổng số ghế theo cấp số cộng ($u_1 = 18, d = 1, n = 22$) là $S_{22} = \\dfrac{22}{2}(2\\cdot 18 + 21\\cdot 1) = 627$ ghế. Trừ $2 \\cdot 5 = 10$ ghế bị thiếu ở hai hàng cuối còn $617$ ghế. Giá mỗi vé là $\\dfrac{67870}{617} = 110$ (nghìn đồng)."
             },
             {
                 id: 21,
@@ -1124,36 +1215,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 600000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $N$ là trung điểm của $BC$, $M$ thuộc cạnh $SC$ sao cho $SM = 2MC$. Biết đường thẳng $SD$ cắt mặt phẳng $(AMN)$ tại điểm $I$ và $SD = 25\\text{ cm}$ thì $SI$ bằng bao nhiêu centimet?",
-                correctValues: ["12,5", "12.5"],
-                diagram: `
-                    <svg viewBox="0 0 245 180" class="w-full h-auto">
-                        <polygon points="35,120 110,145 175,115 100,92" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1.5"/>
-                        <line x1="95" y1="18" x2="35" y2="120" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="95" y1="18" x2="110" y2="145" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="95" y1="18" x2="175" y2="115" stroke="#fff" stroke-width="1.5"/>
-                        <line x1="95" y1="18" x2="100" y2="92" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4,3"/>
-                        <!-- Kéo dài CD và AN cắt nhau tại K -->
-                        <line x1="100" y1="92" x2="230" y2="133" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,3"/>
-                        <line x1="35" y1="120" x2="230" y2="133" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="3,2"/>
-                        <!-- M trên SC sao cho SM=2MC, nối KM cắt SD tại I -->
-                        <line x1="230" y1="133" x2="148.3" y2="82.7" stroke="#fbbf24" stroke-width="1.6"/>
-                        <circle cx="142.5" cy="130" r="2.8" fill="#fbbf24"/>
-                        <circle cx="148.3" cy="82.7" r="2.8" fill="#fbbf24"/>
-                        <circle cx="97.5" cy="55" r="3" fill="#4ade80"/>
-                        <circle cx="230" cy="133" r="2.8" fill="#fbbf24"/>
-                        <text x="90" y="13" fill="#fff" font-size="11" font-weight="bold">S</text>
-                        <text x="22" y="123" fill="#fff" font-size="11" font-weight="bold">A</text>
-                        <text x="106" y="158" fill="#fff" font-size="11" font-weight="bold">B</text>
-                        <text x="178" y="113" fill="#fff" font-size="11" font-weight="bold">C</text>
-                        <text x="94" y="88" fill="#fff" font-size="11" font-weight="bold">D</text>
-                        <text x="140" y="143" fill="#fbbf24" font-size="11" font-weight="bold">N</text>
-                        <text x="153" y="81" fill="#fbbf24" font-size="11" font-weight="bold">M</text>
-                        <text x="86" y="55" fill="#4ade80" font-size="11" font-weight="bold">I</text>
-                        <text x="232" y="135" fill="#fbbf24" font-size="11" font-weight="bold">K</text>
-                    </svg>
-                `,
-                explanation: "<strong>Định hướng giải (Đề 1 – Phần III – Bài 4):</strong> Trong $(ABCD)$, gọi $K = AN \\cap CD$. Vì $N$ là trung điểm $BC$ và $AB \\parallel CD$ nên $C$ là trung điểm $DK$. Trong $\\Delta SDK$, $SC$ là trung tuyến và $SM = 2MC$ nên $M$ là trọng tâm $\\Delta SDK$. Do đó $KM$ là trung tuyến đi qua trung điểm $I$ của $SD$. Vậy $SI = \\dfrac{SD}{2} = \\dfrac{25}{2} = 12,5\\text{ cm}$."
+                text: "Huyết áp của mỗi người thay đổi trong ngày. Giả sử huyết áp tâm trương (tức là áp lực máu lên thành động mạch khi tim giãn ra) của một người nào đó ở trạng thái nghỉ ngơi tại thời điểm $t$ được cho bởi công thức $B(t) = 82 + 6\\sin\\dfrac{\\pi t}{12}$, trong đó $t$ là số giờ tính từ lúc $0$ giờ và $B(t)$ tính bằng $\\text{mmHg}$ (milimét thuỷ ngân). Huyết áp tâm trương của người đó vào thời điểm $6$ giờ sáng là bao nhiêu milimét thuỷ ngân?",
+                correctValues: ["88"],
+                explanation: "<strong>Định hướng giải (Đề 05 – Phần III – Câu 1):</strong> Vào thời điểm $6$ giờ sáng ($t = 6$), huyết áp tâm trương của người đó là $B(6) = 82 + 6\\sin\\dfrac{6\\pi}{12} = 82 + 6\\sin\\dfrac{\\pi}{2} = 82 + 6\\cdot 1 = 88\\text{ (mmHg)}$."
             },
             {
                 id: 22,
@@ -1161,33 +1225,19 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 600000,
-                text: "Một kệ để đồ bằng gỗ có mâm tầng dưới $(ABCD)$ và mâm tầng trên $(EFGH)$ song song với nhau. Bác thợ mộc đo được $AE = 100\\text{ cm}$, $CG = 130\\text{ cm}$ và muốn đóng thêm mâm tầng $(IJKL)$ song song với hai mâm tầng trên, tầng dưới và $EI = 42\\text{ cm}$. Tính độ dài đoạn thẳng $KG$ theo đơn vị $\\text{cm}$ (Kết quả làm tròn ở hàng phần mười).",
-                correctValues: ["54,6", "54.6"],
+                text: "Một loại gạch men có kích thước hình vuông $60 \\times 60\\text{ cm}$. Người ta thiết kế hoa văn cho viên gạch bằng cách tạo đường tròn $(C_1)$ nội tiếp hình vuông ban đầu, phần nằm ngoài đường tròn $(C_1)$ mà thuộc viên gạch thì được tô màu đậm. Tiếp theo họ tạo ra một hình vuông nội tiếp đường tròn $(C_1)$, bên trong hình vuông này lại có một đường tròn nội tiếp $(C_2)$; và họ tiếp tục tô màu đậm cho phần nằm ngoài đường tròn $(C_2)$ mà thuộc hình vuông này. Quy luật này cứ thế tiếp tục vô hạn lần (tham khảo hình vẽ). Hỏi tổng diện tích thuộc về viên gạch được tô màu đậm là bao nhiêu $\\text{cm}^2$ (làm tròn kết quả đến hàng đơn vị)?",
+                correctValues: ["1545"],
                 diagram: `
-                    <svg viewBox="0 0 230 185" class="w-full h-auto">
-                        <!-- Mâm tầng trên EFGH -->
-                        <polygon points="50,35 165,35 190,18 75,18" fill="rgba(251,191,36,0.16)" stroke="#fef08a" stroke-width="1.5"/>
-                        <!-- Mâm tầng giữa IJKL -->
-                        <polygon points="42,92 173,92 198,74 67,74" fill="rgba(74,222,128,0.18)" stroke="#4ade80" stroke-width="1.6"/>
-                        <!-- Mâm tầng dưới ABCD -->
-                        <polygon points="30,165 185,165 210,145 55,145" fill="rgba(56,189,248,0.16)" stroke="#38bdf8" stroke-width="1.5"/>
-                        <!-- Các chân kệ -->
-                        <line x1="50" y1="35" x2="30" y2="165" stroke="#fff" stroke-width="1.6"/>
-                        <line x1="165" y1="35" x2="185" y2="165" stroke="#fff" stroke-width="1.6"/>
-                        <line x1="190" y1="18" x2="210" y2="145" stroke="#fff" stroke-width="1.6"/>
-                        <line x1="75" y1="18" x2="55" y2="145" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4,3"/>
-                        <text x="38" y="36" fill="#fef08a" font-size="11" font-weight="bold">E</text>
-                        <text x="168" y="38" fill="#fef08a" font-size="11" font-weight="bold">F</text>
-                        <text x="193" y="20" fill="#fef08a" font-size="11" font-weight="bold">G</text>
-                        <text x="29" y="94" fill="#4ade80" font-size="11" font-weight="bold">I</text>
-                        <text x="176" y="95" fill="#4ade80" font-size="11" font-weight="bold">J</text>
-                        <text x="201" y="76" fill="#4ade80" font-size="11" font-weight="bold">K</text>
-                        <text x="18" y="168" fill="#fff" font-size="11" font-weight="bold">A</text>
-                        <text x="188" y="168" fill="#fff" font-size="11" font-weight="bold">B</text>
-                        <text x="213" y="148" fill="#fff" font-size="11" font-weight="bold">C</text>
+                    <svg viewBox="0 0 180 180" class="w-full h-auto max-w-[190px]">
+                        <rect x="15" y="15" width="150" height="150" fill="#fbbf24" fill-opacity="0.82" stroke="#fff" stroke-width="2"/>
+                        <circle cx="90" cy="90" r="75" fill="#064e3b" stroke="#fff" stroke-width="1.5"/>
+                        <rect x="37" y="37" width="106" height="106" fill="#fbbf24" fill-opacity="0.82" stroke="#fff" stroke-width="1.5"/>
+                        <circle cx="90" cy="90" r="53" fill="#064e3b" stroke="#fff" stroke-width="1.5"/>
+                        <rect x="52.5" y="52.5" width="75" height="75" fill="#fbbf24" fill-opacity="0.82" stroke="#fff" stroke-width="1.2"/>
+                        <circle cx="90" cy="90" r="37.5" fill="#064e3b" stroke="#fff" stroke-width="1.2"/>
                     </svg>
                 `,
-                explanation: "<strong>Định hướng giải (Đề 5 – Phần III – Bài 1):</strong> Ba mặt phẳng $(ABCD)$, $(IJKL)$, $(EFGH)$ đôi một song song và cắt hai đường thẳng $AE, CG$ nên theo định lí Thalès trong không gian: $\\dfrac{EI}{EA} = \\dfrac{GK}{GC} \\Rightarrow GK = \\dfrac{EI \\cdot GC}{EA} = \\dfrac{42 \\cdot 130}{100} = 54,6\\text{ cm}$."
+                explanation: "<strong>Định hướng giải (Đề 03 – Phần IV – Câu 3):</strong> Diện tích phần tô màu đậm ở bước thứ nhất là $S_1 = 60^2 - \\pi \\cdot 30^2 = 3600 - 900\\pi\\text{ (cm}^2)$. Ở bước tiếp theo, diện tích hình vuông giảm một nửa nên $S_2 = \\dfrac{1}{2}S_1$. Tổng diện tích phần tô đậm là cấp số nhân lùi vô hạn: $S = \\dfrac{S_1}{1 - \\frac{1}{2}} = 2(3600 - 900\\pi) = 7200 - 1800\\pi \\approx 1545\\text{ (cm}^2)$."
             }
         ];
 
