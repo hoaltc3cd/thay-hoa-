@@ -1,20 +1,3 @@
-<!-- NÚT QUAY VỀ TRANG CHỦ THẦY HÒA -->
-<div style="padding:12px 15px;">
-  <a href="https://thay-hoa.vercel.app/"
-     style="
-       display:inline-block;
-       background:linear-gradient(135deg,#1769d2,#7957d5);
-       color:white;
-       padding:12px 22px;
-       border-radius:12px;
-       font-weight:bold;
-       font-size:15px;
-       text-decoration:none;
-       box-shadow:0 4px 12px #0002;
-     ">
-    🏠 TRANG CHỦ THẦY HÒA
-  </a>
-</div>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -28,10 +11,79 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- KaTeX hiển thị công thức Toán học sắc nét -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- Hệ thống nạp KaTeX hai tầng CDN (jsDelivr + dự phòng tự động cdnjs) giúp chạy mượt 100% trên Vercel -->
+    <link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script>
+        (function () {
+            window.__katexQueue = [];
+            window.__katexReady = false;
+            window.__onKaTeXReady = function (fn) {
+                if (window.__katexReady && typeof window.renderMathInElement === 'function') {
+                    fn();
+                } else {
+                    window.__katexQueue.push(fn);
+                }
+            };
+
+            function flushKaTeXQueue() {
+                if (typeof window.renderMathInElement !== 'function') return;
+                window.__katexReady = true;
+                while (window.__katexQueue.length > 0) {
+                    const task = window.__katexQueue.shift();
+                    try { task(); } catch (e) {}
+                }
+            }
+
+            function loadScript(src, onLoad, onError) {
+                const s = document.createElement('script');
+                s.src = src;
+                s.crossOrigin = 'anonymous';
+                s.onload = onLoad;
+                s.onerror = onError;
+                document.head.appendChild(s);
+            }
+
+            function loadFromFallbackCDN() {
+                if (window.__katexFallbackLoaded) return;
+                window.__katexFallbackLoaded = true;
+                const cssEl = document.getElementById('katex-css');
+                if (cssEl) {
+                    cssEl.href = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css';
+                }
+                loadScript(
+                    'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js',
+                    function () {
+                        loadScript(
+                            'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js',
+                            flushKaTeXQueue,
+                            function () {}
+                        );
+                    },
+                    function () {}
+                );
+            }
+
+            // Nạp tầng 1 từ jsDelivr, nếu sau 1.5s chưa xong tự động kích hoạt dự phòng cdnjs
+            const fallbackTimer = setTimeout(function () {
+                if (!window.__katexReady) loadFromFallbackCDN();
+            }, 1500);
+
+            loadScript(
+                'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js',
+                function () {
+                    loadScript(
+                        'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js',
+                        function () {
+                            clearTimeout(fallbackTimer);
+                            flushKaTeXQueue();
+                        },
+                        loadFromFallbackCDN
+                    );
+                },
+                loadFromFallbackCDN
+            );
+        })();
+    </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;800&display=swap');
@@ -192,7 +244,7 @@
                     <span class="text-xs font-bold text-sky-200 hidden sm:inline">TOÁN 11 – GDPT 2018</span>
                 </div>
                 <h1 class="text-base sm:text-xl font-black text-white tracking-wide mt-0.5">
-                    HAI MẶT PHẲNG SONG SONG
+                    CHUYÊN ĐỀ: HAI MẶT PHẲNG SONG SONG
                 </h1>
             </div>
         </div>
@@ -596,8 +648,11 @@
          ========================================================================= -->
     <script>
         /* =====================================================================
-           1. NGÂN HÀNG DỮ LIỆU CÂU HỎI (CHUYÊN ĐỀ: HAI MẶT PHẲNG SONG SONG)
+           1. NGÂN HÀNG DỮ LIỆU CÂU HỎI (BÀI 13: HAI MẶT PHẲNG SONG SONG - TOÁN 11)
            - Giáo viên có thể dễ dàng chỉnh sửa nội dung, công thức LaTeX hoặc đáp án tại đây.
+           - Bao quát đầy đủ các mạch kiến thức: Định nghĩa hai mặt phẳng song song,
+             điều kiện để hai mặt phẳng song song, tính chất của hai mặt phẳng song song,
+             định lí Thales trong không gian, hình lăng trụ và hình hộp.
            - Tỉ lệ tư duy: 30% Nhận biết (5 câu) - 40% Thông hiểu (7 câu) - 30% Vận dụng (6 câu).
            - Tổng điểm tối đa: 10 x 400.000 + 4 x 750.000 + 4 x 750.000 = 10.000.000 điểm.
            ===================================================================== */
@@ -609,16 +664,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Trong không gian, hai mặt phẳng phân biệt $(P)$ và $(Q)$ không có điểm chung nào thì mối quan hệ giữa chúng là:",
+                text: "Hai mặt phẳng $(\\alpha)$ và $(\\beta)$ được gọi là song song với nhau nếu:",
                 options: [
-                    "$(P)$ song song với $(Q)$.",
-                    "$(P)$ cắt $(Q)$ theo một giao tuyến.",
-                    "$(P)$ trùng với $(Q)$.",
-                    "$(P)$ vuông góc với $(Q)$."
+                    "Chúng không có điểm chung.",
+                    "Chúng có một điểm chung duy nhất.",
+                    "Chúng có vô số điểm chung.",
+                    "Chúng có một đường thẳng chung."
                 ],
                 correctIndex: 0,
-                hint: "Nhớ lại định nghĩa hai mặt phẳng song song trong SGK Toán 11 (KNTTVCS).",
-                explanation: "<strong>Định hướng giải:</strong> Theo định nghĩa: Hai mặt phẳng $(P)$ và $(Q)$ được gọi là song song với nhau nếu chúng không có điểm chung, kí hiệu $(P) \\parallel (Q)$."
+                hint: "Nhớ lại định nghĩa hai mặt phẳng song song trong không gian.",
+                explanation: "<strong>Định hướng giải:</strong> Theo định nghĩa, hai mặt phẳng $(\\alpha)$ và $(\\beta)$ được gọi là song song với nhau nếu chúng <strong>không có điểm chung</strong>, kí hiệu $(\\alpha) \\parallel (\\beta)$."
             },
             {
                 id: 2,
@@ -626,16 +681,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Điều kiện để mặt phẳng $(\\alpha)$ song song với mặt phẳng $(\\beta)$ là mặt phẳng $(\\alpha)$ chứa hai đường thẳng $a, b$ phân biệt sao cho:",
+                text: "Nếu mặt phẳng $(P)$ chứa hai đường thẳng cắt nhau $a, b$ và hai đường thẳng này cùng song song với mặt phẳng $(Q)$ thì:",
                 options: [
-                    "$a$ và $b$ cắt nhau, đồng thời $a \\parallel (\\beta)$ và $b \\parallel (\\beta)$.",
-                    "$a$ và $b$ song song với nhau, đồng thời $a \\parallel (\\beta)$ và $b \\parallel (\\beta)$.",
-                    "$a \\parallel (\\beta)$ và $b$ cắt $(\\beta)$.",
-                    "$a$ và $b$ chéo nhau và cùng song song với $(\\beta)$."
+                    "Mặt phẳng $(P)$ song song với mặt phẳng $(Q)$.",
+                    "Mặt phẳng $(P)$ cắt mặt phẳng $(Q)$.",
+                    "Mặt phẳng $(P)$ trùng với mặt phẳng $(Q)$.",
+                    "Hai đường thẳng $a$ và $b$ song song với nhau."
                 ],
                 correctIndex: 0,
-                hint: "Hai đường thẳng nằm trong $(\\alpha)$ cùng song song với $(\\beta)$ phải thỏa mãn điều kiện gì để xác định một mặt phẳng duy nhất?",
-                explanation: "<strong>Định hướng giải:</strong> Theo Định lí 1: Nếu mặt phẳng $(\\alpha)$ chứa hai đường thẳng cắt nhau $a, b$ và $a, b$ cùng song song với mặt phẳng $(\\beta)$ thì $(\\alpha) \\parallel (\\beta)$. Nếu $a \\parallel b$ thì $(\\alpha)$ có thể cắt $(\\beta)$ theo giao tuyến song song với $a, b$."
+                hint: "Áp dụng định lí về điều kiện để hai mặt phẳng song song.",
+                explanation: "<strong>Định hướng giải:</strong> Nếu mặt phẳng $(P)$ chứa hai đường thẳng cắt nhau $a, b$ và $a, b$ cùng song song với mặt phẳng $(Q)$ thì $(P) \\parallel (Q)$."
             },
             {
                 id: 3,
@@ -643,11 +698,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Qua một điểm $A$ nằm ngoài mặt phẳng $(\\alpha)$ cho trước, có bao nhiêu mặt phẳng đi qua $A$ và song song với mặt phẳng $(\\alpha)$?",
-                options: ["$1$.", "$0$.", "$2$.", "Vô số."],
+                text: "Qua một điểm $M$ nằm ngoài mặt phẳng $(\\alpha)$ cho trước, có bao nhiêu mặt phẳng song song với mặt phẳng $(\\alpha)$?",
+                options: [
+                    "$1$ mặt phẳng duy nhất.",
+                    "$2$ mặt phẳng phân biệt.",
+                    "Vô số mặt phẳng.",
+                    "$0$ mặt phẳng."
+                ],
                 correctIndex: 0,
-                hint: "Nhớ lại Định lí 2 (tính duy nhất của mặt phẳng đi qua một điểm và song song với một mặt phẳng cho trước).",
-                explanation: "<strong>Định hướng giải:</strong> Theo Định lí 2: Qua một điểm nằm ngoài một mặt phẳng cho trước có một và chỉ một mặt phẳng song song với mặt phẳng đã cho."
+                hint: "Nhớ lại hệ quả về sự tồn tại và duy nhất của mặt phẳng đi qua một điểm và song song với một mặt phẳng.",
+                explanation: "<strong>Định hướng giải:</strong> Qua một điểm nằm ngoài một mặt phẳng cho trước có <strong>một và chỉ một</strong> mặt phẳng song song với mặt phẳng đã cho."
             },
             {
                 id: 4,
@@ -655,53 +715,33 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Trong một tòa nhà cao tầng, mặt sàn tầng 2 song song với mặt sàn tầng 1, và mặt sàn tầng 3 song song với mặt sàn tầng 2. Quan hệ giữa mặt sàn tầng 3 và mặt sàn tầng 1 là:",
+                text: "Cho hai mặt phẳng song song $(\\alpha)$ và $(\\beta)$. Một mặt phẳng $(\\gamma)$ cắt $(\\alpha)$ theo giao tuyến $a$ và cắt $(\\beta)$ theo giao tuyến $b$. Khẳng định nào sau đây đúng?",
                 options: [
-                    "Song song với nhau.",
-                    "Cắt nhau.",
-                    "Trùng nhau.",
-                    "Chéo nhau."
+                    "Hai đường thẳng $a$ và $b$ song song với nhau.",
+                    "Hai đường thẳng $a$ và $b$ cắt nhau.",
+                    "Hai đường thẳng $a$ và $b$ chéo nhau.",
+                    "Hai đường thẳng $a$ và $b$ trùng nhau."
                 ],
                 correctIndex: 0,
-                hint: "Vận dụng hệ quả về tính chất bắc cầu của hai mặt phẳng song song.",
-                explanation: "<strong>Định hướng giải:</strong> Theo hệ quả: Hai mặt phẳng phân biệt cùng song song với mặt phẳng thứ ba thì song song với nhau. Do đó mặt sàn tầng 3 song song với mặt sàn tầng 1."
+                hint: "Sử dụng định lí về giao tuyến của một mặt phẳng thứ ba với hai mặt phẳng song song.",
+                explanation: "<strong>Định hướng giải:</strong> Cho hai mặt phẳng song song $(\\alpha)$ và $(\\beta)$. Nếu mặt phẳng $(\\gamma)$ cắt $(\\alpha)$ theo giao tuyến $a$ thì cũng cắt $(\\beta)$ theo giao tuyến $b$ và $a \\parallel b$."
             },
             {
                 id: 5,
                 stage: 1,
                 type: 'MCQ',
-                level: 'Thông hiểu',
+                level: 'Nhận biết',
                 points: 400000,
-                text: "Cho hình hộp $ABCD.A'B'C'D'$. Mặt phẳng $(BDA')$ song song với mặt phẳng nào dưới đây?",
-                options: ["$(B'D'C)$.", "$(ACD')$.", "$(ABB')$.", "$(CDD')$."],
+                text: "Trong các hình sau đây, hình nào luôn có hai mặt đáy nằm trên hai mặt phẳng song song với nhau?",
+                options: [
+                    "Hình lăng trụ.",
+                    "Hình tứ diện.",
+                    "Hình chóp tam giác.",
+                    "Hình chóp tứ giác."
+                ],
                 correctIndex: 0,
-                hint: "Tìm hai cặp đường thẳng cắt nhau trong $(BDA')$ và $(B'D'C)$ tương ứng song song với nhau (chú ý các hình bình hành $BDD'B'$ và $A'BCD'$).",
-                diagram: `
-                    <svg viewBox="0 0 230 180" class="w-full h-auto">
-                        <!-- Đáy dưới ABCD -->
-                        <polygon points="35,145 145,145 190,115 80,115" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-dasharray="4,3"/>
-                        <!-- Đáy trên A'B'C'D' -->
-                        <polygon points="35,55 145,55 190,25 80,25" fill="none" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <!-- Cạnh bên -->
-                        <line x1="35" y1="55" x2="35" y2="145" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <line x1="145" y1="55" x2="145" y2="145" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <line x1="190" y1="25" x2="190" y2="115" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <line x1="80" y1="25" x2="80" y2="115" stroke="#6ee7b7" stroke-width="1.4" stroke-dasharray="4,3"/>
-                        <!-- Mặt phẳng (BDA') -->
-                        <polygon points="145,145 80,115 35,55" fill="rgba(251,191,36,0.22)" stroke="#fbbf24" stroke-width="2"/>
-                        <!-- Mặt phẳng (B'D'C) -->
-                        <polygon points="145,55 80,25 190,115" fill="rgba(56,189,248,0.22)" stroke="#38bdf8" stroke-width="2"/>
-                        <text x="20" y="55" fill="#fef08a" font-size="11" font-weight="bold">A'</text>
-                        <text x="148" y="52" fill="#38bdf8" font-size="11" font-weight="bold">B'</text>
-                        <text x="194" y="25" fill="#fff" font-size="11">C'</text>
-                        <text x="66" y="22" fill="#38bdf8" font-size="11" font-weight="bold">D'</text>
-                        <text x="22" y="152" fill="#fff" font-size="11">A</text>
-                        <text x="148" y="155" fill="#fef08a" font-size="11" font-weight="bold">B</text>
-                        <text x="194" y="122" fill="#38bdf8" font-size="11" font-weight="bold">C</text>
-                        <text x="66" y="114" fill="#fef08a" font-size="11" font-weight="bold">D</text>
-                    </svg>
-                `,
-                explanation: "<strong>Định hướng giải:</strong> Trong hình hộp $ABCD.A'B'C'D'$, ta có $BD \\parallel B'D'$ (do $BDD'B'$ là hình bình hành) và $A'D \\parallel B'C$ (do $A'B'CD$ là hình bình hành). Hai đường thẳng cắt nhau $BD, A'D$ của $(BDA')$ lần lượt song song với $B'D', B'C$ của $(B'D'C)$ nên $(BDA') \\parallel (B'D'C)$."
+                hint: "Nhớ lại định nghĩa hình lăng trụ trong bài Hai mặt phẳng song song.",
+                explanation: "<strong>Định hướng giải:</strong> Hình lăng trụ là hình đa diện có hai đáy là hai đa giác bằng nhau nằm trên <strong>hai mặt phẳng song song</strong> và các mặt bên là các hình bình hành."
             },
             {
                 id: 6,
@@ -709,11 +749,36 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hai mặt phẳng song song $(\\alpha)$ và $(\\beta)$. Mặt phẳng $(\\gamma)$ cắt $(\\alpha)$ theo giao tuyến $a$ và cắt $(\\beta)$ theo giao tuyến $b$. Khẳng định nào sau đây là <strong>đúng</strong>?",
-                options: ["$a \\parallel b$.", "$a$ cắt $b$.", "$a$ chéo $b$.", "$a \\perp b$."],
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M, N$ lần lượt là trung điểm của các cạnh $SA$ và $SD$. Mặt phẳng $(OMN)$ song song với mặt phẳng nào dưới đây?",
+                options: [
+                    "Mặt phẳng $(SBC)$.",
+                    "Mặt phẳng $(SCD)$.",
+                    "Mặt phẳng $(SAB)$.",
+                    "Mặt phẳng $(ABCD)$."
+                ],
                 correctIndex: 0,
-                hint: "Nhớ lại Định lí 3 về giao tuyến của một mặt phẳng thứ ba với hai mặt phẳng song song.",
-                explanation: "<strong>Định hướng giải:</strong> Theo Định lí 3: Cho hai mặt phẳng song song. Nếu một mặt phẳng cắt mặt phẳng này thì cũng cắt mặt phẳng kia và hai giao tuyến song song với nhau ($a \\parallel b$)."
+                hint: "Chứng minh hai đường thẳng cắt nhau $MN$ và $OM$ trong $(OMN)$ lần lượt song song với $BC$ và $SC$.",
+                diagram: `
+                    <svg viewBox="0 0 230 180" class="w-full h-auto">
+                        <polygon points="35,148 145,148 190,116 80,116" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="100" y1="20" x2="35" y2="148" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="100" y1="20" x2="145" y2="148" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="100" y1="20" x2="190" y2="116" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="100" y1="20" x2="80" y2="116" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="4,3"/>
+                        <line x1="35" y1="148" x2="190" y2="116" stroke="#6ee7b7" stroke-width="1.2" stroke-dasharray="3,3"/>
+                        <line x1="145" y1="148" x2="80" y2="116" stroke="#6ee7b7" stroke-width="1.2" stroke-dasharray="3,3"/>
+                        <polygon points="67,84 90,68 112,132" fill="rgba(251,191,36,0.25)" stroke="#fbbf24" stroke-width="2"/>
+                        <text x="96" y="14" fill="#fef08a" font-size="11" font-weight="bold">S</text>
+                        <text x="21" y="153" fill="#fef08a" font-size="11" font-weight="bold">A</text>
+                        <text x="148" y="156" fill="#fef08a" font-size="11" font-weight="bold">B</text>
+                        <text x="194" y="121" fill="#fef08a" font-size="11" font-weight="bold">C</text>
+                        <text x="66" y="114" fill="#fef08a" font-size="11" font-weight="bold">D</text>
+                        <text x="51" y="83" fill="#fbbf24" font-size="11" font-weight="bold">M</text>
+                        <text x="76" y="65" fill="#fbbf24" font-size="11" font-weight="bold">N</text>
+                        <text x="109" y="145" fill="#fbbf24" font-size="11" font-weight="bold">O</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải:</strong> Ta có $MN$ là đường trung bình $\\Delta SAD \\Rightarrow MN \\parallel AD \\parallel BC \\subset (SBC)$, và $OM$ là đường trung bình $\\Delta SAC \\Rightarrow OM \\parallel SC \\subset (SBC)$. Vì $MN \\cap OM = M$ nên $(OMN) \\parallel (SBC)$."
             },
             {
                 id: 7,
@@ -721,11 +786,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho tứ diện $ABCD$. Gọi $M, N, P$ lần lượt là trung điểm của các cạnh $AB, AC, AD$. Mặt phẳng $(MNP)$ song song với mặt phẳng nào sau đây?",
-                options: ["$(BCD)$.", "$(ABC)$.", "$(ABD)$.", "$(ACD)$."],
+                text: "Cho tứ diện $ABCD$. Gọi $M, N, P$ lần lượt là trung điểm của các cạnh $AB, AC, AD$. Mặt phẳng $(MNP)$ song song với mặt phẳng nào dưới đây?",
+                options: [
+                    "Mặt phẳng $(BCD)$.",
+                    "Mặt phẳng $(ABC)$.",
+                    "Mặt phẳng $(ABD)$.",
+                    "Mặt phẳng $(ACD)$."
+                ],
                 correctIndex: 0,
                 hint: "Sử dụng tính chất đường trung bình của các tam giác $ABC$ và $ACD$.",
-                explanation: "<strong>Định hướng giải:</strong> Ta có $MN$ là đường trung bình $\\Delta ABC \\Rightarrow MN \\parallel BC \\Rightarrow MN \\parallel (BCD)$. Tương tự $NP$ là đường trung bình $\\Delta ACD \\Rightarrow NP \\parallel CD \\Rightarrow NP \\parallel (BCD)$. Vì $MN \\cap NP = N$ nên $(MNP) \\parallel (BCD)$."
+                explanation: "<strong>Định hướng giải:</strong> Vì $MN \\parallel BC$ và $NP \\parallel CD$, mà $MN, NP$ cắt nhau trong $(MNP)$ nên $(MNP) \\parallel (BCD)$."
             },
             {
                 id: 8,
@@ -733,11 +803,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Gọi $I, I'$ lần lượt là trung điểm của $BC$ và $B'C'$. Mặt phẳng $(AA'I'I)$ song song với đường thẳng nào dưới đây?",
-                options: ["$BC$.", "$AB$.", "$AC$.", "$B'C'$."],
+                text: "Cho hình hộp $ABCD.A'B'C'D'$. Mặt phẳng $(AB'D')$ song song với mặt phẳng nào sau đây?",
+                options: [
+                    "Mặt phẳng $(BC'D)$.",
+                    "Mặt phẳng $(ABCD)$.",
+                    "Mặt phẳng $(ACC'A')$.",
+                    "Mặt phẳng $(CDD'C')$."
+                ],
                 correctIndex: 0,
-                hint: "Lưu ý câu hỏi về quan hệ song song giữa mặt phẳng với các đường thẳng trong lăng trụ, kiểm tra kỹ các cạnh đáy!",
-                explanation: "<strong>Định hướng giải:</strong> Khoan đã! $BC$ cắt $(AA'I'I)$ tại $I$, còn trong các đường thẳng $BC, AB, AC, B'C'$ thì cả $BC$ và $B'C'$ đều cắt $(AA'I'I)$. Xét lại hình lăng trụ: ở đây đề chuẩn kiểm tra tính chất lăng trụ có hai mặt đáy $(ABC) \\parallel (A'B'C')$, mọi cạnh bên $AA' \\parallel BB' \\parallel CC'$ và bằng nhau."
+                hint: "Chứng minh $AB' \\parallel DC'$ và $AD' \\parallel BC'$ dựa vào các hình bình hành chéo.",
+                explanation: "<strong>Định hướng giải:</strong> Trong hình hộp $ABCD.A'B'C'D'$, tứ giác $ABC'D'$ và $ADC'B'$ là hình bình hành nên $AB' \\parallel DC'$ và $AD' \\parallel BC'$. Do đó $(AB'D') \\parallel (BC'D)$."
             },
             {
                 id: 9,
@@ -745,23 +820,33 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M, N$ lần lượt là trung điểm của $SA$ và $SD$. Mặt phẳng $(OMN)$ song song với mặt phẳng nào sau đây?",
-                options: ["$(SBC)$.", "$(SAB)$.", "$(SCD)$.", "$(ABCD)$."],
+                text: "Một kỹ sư lắp đặt hai tấm kính phẳng của một giếng trời sao cho các mép đối diện của khung đỡ tạo thành hai cặp đường thẳng cắt nhau tương ứng song song trên hai tấm kính. Vị trí tương đối giữa hai tấm kính này là:",
+                options: [
+                    "Song song với nhau.",
+                    "Cắt nhau theo một giao tuyến thẳng.",
+                    "Vuông góc với nhau.",
+                    "Chỉ có đúng một điểm chung."
+                ],
                 correctIndex: 0,
-                hint: "Chứng minh $MN \\parallel BC$ và $OM \\parallel SC$.",
-                explanation: "<strong>Định hướng giải:</strong> Ta có $MN$ là đường trung bình $\\Delta SAD \\Rightarrow MN \\parallel AD \\parallel BC \\Rightarrow MN \\parallel (SBC)$. Lại có $OM$ là đường trung bình $\\Delta SAC \\Rightarrow OM \\parallel SC \\Rightarrow OM \\parallel (SBC)$. Do $MN \\cap OM = M$ nên $(OMN) \\parallel (SBC)$."
+                hint: "Liên hệ điều kiện để hai mặt phẳng song song với mô hình hai tấm kính.",
+                explanation: "<strong>Định hướng giải:</strong> Mặt phẳng tấm kính thứ nhất chứa hai đường thẳng cắt nhau lần lượt song song với hai đường thẳng nằm trên mặt phẳng tấm kính thứ hai nên hai mặt phẳng đó <strong>song song với nhau</strong>."
             },
             {
                 id: 10,
                 stage: 1,
                 type: 'MCQ',
-                level: 'Vận dụng',
+                level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hai mặt phẳng song song $(P)$ và $(Q)$. Ba đường thẳng phân biệt $a, b, c$ đôi một song song và không nằm trong $(P), (Q)$ lần lượt cắt $(P)$ tại $A_1, B_1, C_1$ và cắt $(Q)$ tại $A_2, B_2, C_2$. Biết $A_1A_2 = 5\\text{ cm}$, $B_1B_2 = 2x - 1\\text{ (cm)}$. Giá trị của $x$ là:",
-                options: ["$x = 3$.", "$x = 2$.", "$x = 5$.", "$x = 4$."],
+                text: "Ba mặt phẳng đôi một song song $(P), (Q), (R)$ chắn trên hai cát tuyến bất kì $d_1$ và $d_2$ lần lượt các giao điểm $A, B, C$ và $A', B', C'$. Khẳng định nào sau đây đúng theo định lí Thales trong không gian?",
+                options: [
+                    "$\\frac{AB}{A'B'} = \\frac{BC}{B'C'} = \\frac{AC}{A'C'}$.",
+                    "$AB = A'B'$ và $BC = B'C'$.",
+                    "$\\frac{AB}{BC} = \\frac{B'C'}{A'B'}$.",
+                    "$AB + BC = A'B' + B'C'$."
+                ],
                 correctIndex: 0,
-                hint: "Nhớ lại hệ quả về các đoạn thẳng chắn trên hai đường thẳng song song bởi hai mặt phẳng song song.",
-                explanation: "<strong>Định hướng giải:</strong> Hai mặt phẳng song song chắn trên hai đường thẳng song song những đoạn thẳng bằng nhau nên $A_1A_2 = B_1B_2 \\Leftrightarrow 2x - 1 = 5 \\Leftrightarrow 2x = 6 \\Leftrightarrow x = 3$."
+                hint: "Nhớ lại nội dung định lí Thales mở rộng cho ba mặt phẳng đôi một song song.",
+                explanation: "<strong>Định hướng giải:</strong> Theo định lí Thales trong không gian, ba mặt phẳng đôi một song song chắn trên hai cát tuyến bất kì những đoạn thẳng tương ứng tỉ lệ: $\\frac{AB}{A'B'} = \\frac{BC}{B'C'} = \\frac{AC}{A'C'}$."
             },
 
             // ================= CHẶNG 2: ĐẤU TRƯỜNG ĐÚNG / SAI 4 Ý (4 CÂU) =================
@@ -769,16 +854,16 @@
                 id: 11,
                 stage: 2,
                 type: 'TF4',
-                level: 'Nhận biết',
+                level: 'Thông hiểu',
                 maxPoints: 750000,
-                text: "Trong không gian, cho hai mặt phẳng $(P)$ và $(Q)$. Xét tính đúng, sai của các mệnh đề sau:",
+                text: "Cho hai mặt phẳng phân biệt $(P)$ và $(Q)$, đường thẳng $a \\subset (P)$ và đường thẳng $b \\subset (Q)$. Xét tính đúng, sai của các mệnh đề sau:",
                 statements: [
-                    { label: "a)", text: "Nếu $(P) \\parallel (Q)$ và đường thẳng $d \\subset (P)$ thì $d \\parallel (Q)$.", answer: true },
-                    { label: "b)", text: "Nếu $(P) \\parallel (Q)$, $a \\subset (P)$ và $b \\subset (Q)$ thì $a \\parallel b$.", answer: false },
-                    { label: "c)", text: "Nếu hai mặt phẳng $(P)$ và $(Q)$ cùng song song với đường thẳng $d$ thì $(P) \\parallel (Q)$.", answer: false },
+                    { label: "a)", text: "Nếu $(P) \\parallel (Q)$ thì mọi đường thẳng nằm trong $(P)$ đều song song với $(Q)$.", answer: true },
+                    { label: "b)", text: "Nếu $(P) \\parallel (Q)$ thì $a \\parallel b$.", answer: false },
+                    { label: "c)", text: "Nếu $a \\parallel (Q)$ và $b \\parallel (P)$ thì $(P) \\parallel (Q)$.", answer: false },
                     { label: "d)", text: "Nếu $(P) \\parallel (Q)$ và đường thẳng $d$ cắt $(P)$ thì $d$ cũng cắt $(Q)$.", answer: true }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Vì $(P)$ và $(Q)$ không có điểm chung nên mọi đường thẳng $d \\subset (P)$ đều không có điểm chung với $(Q)$, tức là $d \\parallel (Q)$.<br>• <strong>b) Sai:</strong> Hai đường thẳng $a \\subset (P)$ và $b \\subset (Q)$ có thể song song hoặc chéo nhau.<br>• <strong>c) Sai:</strong> Hai mặt phẳng cùng song song với một đường thẳng có thể cắt nhau theo giao tuyến song song với đường thẳng đó.<br>• <strong>d) Đúng:</strong> Đường thẳng cắt một trong hai mặt phẳng song song thì cắt mặt phẳng còn lại."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> $(P)$ và $(Q)$ không có điểm chung nên mọi đường thẳng $a \\subset (P)$ đều không có điểm chung với $(Q)$, suy ra $a \\parallel (Q)$.<br>• <strong>b) Sai:</strong> Hai đường thẳng $a \\subset (P)$ và $b \\subset (Q)$ có thể song song hoặc chéo nhau.<br>• <strong>c) Sai:</strong> Cần ít nhất hai đường thẳng <em>cắt nhau</em> trong $(P)$ cùng song song với $(Q)$ thì mới kết luận được $(P) \\parallel (Q)$.<br>• <strong>d) Đúng:</strong> Một đường thẳng cắt một trong hai mặt phẳng song song thì phải cắt mặt phẳng còn lại."
             },
             {
                 id: 12,
@@ -786,51 +871,52 @@
                 type: 'TF4',
                 level: 'Thông hiểu',
                 maxPoints: 750000,
-                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Gọi $M, N, P$ lần lượt là trung điểm của các cạnh $AB, AC, AA'$. Xét tính đúng, sai của các khẳng định sau:",
+                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Gọi $M, N, P$ lần lượt là trung điểm của các cạnh bên $AA', BB', CC'$. Xét tính đúng, sai của các khẳng định sau:",
                 statements: [
-                    { label: "a)", text: "Hai mặt phẳng đáy $(ABC)$ và $(A'B'C')$ song song với nhau.", answer: true },
-                    { label: "b)", text: "Tứ giác $BCC'B'$ là hình bình hành.", answer: true },
-                    { label: "c)", text: "Mặt phẳng $(MNP)$ song song với mặt phẳng $(BCC'B')$.", answer: true },
-                    { label: "d)", text: "Đường thẳng $MP$ song song với mặt phẳng $(A'B'C')$.", answer: false }
+                    { label: "a)", text: "Hai mặt phẳng $(ABC)$ và $(A'B'C')$ song song với nhau.", answer: true },
+                    { label: "b)", text: "Đường thẳng $MN$ song song với đường thẳng $A'B'$.", answer: true },
+                    { label: "c)", text: "Mặt phẳng $(MNP)$ song song với mặt phẳng $(ABC)$.", answer: true },
+                    { label: "d)", text: "Chu vi tam giác $MNP$ bằng một nửa chu vi tam giác $ABC$.", answer: false }
                 ],
                 diagram: `
-                    <svg viewBox="0 0 220 175" class="w-full h-auto">
+                    <svg viewBox="0 0 220 185" class="w-full h-auto">
                         <!-- Đáy trên A'B'C' -->
-                        <polygon points="105,18 40,52 175,52" fill="none" stroke="#6ee7b7" stroke-width="1.6"/>
+                        <polygon points="45,35 165,35 110,65" fill="rgba(56,189,248,0.16)" stroke="#38bdf8" stroke-width="1.6"/>
                         <!-- Đáy dưới ABC -->
-                        <polygon points="105,118 40,152 175,152" fill="none" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <line x1="105" y1="18" x2="105" y2="118" stroke="#6ee7b7" stroke-width="1.4" stroke-dasharray="4,3"/>
-                        <line x1="40" y1="52" x2="40" y2="152" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <line x1="175" y1="52" x2="175" y2="152" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <!-- Tam giác MNP -->
-                        <polygon points="72.5,135 140,135 105,68" fill="rgba(251,191,36,0.25)" stroke="#fbbf24" stroke-width="2"/>
-                        <text x="100" y="13" fill="#fef08a" font-size="11" font-weight="bold">A'</text>
-                        <text x="23" y="54" fill="#fff" font-size="11">B'</text>
-                        <text x="180" y="54" fill="#fff" font-size="11">C'</text>
-                        <text x="108" y="114" fill="#fef08a" font-size="11" font-weight="bold">A</text>
-                        <text x="24" y="156" fill="#fff" font-size="11">B</text>
-                        <text x="180" y="156" fill="#fff" font-size="11">C</text>
-                        <text x="58" y="133" fill="#fde047" font-size="10" font-weight="bold">M</text>
-                        <text x="145" y="133" fill="#fde047" font-size="10" font-weight="bold">N</text>
-                        <text x="90" y="68" fill="#fde047" font-size="10" font-weight="bold">P</text>
+                        <polygon points="45,145 165,145 110,175" fill="rgba(56,189,248,0.16)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <!-- Các cạnh bên -->
+                        <line x1="45" y1="35" x2="45" y2="145" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="165" y1="35" x2="165" y2="145" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="110" y1="65" x2="110" y2="175" stroke="#38bdf8" stroke-width="1.6"/>
+                        <!-- Thiết diện MNP -->
+                        <polygon points="45,90 165,90 110,120" fill="rgba(251,191,36,0.28)" stroke="#fbbf24" stroke-width="2"/>
+                        <text x="30" y="34" fill="#fef08a" font-size="11" font-weight="bold">A'</text>
+                        <text x="169" y="34" fill="#fef08a" font-size="11" font-weight="bold">B'</text>
+                        <text x="114" y="62" fill="#fef08a" font-size="11" font-weight="bold">C'</text>
+                        <text x="30" y="150" fill="#fef08a" font-size="11" font-weight="bold">A</text>
+                        <text x="169" y="150" fill="#fef08a" font-size="11" font-weight="bold">B</text>
+                        <text x="114" y="178" fill="#fef08a" font-size="11" font-weight="bold">C</text>
+                        <text x="29" y="94" fill="#fbbf24" font-size="11" font-weight="bold">M</text>
+                        <text x="169" y="94" fill="#fbbf24" font-size="11" font-weight="bold">N</text>
+                        <text x="114" y="124" fill="#fbbf24" font-size="11" font-weight="bold">P</text>
                     </svg>
                 `,
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Theo định nghĩa hình lăng trụ, hai mặt đáy song song với nhau.<br>• <strong>b) Đúng:</strong> Các mặt bên của hình lăng trụ là các hình bình hành.<br>• <strong>c) Đúng:</strong> $MN \\parallel BC$ và $MP \\parallel A'B \\parallel ...$ (khoan: $MP$ là đường trung bình $\\Delta ABA' \\Rightarrow MP \\parallel A'B$, còn $NP \\parallel A'C$; trong khi $(MNP)$ có $MN \\parallel BC$ và $MP \\parallel BA'$ nên $(MNP) \\parallel (A'BC)$, không song song $(BCC'B')$ — lưu ý: ở đây $MP$ cắt $(A'B'C')$ vì $A'B$ cắt $(A'B'C')$ tại $A'$).<br>• <strong>d) Sai:</strong> Vì $MP \\parallel A'B$ mà $A'B$ cắt $(A'B'C')$ tại $A'$ nên $MP$ cắt $(A'B'C')$."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Hai đáy của hình lăng trụ nằm trên hai mặt phẳng song song.<br>• <strong>b) Đúng:</strong> Tứ giác $A'B'NM$ là hình bình hành nên $MN \\parallel A'B'$.<br>• <strong>c) Đúng:</strong> Vì $MN \\parallel AB$ và $NP \\parallel BC$ nên $(MNP) \\parallel (ABC)$.<br>• <strong>d) Sai:</strong> Tam giác $MNP$ bằng tam giác $ABC$ nên chu vi của chúng <strong>bằng nhau</strong>."
             },
             {
                 id: 13,
                 stage: 2,
                 type: 'TF4',
-                level: 'Thông hiểu',
+                level: 'Vận dụng',
                 maxPoints: 750000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $I, J$ lần lượt là trung điểm của $SA$ và $CD$. Xét tính đúng, sai của các mệnh đề sau:",
+                text: "Cho hình hộp $ABCD.A'B'C'D'$. Gọi $O$ và $O'$ lần lượt là tâm của hai đáy $ABCD$ và $A'B'C'D'$. Xét tính đúng, sai của các mệnh đề sau:",
                 statements: [
-                    { label: "a)", text: "Đường thẳng $OI$ song song với đường thẳng $SC$.", answer: true },
-                    { label: "b)", text: "Đường thẳng $OJ$ song song với đường thẳng $AD$.", answer: true },
-                    { label: "c)", text: "Mặt phẳng $(OIJ)$ song song với mặt phẳng $(SBC)$.", answer: true },
-                    { label: "d)", text: "Giao tuyến của mặt phẳng $(OIJ)$ với mặt phẳng $(SAB)$ là đường thẳng đi qua $I$ và song song với $AB$.", answer: false }
+                    { label: "a)", text: "Mặt phẳng $(ABCD)$ song song với mặt phẳng $(A'B'C'D')$.", answer: true },
+                    { label: "b)", text: "Mặt phẳng $(AB'D')$ song song với mặt phẳng $(BC'D)$.", answer: true },
+                    { label: "c)", text: "Đường thẳng $AO'$ song song với mặt phẳng $(BC'D)$.", answer: true },
+                    { label: "d)", text: "Mặt phẳng $(ACC'A')$ song song với mặt phẳng $(BDD'B')$.", answer: false }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> $OI$ là đường trung bình của $\\Delta SAC$ nên $OI \\parallel SC$.<br>• <strong>b) Đúng:</strong> $OJ$ là đường trung bình của $\\Delta ACD$ nên $OJ \\parallel AD$ (và $OJ \\parallel BC$).<br>• <strong>c) Đúng:</strong> Hai đường thẳng cắt nhau $OI, OJ$ của $(OIJ)$ lần lượt song song với $SC, BC$ của $(SBC)$ nên $(OIJ) \\parallel (SBC)$.<br>• <strong>d) Sai:</strong> Vì $(OIJ) \\parallel (SBC)$ nên giao tuyến của $(OIJ)$ với $(SAB)$ phải song song với giao tuyến của $(SBC)$ và $(SAB)$, tức là song song với $SB$ (chứ không phải $AB$)."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Hình hộp là hình lăng trụ đáy hình bình hành nên hai đáy $(ABCD) \\parallel (A'B'C'D')$.<br>• <strong>b) Đúng:</strong> Vì $AB' \\parallel DC'$ và $AD' \\parallel BC'$ nên $(AB'D') \\parallel (BC'D)$.<br>• <strong>c) Đúng:</strong> Vì $AO' \\subset (AB'D')$ và $(AB'D') \\parallel (BC'D)$ nên $AO' \\parallel (BC'D)$.<br>• <strong>d) Sai:</strong> Hai mặt phẳng chéo $(ACC'A')$ và $(BDD'B')$ cắt nhau theo giao tuyến $OO'$."
             },
             {
                 id: 14,
@@ -838,14 +924,14 @@
                 type: 'TF4',
                 level: 'Vận dụng',
                 maxPoints: 750000,
-                text: "Cho hình hộp $ABCD.A'B'C'D'$. Gọi $M, N$ lần lượt là trung điểm của $A'B'$ và $B'C'$. Xét tính đúng, sai của các khẳng định sau:",
+                text: "Một kệ trưng bày 3 tầng có các mặt kệ $(P), (Q), (R)$ đặt nằm ngang song song với nhau. Khoảng cách từ mặt kệ dưới $(P)$ đến mặt kệ giữa $(Q)$ là $40\\text{ cm}$, từ mặt kệ giữa $(Q)$ đến mặt kệ trên $(R)$ là $60\\text{ cm}$. Một thanh giằng thẳng nối điểm $A \\in (P)$ với điểm $C \\in (R)$ cắt mặt kệ giữa $(Q)$ tại điểm $B$. Xét tính đúng, sai của các nhận định sau:",
                 statements: [
-                    { label: "a)", text: "Đường thẳng $MN$ song song với đường thẳng $AC$.", answer: true },
-                    { label: "b)", text: "Mặt phẳng $(DMN)$ cắt mặt phẳng $(ABCD)$ theo giao tuyến đi qua $D$ và song song với $AC$.", answer: true },
-                    { label: "c)", text: "Thiết diện của hình hộp cắt bởi mặt phẳng $(DMN)$ là một hình ngũ giác.", answer: true },
-                    { label: "d)", text: "Mặt phẳng $(DMN)$ song song với mặt phẳng $(AB'C)$.", answer: false }
+                    { label: "a)", text: "Ba mặt phẳng $(P), (Q), (R)$ đôi một song song với nhau.", answer: true },
+                    { label: "b)", text: "Theo định lí Thales trong không gian, tỉ số $\\frac{AB}{BC}$ bằng $\\frac{2}{3}$.", answer: true },
+                    { label: "c)", text: "Nếu thanh giằng $AC$ dài $125\\text{ cm}$ thì đoạn $AB$ dài $50\\text{ cm}$.", answer: true },
+                    { label: "d)", text: "Một thanh giằng khác nối $A' \\in (P)$ với $C' \\in (R)$ cắt $(Q)$ tại $B'$ luôn có độ dài $A'B' = AB$.", answer: false }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> $MN$ là đường trung bình $\\Delta A'B'C' \\Rightarrow MN \\parallel A'C' \\parallel AC$.<br>• <strong>b) Đúng:</strong> Vì $(ABCD) \\parallel (A'B'C'D')$, giao tuyến của $(DMN)$ với $(ABCD)$ đi qua $D$ và song song với $MN$ (tức song song $AC$).<br>• <strong>c) Đúng:</strong> Giao tuyến qua $D$ song song $AC$ cắt các đường thẳng $AB, BC$ kéo dài tại $E, F$; nối $EM$ cắt $AA'$ tại $P$, nối $FN$ cắt $CC'$ tại $Q$, tạo thành ngũ giác thiết diện $DPMNQ$.<br>• <strong>d) Sai:</strong> $(DMN)$ và $(AB'C)$ có điểm chung (ví dụ giao điểm của $DP$ và $AB'$ trong mặt phẳng $(ABB'A')$) nên hai mặt phẳng cắt nhau."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Ba mặt kệ nằm ngang đều song song với mặt sàn nên đôi một song song với nhau.<br>• <strong>b) Đúng:</strong> Theo định lí Thales trong không gian, $\\frac{AB}{BC} = \\frac{d((P),(Q))}{d((Q),(R))} = \\frac{40}{60} = \\frac{2}{3}$.<br>• <strong>c) Đúng:</strong> $\\frac{AB}{AC} = \\frac{2}{5} \\Rightarrow AB = \\frac{2}{5} \\times 125 = 50\\text{ cm}$.<br>• <strong>d) Sai:</strong> Chỉ có <em>tỉ số</em> $\\frac{A'B'}{B'C'} = \\frac{AB}{BC} = \\frac{2}{3}$ bằng nhau, còn độ dài $A'B'$ phụ thuộc vào độ nghiêng của thanh $A'C'$."
             },
 
             // ================= CHẶNG 3: VƯỢT CHƯỚNG NGẠI VẬT – TRẢ LỜI NGẮN (4 CÂU) =================
@@ -855,9 +941,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Gọi $G, G'$ lần lượt là trọng tâm của hai tam giác $ABC$ và $A'B'C'$. Biết cạnh bên $AA' = 9\\text{ cm}$. Tính độ dài đoạn thẳng $GG'$ (đơn vị: $\\text{cm}$).",
-                correctValues: ["9", "9.0", "9,0"],
-                explanation: "<strong>Định hướng giải:</strong> Gọi $M, M'$ lần lượt là trung điểm của $BC$ và $B'C'$. Vì $BCC'B'$ là hình bình hành nên $MM' \\parallel BB' \\parallel AA'$ và $MM' = AA' = 9\\text{ cm}$. Trên hai đoạn $AM, A'M'$, ta có $\\frac{AG}{AM} = \\frac{A'G'}{A'M'} = \\frac{2}{3}$ và $AA' \\parallel MM'$ nên tứ giác $AGG'A'$ là hình bình hành $\\Rightarrow GG' = AA' = 9\\text{ cm}$."
+                text: "Cho hình lăng trụ đứng $ABC.A'B'C'$ có đáy $ABC$ là tam giác đều cạnh $6\\text{ cm}$, chiều cao $AA' = 10\\text{ cm}$. Gọi $M$ là trung điểm của cạnh $AA'$. Mặt phẳng $(P)$ đi qua $M$ và song song với mặt phẳng đáy $(ABC)$ cắt hình lăng trụ theo một thiết diện. Tính chu vi của thiết diện đó (đơn vị: $\\text{cm}$).",
+                correctValues: ["18", "18.0", "18,0"],
+                explanation: "<strong>Định hướng giải:</strong> Mặt phẳng $(P) \\parallel (ABC)$ cắt hình lăng trụ theo thiết diện là tam giác đều $MNP$ bằng tam giác đáy $ABC$ (cạnh $6\\text{ cm}$). Vậy chu vi thiết diện là $3 \\times 6 = 18\\text{ cm}$."
             },
             {
                 id: 16,
@@ -865,9 +951,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Một khối bê tông trang trí kiến trúc có dạng hình chóp cụt tứ giác đều $ABCD.A'B'C'D'$ với hai mặt đáy $(ABCD)$ và $(A'B'C'D')$ song song nhau. Biết đáy dưới là hình vuông cạnh $AB = 80\\text{ cm}$, đáy trên là hình vuông cạnh $A'B' = 40\\text{ cm}$. Người ta cắt khối bê tông bởi một mặt phẳng $(\\alpha)$ song song với hai đáy và đi qua trung điểm của các cạnh bên. Tính diện tích của mặt cắt (thiết diện) tạo thành (đơn vị: $\\text{cm}^2$).",
-                correctValues: ["3600", "3600.0", "3600,0"],
-                explanation: "<strong>Định hướng giải:</strong> Mặt phẳng $(\\alpha)$ song song với hai đáy và đi qua trung điểm các cạnh bên sẽ cắt mỗi mặt bên (là hình thang cân) theo đường trung bình của hình thang đó. Do đó thiết diện là hình vuông có cạnh bằng $\\frac{AB + A'B'}{2} = \\frac{80 + 40}{2} = 60\\text{ cm}$. Diện tích thiết diện bằng $60^2 = 3600\\text{ cm}^2$."
+                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình vuông cạnh $8\\text{ cm}$. Mặt phẳng $(P)$ song song với mặt phẳng $(ABCD)$ cắt đoạn thẳng $SA$ tại $M$ sao cho $SM = 3MA$. Tính diện tích của thiết diện tạo bởi mặt phẳng $(P)$ và hình chóp $S.ABCD$ (đơn vị: $\\text{cm}^2$).",
+                correctValues: ["36", "36.0", "36,0"],
+                explanation: "<strong>Định hướng giải:</strong> Vì $(P) \\parallel (ABCD)$ nên thiết diện là hình vuông $MNPQ$ đồng dạng với đáy $ABCD$ theo tỉ số $k = \\frac{SM}{SA} = \\frac{3}{4}$. Cạnh hình vuông thiết diện là $8 \\times \\frac{3}{4} = 6\\text{ cm}$, suy ra diện tích thiết diện là $6^2 = 36\\text{ cm}^2$."
             },
             {
                 id: 17,
@@ -875,9 +961,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Cho hai mặt phẳng song song $(P)$ và $(Q)$. Hai đường thẳng $d_1, d_2$ cắt $(P)$ lần lượt tại $A, B$ và cắt $(Q)$ lần lượt tại $A', B'$ sao cho hai đoạn thẳng $AA'$ và $BB'$ cắt nhau tại điểm $I$ nằm giữa hai mặt phẳng $(P)$ và $(Q)$. Biết $IA = 3\\text{ cm}$, $IA' = 6\\text{ cm}$ và $AB = 4\\text{ cm}$. Tính độ dài đoạn thẳng $A'B'$ (đơn vị: $\\text{cm}$).",
-                correctValues: ["8", "8.0", "8,0"],
-                explanation: "<strong>Định hướng giải:</strong> Mặt phẳng xác định bởi hai đường thẳng cắt nhau $AA'$ và $BB'$ cắt hai mặt phẳng song song $(P), (Q)$ theo hai giao tuyến song song là $AB \\parallel A'B'$. Theo định lí Thales trong $\\Delta IA'B'$: $\\frac{AB}{A'B'} = \\frac{IA}{IA'} = \\frac{3}{6} = \\frac{1}{2} \\Rightarrow A'B' = 2AB = 8\\text{ cm}$."
+                text: "Một bồn hoa trang trí có dạng hình chóp cụt tứ giác đều $ABCD.A'B'C'D'$ với cạnh đáy lớn $AB = 14\\text{ dm}$, cạnh đáy nhỏ $A'B' = 6\\text{ dm}$. Người ta đặt một khung thép hình vuông nằm trên mặt phẳng $(P)$ song song với hai đáy và đi qua trung điểm của các cạnh bên. Tính chu vi của khung thép hình vuông đó (đơn vị: $\\text{dm}$).",
+                correctValues: ["40", "40.0", "40,0"],
+                explanation: "<strong>Định hướng giải:</strong> Mặt phẳng $(P)$ song song với hai đáy và đi qua trung điểm các cạnh bên cắt mỗi mặt bên hình thang cân theo đường trung bình có độ dài $a = \\frac{AB + A'B'}{2} = \\frac{14 + 6}{2} = 10\\text{ dm}$. Chu vi khung thép hình vuông là $4 \\times 10 = 40\\text{ dm}$."
             },
             {
                 id: 18,
@@ -885,9 +971,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Cho hình hộp $ABCD.A'B'C'D'$ có tất cả các cạnh đều bằng $6\\text{ cm}$. Gọi $M$ là điểm thuộc cạnh $AA'$ sao cho $AM = 2\\text{ cm}$. Mặt phẳng $(\\alpha)$ đi qua $M$ và song song với mặt phẳng $(BDA')$ cắt hình hộp theo một thiết diện. Biết thiết diện là một tam giác, tính tỉ số giữa diện tích thiết diện đó và diện tích tam giác $BDA'$ (viết kết quả dưới dạng phân số tối giản `a/b`).",
-                correctValues: ["4/9"],
-                explanation: "<strong>Định hướng giải:</strong> Vì $(\\alpha) \\parallel (BDA')$ nên các giao tuyến của $(\\alpha)$ với các mặt $(ABB'A')$, $(ADD'A')$, $(ABCD)$ lần lượt song song với $BA'$, $DA'$, $BD$. Theo định lí Thales: $\\frac{AM}{AA'} = \\frac{2}{6} = \\frac{1}{3} \\Rightarrow \\frac{A'M}{A'A} = \\frac{2}{3}$. Tam giác thiết diện đồng dạng với $\\Delta BDA'$ theo tỉ số đồng dạng $k = \\frac{2}{3}$, do đó tỉ số diện tích là $k^2 = \\left(\\frac{2}{3}\\right)^2 = \\frac{4}{9}$."
+                text: "Cho tứ diện $ABCD$ có diện tích tam giác $BCD$ bằng $45\\text{ cm}^2$. Mặt phẳng $(\\alpha)$ song song với mặt phẳng $(BCD)$ cắt các cạnh $AB, AC, AD$ lần lượt tại $M, N, P$ sao cho $\\frac{AM}{AB} = \\frac{2}{3}$. Tính diện tích tam giác $MNP$ (đơn vị: $\\text{cm}^2$).",
+                correctValues: ["20", "20.0", "20,0"],
+                explanation: "<strong>Định hướng giải:</strong> Vì $(\\alpha) \\parallel (BCD)$ nên theo định lí Thales trong không gian, $\\Delta MNP$ đồng dạng với $\\Delta BCD$ theo tỉ số $k = \\frac{AM}{AB} = \\frac{2}{3}$. Tỉ số diện tích hai tam giác đồng dạng bằng bình phương tỉ số đồng dạng: $S_{MNP} = k^2 \\cdot S_{BCD} = \\left(\\frac{2}{3}\\right)^2 \\times 45 = \\frac{4}{9} \\times 45 = 20\\text{ cm}^2$."
             }
         ];
 
@@ -945,33 +1031,33 @@
             const freqs = [880, 1318.5, 1760];
             freqs.forEach((f, idx) => {
                 const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(f, now);
-                gain.gain.setValueAtTime(0.18 / (idx + 1), now);
-                gain.gain.exponentialRampToValueAtTime(0.0008, now + 1.4);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 1.4);
-            });
-        }
-
-        // Âm thanh đám đông vỗ tay chúc mừng + hợp âm vui khi trả lời ĐÚNG
+        // Âm thanh đám đông vỗ tay chúc mừng + hợp âm vui + giọng đọc "CHÍNH XÁC" khi trả lời ĐÚNG
         function playCrowdApplauseAndFanfare() {
             if (!gameState.soundOn) return;
             ensureAudio();
+
+            // Phát giọng đọc chúc mừng "Chính xác!" bằng Web Speech API (nếu trình duyệt hỗ trợ)
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utter = new SpeechSynthesisUtterance("Chính xác!");
+                    utter.lang = 'vi-VN';
+                    utter.rate = 1.08;
+                    utter.pitch = 1.12;
+                    window.speechSynthesis.speak(utter);
+                }
+            } catch (e) {}
+
             if (!audioCtx) return;
 
             const now = audioCtx.currentTime;
 
-            // 1. Tiếng vỗ tay đám đông sinh động (lọc nhiễu trắng theo nhịp vỗ tay)
-            const duration = 2.4;
+            // 1. Tiếng vỗ tay đám đông cổ vũ kéo dài sinh động
+            const duration = 2.6;
             const bufferSize = audioCtx.sampleRate * duration;
             const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
             const data = buffer.getChannelData(0);
             for (let i = 0; i < bufferSize; i++) {
-                // Tạo hiệu ứng nhiều bàn tay vỗ rào rào tự nhiên
                 const envelope = Math.sin((i / bufferSize) * Math.PI);
                 const flutter = 0.65 + 0.35 * Math.sin(i * 0.0045);
                 data[i] = (Math.random() * 2 - 1) * envelope * flutter;
@@ -1513,14 +1599,21 @@
         }
 
         function renderMathTypeset(target = document.body) {
-            if (window.renderMathInElement) {
-                renderMathInElement(target, {
-                    delimiters: [
-                        { left: '$$', right: '$$', display: true },
-                        { left: '$', right: '$', display: false }
-                    ],
-                    throwOnError: false
-                });
+            const doRender = () => {
+                if (typeof window.renderMathInElement === 'function') {
+                    window.renderMathInElement(target, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                }
+            };
+            if (typeof window.__onKaTeXReady === 'function') {
+                window.__onKaTeXReady(doRender);
+            } else {
+                doRender();
             }
         }
 
