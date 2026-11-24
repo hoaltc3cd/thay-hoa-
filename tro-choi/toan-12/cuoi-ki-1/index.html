@@ -1,0 +1,302 @@
+
+
+<!-- KHO TRÒ CHƠI TOÁN HỌC - THẦY HÒA -->
+
+<div class="math-game-library">
+
+  <!-- NÚT TRANG CHỦ -->
+  <div class="home-area">
+    <a href="https://thay-hoa.vercel.app/" class="home-btn">
+      🏠 TRANG CHỦ THẦY HÒA
+    </a>
+  </div>
+
+  <!-- TIÊU ĐỀ -->
+  <section class="game-header">
+    <div class="game-icon">🎮</div>
+    <h2>KHO TRÒ CHƠI TOÁN HỌC</h2>
+    <p>Học tập vui vẻ – Luyện tập hiệu quả – Chinh phục kiến thức</p>
+    <span>Chọn trò chơi em muốn tham gia</span>
+  </section>
+
+  <!-- DANH SÁCH TRÒ CHƠI -->
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-number">GAME 01</div>
+      <div class="game-symbol">🧠</div>
+      <h3>TOÁN 12</h3>
+      <p>Luyện tập và ôn tập kiến thức giữa kỳ.</p>
+      <a href="/tro-choi/toan-12/cuoi-ki-1/game-01/" class="play-btn">
+        CHƠI NGAY <span>→</span>
+      </a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-number">GAME 02</div>
+      <div class="game-symbol">🎯</div>
+      <h3>TOÁN 12</h3>
+      <p>Luyện tập và ôn tập kiến thức giữa kỳ.</p>
+      <a href="/tro-choi/toan-12/cuoi-ki-1/game-02/" class="play-btn">
+        CHƠI NGAY <span>→</span>
+      </a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-number">GAME 03</div>
+      <div class="game-symbol">🏆</div>
+      <h3>TOÁN 12</h3>
+      <p>Luyện tập và ôn tập kiến thức giữa kỳ.</p>
+      <a href="/tro-choi/toan-12/cuoi-ki-1/game-03/" class="play-btn">
+        CHƠI NGAY <span>→</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- CHÂN TRANG -->
+  <div class="game-footer">
+    THẦY HÒA – CHINH PHỤC TOÁN HỌC
+  </div>
+
+</div>
+
+<style>
+/* ===== PHẠM VI GIAO DIỆN ===== */
+.math-game-library {
+  --navy: #10264b;
+  --blue: #1769d2;
+  --purple: #7957d5;
+  --cyan: #13b8c9;
+  --text: #17243b;
+  --muted: #64748b;
+
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 12px 16px 24px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+.math-game-library * {
+  box-sizing: border-box;
+}
+
+/* ===== NÚT TRANG CHỦ ===== */
+.math-game-library .home-area {
+  margin-bottom: 18px;
+}
+
+.math-game-library .home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 17px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(23, 105, 210, .18);
+  transition: .25s ease;
+}
+
+.math-game-library .home-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(23, 105, 210, .25);
+}
+
+/* ===== PHẦN TIÊU ĐỀ ===== */
+.math-game-library .game-header {
+  text-align: center;
+  padding: 25px 15px 22px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #10264b, #1769d2 65%, #7957d5);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(16, 38, 75, .14);
+}
+
+.math-game-library .game-icon {
+  font-size: 34px;
+  margin-bottom: 7px;
+}
+
+.math-game-library .game-header h2 {
+  margin: 0 0 9px;
+  font-size: clamp(21px, 3vw, 28px);
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: .4px;
+  color: #fff;
+}
+
+.math-game-library .game-header p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #eaf3ff;
+}
+
+.math-game-library .game-header span {
+  display: inline-block;
+  font-size: 13px;
+  color: #fff;
+  opacity: .9;
+}
+
+/* ===== LƯỚI THẺ TRÒ CHƠI ===== */
+.math-game-library .game-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* ===== THẺ TRÒ CHƠI ===== */
+.math-game-library .game-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+  padding: 17px 14px 16px;
+  background: #fff;
+  border: 1px solid #e2eaf5;
+  border-radius: 13px;
+  box-shadow: 0 3px 12px rgba(16, 38, 75, .07);
+  transition: transform .25s ease, box-shadow .25s ease,
+              border-color .25s ease;
+}
+
+.math-game-library .game-card:hover {
+  transform: translateY(-4px);
+  border-color: #9cc4f5;
+  box-shadow: 0 9px 22px rgba(23, 105, 210, .13);
+}
+
+/* Nhãn số game */
+.math-game-library .game-number {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: #eaf2ff;
+  color: #1769d2;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+/* Biểu tượng */
+.math-game-library .game-symbol {
+  margin: 12px 0 7px;
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+/* Tên trò chơi */
+.math-game-library .game-card h3 {
+  margin: 0 0 8px;
+  color: #173e69;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* Mô tả */
+.math-game-library .game-card p {
+  margin: 0 0 15px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  min-height: 40px;
+}
+
+/* Nút chơi ngay */
+.math-game-library .play-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  max-width: 190px;
+  margin-top: auto;
+  padding: 10px 13px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #1769d2, #347fe0);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  transition: .25s ease;
+}
+
+.math-game-library .play-btn:hover {
+  background: linear-gradient(135deg, #10264b, #7957d5);
+  transform: scale(1.03);
+}
+
+.math-game-library .play-btn span {
+  font-size: 17px;
+  line-height: 1;
+}
+
+/* ===== CHÂN TRANG ===== */
+.math-game-library .game-footer {
+  margin-top: 20px;
+  padding: 12px;
+  text-align: center;
+  border-top: 1px solid #e5eaf2;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+/* ===== MÁY TÍNH BẢNG ===== */
+@media (max-width: 768px) {
+  .math-game-library .game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .math-game-library .game-header {
+    padding: 22px 12px;
+  }
+
+  .math-game-library .game-card {
+    padding: 15px 11px;
+  }
+}
+
+/* ===== ĐIỆN THOẠI NHỎ ===== */
+@media (max-width: 380px) {
+  .math-game-library {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+  .math-game-library .game-grid {
+    gap: 8px;
+  }
+
+  .math-game-library .game-card {
+    padding: 13px 8px;
+  }
+
+  .math-game-library .game-card h3 {
+    font-size: 16px;
+  }
+
+  .math-game-library .game-card p {
+    font-size: 12px;
+  }
+
+  .math-game-library .play-btn {
+    font-size: 11px;
+    padding: 9px 7px;
+  }
+}
+</style>
