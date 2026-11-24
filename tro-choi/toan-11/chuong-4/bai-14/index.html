@@ -1,20 +1,3 @@
-<!-- NÚT QUAY VỀ TRANG CHỦ THẦY HÒA -->
-<div style="padding:12px 15px;">
-  <a href="https://thay-hoa.vercel.app/"
-     style="
-       display:inline-block;
-       background:linear-gradient(135deg,#1769d2,#7957d5);
-       color:white;
-       padding:12px 22px;
-       border-radius:12px;
-       font-weight:bold;
-       font-size:15px;
-       text-decoration:none;
-       box-shadow:0 4px 12px #0002;
-     ">
-    🏠 TRANG CHỦ THẦY HÒA
-  </a>
-</div>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -28,10 +11,78 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- KaTeX hiển thị công thức Toán học sắc nét -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- Hệ thống nạp KaTeX hai tầng CDN (jsDelivr + dự phòng tự động cdnjs) giúp hiển thị công thức toán sắc nét -->
+    <link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script>
+        (function () {
+            window.__katexQueue = [];
+            window.__katexReady = false;
+            window.__onKaTeXReady = function (fn) {
+                if (window.__katexReady && typeof window.renderMathInElement === 'function') {
+                    fn();
+                } else {
+                    window.__katexQueue.push(fn);
+                }
+            };
+
+            function flushKaTeXQueue() {
+                if (typeof window.renderMathInElement !== 'function') return;
+                window.__katexReady = true;
+                while (window.__katexQueue.length > 0) {
+                    const task = window.__katexQueue.shift();
+                    try { task(); } catch (e) {}
+                }
+            }
+
+            function loadScript(src, onLoad, onError) {
+                const s = document.createElement('script');
+                s.src = src;
+                s.crossOrigin = 'anonymous';
+                s.onload = onLoad;
+                s.onerror = onError;
+                document.head.appendChild(s);
+            }
+
+            function loadFromFallbackCDN() {
+                if (window.__katexFallbackLoaded) return;
+                window.__katexFallbackLoaded = true;
+                const cssEl = document.getElementById('katex-css');
+                if (cssEl) {
+                    cssEl.href = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css';
+                }
+                loadScript(
+                    'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js',
+                    function () {
+                        loadScript(
+                            'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js',
+                            flushKaTeXQueue,
+                            function () {}
+                        );
+                    },
+                    function () {}
+                );
+            }
+
+            const fallbackTimer = setTimeout(function () {
+                if (!window.__katexReady) loadFromFallbackCDN();
+            }, 1500);
+
+            loadScript(
+                'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js',
+                function () {
+                    loadScript(
+                        'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js',
+                        function () {
+                            clearTimeout(fallbackTimer);
+                            flushKaTeXQueue();
+                        },
+                        loadFromFallbackCDN
+                    );
+                },
+                loadFromFallbackCDN
+            );
+        })();
+    </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;800&display=swap');
@@ -39,7 +90,6 @@
         :root {
             --board-bg: #0f4c3a;
             --board-dark: #093326;
-            --stage-light: #e0f2fe;
             --gold: #fbbf24;
             --gold-bright: #fef08a;
         }
@@ -53,7 +103,7 @@
             overflow-x: hidden;
         }
 
-        /* Khung bảng xanh giáo dục độ tương phản cao */
+        /* Khung bảng xanh chữ trắng độ tương phản cao, ngồi cuối lớp vẫn nhìn rõ */
         .chalkboard-stage {
             background: linear-gradient(160deg, #115e46 0%, #0a3d2e 60%, #06281e 100%);
             border: 8px solid #78350f;
@@ -74,9 +124,9 @@
             z-index: 0;
         }
 
-        /* Chuông vàng lớn trung tâm */
+        /* Chuông vàng lớn ở vị trí trung tâm */
         .golden-bell-hero {
-            filter: drop-shadow(0 0 22px rgba(251, 191, 36, 0.85));
+            filter: drop-shadow(0 0 24px rgba(251, 191, 36, 0.9));
             animation: bellFloat 3.2s ease-in-out infinite;
             cursor: pointer;
             transition: transform 0.2s;
@@ -98,6 +148,15 @@
             40% { transform: rotate(18deg) scale(1.15); }
             60% { transform: rotate(-14deg) scale(1.12); }
             80% { transform: rotate(14deg) scale(1.12); }
+        }
+
+        /* Nhân vật hoạt hình MC đồng hành */
+        .mascot-bob {
+            animation: mascotBob 2.6s ease-in-out infinite;
+        }
+        @keyframes mascotBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         /* Nút đáp án phong cách Game Show */
@@ -147,7 +206,7 @@
             75% { transform: translateX(-5px); }
         }
 
-        /* Pháo giấy chiến thắng */
+        /* Pháo giấy chiến thắng khi vượt qua câu cuối */
         .confetti-piece {
             position: fixed;
             width: 10px;
@@ -189,21 +248,21 @@
             <div>
                 <div class="flex items-center gap-2">
                     <span class="px-2.5 py-0.5 bg-amber-400 text-emerald-950 font-black text-xs rounded-full uppercase tracking-wider shadow">THẦY HÒA</span>
-                    <span class="text-xs font-bold text-sky-200 hidden sm:inline">TOÁN 11 – GDPT 2018</span>
+                    <span class="text-xs font-bold text-sky-200 hidden sm:inline">TOÁN 11 – GDPT 2018 – KNTTVCS</span>
                 </div>
                 <h1 class="text-base sm:text-xl font-black text-white tracking-wide mt-0.5">
-                    PHÉP CHIẾU SONG SONG
+                    CHUYÊN ĐỀ: PHÉP CHIẾU SONG SONG
                 </h1>
             </div>
         </div>
 
-        <!-- Khu vực thông số khi đang chơi -->
+        <!-- Khu vực thông số HUD khi đang chơi -->
         <div id="hud-bar" class="hidden flex flex-wrap items-center gap-2 sm:gap-3">
             <!-- Cấp độ & XP -->
             <div class="bg-black/40 border border-sky-400/50 px-3 py-1.5 rounded-xl flex items-center gap-2">
                 <i class="fa-solid fa-medal text-sky-300"></i>
                 <div class="text-xs">
-                    <div id="hud-rank" class="font-bold text-sky-200">Tập Sự Hình Học</div>
+                    <div id="hud-rank" class="font-bold text-sky-200">Tập Sự Hình Chiếu</div>
                     <div id="hud-xp" class="mono-font text-amber-300 font-extrabold">0 XP</div>
                 </div>
             </div>
@@ -237,9 +296,26 @@
              MÀN HÌNH 1: SẢNH CHỜ, CHUÔNG VÀNG TRUNG TÂM & LUẬT CHƠI RÕ RÀNG
              ===================================================================== -->
         <section id="screen-welcome" class="relative z-10 flex flex-col items-center text-center space-y-5 py-2">
-            <!-- Chuông vàng lớn ở vị trí trung tâm -->
-            <div onclick="ringBellSound()" class="golden-bell-hero text-amber-400 text-6xl sm:text-7xl select-none" title="Bấm rung chuông vàng!">
-                <i class="fa-solid fa-bell"></i>
+            <!-- Chuông vàng lớn ở vị trí trung tâm + Nhân vật hoạt hình MC -->
+            <div class="flex items-center justify-center gap-6">
+                <div onclick="ringBellSound()" class="golden-bell-hero text-amber-400 text-6xl sm:text-7xl select-none" title="Bấm rung chuông vàng!">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <!-- Nhân vật hoạt hình MC đồng hành -->
+                <div class="mascot-bob w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-b from-sky-300 to-blue-600 p-1.5 border-2 border-amber-300 shadow-xl hidden sm:block">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <circle cx="50" cy="50" r="45" fill="#064e3b"/>
+                        <polygon points="50,12 18,26 50,40 82,26" fill="#fbbf24"/>
+                        <circle cx="50" cy="56" r="21" fill="#fde68a"/>
+                        <rect x="35" y="49" width="12" height="9" rx="2" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+                        <rect x="53" y="49" width="12" height="9" rx="2" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+                        <line x1="47" y1="53" x2="53" y2="53" stroke="#1e293b" stroke-width="2.5"/>
+                        <circle cx="41" cy="53.5" r="2" fill="#0f172a"/>
+                        <circle cx="59" cy="53.5" r="2" fill="#0f172a"/>
+                        <path d="M 43 64 Q 50 70 57 64" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M 24 92 C 26 76, 74 76, 76 92 Z" fill="#10b981"/>
+                    </svg>
+                </div>
             </div>
 
             <div>
@@ -250,7 +326,7 @@
                     CHINH PHỤC ĐỈNH CAO 10.000.000 ĐIỂM
                 </h2>
                 <p class="text-sky-200 text-sm sm:text-base font-medium mt-1">
-                    Chuyên đề: <strong class="text-amber-300">Phép chiếu song song</strong> (Luyện tập – Vận dụng)
+                    Chuyên đề: <strong class="text-amber-300">Phép chiếu song song</strong> (Toán 11 – KNTTVCS – GDPT 2018)
                 </p>
             </div>
 
@@ -266,7 +342,7 @@
                 </div>
                 <div class="bg-black/35 border border-sky-400/40 rounded-2xl p-4">
                     <div class="flex items-center gap-2 text-sky-300 font-black text-sm uppercase mb-1">
-                        <i class="fa-solid fa-bolt"></i> Chặng 2: Đấu Trường Đúng/Sai
+                        <i class="fa-solid fa-bolt"></i> Chặng 2: Đấu Trường Toán Học
                     </div>
                     <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
                         <strong>Câu 11 – 14:</strong> Xét tính Đúng/Sai cho 4 mệnh đề a, b, c, d. Chấm điểm lũy tiến chuẩn GDPT 2018: 1 ý (75.000đ), 2 ý (187.500đ), 3 ý (375.000đ), 4 ý (<strong>750.000 điểm</strong>).
@@ -277,7 +353,7 @@
                         <i class="fa-solid fa-mountain-sun"></i> Chặng 3: Vượt Chướng Ngại Vật
                     </div>
                     <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                        <strong>Câu 15 – 18:</strong> Trả lời ngắn vận dụng thực tế & hình không gian (tối đa <strong>750.000 điểm/câu</strong>) để cán mốc <strong>10.000.000 điểm</strong> & nhận Huy hiệu Vàng!
+                        <strong>Câu 15 – 18:</strong> Trả lời ngắn vận dụng thực tế & tỉ số chiếu song song (tối đa <strong>750.000 điểm/câu</strong>) để cán mốc <strong>10.000.000 điểm</strong> & nhận Huy hiệu Vàng!
                     </p>
                 </div>
             </div>
@@ -295,11 +371,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
                     <div>
                         <label class="block text-xs font-bold text-amber-300 uppercase mb-1">Họ và tên học sinh:</label>
-                        <input type="text" id="input-name" placeholder="VD: Trần Minh Khôi" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
+                        <input type="text" id="input-name" placeholder="VD: Nguyễn Hoàng Nam" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-amber-300 uppercase mb-1">Lớp:</label>
-                        <input type="text" id="input-class" placeholder="VD: 11A1" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
+                        <input type="text" id="input-class" placeholder="VD: 11A2" class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-white placeholder-emerald-400/60 focus:outline-none focus:border-amber-400 font-semibold">
                     </div>
                 </div>
 
@@ -429,7 +505,7 @@
                 </div>
             </div>
 
-            <!-- Khu vực Đề bài + Hình vẽ minh họa (Bố cục 2 cột linh hoạt, không che khuất chữ) -->
+            <!-- Khu vực Đề bài + Hình vẽ minh họa (Bố cục 2 cột linh hoạt, không làm che khuất đề bài) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-black/40 border-2 border-amber-400/70 rounded-2xl p-4 sm:p-6 shadow-xl">
                 <div id="question-text-col" class="lg:col-span-12 space-y-2">
                     <div class="flex items-center justify-between">
@@ -443,10 +519,10 @@
                     </div>
                 </div>
 
-                <!-- Khung hình vẽ SVG không gian (chỉ hiện khi câu hỏi có hình vẽ) -->
+                <!-- Khung hình vẽ SVG phép chiếu song song (chỉ hiện khi câu hỏi có hình vẽ) -->
                 <div id="question-diagram-col" class="hidden lg:col-span-5 flex flex-col items-center justify-center bg-emerald-950/85 border border-emerald-500/50 rounded-xl p-3">
-                    <div id="question-diagram-svg" class="w-full max-w-[260px] flex justify-center"></div>
-                    <span class="text-[11px] text-emerald-300 mt-1 italic">Hình minh họa không gian chuẩn đề bài</span>
+                    <div id="question-diagram-svg" class="w-full max-w-[270px] flex justify-center"></div>
+                    <span class="text-[11px] text-emerald-300 mt-1 italic">Hình minh họa phép chiếu song song</span>
                 </div>
             </div>
 
@@ -473,7 +549,7 @@
             <!-- HÌNH THỨC 3: TRẢ LỜI NGẮN (VƯỢT CHƯỚNG NGẠI VẬT) -->
             <div id="area-short" class="hidden flex-col items-center space-y-3 bg-black/35 border border-amber-400/50 rounded-2xl p-5">
                 <label for="short-answer-input" class="text-sm sm:text-base font-bold text-amber-200 text-center">
-                    Nhập kết quả số của bạn (ví dụ: <span class="mono-font text-white">3</span> hoặc <span class="mono-font text-white">0,5</span> hoặc <span class="mono-font text-white">0,33</span>):
+                    Nhập kết quả số của bạn (ví dụ: <span class="mono-font text-white">4</span> hoặc <span class="mono-font text-white">0,5</span> hoặc <span class="mono-font text-white">1,5</span>):
                 </label>
                 <div class="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md">
                     <input type="text" id="short-answer-input" placeholder="Nhập đáp số..." class="w-full px-4 py-3 rounded-xl bg-emerald-950 border-2 border-amber-400 text-white text-center mono-font text-xl font-black focus:outline-none focus:ring-2 focus:ring-amber-300">
@@ -494,7 +570,7 @@
                 </div>
 
                 <div id="feedback-explanation" class="bg-black/45 border border-white/15 rounded-xl p-3.5 text-sm sm:text-base text-white leading-relaxed">
-                    <!-- Phân tích định hướng giải bám sát kiến thức bài học -->
+                    <!-- Phân tích định hướng giải bám sát kiến thức phép chiếu song song -->
                 </div>
 
                 <div class="flex justify-end">
@@ -518,7 +594,7 @@
 
             <div>
                 <span id="result-badge-title" class="px-4 py-1 rounded-full bg-amber-400 text-emerald-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow">
-                    DANH HIỆU: BẬC THẦY HÌNH HỌC KHÔNG GIAN
+                    DANH HIỆU: BẬC THẦY PHÉP CHIẾU SONG SONG
                 </span>
                 <h2 class="text-2xl sm:text-4xl font-black text-white uppercase mt-2">
                     CHÚC MỪNG HOÀN THÀNH ĐẤU TRƯỜNG!
@@ -596,9 +672,16 @@
          ========================================================================= -->
     <script>
         /* =====================================================================
-           1. NGÂN HÀNG DỮ LIỆU CÂU HỎI (CHUYÊN ĐỀ: PHÉP CHIẾU SONG SONG)
+           1. NGÂN HÀNG DỮ LIỆU CÂU HỎI (CHUYÊN ĐỀ: PHÉP CHIẾU SONG SONG - TOÁN 11)
            - Giáo viên có thể dễ dàng chỉnh sửa nội dung, công thức LaTeX hoặc đáp án tại đây.
-           - Tỉ lệ tư duy: 30% Nhận biết (5 câu) - 40% Thông hiểu (7 câu) - 30% Vận dụng (6 câu).
+           - Bám sát Chương trình GDPT 2018 (SGK Toán 11 - Kết nối tri thức với cuộc sống):
+             + Định nghĩa phép chiếu song song (mặt phẳng chiếu, phương chiếu, hình chiếu).
+             + Các tính chất cơ bản của phép chiếu song song (bảo toàn tính thẳng hàng, thứ tự,
+               song song/trùng nhau của hai đường thẳng không song song phương chiếu, tỉ số độ dài
+               của hai đoạn thẳng cùng phương hoặc nằm trên hai đường thẳng song song).
+             + Hình biểu diễn của một hình không gian (tam giác, hình bình hành, hình thang, đường tròn -> elip).
+             + Bối cảnh thực tế: bóng nắng (tia sáng Mặt Trời song song), bản vẽ kĩ thuật, kiến trúc.
+           - Tỉ lệ mức độ tư duy: 30% Nhận biết (5 câu) - 40% Thông hiểu (7 câu) - 30% Vận dụng (6 câu).
            - Tổng điểm tối đa: 10 x 400.000 + 4 x 750.000 + 4 x 750.000 = 10.000.000 điểm.
            ===================================================================== */
         const QUESTION_BANK = [
@@ -609,16 +692,29 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Trong không gian, cho mặt phẳng $(\\alpha)$ và đường thẳng $\\Delta$ cắt $(\\alpha)$. Với mỗi điểm $M$, đường thẳng đi qua $M$ song song hoặc trùng với $\\Delta$ cắt $(\\alpha)$ tại $M'$. Điểm $M'$ được gọi là gì của điểm $M$ qua phép chiếu song song lên $(\\alpha)$ theo phương $\\Delta$?",
+                text: "Trong không gian, cho mặt phẳng $(\\alpha)$ và đường thẳng $\\Delta$ cắt $(\\alpha)$. Với mỗi điểm $M$ trong không gian, đường thẳng đi qua $M$ và song song (hoặc trùng) với $\\Delta$ cắt $(\\alpha)$ tại điểm $M'$. Khi đó điểm $M'$ được gọi là gì?",
                 options: [
-                    "Hình chiếu song song của $M$.",
-                    "Hình chiếu vuông góc của $M$.",
-                    "Điểm đối xứng của $M$.",
-                    "Giao điểm của $\\Delta$ và $(\\alpha)$."
+                    "Hình chiếu song song của điểm $M$ trên mặt phẳng $(\\alpha)$ theo phương $\\Delta$.",
+                    "Hình chiếu vuông góc của điểm $M$ lên đường thẳng $\\Delta$.",
+                    "Điểm đối xứng của điểm $M$ qua mặt phẳng $(\\alpha)$.",
+                    "Giao điểm của mặt phẳng $(\\alpha)$ và đường thẳng $\\Delta$."
                 ],
                 correctIndex: 0,
-                hint: "Nhớ lại định nghĩa phép chiếu song song trong SGK Toán 11 (KNTTVCS).",
-                explanation: "<strong>Định hướng giải:</strong> Theo định nghĩa, điểm $M'$ là giao điểm của đường thẳng đi qua $M$ (song song hoặc trùng với phương chiếu $\\Delta$) với mặt phẳng chiếu $(\\alpha)$ được gọi là <strong>hình chiếu song song</strong> của điểm $M$ lên mặt phẳng $(\\alpha)$ theo phương $\\Delta$."
+                hint: "Nhớ lại định nghĩa phép chiếu song song lên mặt phẳng $(\\alpha)$ theo phương chiếu $\\Delta$.",
+                diagram: `
+                    <svg viewBox="0 0 240 165" class="w-full h-auto">
+                        <polygon points="20,135 165,135 215,95 70,95" fill="rgba(56,189,248,0.16)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="35" y1="20" x2="65" y2="85" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow)"/>
+                        <line x1="125" y1="25" x2="150" y2="115" stroke="#4ade80" stroke-width="1.6" stroke-dasharray="4,3"/>
+                        <circle cx="125" cy="25" r="3.5" fill="#fef08a"/>
+                        <circle cx="150" cy="115" r="3.5" fill="#4ade80"/>
+                        <text x="24" y="36" fill="#fbbf24" font-size="12" font-weight="bold">Δ</text>
+                        <text x="132" y="25" fill="#fef08a" font-size="12" font-weight="bold">M</text>
+                        <text x="156" y="121" fill="#4ade80" font-size="12" font-weight="bold">M'</text>
+                        <text x="182" y="128" fill="#38bdf8" font-size="11" font-weight="bold">(α)</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải:</strong> Theo định nghĩa phép chiếu song song (SGK Toán 11 KNTTVCS): Cho mặt phẳng $(\\alpha)$ và đường thẳng $\\Delta$ cắt $(\\alpha)$. Với mỗi điểm $M$, đường thẳng qua $M$ song song hoặc trùng với $\\Delta$ cắt $(\\alpha)$ tại $M'$ thì $M'$ là <strong>hình chiếu song song của $M$ trên $(\\alpha)$ theo phương $\\Delta$</strong>."
             },
             {
                 id: 2,
@@ -626,16 +722,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Phép chiếu song song lên mặt phẳng $(\\alpha)$ theo phương $\\Delta$ (với $\\Delta$ cắt $(\\alpha)$) biến một đường thẳng không song song và không trùng với phương chiếu $\\Delta$ thành:",
+                text: "Qua phép chiếu song song lên mặt phẳng $(P)$ theo phương chiếu $\\Delta$ (với $\\Delta$ cắt $(P)$), hình chiếu của một đường thẳng $a$ không song song và không trùng với $\\Delta$ là hình nào sau đây?",
                 options: [
-                    "Một đường thẳng.",
-                    "Một điểm duy nhất.",
-                    "Một đường tròn.",
-                    "Một tia."
+                    "Một đường thẳng nằm trong mặt phẳng $(P)$.",
+                    "Một điểm duy nhất thuộc mặt phẳng $(P)$.",
+                    "Một tia bị giới hạn một đầu.",
+                    "Một đường tròn nằm trong mặt phẳng $(P)$."
                 ],
                 correctIndex: 0,
-                hint: "Nhớ lại tính chất cơ bản thứ nhất của phép chiếu song song đối với đường thẳng.",
-                explanation: "<strong>Định hướng giải:</strong> Theo tính chất của phép chiếu song song: Phép chiếu song song biến một đường thẳng (không song song với phương chiếu) thành một <strong>đường thẳng</strong>."
+                hint: "Đường thẳng $a$ và phương chiếu $\\Delta$ không song song nên xác định một mặt phẳng chiếu cắt $(P)$ theo một giao tuyến.",
+                explanation: "<strong>Định hướng giải:</strong> Theo tính chất cơ bản của phép chiếu song song: Phép chiếu song song biến một <strong>đường thẳng</strong> (không song song với phương chiếu) thành một <strong>đường thẳng</strong>."
             },
             {
                 id: 3,
@@ -643,16 +739,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Phép chiếu song song lên mặt phẳng $(P)$ theo phương $\\Delta$ biến hai đường thẳng song song (không song song với phương chiếu $\\Delta$) thành:",
+                text: "Khẳng định nào sau đây là <strong>SAI</strong> về tính chất của phép chiếu song song?",
                 options: [
-                    "Hai đường thẳng song song hoặc trùng nhau.",
-                    "Hai đường thẳng cắt nhau.",
-                    "Hai đường thẳng chéo nhau.",
-                    "Hai đường thẳng vuông góc với nhau."
+                    "Phép chiếu song song luôn bảo toàn độ dài của mọi đoạn thẳng.",
+                    "Phép chiếu song song biến ba điểm thẳng hàng thành ba điểm thẳng hàng và không làm thay đổi thứ tự ba điểm đó.",
+                    "Phép chiếu song song biến hai đường thẳng song song (không song song với phương chiếu) thành hai đường thẳng song song hoặc trùng nhau.",
+                    "Phép chiếu song song giữ nguyên tỉ số độ dài của hai đoạn thẳng cùng phương."
                 ],
                 correctIndex: 0,
-                hint: "Xét trường hợp mặt phẳng xác định bởi hai đường thẳng đó có chứa phương chiếu hay không.",
-                explanation: "<strong>Định hướng giải:</strong> Theo tính chất: Phép chiếu song song biến hai đường thẳng song song thành <strong>hai đường thẳng song song hoặc trùng nhau</strong> (trùng nhau khi mặt phẳng chứa hai đường thẳng đó song song hoặc chứa phương chiếu $\\Delta$)."
+                hint: "Hãy nhớ đến cái bóng của một cây gậy dưới ánh nắng mặt trời: bóng của gậy có thể dài hơn hoặc ngắn hơn chiều dài thật của gậy!",
+                explanation: "<strong>Định hướng giải:</strong> Phép chiếu song song <strong>không bảo toàn độ dài</strong> của đoạn thẳng (ví dụ bóng của cột cờ lúc sáng sớm dài hơn chiều cao cột cờ, lúc giữa trưa lại ngắn hơn), mà chỉ bảo toàn <em>tỉ số độ dài</em> của hai đoạn thẳng cùng phương."
             },
             {
                 id: 4,
@@ -660,16 +756,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Khẳng định nào sau đây là <strong>đúng</strong> về tính chất bảo toàn của phép chiếu song song?",
+                text: "Trong vẽ hình biểu diễn của một hình trong không gian (theo quy tắc phép chiếu song song), hình biểu diễn của một <strong>đường tròn</strong> (nằm trong mặt phẳng không song song với phương chiếu) là hình gì?",
                 options: [
-                    "Phép chiếu song song không làm thay đổi tỉ số độ dài của hai đoạn thẳng nằm trên hai đường thẳng song song hoặc cùng nằm trên một đường thẳng.",
-                    "Phép chiếu song song luôn bảo toàn độ dài mọi đoạn thẳng.",
-                    "Phép chiếu song song luôn bảo toàn số đo mọi góc.",
-                    "Phép chiếu song song biến mọi hình vuông thành hình vuông."
+                    "Một đường elip.",
+                    "Một hình bình hành.",
+                    "Một hình thang cân.",
+                    "Một hình tam giác đều."
                 ],
                 correctIndex: 0,
-                hint: "Phép chiếu song song không giữ nguyên độ dài hay góc, nhưng giữ nguyên một đại lượng tỉ lệ đặc biệt.",
-                explanation: "<strong>Định hướng giải:</strong> Theo định lí Thales trong không gian, phép chiếu song song <strong>không làm thay đổi tỉ số độ dài</strong> của hai đoạn thẳng nằm trên hai đường thẳng song song hoặc cùng nằm trên một đường thẳng."
+                hint: "Quan sát cách vẽ mặt đáy của hình trụ hoặc hình nón trong sách giáo khoa Hình học không gian.",
+                explanation: "<strong>Định hướng giải:</strong> Theo quy tắc vẽ hình biểu diễn không gian (SGK Toán 11 KNTTVCS): Hình biểu diễn của một <strong>đường tròn</strong> là một <strong>đường elip</strong> (hoặc đường tròn trong trường hợp đặc biệt)."
             },
             {
                 id: 5,
@@ -677,16 +773,16 @@
                 type: 'MCQ',
                 level: 'Nhận biết',
                 points: 400000,
-                text: "Hình biểu diễn của một hình tam giác qua phép chiếu song song (theo phương không song song với mặt phẳng chứa tam giác) là:",
+                text: "Hình biểu diễn của một <strong>hình chữ nhật</strong> qua phép chiếu song song (lên mặt phẳng không song song với phương chiếu) có thể là hình nào sau đây?",
                 options: [
-                    "Một hình tam giác.",
-                    "Một đoạn thẳng.",
-                    "Một hình tứ giác.",
-                    "Một điểm."
+                    "Một hình bình hành.",
+                    "Một hình thang có hai đáy không bằng nhau.",
+                    "Một tứ giác có bốn cạnh không có cặp nào song song.",
+                    "Một hình ngũ giác."
                 ],
                 correctIndex: 0,
-                hint: "Ba đỉnh không thẳng hàng của tam giác có phương chiếu không nằm trong mặt phẳng tam giác thì ảnh của chúng có thẳng hàng không?",
-                explanation: "<strong>Định hướng giải:</strong> Khi mặt phẳng chứa tam giác không song song với phương chiếu, phép chiếu song song biến ba cạnh của tam giác thành ba đoạn thẳng tạo thành một <strong>hình tam giác</strong>."
+                hint: "Hình chữ nhật có các cặp cạnh đối song song, mà phép chiếu song song bảo toàn tính song song của các đường thẳng.",
+                explanation: "<strong>Định hướng giải:</strong> Vì hình chữ nhật là một hình bình hành đặc biệt có hai cặp cạnh đối song song và bằng nhau, phép chiếu song song bảo toàn tính song song và tỉ số đoạn thẳng cùng phương nên hình biểu diễn của hình chữ nhật là một <strong>hình bình hành</strong>."
             },
             {
                 id: 6,
@@ -694,16 +790,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Hình biểu diễn của một hình bình hành qua phép chiếu song song (theo phương không song song với mặt phẳng chứa hình bình hành) có thể là hình nào dưới đây?",
+                text: "Cho đoạn thẳng $AB$ có độ dài bằng $12\\text{ cm}$. Gọi $M$ là điểm thuộc đoạn thẳng $AB$ sao cho $AM = 4\\text{ cm}$. Qua phép chiếu song song lên mặt phẳng $(P)$ theo phương chiếu $\\Delta$ (không song song với $AB$), các điểm $A, B, M$ lần lượt có hình chiếu là $A', B', M'$. Tính tỉ số $\\frac{A'M'}{A'B'}$.",
                 options: [
-                    "Hình chữ nhật, hình thoi, hình vuông hoặc hình bình hành.",
-                    "Hình thang có hai đáy không bằng nhau.",
-                    "Hình tam giác.",
-                    "Hình ngũ giác."
+                    "$\\frac{1}{3}$",
+                    "$\\frac{2}{3}$",
+                    "$\\frac{1}{2}$",
+                    "$3$"
                 ],
                 correctIndex: 0,
-                hint: "Vì phép chiếu song song bảo toàn tính song song của các cặp cạnh đối diện nên tứ giác ảnh vẫn có hai cặp cạnh đối song song.",
-                explanation: "<strong>Định hướng giải:</strong> Vì phép chiếu song song biến hai đường thẳng song song thành hai đường thẳng song song (khi phương chiếu không song song mặt phẳng hình), ảnh của hình bình hành luôn là một <strong>hình bình hành</strong> (bao gồm các trường hợp đặc biệt như hình chữ nhật, hình thoi, hình vuông)."
+                hint: "Phép chiếu song song giữ nguyên tỉ số độ dài của hai đoạn thẳng nằm trên cùng một đường thẳng: $\\frac{A'M'}{A'B'} = \\frac{AM}{AB}$.",
+                explanation: "<strong>Định hướng giải:</strong> Vì $A, M, B$ thẳng hàng và phép chiếu song song bảo toàn tỉ số độ dài của hai đoạn thẳng cùng phương nên $\\frac{A'M'}{A'B'} = \\frac{AM}{AB} = \\frac{4}{12} = \\frac{1}{3}$."
             },
             {
                 id: 7,
@@ -711,34 +807,16 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Hình chiếu song song của tam giác $A'B'C'$ lên mặt phẳng $(ABC)$ theo phương đường thẳng $AA'$ là:",
+                text: "Cho hình thang $ABCD$ có đáy lớn $AB = 2CD$. Qua phép chiếu song song lên mặt phẳng $(P)$ theo phương chiếu không song song với mặt phẳng $(ABCD)$, ta thu được hình chiếu là tứ giác $A'B'C'D'$. Khẳng định nào sau đây đúng?",
                 options: [
-                    "Tam giác $ABC$.",
-                    "Đoạn thẳng $BC$.",
-                    "Tam giác $A'BC$.",
-                    "Điểm $A$."
+                    "$A'B'C'D'$ là một hình thang có $A'B' = 2C'D'$.",
+                    "$A'B'C'D'$ là một hình bình hành có $A'B' = C'D'$.",
+                    "$A'B'C'D'$ là một hình chữ nhật.",
+                    "$A'B'$ và $C'D'$ cắt nhau tại trung điểm mỗi đường."
                 ],
                 correctIndex: 0,
-                hint: "Trong hình lăng trụ, các cạnh bên $AA', BB', CC'$ đôi một song song và bằng nhau.",
-                diagram: `
-                    <svg viewBox="0 0 220 175" class="w-full h-auto">
-                        <!-- Đáy trên A'B'C' -->
-                        <polygon points="105,20 40,54 175,54" fill="rgba(56,189,248,0.22)" stroke="#38bdf8" stroke-width="2"/>
-                        <!-- Đáy dưới ABC -->
-                        <polygon points="105,120 40,154 175,154" fill="rgba(251,191,36,0.25)" stroke="#fbbf24" stroke-width="2"/>
-                        <!-- Các cạnh bên song song phương chiếu -->
-                        <line x1="105" y1="20" x2="105" y2="120" stroke="#6ee7b7" stroke-width="1.5" stroke-dasharray="4,3"/>
-                        <line x1="40" y1="54" x2="40" y2="154" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <line x1="175" y1="54" x2="175" y2="154" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <text x="100" y="14" fill="#38bdf8" font-size="11" font-weight="bold">A'</text>
-                        <text x="23" y="56" fill="#38bdf8" font-size="11" font-weight="bold">B'</text>
-                        <text x="180" y="56" fill="#38bdf8" font-size="11" font-weight="bold">C'</text>
-                        <text x="109" y="116" fill="#fef08a" font-size="11" font-weight="bold">A</text>
-                        <text x="24" y="158" fill="#fef08a" font-size="11" font-weight="bold">B</text>
-                        <text x="180" y="158" fill="#fef08a" font-size="11" font-weight="bold">C</text>
-                    </svg>
-                `,
-                explanation: "<strong>Định hướng giải:</strong> Do $AA' \\parallel BB' \\parallel CC'$, đường thẳng đi qua $A', B', C'$ song song với $AA'$ lần lượt cắt mặt phẳng $(ABC)$ tại $A, B, C$. Vậy hình chiếu song song của $\\Delta A'B'C'$ lên $(ABC)$ theo phương $AA'$ là <strong>tam giác $ABC$</strong>."
+                hint: "Hai đáy $AB$ và $CD$ song song (cùng phương) nên tỉ số độ dài của chúng được bảo toàn qua phép chiếu song song.",
+                explanation: "<strong>Định hướng giải:</strong> Do $AB \\parallel CD$ và $(ABCD)$ không song song phương chiếu nên $A'B' \\parallel C'D'$. Đồng thời, vì $AB$ và $CD$ cùng phương nên $\\frac{A'B'}{C'D'} = \\frac{AB}{CD} = 2 \\Rightarrow A'B' = 2C'D'$. Vậy $A'B'C'D'$ là hình thang có $A'B' = 2C'D'$."
             },
             {
                 id: 8,
@@ -746,16 +824,29 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình hộp $ABCD.A'B'C'D'$. Gọi $O$ và $O'$ lần lượt là tâm của hai đáy $ABCD$ và $A'B'C'D'$. Phép chiếu song song lên mặt phẳng $(ABCD)$ theo phương đường thẳng $OO'$ biến điểm $C'$ thành điểm nào?",
+                text: "Cho tam giác $ABC$ có trọng tâm $G$. Qua phép chiếu song song lên mặt phẳng $(\\alpha)$ theo phương chiếu không song song với mặt phẳng $(ABC)$, các điểm $A, B, C, G$ có hình chiếu lần lượt là $A', B', C', G'$. Mệnh đề nào sau đây đúng?",
                 options: [
-                    "Điểm $C$.",
-                    "Điểm $A$.",
-                    "Điểm $O$.",
-                    "Điểm $D$."
+                    "$G'$ là trọng tâm của tam giác $A'B'C'$.",
+                    "$G'$ là trực tâm của tam giác $A'B'C'$.",
+                    "$G'$ là tâm đường tròn ngoại tiếp tam giác $A'B'C'$.",
+                    "$G'$ là tâm đường tròn nội tiếp tam giác $A'B'C'$."
                 ],
                 correctIndex: 0,
-                hint: "Xét tứ giác $ACC'A'$ để tìm mối quan hệ song song giữa $OO'$ và các cạnh bên.",
-                explanation: "<strong>Định hướng giải:</strong> Trong hình bình hành $ACC'A'$, $O$ là trung điểm $AC$ và $O'$ là trung điểm $A'C'$ nên $OO' \\parallel CC'$. Do đó đường thẳng qua $C'$ song song với $OO'$ chính là đường thẳng $CC'$, cắt $(ABCD)$ tại <strong>điểm $C$</strong>."
+                hint: "Trọng tâm tam giác được xác định bởi trung điểm các cạnh và tỉ số chia đoạn trung tuyến $\\frac{AG}{AM} = \\frac{2}{3}$, đều là các yếu tố bảo toàn qua phép chiếu song song!",
+                diagram: `
+                    <svg viewBox="0 0 240 165" class="w-full h-auto">
+                        <polygon points="35,135 195,142 125,30" fill="rgba(74,222,128,0.14)" stroke="#4ade80" stroke-width="1.8"/>
+                        <line x1="125" y1="30" x2="115" y2="138.5" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <line x1="35" y1="135" x2="160" y2="86" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <circle cx="118.3" cy="102.3" r="3.8" fill="#fbbf24"/>
+                        <text x="121" y="23" fill="#fef08a" font-size="11" font-weight="bold">A'</text>
+                        <text x="20" y="142" fill="#fef08a" font-size="11" font-weight="bold">B'</text>
+                        <text x="200" y="146" fill="#fef08a" font-size="11" font-weight="bold">C'</text>
+                        <text x="124" y="102" fill="#fbbf24" font-size="11" font-weight="bold">G'</text>
+                        <text x="110" y="153" fill="#38bdf8" font-size="10" font-weight="bold">M'</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải:</strong> Phép chiếu song song bảo toàn trung điểm của đoạn thẳng và bảo toàn tỉ số $\\frac{A'G'}{A'M'} = \\frac{AG}{AM} = \\frac{2}{3}$ (với $M$ là trung điểm $BC$). Do đó, <strong>trọng tâm</strong> của tam giác được bảo toàn qua phép chiếu song song (còn trực tâm hay tâm đường tròn thì không)."
             },
             {
                 id: 9,
@@ -763,16 +854,34 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Trong một buổi chiều nắng, các tia nắng mặt trời được xem là song song với nhau và hợp với mặt sân phẳng một góc nhọn. Một chiếc vòng tròn bằng thép đặt song song với mặt sân sẽ tạo ra trên mặt sân bóng nắng có hình dạng là:",
+                text: "Cho hình hộp $ABCD.A'B'C'D'$. Xét phép chiếu song song lên mặt phẳng $(ABCD)$ theo phương chiếu là đường thẳng $AA'$. Hình chiếu của điểm $C'$ qua phép chiếu song song này là điểm nào?",
                 options: [
-                    "Một hình tròn.",
-                    "Một hình elip dẹt.",
-                    "Một đoạn thẳng.",
-                    "Một hình vuông."
+                    "Điểm $C$.",
+                    "Điểm $A$.",
+                    "Điểm $B$.",
+                    "Điểm $D$."
                 ],
                 correctIndex: 0,
-                hint: "Mặt phẳng chứa chiếc vòng tròn song song với mặt phẳng chiếu (mặt sân).",
-                explanation: "<strong>Định hướng giải:</strong> Khi mặt phẳng chứa hình phẳng song song với mặt phẳng chiếu, phép chiếu song song bảo toàn hoàn toàn hình dạng và kích thước của hình đó. Do vậy bóng nắng của chiếc vòng tròn trên mặt sân vẫn là <strong>một hình tròn</strong>."
+                hint: "Tìm đường thẳng đi qua $C'$ và song song với phương chiếu $AA'$, sau đó lấy giao điểm với mặt phẳng $(ABCD)$.",
+                diagram: `
+                    <svg viewBox="0 0 240 175" class="w-full h-auto">
+                        <polygon points="35,140 145,140 185,112 75,112" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <polygon points="55,65 165,65 205,37 95,37" fill="rgba(251,191,36,0.10)" stroke="#fef08a" stroke-width="1.5"/>
+                        <line x1="35" y1="140" x2="55" y2="65" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="145" y1="140" x2="165" y2="65" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="185" y1="112" x2="205" y2="37" stroke="#fbbf24" stroke-width="2.2"/>
+                        <line x1="75" y1="112" x2="95" y2="37" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <circle cx="205" cy="37" r="3.5" fill="#fbbf24"/>
+                        <circle cx="185" cy="112" r="3.5" fill="#4ade80"/>
+                        <text x="22" y="146" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="148" y="148" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="190" y="118" fill="#4ade80" font-size="11" font-weight="bold">C</text>
+                        <text x="62" y="114" fill="#fff" font-size="11" font-weight="bold">D</text>
+                        <text x="42" y="62" fill="#fef08a" font-size="11" font-weight="bold">A'</text>
+                        <text x="209" y="38" fill="#fbbf24" font-size="11" font-weight="bold">C'</text>
+                    </svg>
+                `,
+                explanation: "<strong>Định hướng giải:</strong> Trong hình hộp $ABCD.A'B'C'D'$, cạnh bên $C'C$ song song với phương chiếu $AA'$ và cắt mặt phẳng đáy $(ABCD)$ tại điểm $C$. Do đó, hình chiếu song song của $C'$ lên $(ABCD)$ theo phương $AA'$ chính là <strong>điểm $C$</strong>."
             },
             {
                 id: 10,
@@ -780,33 +889,33 @@
                 type: 'MCQ',
                 level: 'Thông hiểu',
                 points: 400000,
-                text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Phép chiếu song song lên mặt phẳng $(ABCD)$ theo phương $SA$ biến đường thẳng $SB$ thành đường thẳng nào?",
+                text: "Vào một buổi sáng nắng đẹp, các tia nắng Mặt Trời chiếu xuống sân trường được coi là các đường thẳng song song với nhau. Một cây cột cờ thẳng đứng cao $6\\text{ m}$ đổ bóng trên mặt sân nằm ngang dài $4,5\\text{ m}$. Cùng thời điểm đó, một học sinh đứng gần cột cờ có bóng trên mặt sân dài $1,2\\text{ m}$. Chiều cao của bạn học sinh đó là:",
                 options: [
-                    "Đường thẳng $AB$.",
-                    "Đường thẳng $BC$.",
-                    "Đường thẳng $AC$.",
-                    "Đường thẳng $SD$."
+                    "$1,6\\text{ m}$.",
+                    "$1,8\\text{ m}$.",
+                    "$1,5\\text{ m}$.",
+                    "$0,9\\text{ m}$."
                 ],
                 correctIndex: 0,
-                hint: "Tìm hình chiếu của hai điểm $S$ và $B$ lên $(ABCD)$ theo phương $SA$.",
-                explanation: "<strong>Định hướng giải:</strong> Theo phương chiếu $SA$: hình chiếu của $S$ lên $(ABCD)$ là $A$, còn điểm $B \\in (ABCD)$ nên hình chiếu của $B$ là chính nó. Vậy phép chiếu song song biến đường thẳng $SB$ thành <strong>đường thẳng $AB$</strong>."
+                hint: "Cột cờ và người học sinh cùng thẳng đứng (cùng phương), còn bóng trên mặt sân là hình chiếu song song theo phương tia nắng Mặt Trời.",
+                explanation: "<strong>Định hướng giải:</strong> Vì cột cờ và bạn học sinh cùng thẳng đứng (hai đoạn thẳng cùng phương) và mặt sân nằm ngang là mặt phẳng chiếu, phép chiếu song song theo phương tia nắng bảo toàn tỉ số độ dài: $\\frac{h_{\\text{HS}}}{h_{\\text{cột cờ}}} = \\frac{1,2}{4,5} \\Rightarrow h_{\\text{HS}} = 6 \\cdot \\frac{1,2}{4,5} = 1,6\\text{ m}$."
             },
 
-            // ================= CHẶNG 2: ĐẤU TRƯỜNG ĐÚNG / SAI 4 Ý (4 CÂU) =================
+            // ================= CHẶNG 2: ĐẤU TRƯỜNG TOÁN HỌC – ĐÚNG / SAI 4 Ý (4 CÂU) =================
             {
                 id: 11,
                 stage: 2,
                 type: 'TF4',
                 level: 'Thông hiểu',
                 maxPoints: 750000,
-                text: "Trong không gian, xét phép chiếu song song lên mặt phẳng $(P)$ theo phương đường thẳng $\\Delta$ (với $\\Delta$ cắt $(P)$). Xét tính đúng, sai của các mệnh đề sau:",
+                text: "Trong không gian, xét phép chiếu song song lên mặt phẳng $(\\alpha)$ theo phương chiếu $\\Delta$ (với $\\Delta$ cắt $(\\alpha)$). Xét tính đúng, sai của các mệnh đề sau:",
                 statements: [
-                    { label: "a)", text: "Hình chiếu song song của một đoạn thẳng (không song song với $\\Delta$) là một đoạn thẳng.", answer: true },
-                    { label: "b)", text: "Hình chiếu song song của trung điểm đoạn thẳng $AB$ (với $AB$ không song song với $\\Delta$) là trung điểm của đoạn thẳng hình chiếu $A'B'$.", answer: true },
-                    { label: "c)", text: "Hình chiếu song song của một góc vuông luôn là một góc vuông.", answer: false },
-                    { label: "d)", text: "Hình chiếu song song của một đường tròn (nằm trong mặt phẳng cắt $(P)$) nói chung là một đường elip.", answer: true }
+                    { label: "a)", text: "Hình chiếu của một đường thẳng song song với phương chiếu $\\Delta$ là một điểm duy nhất trên $(\\alpha)$.", answer: true },
+                    { label: "b)", text: "Nếu hai đường thẳng $a$ và $b$ cắt nhau và không song song với $\\Delta$ thì hình chiếu của chúng trên $(\\alpha)$ luôn là hai đường thẳng cắt nhau.", answer: true },
+                    { label: "c)", text: "Phép chiếu song song luôn bảo toàn số đo góc giữa hai đường thẳng bất kì.", answer: false },
+                    { label: "d)", text: "Nếu $M$ là trung điểm của đoạn thẳng $AB$ (với $AB$ không song song $\\Delta$) thì hình chiếu $M'$ của $M$ là trung điểm của đoạn thẳng $A'B'$.", answer: true }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Phép chiếu song song biến đoạn thẳng không song song với phương chiếu thành đoạn thẳng.<br>• <strong>b) Đúng:</strong> Vì phép chiếu song song bảo toàn tỉ số độ dài đoạn thẳng thẳng hàng nên trung điểm biến thành trung điểm.<br>• <strong>c) Sai:</strong> Phép chiếu song song không bảo toàn độ lớn góc; góc vuông có thể biến thành góc nhọn, góc tù hoặc góc vuông.<br>• <strong>d) Đúng:</strong> Theo SGK Toán 11, hình biểu diễn của đường tròn qua phép chiếu song song (khi mặt phẳng đường tròn không song song mặt phẳng chiếu) là một đường elip."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Mọi điểm thuộc đường thẳng $d \\parallel \\Delta$ đều chiếu theo chính đường thẳng $d$ nên có cùng một hình chiếu là giao điểm $d \\cap (\\alpha)$.<br>• <strong>b) Đúng:</strong> Hai đường thẳng $a, b$ cắt nhau xác định một mặt phẳng $(P)$ không chứa phương chiếu $\\Delta$, do đó phép chiếu song song biến hai đường thẳng cắt nhau thành hai đường thẳng cắt nhau.<br>• <strong>c) Sai:</strong> Phép chiếu song song không bảo toàn độ lớn góc (ví dụ góc vuông của hình chữ nhật được vẽ thành góc nhọn hoặc góc tù trên hình bình hành biểu diễn).<br>• <strong>d) Đúng:</strong> Vì $\\frac{A'M'}{A'B'} = \\frac{AM}{AB} = \\frac{1}{2}$ và $M'$ nằm giữa $A', B'$ nên $M'$ là trung điểm $A'B'$."
             },
             {
                 id: 12,
@@ -814,14 +923,29 @@
                 type: 'TF4',
                 level: 'Thông hiểu',
                 maxPoints: 750000,
-                text: "Cho hình lăng trụ $ABCD.A'B'C'D'$ có đáy $ABCD$ là hình bình hành tâm $O$. Xét phép chiếu song song lên mặt phẳng $(ABCD)$ theo phương đường thẳng $AA'$. Xét tính đúng, sai của các khẳng định sau:",
+                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Xét phép chiếu song song lên mặt phẳng $(ABC)$ theo phương chiếu là đường thẳng $AA'$. Xét tính đúng, sai của các khẳng định sau:",
                 statements: [
-                    { label: "a)", text: "Hình chiếu song song của điểm $B'$ lên $(ABCD)$ là điểm $B$.", answer: true },
-                    { label: "b)", text: "Hình chiếu song song của đoạn thẳng $A'C'$ lên $(ABCD)$ là đoạn thẳng $AC$.", answer: true },
-                    { label: "c)", text: "Hình chiếu song song của tam giác $B'C'D'$ lên $(ABCD)$ là tam giác $BCD$.", answer: true },
-                    { label: "d)", text: "Hình chiếu song song của đường thẳng $BB'$ lên $(ABCD)$ là đường thẳng $AB$.", answer: false }
+                    { label: "a)", text: "Hình chiếu của đỉnh $B'$ lên mặt phẳng $(ABC)$ là đỉnh $B$.", answer: true },
+                    { label: "b)", text: "Hình chiếu của tam giác $A'B'C'$ lên mặt phẳng $(ABC)$ là tam giác $ABC$.", answer: true },
+                    { label: "c)", text: "Gọi $M'$ là trung điểm của cạnh $B'C'$, hình chiếu của $M'$ lên $(ABC)$ là trọng tâm tam giác $ABC$.", answer: false },
+                    { label: "d)", text: "Hình chiếu của đường chéo $BC'$ lên mặt phẳng $(ABC)$ là đường thẳng $BC$.", answer: true }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Vì $BB' \\parallel AA'$ nên đường thẳng qua $B'$ song song $AA'$ cắt $(ABCD)$ tại $B$.<br>• <strong>b) Đúng:</strong> Ảnh của $A'$ là $A$, ảnh của $C'$ là $C$ nên đoạn $A'C'$ biến thành đoạn $AC$.<br>• <strong>c) Đúng:</strong> Ảnh của $B', C', D'$ lần lượt là $B, C, D$ nên $\\Delta B'C'D'$ biến thành $\\Delta BCD$.<br>• <strong>d) Sai:</strong> Đường thẳng $BB'$ song song với phương chiếu $AA'$ nên hình chiếu của cả đường thẳng $BB'$ lên $(ABCD)$ chỉ là một điểm duy nhất là điểm $B$."
+                diagram: `
+                    <svg viewBox="0 0 230 175" class="w-full h-auto">
+                        <polygon points="35,140 185,140 120,105" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.6"/>
+                        <polygon points="55,48 205,48 140,15" fill="rgba(251,191,36,0.12)" stroke="#fef08a" stroke-width="1.6"/>
+                        <line x1="35" y1="140" x2="55" y2="48" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="185" y1="140" x2="205" y2="48" stroke="#38bdf8" stroke-width="1.6"/>
+                        <line x1="120" y1="105" x2="140" y2="15" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>
+                        <text x="21" y="146" fill="#fff" font-size="11" font-weight="bold">A</text>
+                        <text x="190" y="146" fill="#fff" font-size="11" font-weight="bold">B</text>
+                        <text x="115" y="100" fill="#fff" font-size="11" font-weight="bold">C</text>
+                        <text x="41" y="46" fill="#fef08a" font-size="11" font-weight="bold">A'</text>
+                        <text x="209" y="48" fill="#fef08a" font-size="11" font-weight="bold">B'</text>
+                        <text x="144" y="15" fill="#fef08a" font-size="11" font-weight="bold">C'</text>
+                    </svg>
+                `,
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Vì $B'B \\parallel A'A$ và $B \\in (ABC)$ nên $B$ là hình chiếu của $B'$.<br>• <strong>b) Đúng:</strong> Các đỉnh $A', B', C'$ lần lượt có hình chiếu là $A, B, C$ nên hình chiếu của $\\Delta A'B'C'$ là $\\Delta ABC$.<br>• <strong>c) Sai:</strong> Vì phép chiếu song song bảo toàn trung điểm của đoạn thẳng nên hình chiếu của trung điểm $M'$ của $B'C'$ phải là <em>trung điểm $M$ của cạnh $BC$</em>.<br>• <strong>d) Đúng:</strong> $B$ có hình chiếu là $B$, $C'$ có hình chiếu là $C$ nên đường thẳng $BC'$ có hình chiếu là đường thẳng $BC$."
             },
             {
                 id: 13,
@@ -829,37 +953,14 @@
                 type: 'TF4',
                 level: 'Vận dụng',
                 maxPoints: 750000,
-                text: "Cho hình hộp $ABCD.A'B'C'D'$. Gọi $M, N$ lần lượt là trung điểm của $AB$ và $CD$; $G$ là trọng tâm tam giác $A'B'C'$. Xét phép chiếu song song lên mặt phẳng $(ABCD)$ theo phương đường thẳng $AA'$. Xét tính đúng, sai của các mệnh đề sau:",
+                text: "Một nghệ sĩ đặt một khung dây thép hình bình hành $ABCD$ trong không gian và chiếu một chùm tia sáng song song qua khung dây lên một bức tường phẳng $(P)$ (biết mặt phẳng khung dây không song song với phương tia sáng) thu được bóng của khung dây là tứ giác $A'B'C'D'$. Xét tính đúng, sai của các khẳng định sau:",
                 statements: [
-                    { label: "a)", text: "Hình chiếu song song của đường thẳng $MN$ lên $(ABCD)$ là chính đường thẳng $MN$.", answer: true },
-                    { label: "b)", text: "Hình chiếu song song của trọng tâm $G$ của tam giác $A'B'C'$ lên $(ABCD)$ là trọng tâm của tam giác $ABC$.", answer: true },
-                    { label: "c)", text: "Hình chiếu song song của mặt phẳng $(A'B'C'D')$ lên $(ABCD)$ là toàn bộ mặt phẳng $(ABCD)$.", answer: true },
-                    { label: "d)", text: "Hình chiếu song song của đoạn thẳng $A'B$ lên $(ABCD)$ là đoạn thẳng $BC$.", answer: false }
+                    { label: "a)", text: "Bóng $A'B'C'D'$ trên bức tường luôn là một hình bình hành.", answer: true },
+                    { label: "b)", text: "Nếu $O$ là giao điểm hai đường chéo $AC$ và $BD$ của khung dây thì bóng $O'$ của $O$ là giao điểm của $A'C'$ và $B'D'$.", answer: true },
+                    { label: "c)", text: "Nếu khung dây $ABCD$ là hình vuông thì bóng $A'B'C'D'$ trên bức tường bắt buộc phải là hình vuông.", answer: false },
+                    { label: "d)", text: "Gọi $E$ là điểm trên cạnh $AB$ sao cho $AE = 2EB$. Khi đó bóng $E'$ của $E$ nằm trên cạnh $A'B'$ và thỏa mãn $A'E' = 2E'B'$.", answer: true }
                 ],
-                diagram: `
-                    <svg viewBox="0 0 230 180" class="w-full h-auto">
-                        <!-- Đáy dưới ABCD -->
-                        <polygon points="35,145 145,145 190,115 80,115" fill="rgba(251,191,36,0.16)" stroke="#fbbf24" stroke-width="1.6"/>
-                        <!-- Đáy trên A'B'C'D' -->
-                        <polygon points="35,55 145,55 190,25 80,25" fill="none" stroke="#38bdf8" stroke-width="1.6"/>
-                        <!-- Cạnh bên -->
-                        <line x1="35" y1="55" x2="35" y2="145" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <line x1="145" y1="55" x2="145" y2="145" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <line x1="190" y1="25" x2="190" y2="115" stroke="#6ee7b7" stroke-width="1.6"/>
-                        <line x1="80" y1="25" x2="80" y2="115" stroke="#6ee7b7" stroke-width="1.4" stroke-dasharray="4,3"/>
-                        <!-- Đường chéo AC, BD -->
-                        <line x1="35" y1="145" x2="190" y2="115" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,3"/>
-                        <text x="20" y="55" fill="#38bdf8" font-size="11" font-weight="bold">A'</text>
-                        <text x="148" y="52" fill="#38bdf8" font-size="11" font-weight="bold">B'</text>
-                        <text x="194" y="25" fill="#38bdf8" font-size="11" font-weight="bold">C'</text>
-                        <text x="66" y="22" fill="#38bdf8" font-size="11" font-weight="bold">D'</text>
-                        <text x="22" y="152" fill="#fef08a" font-size="11" font-weight="bold">A</text>
-                        <text x="148" y="155" fill="#fef08a" font-size="11" font-weight="bold">B</text>
-                        <text x="194" y="122" fill="#fef08a" font-size="11" font-weight="bold">C</text>
-                        <text x="66" y="114" fill="#fef08a" font-size="11" font-weight="bold">D</text>
-                    </svg>
-                `,
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Vì $M, N \\in (ABCD)$ nên mọi điểm thuộc $MN$ có hình chiếu là chính nó.<br>• <strong>b) Đúng:</strong> Phép chiếu song song biến tam giác $A'B'C'$ thành tam giác $ABC$ và bảo toàn tỉ số chia đoạn thẳng nên biến trọng tâm $G$ thành trọng tâm của $\\Delta ABC$.<br>• <strong>c) Đúng:</strong> Mỗi điểm của $(ABCD)$ đều là hình chiếu của một điểm tương ứng trên $(A'B'C'D')$.<br>• <strong>d) Sai:</strong> Ảnh của $A'$ là $A$, ảnh của $B$ là $B$ nên hình chiếu của $A'B$ là đoạn thẳng $AB$ (không phải $BC$)."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Hai cặp cạnh đối song song của hình bình hành $ABCD$ qua phép chiếu song song trở thành hai cặp cạnh đối song song của $A'B'C'D'$, nên $A'B'C'D'$ là hình bình hành.<br>• <strong>b) Đúng:</strong> Phép chiếu song song bảo toàn giao điểm của hai đường thẳng cắt nhau không song song phương chiếu.<br>• <strong>c) Sai:</strong> Phép chiếu song song không bảo toàn góc vuông và không bảo toàn tỉ số hai đoạn thẳng không cùng phương ($AB$ và $AD$), nên bóng của hình vuông nói chung là hình bình hành.<br>• <strong>d) Đúng:</strong> Vì $A, E, B$ thẳng hàng nên phép chiếu song song bảo toàn tỉ số $\\frac{A'E'}{E'B'} = \\frac{AE}{EB} = 2$."
             },
             {
                 id: 14,
@@ -867,14 +968,14 @@
                 type: 'TF4',
                 level: 'Vận dụng',
                 maxPoints: 750000,
-                text: "Trong vẽ kĩ thuật, người ta dùng phép chiếu song song để vẽ hình biểu diễn của một hình lập phương $ABCD.A'B'C'D'$. Xét tính đúng, sai của các quy tắc vẽ hình biểu diễn sau:",
+                text: "Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm của các cạnh $AB, CD$ và $I$ là trung điểm của đoạn thẳng $MN$. Xét phép chiếu song song lên mặt phẳng $(BCD)$ theo phương chiếu là đường thẳng $AC$. Gọi $A', M', I'$ lần lượt là hình chiếu của $A, M, I$ trên $(BCD)$. Xét tính đúng, sai của các mệnh đề sau:",
                 statements: [
-                    { label: "a)", text: "Các cạnh bên $AA', BB', CC', DD'$ được vẽ bằng các đoạn thẳng song song và bằng nhau.", answer: true },
-                    { label: "b)", text: "Mặt đáy $ABCD$ của hình lập phương được vẽ biểu diễn bằng một hình bình hành.", answer: true },
-                    { label: "c)", text: "Nếu $I$ là trung điểm cạnh $AB$ thì trên hình biểu diễn, điểm biểu diễn $I'$ cũng là trung điểm đoạn biểu diễn $A'B'$.", answer: true },
-                    { label: "d)", text: "Trên hình biểu diễn của hình lập phương, tất cả các góc đều phải vẽ đúng bằng $90^\\circ$.", answer: false }
+                    { label: "a)", text: "Hình chiếu $A'$ của điểm $A$ trùng với đỉnh $C$.", answer: true },
+                    { label: "b)", text: "Hình chiếu $M'$ của điểm $M$ là trung điểm của cạnh $BC$.", answer: true },
+                    { label: "c)", text: "Hình chiếu của điểm $N$ lên mặt phẳng $(BCD)$ là chính điểm $N$.", answer: true },
+                    { label: "d)", text: "Điểm $I'$ là trọng tâm của tam giác $BCD$.", answer: false }
                 ],
-                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Hai đoạn thẳng song song và bằng nhau trong không gian có hình biểu diễn qua phép chiếu song song cũng song song và bằng nhau.<br>• <strong>b) Đúng:</strong> Hình vuông $ABCD$ có hình biểu diễn là một hình bình hành.<br>• <strong>c) Đúng:</strong> Phép chiếu song song bảo toàn tỉ số đoạn thẳng thẳng hàng nên trung điểm biểu diễn bằng trung điểm.<br>• <strong>d) Sai:</strong> Trong không gian, các góc vuông ở đáy được vẽ thành góc nhọn hoặc góc tù trên mặt phẳng giấy để tạo cảm giác chiều sâu 3D."
+                explanation: "<strong>Phân tích từng mệnh đề:</strong><br>• <strong>a) Đúng:</strong> Phương chiếu chính là đường thẳng $AC$, cắt mặt phẳng $(BCD)$ tại $C$ nên $A' \\equiv C$.<br>• <strong>b) Đúng:</strong> $M$ là trung điểm $AB$, qua phép chiếu song song biến $A \\mapsto C$, $B \\mapsto B$ nên $M'$ là trung điểm của $BC$.<br>• <strong>c) Đúng:</strong> Vì điểm $N$ đã nằm sẵn trên mặt phẳng chiếu $(BCD)$ nên hình chiếu của $N$ là chính nó.<br>• <strong>d) Sai:</strong> Vì $I$ là trung điểm của $MN$ nên qua phép chiếu song song, $I'$ là <em>trung điểm của $M'N$</em> (với $M', N$ lần lượt là trung điểm $BC, CD$), tức là $\\frac{CI'}{CN}$ không bằng $\\frac{2}{3}$, nên $I'$ không phải là trọng tâm $\\Delta BCD$."
             },
 
             // ================= CHẶNG 3: VƯỢT CHƯỚNG NGẠI VẬT – TRẢ LỜI NGẮN (4 CÂU) =================
@@ -884,9 +985,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Vào một thời điểm buổi sáng, tia nắng mặt trời chiếu song song tạo bóng của một cột đèn thẳng đứng cao $4,5\\text{ m}$ trên mặt sân nằm ngang dài $3\\text{ m}$. Cùng thời điểm đó, bóng của một tòa nhà thẳng đứng trên mặt sân đo được là $18\\text{ m}$. Tính chiều cao của tòa nhà đó (đơn vị: $\\text{m}$).",
-                correctValues: ["27", "27.0", "27,0"],
-                explanation: "<strong>Định hướng giải:</strong> Vì các tia nắng mặt trời song song nên hai tam giác vuông tạo bởi (cột đèn – bóng cột đèn – tia nắng) và (tòa nhà – bóng tòa nhà – tia nắng) đồng dạng với nhau. Ta có tỉ số: $\\frac{h_{\\text{nhà}}}{4,5} = \\frac{18}{3} = 6 \\Rightarrow h_{\\text{nhà}} = 6 \\times 4,5 = 27\\text{ m}$."
+                text: "Cho hình thang $ABCD$ có hai đáy $AB$ và $CD$ thỏa mãn $AB = 3CD$. Qua phép chiếu song song lên mặt phẳng $(\\alpha)$ theo phương chiếu không song song với $(ABCD)$, các đỉnh $A, B, C, D$ có hình chiếu lần lượt là $A', B', C', D'$. Biết $C'D' = 2,5\\text{ cm}$, tính độ dài đoạn thẳng $A'B'$ (đơn vị: $\\text{cm}$).",
+                correctValues: ["7.5", "7,5", "7.50", "7,50"],
+                explanation: "<strong>Định hướng giải:</strong> Vì hai đáy $AB$ và $CD$ của hình thang $ABCD$ song song (cùng phương) nên phép chiếu song song bảo toàn tỉ số độ dài của chúng: $\\frac{A'B'}{C'D'} = \\frac{AB}{CD} = 3$. Do đó $A'B' = 3 \\cdot C'D' = 3 \\times 2,5 = 7,5\\text{ cm}$."
             },
             {
                 id: 16,
@@ -894,9 +995,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Cho tứ diện $ABCD$. Trên cạnh $AB$ lấy điểm $M$ sao cho $AM = 2MB$. Gọi $M'$ và $B'$ lần lượt là hình chiếu song song của $M$ và $B$ lên mặt phẳng $(ACD)$ theo phương đường thẳng $BC$ (lưu ý: chọn phương chiếu $\\Delta$ cắt $(ACD)$, gọi $B'$ là ảnh của $B$ qua phép chiếu song song lên $(ACD)$ theo phương $\\Delta$). Biết $AB' = 12\\text{ cm}$. Tính độ dài đoạn thẳng $AM'$ (đơn vị: $\\text{cm}$).",
-                correctValues: ["8", "8.0", "8,0"],
-                explanation: "<strong>Định hướng giải:</strong> Vì $A \\in (ACD)$ nên hình chiếu của $A$ là chính nó. Do $A, M, B$ thẳng hàng và $AM = 2MB \\Rightarrow \\frac{AM}{AB} = \\frac{2}{3}$. Phép chiếu song song bảo toàn tỉ số độ dài đoạn thẳng thẳng hàng nên $\\frac{AM'}{AB'} = \\frac{AM}{AB} = \\frac{2}{3} \\Rightarrow AM' = \\frac{2}{3} \\times 12 = 8\\text{ cm}$."
+                text: "Cho tam giác $ABC$ có diện tích bằng $24\\text{ cm}^2$, trọng tâm $G$ và $M$ là trung điểm của cạnh $BC$. Qua phép chiếu song song lên mặt phẳng $(P)$ theo phương chiếu không song song với $(ABC)$, ta thu được hình chiếu là tam giác $A'B'C'$ có trọng tâm $G'$ và $M'$ là hình chiếu của $M$. Biết độ dài đoạn thẳng $A'M' = 6\\text{ cm}$, tính độ dài đoạn thẳng $A'G'$ (đơn vị: $\\text{cm}$).",
+                correctValues: ["4", "4.0", "4,0"],
+                explanation: "<strong>Định hướng giải:</strong> Trong tam giác $ABC$, trọng tâm $G$ nằm trên đường trung tuyến $AM$ và thỏa mãn $\\frac{AG}{AM} = \\frac{2}{3}$. Vì phép chiếu song song bảo toàn tính thẳng hàng, thứ tự điểm và tỉ số độ dài của hai đoạn thẳng cùng phương nên $\\frac{A'G'}{A'M'} = \\frac{AG}{AM} = \\frac{2}{3} \\Rightarrow A'G' = \\frac{2}{3} \\times 6 = 4\\text{ cm}$."
             },
             {
                 id: 17,
@@ -904,9 +1005,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Một tấm biển quảng cáo hình bình hành $ABCD$ được treo lơ lửng trên cao. Dưới ánh nắng chiếu theo phương song song xuống mặt đất phẳng, bóng của tấm biển trên mặt đất là hình bình hành $A'B'C'D'$ có chu vi bằng $14\\text{ m}$. Biết cạnh $A'B' = 4,2\\text{ m}$. Tính độ dài cạnh $B'C'$ của bóng tấm biển trên mặt đất (đơn vị: $\\text{m}$).",
-                correctValues: ["2,8", "2.8"],
-                explanation: "<strong>Định hướng giải:</strong> Bóng $A'B'C'D'$ là hình bình hành có chu vi $2(A'B' + B'C') = 14\\text{ m} \\Rightarrow A'B' + B'C' = 7\\text{ m}$. Vì $A'B' = 4,2\\text{ m}$ nên $B'C' = 7 - 4,2 = 2,8\\text{ m}$."
+                text: "Một tấm biển quảng cáo hình chữ nhật $ABCD$ được treo nghiêng phía trên một mặt sân nằm ngang $(P)$. Dưới ánh nắng Mặt Trời (các tia nắng song song nhau và không song song với mặt phẳng tấm biển), bóng của tấm biển trên mặt sân là hình bình hành $A'B'C'D'$. Gọi $M$ là điểm trên cạnh $AB$ sao cho $AM = \\frac{2}{5}AB$, $N$ là điểm trên cạnh $CD$ sao cho $CN = \\frac{1}{5}CD$. Biết bóng $A'B'$ trên sân dài $5\\text{ m}$, tính tổng độ dài hai đoạn bóng $A'M' + C'N'$ (đơn vị: $\\text{m}$).",
+                correctValues: ["3", "3.0", "3,0"],
+                explanation: "<strong>Định hướng giải:</strong> Vì $ABCD$ là hình chữ nhật nên $AB = CD$ và $AB \\parallel CD$, suy ra hình chiếu trên sân thỏa mãn $A'B' = C'D' = 5\\text{ m}$. Theo tính chất bảo toàn tỉ số của phép chiếu song song: $A'M' = \\frac{2}{5}A'B' = \\frac{2}{5} \\times 5 = 2\\text{ m}$ và $C'N' = \\frac{1}{5}C'D' = \\frac{1}{5} \\times 5 = 1\\text{ m}$. Vậy $A'M' + C'N' = 2 + 1 = 3\\text{ m}$."
             },
             {
                 id: 18,
@@ -914,9 +1015,9 @@
                 type: 'SHORT',
                 level: 'Vận dụng',
                 points: 750000,
-                text: "Cho hình lăng trụ $ABC.A'B'C'$. Gọi $M$ là điểm thuộc cạnh $A'B'$ sao cho $\\frac{A'M}{A'B'} = \\frac{1}{4}$, $N$ là điểm thuộc cạnh $B'C'$ sao cho $\\frac{B'N}{B'C'} = \\frac{3}{4}$. Phép chiếu song song lên mặt phẳng $(ABC)$ theo phương $AA'$ biến đoạn thẳng $MN$ thành đoạn thẳng $M_1N_1$. Biết $AB = 16\\text{ cm}$, tính độ dài đoạn thẳng $AM_1$ (đơn vị: $\\text{cm}$).",
-                correctValues: ["4", "4.0", "4,0"],
-                explanation: "<strong>Định hướng giải:</strong> Phép chiếu song song lên $(ABC)$ theo phương $AA'$ biến $A', B', M$ lần lượt thành $A, B, M_1$ với $M_1 \\in AB$. Vì phép chiếu song song bảo toàn tỉ số đoạn thẳng thẳng hàng nên $\\frac{AM_1}{AB} = \\frac{A'M}{A'B'} = \\frac{1}{4} \\Rightarrow AM_1 = \\frac{1}{4} \\times 16 = 4\\text{ cm}$."
+                text: "Cho hình lăng trụ tam giác $ABC.A'B'C'$. Gọi $G$ là trọng tâm tam giác $A'B'C'$, $M$ là trung điểm cạnh $BC$ và $O$ là điểm trên đoạn $AM$ sao cho $AO = 2OM$. Xét phép chiếu song song lên mặt phẳng $(A'B'C')$ theo phương chiếu là đường thẳng $AA'$. Tính khoảng cách từ hình chiếu của điểm $O$ đến điểm $G$ (đơn vị: $\\text{cm}$).",
+                correctValues: ["0", "0.0", "0,0"],
+                explanation: "<strong>Định hướng giải:</strong> Trong tam giác $ABC$, vì $M$ là trung điểm $BC$ và $AO = 2OM$ nên $O$ chính là <strong>trọng tâm của tam giác $ABC$</strong>. Qua phép chiếu song song lên $(A'B'C')$ theo phương cạnh bên $AA'$, tam giác $ABC$ biến thành tam giác $A'B'C'$, do đó trọng tâm $O$ của $\\Delta ABC$ biến thành trọng tâm $G$ của $\\Delta A'B'C'$. Vì hình chiếu của $O$ trùng khít với $G$ nên khoảng cách giữa chúng bằng <strong>$0\\text{ cm}$</strong>."
             }
         ];
 
@@ -976,31 +1077,42 @@
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(f, now);
-                gain.gain.setValueAtTime(0.18 / (idx + 1), now);
-                gain.gain.exponentialRampToValueAtTime(0.0008, now + 1.4);
+                osc.frequency.setValueAtTime(f, now + idx * 0.04);
+                gain.gain.setValueAtTime(0.18 / (idx + 1), now + idx * 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 1.1);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 1.4);
+                osc.start(now + idx * 0.04);
+                osc.stop(now + 1.1);
             });
         }
 
-        // Âm thanh đám đông vỗ tay chúc mừng + hợp âm vui khi trả lời ĐÚNG
+        // Âm thanh đám đông vỗ tay chúc mừng + hợp âm vui + giọng đọc "CHÍNH XÁC" khi trả lời ĐÚNG
         function playCrowdApplauseAndFanfare() {
             if (!gameState.soundOn) return;
             ensureAudio();
+
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utter = new SpeechSynthesisUtterance("Chính xác!");
+                    utter.lang = 'vi-VN';
+                    utter.rate = 1.08;
+                    utter.pitch = 1.12;
+                    window.speechSynthesis.speak(utter);
+                }
+            } catch (e) {}
+
             if (!audioCtx) return;
 
             const now = audioCtx.currentTime;
 
-            // 1. Tiếng vỗ tay đám đông sinh động (lọc nhiễu trắng theo nhịp vỗ tay)
-            const duration = 2.4;
+            // 1. Tiếng vỗ tay đám đông cổ vũ kéo dài sinh động
+            const duration = 2.6;
             const bufferSize = audioCtx.sampleRate * duration;
             const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
             const data = buffer.getChannelData(0);
             for (let i = 0; i < bufferSize; i++) {
-                // Tạo hiệu ứng nhiều bàn tay vỗ rào rào tự nhiên
                 const envelope = Math.sin((i / bufferSize) * Math.PI);
                 const flutter = 0.65 + 0.35 * Math.sin(i * 0.0045);
                 data[i] = (Math.random() * 2 - 1) * envelope * flutter;
@@ -1046,7 +1158,7 @@
             if (!audioCtx) return;
 
             const now = audioCtx.currentTime;
-            const notes = [311.13, 277.18, 233.08]; // Eb4 -> Db4 -> Bb3 trầm buồn
+            const notes = [311.13, 277.18, 233.08];
             notes.forEach((freq, i) => {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
@@ -1061,7 +1173,7 @@
             });
         }
 
-        // Hiệu ứng pháo giấy chiến thắng câu cuối
+        // Hiệu ứng pháo giấy chiến thắng khi vượt qua câu cuối
         function launchVictoryConfetti() {
             const colors = ['#fbbf24', '#38bdf8', '#4ade80', '#f472b6', '#ffffff'];
             for (let i = 0; i < 65; i++) {
@@ -1113,7 +1225,6 @@
             gameState.used5050 = false;
             gameState.usedExpert = false;
 
-            // Khôi phục nút trợ giúp
             const btn5050 = document.getElementById('btn-5050');
             const btnExpert = document.getElementById('btn-expert');
             btn5050.disabled = false;
@@ -1153,7 +1264,6 @@
             teacherScreen.classList.add('flex');
 
             fetchLeaderboardFromServer(true);
-            // Gọi GET định kỳ 5 giây một lần để đồng bộ bảng xếp hạng lớp từ máy chủ
             gameState.leaderboardPollId = setInterval(() => {
                 fetchLeaderboardFromServer(true);
             }, 5000);
@@ -1183,8 +1293,8 @@
             document.getElementById('hud-score').innerText = gameState.score.toLocaleString('vi-VN') + ' Đ';
             document.getElementById('hud-xp').innerText = gameState.xp + ' XP';
 
-            let rankTitle = "Tập Sự Hình Học";
-            if (gameState.score >= 8500000) rankTitle = "Bậc Thầy Không Gian";
+            let rankTitle = "Tập Sự Hình Chiếu";
+            if (gameState.score >= 8500000) rankTitle = "Bậc Thầy Phép Chiếu";
             else if (gameState.score >= 5500000) rankTitle = "Chuyên Gia Hình Học";
             else if (gameState.score >= 2500000) rankTitle = "Nhà Thám Hiểm 3D";
             document.getElementById('hud-rank').innerText = rankTitle;
@@ -1200,11 +1310,9 @@
                 return;
             }
 
-            // Ẩn phản hồi & gợi ý cũ
             document.getElementById('feedback-panel').classList.add('hidden');
             document.getElementById('expert-hint-box').classList.add('hidden');
 
-            // Cập nhật thanh tiến trình & nhãn chặng
             const total = QUESTION_BANK.length;
             document.getElementById('progress-text').innerText = `Câu ${gameState.currentIdx + 1} / ${total}`;
             document.getElementById('level-badge').innerText = q.level;
@@ -1220,7 +1328,7 @@
                 lifelinesBar.classList.remove('hidden');
                 valueTag.innerText = `Giá trị câu hỏi: +${q.points.toLocaleString('vi-VN')} điểm`;
             } else if (q.stage === 2) {
-                stageBadge.innerText = "Chặng 2: Đấu Trường Đúng/Sai";
+                stageBadge.innerText = "Chặng 2: Đấu Trường Toán Học";
                 stageBadge.className = "px-3 py-1 rounded-full bg-sky-400 text-slate-950 font-black text-xs sm:text-sm uppercase shadow";
                 lifelinesBar.classList.add('hidden');
                 valueTag.innerText = `Tối đa 4 ý đúng: +${q.maxPoints.toLocaleString('vi-VN')} điểm`;
@@ -1231,7 +1339,7 @@
                 valueTag.innerText = `Chinh phục thử thách: +${q.points.toLocaleString('vi-VN')} điểm`;
             }
 
-            // Hiển thị nội dung câu hỏi và hình vẽ SVG (nếu có) không làm che khuất chữ
+            // Hiển thị nội dung câu hỏi và hình vẽ SVG tách biệt, không làm che khuất đề bài
             document.getElementById('question-content').innerHTML = q.text;
             const textCol = document.getElementById('question-text-col');
             const diagCol = document.getElementById('question-diagram-col');
@@ -1247,7 +1355,6 @@
                 diagSvg.innerHTML = "";
             }
 
-            // Ẩn 3 vùng trả lời trước khi bật đúng vùng của dạng câu hỏi hiện tại
             document.getElementById('area-mcq').classList.add('hidden');
             document.getElementById('area-tf4').classList.add('hidden');
             document.getElementById('area-short').classList.add('hidden');
@@ -1269,7 +1376,6 @@
             area.classList.remove('hidden');
             area.innerHTML = '';
 
-            // Tạo mảng lựa chọn kèm cờ isCorrect rồi xáo trộn ngẫu nhiên
             const items = q.options.map((opt, idx) => ({
                 text: opt,
                 isCorrect: idx === q.correctIndex
@@ -1335,7 +1441,6 @@
                 if (!opt.isCorrect) wrongIndices.push(idx);
             });
 
-            // Xáo trộn và loại bỏ 2 phương án sai
             wrongIndices.sort(() => Math.random() - 0.5);
             wrongIndices.slice(0, 2).forEach(idx => {
                 buttons[idx].classList.add('eliminated');
@@ -1358,7 +1463,7 @@
             const correctIdx = gameState.currentShuffledOptions.findIndex(o => o.isCorrect);
             const letters = ['A', 'B', 'C', 'D'];
 
-            document.getElementById('expert-hint-text').innerHTML = `${q.hint} Theo phân tích hình học không gian, phương án chính xác là <strong>${letters[correctIdx]}</strong>.`;
+            document.getElementById('expert-hint-text').innerHTML = `${q.hint} Theo tính chất của phép chiếu song song, phương án chính xác là <strong>${letters[correctIdx]}</strong>.`;
             const box = document.getElementById('expert-hint-box');
             box.classList.remove('hidden');
             renderMathTypeset(box);
@@ -1417,7 +1522,6 @@
 
         function submitTF4() {
             if (tf4Selections.includes(null)) {
-                // Nhắc nhẹ học sinh chọn đủ cả 4 ý a, b, c, d
                 const box = document.getElementById('expert-hint-box');
                 document.getElementById('expert-hint-text').innerHTML = "Bạn hãy chọn đầy đủ <strong>ĐÚNG</strong> hoặc <strong>SAI</strong> cho cả 4 mệnh đề a), b), c), d) trước khi xác nhận nhé!";
                 box.classList.remove('hidden');
@@ -1485,7 +1589,6 @@
             btn.disabled = true;
             btn.classList.add('hidden');
 
-            // Chuẩn hóa dấu phẩy / dấu chấm thập phân để so sánh chính xác
             const normalizedUser = raw.replace(',', '.');
             const isCorrect = q.correctValues.some(ans => ans.replace(',', '.') === normalizedUser);
 
@@ -1542,14 +1645,21 @@
         }
 
         function renderMathTypeset(target = document.body) {
-            if (window.renderMathInElement) {
-                renderMathInElement(target, {
-                    delimiters: [
-                        { left: '$$', right: '$$', display: true },
-                        { left: '$', right: '$', display: false }
-                    ],
-                    throwOnError: false
-                });
+            const doRender = () => {
+                if (typeof window.renderMathInElement === 'function') {
+                    window.renderMathInElement(target, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                }
+            };
+            if (typeof window.__onKaTeXReady === 'function') {
+                window.__onKaTeXReady(doRender);
+            } else {
+                doRender();
             }
         }
 
@@ -1577,9 +1687,9 @@
             document.getElementById('res-correct-count').innerText = `${gameState.perfectCount} / ${QUESTION_BANK.length}`;
             document.getElementById('res-time').innerText = timeFormatted;
 
-            let badge = "CHIẾN BINH HÌNH HỌC KHÔNG GIAN";
+            let badge = "CHIẾN BINH HÌNH CHIẾU SONG SONG";
             if (gameState.score === 10000000) badge = "HUYỀN THOẠI TRIỆU PHÚ TOÁN HỌC 11";
-            else if (gameState.score >= 7500000) badge = "BẬC THẦY ĐƯỜNG THẲNG & MẶT PHẲNG";
+            else if (gameState.score >= 7500000) badge = "BẬC THẦY PHÉP CHIẾU SONG SONG";
             else if (gameState.score >= 5000000) badge = "CHUYÊN GIA TƯ DUY KHÔNG GIAN";
             document.getElementById('result-badge-title').innerText = `DANH HIỆU: ${badge}`;
 
@@ -1605,7 +1715,7 @@
 
         function savePersonalProgress(currentScore, timeStr) {
             try {
-                const key = 'thayhoa_toan11_personal_best';
+                const key = 'thayhoa_toan11_chieusongsong_best';
                 const prev = JSON.parse(localStorage.getItem(key) || 'null');
                 const noteEl = document.getElementById('personal-progress-note');
                 if (!prev) {
@@ -1621,9 +1731,7 @@
                         noteEl.innerHTML = `<i class="fa-solid fa-chart-line text-sky-400 mr-1"></i> Lần thử thứ ${attempts} • Kỷ lục cá nhân cao nhất của bạn: <strong>${best.toLocaleString('vi-VN')} điểm</strong>.`;
                     }
                 }
-            } catch (e) {
-                // Bỏ qua nếu trình duyệt chặn localStorage
-            }
+            } catch (e) {}
         }
 
         // Gửi (fetch POST) dữ liệu tới Google Apps Script Web App URL
@@ -1654,7 +1762,6 @@
                 .then(res => res.json())
                 .then(json => {
                     if (json && json.status === 'ok' && Array.isArray(json.data)) {
-                        // Sắp xếp theo Điểm số giảm dần, Thời gian làm bài tăng dần
                         const sorted = [...json.data].sort((a, b) => {
                             const scoreDiff = (Number(b["Điểm số"]) || 0) - (Number(a["Điểm số"]) || 0);
                             if (scoreDiff !== 0) return scoreDiff;
@@ -1728,7 +1835,6 @@
             document.getElementById('screen-welcome').classList.remove('hidden');
         }
 
-        // Hỗ trợ nhấn Enter ở ô Trả lời ngắn
         document.addEventListener('DOMContentLoaded', () => {
             const shortInput = document.getElementById('short-answer-input');
             if (shortInput) {
