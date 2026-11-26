@@ -1,479 +1,664 @@
 
-<!-- NÚT QUAY VỀ TRANG CHỦ THẦY HÒA -->
-<div style="padding:12px 15px;">
-  <a href="https://thay-hoa.vercel.app/"
-     style="
-       display:inline-block;
-       background:linear-gradient(135deg,#1769d2,#7957d5);
-       color:white;
-       padding:12px 22px;
-       border-radius:12px;
-       font-weight:bold;
-       font-size:15px;
-       text-decoration:none;
-       box-shadow:0 4px 12px #0002;
-     ">
-    🏠 TRANG CHỦ THẦY HÒA
-  </a>
-</div>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Thư viện đề cuối kì 1 - Toán 12 | THẦY HÒA</title>
+<title>Thư viện đề thi Toán 12 | THẦY HÒA </title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+:root{
+  --blue:#1769d2;
+  --purple:#7651d5;
+  --dark:#102b50;
+  --bg:#f3f6fc;
+  --text:#183153;
+}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+a{text-decoration:none}
+
+/* NÚT TRANG CHỦ */
+.home-bar{padding:13px 5%;background:white}
+.home-btn{
+  display:inline-block;
+  padding:11px 19px;
+  border-radius:12px;
+  color:white;
+  font-weight:bold;
+  background:linear-gradient(120deg,#1769d2,#7957d5);
+  box-shadow:0 4px 12px #0002;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f1f5f9;
-    color: #172554;
+/* BANNER */
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:48px 20px;
+  color:white;
+  text-align:center;
+  background:linear-gradient(120deg,#102c54,#1765b5,#7453d4);
+}
+.hero:before,.hero:after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  background:#ffffff12;
+}
+.hero:before{width:240px;height:240px;top:-130px;left:5%}
+.hero:after{width:300px;height:300px;bottom:-220px;right:5%}
+.hero-content{position:relative;z-index:1}
+.hero h1{font-size:30px;margin:0 0 13px}
+.hero p{line-height:1.7;margin:6px}
+.hero-tag{
+  display:inline-block;
+  margin-top:14px;
+  padding:8px 16px;
+  border:1px solid #ffffff65;
+  border-radius:30px;
+  background:#ffffff18;
+  font-size:13px;
 }
 
-/* HEADER */
-header {
-    background: linear-gradient(120deg,#102c54,#1765a5,#087eaa);
-    color: white;
-    padding: 30px 15px;
-    text-align: center;
+/* NỘI DUNG */
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:25px 18px 40px;
+}
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:17px;
+}
+.section-title h2{font-size:22px;margin:0}
+.total{
+  background:#e5edff;
+  color:#2458ad;
+  padding:8px 13px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:bold;
 }
 
-header h1 {
-    margin: 0 0 12px;
-    font-size: 27px;
+/* THỐNG KÊ */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-bottom:25px;
+}
+.stat{
+  background:white;
+  border-radius:14px;
+  padding:17px;
+  box-shadow:0 3px 12px #102b5010;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.stat-icon{
+  width:46px;height:46px;
+  display:grid;place-items:center;
+  border-radius:13px;
+  font-size:24px;
+  background:#e9f2ff;
+}
+.stat strong{display:block;font-size:21px;color:#1769d2}
+.stat small{color:#718096;font-size:12px}
+
+/* TÌM KIẾM */
+.toolbar{
+  display:grid;
+  grid-template-columns:1fr 190px;
+  gap:12px;
+  margin-bottom:22px;
+}
+.toolbar input,.toolbar select{
+  width:100%;
+  padding:14px;
+  border:1px solid #dce4f0;
+  border-radius:11px;
+  background:white;
+  outline:none;
+  font-size:14px;
+}
+.toolbar input:focus,.toolbar select:focus{
+  border-color:#4389e9;
+  box-shadow:0 0 0 3px #4389e922;
 }
 
-header p {
-    margin: 7px 0;
-    line-height: 1.5;
+/* LƯỚI THẺ */
+.exam-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:19px;
 }
-
-/* CONTAINER */
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
+.exam-card{
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid #e6ebf4;
+  box-shadow:0 4px 15px #142d4c0b;
+  transition:.25s;
 }
-
-/* THANH TÌM KIẾM */
-.toolbar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
+.exam-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 12px 28px #142d4c18;
 }
-
-input {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #cbd5e1;
-    border-radius: 9px;
-    font-size: 15px;
-    outline: none;
+.card-cover{
+  height:145px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  color:white;
+  background:linear-gradient(135deg,#1769d2,#35a6db);
 }
-
-input:focus {
-    border-color: #0284c7;
-    box-shadow: 0 0 0 3px #0284c720;
+.card-cover.purple{
+  background:linear-gradient(135deg,#6843c5,#a16ce9);
 }
-
-/* BỐ CỤC CHÍNH */
-.main {
-    display: grid;
-    grid-template-columns: 310px 1fr;
-    gap: 18px;
-    align-items: start;
+.card-cover.orange{
+  background:linear-gradient(135deg,#e77a30,#f5b64c);
 }
-
-.sidebar,
-.viewer {
-    background: white;
-    border-radius: 13px;
-    padding: 18px;
-    box-shadow: 0 3px 12px #00000010;
-    min-width: 0;
+.cover-icon{font-size:48px;margin-bottom:8px}
+.cover-label{
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
 }
-
-.sidebar h3,
-.viewer h3 {
-    margin-top: 0;
-    color: #124c7b;
+.card-content{padding:17px}
+.card-content h3{
+  font-size:16px;
+  line-height:1.5;
+  margin:0 0 12px;
+  min-height:48px;
 }
-
-/* DANH SÁCH TÀI LIỆU */
-.file-item {
-    padding: 13px;
-    border: 1px solid #e2e8f0;
-    border-radius: 9px;
-    margin-bottom: 9px;
-    cursor: pointer;
-    line-height: 1.5;
-    overflow-wrap: anywhere;
-    transition: .2s;
+.meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:15px;
 }
-
-.file-item:hover,
-.file-item.active {
-    background: #e0f2fe;
-    border-color: #0284c7;
+.meta span{
+  background:#f0f4fa;
+  color:#53657e;
+  padding:6px 9px;
+  border-radius:7px;
+  font-size:11px;
 }
-
-.file-item.active {
-    font-weight: bold;
+.file-type{
+  color:#d44747!important;
+  background:#fff0f0!important;
+  font-weight:bold;
 }
-
-.file-item:hover {
-    transform: translateX(3px);
+.card-buttons{display:flex;gap:8px}
+.card-buttons button{
+  flex:1;
+  padding:11px 7px;
+  border:0;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:12px;
+  transition:.2s;
 }
+.view-btn{background:#e6f1ff;color:#1769d2}
+.download-btn{background:#1769d2;color:white}
+.card-buttons button:hover{filter:brightness(.94)}
 
-/* NÚT CHỨC NĂNG */
-.viewer-actions {
-    display: flex;
-    gap: 9px;
-    flex-wrap: wrap;
-    margin-bottom: 13px;
+/* KHUNG XEM TÀI LIỆU */
+.viewer-section{
+  margin-top:30px;
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 4px 16px #0000000b;
+  scroll-margin-top:15px;
 }
-
-.viewer-actions a,
-.viewer-actions button {
-    display: inline-block;
-    border: none;
-    background: #0f766e;
-    color: white;
-    text-decoration: none;
-    padding: 11px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
+.viewer-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
 }
-
-.viewer-actions button {
-    background: #1261a0;
+.viewer-head h3{margin:0;color:#14508b}
+.viewer-actions{display:flex;gap:8px;flex-wrap:wrap}
+.viewer-actions button{
+  border:0;
+  border-radius:8px;
+  padding:10px 13px;
+  cursor:pointer;
+  font-weight:bold;
+  background:#1769d2;
+  color:white;
 }
-
-.viewer-actions a:hover,
-.viewer-actions button:hover {
-    opacity: .85;
+.viewer-actions .close-btn{background:#64748b}
+#pdfViewer{
+  width:100%;
+  height:720px;
+  border:0;
+  border-radius:10px;
+  background:#f1f5f9;
 }
-
-/* KHUNG XEM PDF */
-.viewer iframe {
-    display: block;
-    width: 100%;
-    height: 720px;
-    border: 0;
-    border-radius: 8px;
-    background: #f8fafc;
-}
-
-/* THÔNG BÁO WORD */
-.docx-notice {
-    padding: 55px 20px;
-    text-align: center;
-    background: #f0f9ff;
-    border: 1px dashed #0284c7;
-    border-radius: 10px;
-    color: #124c7b;
-    line-height: 1.8;
-}
-
-.docx-notice h3 {
-    color: #1261a0;
-}
-
-/* THÔNG BÁO */
-.empty {
-    text-align: center;
-    color: #64748b;
-    padding: 30px 10px;
-}
-
-.hint {
-    font-size: 13px;
-    color: #64748b;
-    line-height: 1.6;
-    margin-top: 12px;
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:45px 15px;
+  color:#718096;
+  background:white;
+  border-radius:14px;
 }
 
 /* FOOTER */
-footer {
-    text-align: center;
-    padding: 22px;
-    color: #64748b;
+footer{
+  background:#102c54;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+  line-height:1.8;
 }
+footer strong{color:#8dcaff}
 
 /* ĐIỆN THOẠI */
-@media(max-width:800px) {
-
-    .main {
-        grid-template-columns: 1fr;
-    }
-
-    .viewer iframe {
-        height: 600px;
-    }
-
-    header h1 {
-        font-size: 21px;
-    }
-
-    .container {
-        padding: 12px;
-    }
+@media(max-width:850px){
+  .exam-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-
+@media(max-width:550px){
+  .hero{padding:35px 15px}
+  .hero h1{font-size:22px}
+  .container{padding:18px 12px 30px}
+  .stats{gap:8px}
+  .stat{padding:12px 7px;gap:6px;flex-direction:column;text-align:center}
+  .stat strong{font-size:18px}
+  .stat small{font-size:10px}
+  .toolbar{grid-template-columns:1fr}
+  .exam-grid{grid-template-columns:1fr}
+  .card-cover{height:120px}
+  #pdfViewer{height:550px}
+  .viewer-section{padding:12px}
+}
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header>
-    <h1>📚 THƯ VIỆN ĐỀ KIỂM TRA CUỐI KÌ 1</h1>
-    <p><strong>CHINH PHỤC TOÁN HỌC – THẦY HÒA</strong></p>
-    <p>Học tập chủ động – Rèn luyện tư duy – Bứt phá điểm số</p>
-</header>
-
-<div class="container">
-
-    <!-- TÌM KIẾM -->
-    <div class="toolbar">
-        <input
-            id="search"
-            type="text"
-            placeholder="🔍 Tìm kiếm tên đề kiểm tra..."
-            oninput="renderList()">
-    </div>
-
-    <!-- NỘI DUNG -->
-    <div class="main">
-
-        <!-- DANH SÁCH -->
-        <div class="sidebar">
-
-            <h3>📂 DANH SÁCH ĐỀ</h3>
-
-            <div id="fileList"></div>
-
-            <p class="hint">
-                Chọn một tài liệu để xem hoặc tải xuống.
-            </p>
-
-        </div>
-
-        <!-- KHUNG XEM -->
-        <div class="viewer">
-
-            <h3 id="currentTitle">
-                📄 Chọn một đề để xem
-            </h3>
-
-            <div class="viewer-actions">
-
-                <a
-                    id="downloadBtn"
-                    href="#"
-                    download
-                    style="display:none">
-                    ⬇ Tải tài liệu
-                </a>
-
-                <button
-                    id="newTabBtn"
-                    type="button"
-                    onclick="openNewTab()">
-                    ↗ Mở tab mới
-                </button>
-
-            </div>
-
-            <!-- HIỂN THỊ PDF -->
-            <iframe
-                id="pdfViewer"
-                title="Trình xem đề PDF"
-                src="about:blank">
-            </iframe>
-
-            <!-- HIỂN THỊ WORD -->
-            <div
-                id="docxNotice"
-                class="docx-notice"
-                hidden>
-
-                <h3>📝 TÀI LIỆU WORD</h3>
-
-                <p>
-                    Tài liệu này có định dạng Microsoft Word (.docx).
-                </p>
-
-                <p>
-                    Nhấn nút <strong>Tải tài liệu</strong>
-                    để tải về và mở bằng Word.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
+<!-- TRANG CHỦ -->
+<div class="home-bar">
+  <a class="home-btn" href="https://thay-hoa.vercel.app/">
+    🏠 TRANG CHỦ THẦY HÒA
+  </a>
 </div>
 
-<!-- FOOTER -->
+<!-- BANNER -->
+<header class="hero">
+  <div class="hero-content">
+    <h1>📚 THƯ VIỆN ĐỀ THI TOÁN 12</h1>
+    <p><strong>CHINH PHỤC TOÁN HỌC – THẦY HÒA AI</strong></p>
+    <p>Kho đề kiểm tra – Đề ôn tập – Đề thi thử</p>
+    <p>Học tập chủ động – Rèn luyện tư duy – Bứt phá điểm số</p>
+    <span class="hero-tag">🎓 HỌC TỐT HƠN MỖI NGÀY</span>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- THỐNG KÊ -->
+  <div class="section-title">
+    <h2>🌟 KHÁM PHÁ KHO ĐỀ THI</h2>
+    <span class="total" id="totalBadge">0 tài liệu</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-icon">📚</div>
+      <div>
+        <strong id="totalCount">0</strong>
+        <small>Tổng số đề</small>
+      </div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">📕</div>
+      <div>
+        <strong id="pdfCount">0</strong>
+        <small>Tài liệu PDF</small>
+      </div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">📝</div>
+      <div>
+        <strong id="wordCount">0</strong>
+        <small>Tài liệu Word</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- TÌM KIẾM -->
+  <div class="toolbar">
+    <input
+      id="search"
+      type="search"
+      placeholder="🔍 Tìm tên đề thi, trường học, năm học..."
+      aria-label="Tìm kiếm đề thi">
+
+    <select id="typeFilter" aria-label="Lọc định dạng">
+      <option value="all">📂 Tất cả tài liệu</option>
+      <option value="pdf">📕 Đề PDF</option>
+      <option value="docx">📝 Đề Word</option>
+    </select>
+  </div>
+
+  <!-- DANH SÁCH THẺ ĐỀ -->
+  <div class="section-title">
+    <h2>📖 DANH SÁCH ĐỀ THI</h2>
+    <span style="color:#718096;font-size:13px" id="resultCount"></span>
+  </div>
+
+  <div class="exam-grid" id="examGrid"></div>
+
+  <!-- KHUNG XEM PDF -->
+  <section class="viewer-section" id="viewerSection" hidden>
+    <div class="viewer-head">
+      <h3 id="currentTitle">📄 Xem tài liệu</h3>
+      <div class="viewer-actions">
+        <button id="openTabBtn" type="button">↗ Mở tab mới</button>
+        <button class="close-btn" id="closeBtn" type="button">✕ Đóng</button>
+      </div>
+    </div>
+
+    <iframe id="pdfViewer" title="Xem tài liệu PDF"></iframe>
+
+    <div id="wordNotice" hidden
+      style="padding:35px 15px;text-align:center;background:#eff6ff;border-radius:10px;line-height:1.8">
+      <div style="font-size:45px">📝</div>
+      <h3>TÀI LIỆU WORD</h3>
+      <p>Đề thi được cung cấp dưới định dạng Microsoft Word.</p>
+      <button id="wordDownloadBtn" type="button"
+        style="padding:12px 20px;border:0;border-radius:9px;background:#1769d2;color:white;font-weight:bold;cursor:pointer">
+        ⬇ Tải tài liệu Word
+      </button>
+    </div>
+  </section>
+
+</main>
+
 <footer>
-    © THẦY HÒA – Cổng học tập số
+  <strong>CHINH PHỤC TOÁN HỌC – THẦY HÒA AI</strong><br>
+  📚 Học tập chủ động – Khám phá tri thức – Làm chủ tương lai<br>
+  © THẦY HÒA AI – Cổng học tập số
 </footer>
 
 <script>
 
-// ======================================
-// DANH SÁCH TÀI LIỆU
-// ======================================
+// =====================================
+// 1. NGÂN HÀNG TÀI LIỆU
+// =====================================
 
-const pdfFiles = [
-  
-    {
-        name: "Đề cuối kì 1 chuyên Lê Khiết (PDF)",
-        file: "./de-cuoi-hoc-ki-1-toan-12-nam-2025-2026-truong-chuyen-le-khiet-quang-ngai.pdf",
-        type: "pdf"
-    },
+const examFiles = [
 
+  {
+    id: 1,
+    name: "Đề cuối kì 1 chuyên Lê Khiết",
+    school: "THPT chuyên Lê Khiết – Quảng Ngãi",
+    year: "2025-2026",
+    semester: "Học kì 1",
+    type: "pdf",
+    file: "./de-cuoi-hoc-ki-1-toan-12-nam-2025-2026-truong-chuyen-le-khiet-quang-ngai.pdf",
+    color: "blue"
+  }
 
-    
+  // THÊM ĐỀ MỚI TẠI ĐÂY
+  // Nhớ đặt dấu phẩy sau mục phía trên.
 ];
+
+// =====================================
+// 2. CÁC BIẾN
+// =====================================
 
 let selectedFile = null;
 
-// ======================================
-// HIỂN THỊ DANH SÁCH
-// ======================================
+const grid = document.getElementById("examGrid");
+const search = document.getElementById("search");
+const typeFilter = document.getElementById("typeFilter");
 
-function renderList() {
+// =====================================
+// 3. THỐNG KÊ
+// =====================================
 
-    const list = document.getElementById("fileList");
-    const search = document.getElementById("search");
+function updateStats(){
 
-    if (!list || !search) {
-        console.error("Không tìm thấy fileList hoặc search trong HTML!");
-        return;
-    }
+  const pdf = examFiles.filter(x => x.type === "pdf").length;
+  const word = examFiles.filter(x => x.type === "docx").length;
 
-    const keyword = search.value.trim().toLowerCase();
+  document.getElementById("totalCount").textContent = examFiles.length;
+  document.getElementById("pdfCount").textContent = pdf;
+  document.getElementById("wordCount").textContent = word;
+  document.getElementById("totalBadge").textContent =
+    examFiles.length + " tài liệu";
 
-    const filtered = pdfFiles.filter(item =>
-        item.name.toLowerCase().includes(keyword)
-    );
+}
 
-    list.innerHTML = "";
+// =====================================
+// 4. HIỂN THỊ THẺ ĐỀ THI
+// =====================================
 
-    if (filtered.length === 0) {
-        list.innerHTML =
-            '<div class="empty">Không tìm thấy đề kiểm tra.</div>';
-        return;
-    }
+function renderExams(){
 
-    filtered.forEach(item => {
+  const keyword = search.value.trim().toLowerCase();
+  const type = typeFilter.value;
 
-        const div = document.createElement("div");
+  const filtered = examFiles.filter(item => {
 
-        div.className = "file-item";
+    const content = (
+      item.name + " " +
+      item.school + " " +
+      item.year + " " +
+      item.semester
+    ).toLowerCase();
 
-        if (selectedFile === item) {
-            div.classList.add("active");
-        }
+    return content.includes(keyword) &&
+      (type === "all" || item.type === type);
 
-        div.textContent =
-            (item.type === "pdf" ? "📕 " : "📝 ") + item.name;
+  });
 
-        div.addEventListener("click", function() {
-            openPDF(item);
-        });
+  grid.innerHTML = "";
 
-        list.appendChild(div);
+  document.getElementById("resultCount").textContent =
+    "Tìm thấy " + filtered.length + " đề";
+
+  if(filtered.length === 0){
+
+    grid.innerHTML =
+      '<div class="empty">🔎 Không tìm thấy tài liệu phù hợp.<br>Ông chủ hãy kiểm tra lại từ khóa!</div>';
+
+    return;
+  }
+
+  filtered.forEach(item => {
+
+    const card = document.createElement("article");
+    card.className = "exam-card";
+
+    const cover = document.createElement("div");
+    cover.className = "card-cover " +
+      (item.color === "purple" ? "purple" :
+       item.color === "orange" ? "orange" : "");
+
+    const icon = document.createElement("div");
+    icon.className = "cover-icon";
+    icon.textContent = item.type === "pdf" ? "📕" : "📝";
+
+    const label = document.createElement("div");
+    label.className = "cover-label";
+    label.textContent = item.type === "pdf" ? "PDF DOCUMENT" : "WORD DOCUMENT";
+
+    cover.append(icon,label);
+
+    const content = document.createElement("div");
+    content.className = "card-content";
+
+    const title = document.createElement("h3");
+    title.textContent = item.name;
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+
+    [
+      "🏫 " + item.school,
+      "📅 " + item.year,
+      "📖 " + item.semester,
+      item.type.toUpperCase()
+    ].forEach((value,index) => {
+
+      const tag = document.createElement("span");
+      tag.textContent = value;
+
+      if(index === 3) tag.className = "file-type";
+
+      meta.appendChild(tag);
 
     });
 
+    const buttons = document.createElement("div");
+    buttons.className = "card-buttons";
+
+    const view = document.createElement("button");
+    view.className = "view-btn";
+    view.textContent = "👁 Xem đề";
+    view.addEventListener("click", () => openFile(item));
+
+    const download = document.createElement("button");
+    download.className = "download-btn";
+    download.textContent = "⬇ Tải đề";
+    download.addEventListener("click", () => downloadFile(item));
+
+    buttons.append(view,download);
+    content.append(title,meta,buttons);
+    card.append(cover,content);
+    grid.appendChild(card);
+
+  });
+
 }
 
-// ======================================
-// MỞ TÀI LIỆU
-// ======================================
+// =====================================
+// 5. MỞ TÀI LIỆU
+// =====================================
 
-function openPDF(item) {
+function openFile(item){
 
-    selectedFile = item;
+  selectedFile = item;
 
-    const viewer = document.getElementById("pdfViewer");
-    const notice = document.getElementById("docxNotice");
-    const downloadBtn = document.getElementById("downloadBtn");
+  const section = document.getElementById("viewerSection");
+  const viewer = document.getElementById("pdfViewer");
+  const notice = document.getElementById("wordNotice");
 
-    document.getElementById("currentTitle").textContent =
-        "📄 " + item.name;
+  document.getElementById("currentTitle").textContent =
+    "📄 " + item.name;
 
-    downloadBtn.href = item.file;
-    downloadBtn.style.display = "inline-block";
+  section.hidden = false;
 
-    if (item.type === "pdf") {
+  if(item.type === "pdf"){
 
-        viewer.style.display = "block";
-        viewer.src = item.file;
+    viewer.hidden = false;
+    viewer.src = item.file;
+    notice.hidden = true;
 
-        notice.hidden = true;
+  }else{
 
-        downloadBtn.removeAttribute("download");
-        downloadBtn.textContent = "⬇ Tải đề PDF";
+    viewer.hidden = true;
+    viewer.src = "about:blank";
+    notice.hidden = false;
 
-    } else {
+  }
 
-        viewer.style.display = "none";
-        viewer.src = "about:blank";
+  section.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
 
-        notice.hidden = false;
-
-        downloadBtn.setAttribute("download", "");
-        downloadBtn.textContent = "⬇ Tải tài liệu Word";
-
-    }
-
-    renderList();
 }
 
-// ======================================
-// MỞ TAB MỚI
-// ======================================
+// =====================================
+// 6. TẢI TÀI LIỆU
+// =====================================
 
-function openNewTab() {
+function downloadFile(item){
 
-    if (!selectedFile) {
-        alert("Vui lòng chọn một đề kiểm tra!");
-        return;
-    }
+  const link = document.createElement("a");
 
-    if (selectedFile.type === "pdf") {
-        window.open(selectedFile.file, "_blank", "noopener");
-    } else {
-        document.getElementById("downloadBtn").click();
-    }
+  link.href = item.file;
+
+  if(item.type === "docx"){
+    link.download = "";
+  }else{
+    link.target = "_blank";
+    link.rel = "noopener";
+  }
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
 }
 
-// ======================================
-// KHỞI ĐỘNG
-// ======================================
+// =====================================
+// 7. MỞ TAB MỚI
+// =====================================
 
-document.addEventListener("DOMContentLoaded", function() {
+document.getElementById("openTabBtn").addEventListener("click",()=>{
 
-    renderList();
+  if(!selectedFile) return;
 
-    document.getElementById("search").addEventListener("input", renderList);
+  window.open(
+    selectedFile.file,
+    "_blank",
+    "noopener"
+  );
 
 });
+
+document.getElementById("wordDownloadBtn").addEventListener("click",()=>{
+
+  if(selectedFile) downloadFile(selectedFile);
+
+});
+
+// =====================================
+// 8. ĐÓNG KHUNG XEM
+// =====================================
+
+document.getElementById("closeBtn").addEventListener("click",()=>{
+
+  document.getElementById("viewerSection").hidden = true;
+  document.getElementById("pdfViewer").src = "about:blank";
+  selectedFile = null;
+
+});
+
+// =====================================
+// 9. TÌM KIẾM VÀ LỌC
+// =====================================
+
+search.addEventListener("input",renderExams);
+typeFilter.addEventListener("change",renderExams);
+
+// =====================================
+// 10. KHỞI ĐỘNG
+// =====================================
+
+updateStats();
+renderExams();
 
 </script>
 
