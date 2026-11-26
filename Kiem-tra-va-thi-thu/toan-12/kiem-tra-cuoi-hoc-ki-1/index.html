@@ -1,64 +1,62 @@
 
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#123b70">
+<meta name="theme-color" content="#10264b">
 <title>Thư viện đề kiểm tra cuối kì 1 – Toán 12 | THẦY HÒA</title>
 
 <style>
 :root {
-  --navy:#102b50;
+  --navy:#10264b;
   --blue:#1769d2;
-  --cyan:#11a7c8;
-  --purple:#7652d5;
-  --ink:#1b2d46;
-  --muted:#687991;
-  --line:#e2eaf4;
-  --page:#f3f6fc;
-  --green:#0b8b70;
-  --shadow:0 8px 26px rgba(22,48,83,.08);
+  --cyan:#13b8c9;
+  --purple:#7957d5;
+  --text:#17243b;
+  --muted:#64748b;
+  --border:#e5eaf2;
+  --bg:#f3f6fc;
+  --shadow:0 4px 14px rgba(16,38,75,.07);
 }
 
-* { box-sizing:border-box; }
+* {box-sizing:border-box}
 
-html { scroll-behavior:smooth; }
+html {scroll-behavior:smooth}
 
 body {
   margin:0;
-  background:var(--page);
-  color:var(--ink);
+  background:var(--bg);
+  color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
 }
 
-button,input,select { font:inherit; }
-
-a { color:inherit; }
+button,input,select {font:inherit}
 
 .site {
-  max-width:1240px;
+  width:min(1200px,100%);
   margin:auto;
-  padding:14px 18px 28px;
+  padding:12px 15px 25px;
 }
 
 /* NÚT TRANG CHỦ */
-.home-row { margin:0 0 14px; }
+.home-row {margin-bottom:10px}
 
 .home-btn {
   display:inline-flex;
   align-items:center;
-  gap:8px;
-  padding:11px 17px;
-  border-radius:11px;
-  color:#fff;
-  text-decoration:none;
-  font-weight:700;
-  font-size:14px;
+  gap:7px;
+  padding:9px 14px;
+  border-radius:9px;
   background:linear-gradient(135deg,var(--blue),var(--purple));
-  box-shadow:0 5px 14px #1769d226;
+  color:white;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+  box-shadow:0 3px 10px #1769d225;
 }
+
+.home-btn:hover {filter:brightness(1.08)}
 
 /* BANNER */
 .hero {
@@ -66,10 +64,10 @@ a { color:inherit; }
   overflow:hidden;
   text-align:center;
   color:#fff;
-  padding:38px 18px 34px;
-  border-radius:20px;
+  padding:25px 15px 23px;
+  border-radius:15px;
   background:linear-gradient(120deg,#10264b,#1769b9 62%,#7252ce);
-  box-shadow:0 10px 28px #123b7024;
+  box-shadow:0 6px 20px #123b7020;
 }
 
 .hero:before,.hero:after {
@@ -81,188 +79,188 @@ a { color:inherit; }
 }
 
 .hero:before {
-  width:250px;
-  height:250px;
+  width:200px;
+  height:200px;
   left:-90px;
-  top:-150px;
+  top:-130px;
 }
 
 .hero:after {
-  width:330px;
-  height:330px;
-  right:-120px;
-  bottom:-240px;
+  width:250px;
+  height:250px;
+  right:-100px;
+  bottom:-190px;
 }
 
-.hero-inner {
-  position:relative;
-  z-index:1;
-}
+.hero-inner {position:relative;z-index:1}
 
 .hero-icon {
-  font-size:38px;
-  margin-bottom:8px;
+  font-size:31px;
+  margin-bottom:5px;
 }
 
 .hero h1 {
-  font-size:clamp(22px,3vw,32px);
-  line-height:1.25;
-  margin:0 0 10px;
+  margin:0 0 7px;
   color:#fff;
+  font-size:clamp(20px,2.8vw,29px);
+  line-height:1.3;
 }
 
 .brand {
+  font-size:13px;
   font-weight:800;
-  letter-spacing:.6px;
-  font-size:14px;
+  letter-spacing:.5px;
 }
 
 .hero p {
-  margin:9px 0 0;
+  margin:7px 0 0;
   color:#e5f1ff;
-  font-size:14px;
-  line-height:1.6;
+  font-size:13px;
+  line-height:1.5;
 }
 
 .hero-pill {
   display:inline-block;
-  margin-top:15px;
-  padding:8px 14px;
+  margin-top:11px;
+  padding:6px 12px;
   border:1px solid #ffffff70;
   border-radius:30px;
   background:#ffffff18;
-  font-size:12px;
+  font-size:11px;
   font-weight:700;
 }
 
-/* TIÊU ĐỀ CÁC KHU VỰC */
+/* TIÊU ĐỀ KHU VỰC */
 .section-head {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
   flex-wrap:wrap;
-  margin:25px 0 14px;
+  gap:8px;
+  margin:18px 0 10px;
 }
 
 .section-head h2 {
-  font-size:21px;
   margin:0;
   color:var(--navy);
+  font-size:17px;
+  line-height:1.4;
 }
 
 .count-pill {
-  padding:8px 12px;
-  border-radius:30px;
+  padding:6px 10px;
+  border-radius:20px;
   background:#e7efff;
   color:#2459aa;
-  font-size:12px;
+  font-size:11px;
   font-weight:700;
 }
 
 /* THỐNG KÊ */
 .stats {
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:13px;
-  margin:18px 0 22px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:9px;
+  margin:12px 0 17px;
 }
 
 .stat {
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:15px;
+  gap:10px;
+  padding:11px 13px;
   background:#fff;
-  border:1px solid var(--line);
-  border-radius:15px;
-  box-shadow:0 3px 12px #102b5008;
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:var(--shadow);
 }
 
 .stat-icon {
-  width:44px;
-  height:44px;
+  width:37px;
+  height:37px;
   display:grid;
   place-items:center;
   flex:none;
-  border-radius:13px;
+  border-radius:10px;
   background:#edf4ff;
-  font-size:23px;
+  font-size:20px;
 }
 
 .stat strong {
   display:block;
   color:var(--blue);
-  font-size:21px;
+  font-size:19px;
 }
 
 .stat small {
   display:block;
-  margin-top:3px;
+  margin-top:2px;
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
 }
 
 /* BỘ LỌC */
 .filters {
   display:grid;
-  grid-template-columns:minmax(220px,1.6fr) repeat(3,minmax(140px,1fr));
-  gap:10px;
-  margin:15px 0 20px;
+  grid-template-columns:minmax(200px,1.6fr) repeat(4,minmax(115px,1fr));
+  gap:8px;
+  margin:11px 0 16px;
 }
 
 .control {
   width:100%;
   min-width:0;
-  height:46px;
-  padding:0 13px;
+  height:40px;
+  padding:0 10px;
   border:1px solid #dce5f0;
-  border-radius:11px;
+  border-radius:9px;
   background:#fff;
-  color:var(--ink);
+  color:var(--text);
+  font-size:12px;
   outline:none;
 }
 
 .control:focus {
   border-color:#4b91e7;
-  box-shadow:0 0 0 3px #1769d21a;
+  box-shadow:0 0 0 3px #1769d218;
 }
 
-.search-wrap { position:relative; }
+.search-wrap {position:relative}
 
 .search-wrap span {
   position:absolute;
-  left:14px;
-  top:14px;
+  left:11px;
+  top:11px;
+  font-size:13px;
   pointer-events:none;
 }
 
-.search-wrap input { padding-left:40px; }
+.search-wrap input {padding-left:34px}
 
-/* DANH SÁCH THẺ ĐỀ THI */
+/* DANH SÁCH THẺ */
 .grid {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:17px;
+  gap:10px;
 }
 
 .card {
   min-width:0;
   overflow:hidden;
   background:#fff;
-  border:1px solid var(--line);
-  border-radius:16px;
-  box-shadow:0 4px 15px #102b500a;
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:0 3px 11px #102b5009;
   transition:transform .2s,box-shadow .2s;
 }
 
 .card:hover {
-  transform:translateY(-4px);
-  box-shadow:var(--shadow);
+  transform:translateY(-3px);
+  box-shadow:0 7px 18px #102b5018;
 }
 
 .cover {
-  height:126px;
+  height:83px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -284,63 +282,66 @@ a { color:inherit; }
 }
 
 .cover-icon {
-  font-size:43px;
+  font-size:29px;
   line-height:1;
-  margin-bottom:9px;
+  margin-bottom:5px;
 }
 
 .cover-label {
-  font-size:11px;
-  letter-spacing:1px;
+  font-size:9px;
+  letter-spacing:.8px;
   font-weight:800;
 }
 
-.card-body { padding:16px; }
+.card-body {padding:11px}
 
 .card h3 {
-  font-size:16px;
-  line-height:1.45;
-  margin:0 0 12px;
-  min-height:46px;
+  min-height:39px;
+  margin:0 0 8px;
   color:#18375c;
+  font-size:13px;
+  line-height:1.4;
   overflow-wrap:anywhere;
 }
 
 .meta {
   display:flex;
   flex-wrap:wrap;
-  gap:6px;
-  margin-bottom:14px;
+  gap:5px;
+  margin-bottom:10px;
 }
 
 .meta span {
-  font-size:11px;
-  line-height:1.35;
-  padding:6px 8px;
-  border-radius:7px;
+  padding:4px 6px;
+  border-radius:6px;
   background:#f1f5fa;
   color:#566981;
+  font-size:10px;
+  line-height:1.35;
 }
 
 .meta .format {
-  font-weight:800;
   color:#b43d3d;
   background:#fff0f0;
+  font-weight:800;
 }
 
 .card-actions {
   display:flex;
-  gap:8px;
+  gap:6px;
 }
 
 .action {
   flex:1;
   min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   border:0;
-  border-radius:9px;
-  padding:10px 8px;
+  border-radius:7px;
+  padding:8px 5px;
   cursor:pointer;
-  font-size:12px;
+  font-size:11px;
   font-weight:800;
   text-align:center;
   text-decoration:none;
@@ -356,54 +357,53 @@ a { color:inherit; }
   color:#fff;
 }
 
-.action:hover { filter:brightness(.96); }
+.action:hover {filter:brightness(.96)}
 
 .empty {
   grid-column:1/-1;
-  text-align:center;
-  padding:35px 15px;
+  padding:25px 12px;
   border:1px dashed #cbd7e6;
-  border-radius:14px;
+  border-radius:12px;
   background:#fff;
   color:var(--muted);
-  line-height:1.7;
+  font-size:13px;
+  line-height:1.6;
+  text-align:center;
 }
 
-/* KHU VỰC XEM TÀI LIỆU */
+/* TRÌNH XEM TÀI LIỆU */
 .viewer {
-  margin-top:28px;
-  padding:17px;
+  margin-top:20px;
+  padding:13px;
   background:#fff;
-  border:1px solid var(--line);
-  border-radius:16px;
+  border:1px solid var(--border);
+  border-radius:13px;
   box-shadow:var(--shadow);
-  scroll-margin-top:14px;
+  scroll-margin-top:12px;
 }
 
-.viewer[hidden],.notice[hidden] {
-  display:none!important;
-}
+.viewer[hidden],.notice[hidden] {display:none!important}
 
 .viewer-top {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:12px;
+  gap:9px;
   flex-wrap:wrap;
-  margin-bottom:13px;
+  margin-bottom:10px;
 }
 
 .viewer-title {
   margin:0;
   color:var(--navy);
-  font-size:17px;
-  line-height:1.45;
+  font-size:15px;
+  line-height:1.4;
   overflow-wrap:anywhere;
 }
 
 .viewer-actions {
   display:flex;
-  gap:8px;
+  gap:6px;
   flex-wrap:wrap;
 }
 
@@ -411,181 +411,211 @@ a { color:inherit; }
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-height:38px;
-  padding:9px 12px;
+  min-height:34px;
+  padding:7px 10px;
   border:0;
-  border-radius:9px;
+  border-radius:7px;
   background:var(--blue);
   color:#fff;
   text-decoration:none;
-  font-size:12px;
+  font-size:11px;
   font-weight:800;
   cursor:pointer;
 }
 
-.viewer-actions .close { background:#64748b; }
+.viewer-actions .close {background:#64748b}
 
 .pdf-frame {
   width:100%;
-  height:740px;
-  border:1px solid var(--line);
-  border-radius:10px;
+  height:700px;
+  border:1px solid var(--border);
+  border-radius:8px;
   background:#f5f8fc;
 }
 
 .mobile-hint {
   display:none;
-  margin:10px 0 0;
+  margin:8px 0 0;
   color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
+  font-size:11px;
+  line-height:1.5;
 }
 
 .notice {
-  padding:48px 18px;
+  padding:35px 15px;
   text-align:center;
   border:1px dashed #91b9e5;
-  border-radius:12px;
+  border-radius:10px;
   background:#f0f7ff;
-  line-height:1.7;
+  line-height:1.6;
 }
 
-.notice .big { font-size:44px; }
+.notice .big {font-size:36px}
 
 .notice h3 {
-  margin:8px 0;
+  margin:7px 0;
   color:#175da7;
+  font-size:16px;
 }
 
 .notice p {
   margin:5px 0;
   color:#526b86;
-  font-size:13px;
+  font-size:12px;
 }
 
 /* CHÂN TRANG */
 .footer {
-  margin-top:25px;
-  padding:22px 12px;
-  text-align:center;
-  color:#dbeafe;
+  margin-top:20px;
+  padding:17px 12px;
+  border-radius:11px;
   background:#102b50;
-  border-radius:14px;
+  color:#dbeafe;
+  text-align:center;
+  font-size:12px;
   line-height:1.8;
-  font-size:13px;
 }
 
-.footer strong { color:#fff; }
+.footer strong {color:#fff}
 
-/* GIAO DIỆN TABLET */
+/* TABLET */
 @media(max-width:900px) {
-  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-
   .filters {
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:repeat(3,minmax(0,1fr));
   }
+
+  .grid {grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
-/* GIAO DIỆN ĐIỆN THOẠI */
+/* ĐIỆN THOẠI */
 @media(max-width:600px) {
-  .site { padding:10px 11px 22px; }
+  .site {padding:9px 10px 18px}
 
   .hero {
-    padding:30px 14px;
-    border-radius:15px;
+    padding:22px 11px;
+    border-radius:12px;
   }
 
-  .hero h1 { font-size:22px; }
-  .brand { font-size:12px; }
-  .hero p { font-size:13px; }
+  .hero-icon {font-size:27px}
+  .hero h1 {font-size:20px}
+  .brand {font-size:11px}
+  .hero p {font-size:12px}
 
-  .stats { gap:7px; }
+  .section-head {margin:15px 0 9px}
+  .section-head h2 {font-size:15px}
+
+  .stats {gap:6px}
 
   .stat {
-    padding:11px 6px;
     flex-direction:column;
+    justify-content:center;
+    gap:5px;
+    padding:9px 4px;
     text-align:center;
-    gap:6px;
   }
 
   .stat-icon {
-    width:37px;
-    height:37px;
-    font-size:20px;
+    width:32px;
+    height:32px;
+    font-size:17px;
   }
 
-  .stat strong { font-size:18px; }
-  .stat small { font-size:10px; }
+  .stat strong {font-size:17px}
+  .stat small {font-size:10px}
 
-  .filters { grid-template-columns:1fr; }
-  .grid { grid-template-columns:1fr; gap:13px; }
+  .filters {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+  }
 
-  .cover { height:112px; }
-  .card-body { padding:14px; }
-  .card h3 { min-height:0; }
+  .search-wrap {grid-column:1/-1}
 
-  .viewer { padding:12px; }
+  .control {
+    height:38px;
+    font-size:11px;
+  }
+
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+
+  .cover {height:72px}
+  .cover-icon {font-size:25px}
+  .cover-label {font-size:8px}
+
+  .card-body {padding:8px}
+
+  .card h3 {
+    min-height:36px;
+    font-size:12px;
+    margin-bottom:6px;
+  }
+
+  .meta {gap:4px;margin-bottom:8px}
+
+  .meta span {
+    padding:3px 5px;
+    font-size:9px;
+  }
+
+  .card-actions {gap:5px}
+
+  .action {
+    padding:7px 3px;
+    font-size:10px;
+  }
+
+  .viewer {padding:10px}
 
   .pdf-frame {
     height:62vh;
-    min-height:430px;
-    max-height:680px;
+    min-height:400px;
+    max-height:650px;
   }
 
-  .mobile-hint { display:block; }
-  .section-head h2 { font-size:18px; }
+  .mobile-hint {display:block}
 }
 
+/* ĐIỆN THOẠI RẤT NHỎ */
 @media(max-width:360px) {
-  .card-actions { flex-direction:column; }
-  .action { width:100%; }
-  .pdf-frame { min-height:390px; }
+  .site {padding-left:7px;padding-right:7px}
+  .grid {gap:6px}
+  .card-body {padding:7px}
+  .card h3 {font-size:11px}
+  .action {font-size:9px}
+  .meta span {font-size:8px}
+  .pdf-frame {min-height:360px}
 }
 </style>
 </head>
 
 <body>
-
 <div class="site">
 
-  <!-- NÚT VỀ TRANG CHỦ -->
   <div class="home-row">
     <a class="home-btn" href="https://thay-hoa.vercel.app/">
       🏠 TRANG CHỦ THẦY HÒA
     </a>
   </div>
 
-  <!-- BANNER -->
   <header class="hero">
     <div class="hero-inner">
       <div class="hero-icon">📚</div>
-
       <h1>THƯ VIỆN ĐỀ KIỂM TRA CUỐI KÌ 1</h1>
-
-      <div class="brand">
-        CHINH PHỤC TOÁN HỌC – THẦY HÒA
-      </div>
-
-      <p>
-        Học tập chủ động – Rèn luyện tư duy – Bứt phá điểm số
-      </p>
-
-      <span class="hero-pill">
-        🎓 KHO TÀI LIỆU SỐ TOÁN 12
-      </span>
+      <div class="brand">CHINH PHỤC TOÁN HỌC – THẦY HÒA</div>
+      <p>Học tập chủ động – Rèn luyện tư duy – Bứt phá điểm số</p>
+      <span class="hero-pill">🎓 KHO TÀI LIỆU SỐ TOÁN 12</span>
     </div>
   </header>
 
-  <!-- THỐNG KÊ -->
   <section aria-label="Thống kê thư viện">
-
     <div class="section-head">
       <h2>🌟 KHÁM PHÁ KHO ĐỀ THI</h2>
       <span class="count-pill" id="totalBadge">0 tài liệu</span>
     </div>
 
     <div class="stats">
-
       <div class="stat">
         <div class="stat-icon">📚</div>
         <div>
@@ -609,28 +639,19 @@ a { color:inherit; }
           <small>Tài liệu Word</small>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- TÌM KIẾM VÀ LỌC -->
   <section aria-label="Tìm kiếm và lọc đề thi">
-
     <div class="section-head">
       <h2>🔎 TÌM KIẾM & LỌC TÀI LIỆU</h2>
     </div>
 
     <div class="filters">
-
       <div class="search-wrap">
         <span>🔍</span>
-        <input
-          class="control"
-          id="searchInput"
-          type="search"
-          placeholder="Tìm tên đề, trường, năm học..."
-          autocomplete="off"
-        >
+        <input class="control" id="searchInput" type="search"
+          placeholder="Tìm tên đề, trường, năm học..." autocomplete="off">
       </div>
 
       <select class="control" id="schoolFilter">
@@ -650,68 +671,41 @@ a { color:inherit; }
         <option value="pdf">📕 PDF</option>
         <option value="docx">📝 Word</option>
       </select>
-
     </div>
   </section>
 
-  <!-- DANH SÁCH ĐỀ -->
   <section aria-label="Danh sách đề thi">
-
     <div class="section-head">
       <h2>📖 DANH SÁCH ĐỀ THI</h2>
       <span class="count-pill" id="resultCount">0 kết quả</span>
     </div>
 
     <div class="grid" id="examGrid"></div>
-
   </section>
 
-  <!-- TRÌNH XEM TÀI LIỆU -->
-  <section
-    class="viewer"
-    id="viewerSection"
-    hidden
-    aria-label="Trình xem tài liệu"
-  >
+  <section class="viewer" id="viewerSection" hidden
+    aria-label="Trình xem tài liệu">
 
     <div class="viewer-top">
-
-      <h2 class="viewer-title" id="currentTitle">
-        📄 Xem tài liệu
-      </h2>
+      <h2 class="viewer-title" id="currentTitle">📄 Xem tài liệu</h2>
 
       <div class="viewer-actions">
-
-        <a
-          id="openTabBtn"
-          href="#"
-          target="_blank"
-          rel="noopener"
-        >
+        <a id="openTabBtn" href="#" target="_blank" rel="noopener">
           ↗ MỞ TAB MỚI
         </a>
 
-        <a
-          id="viewerDownload"
-          href="#"
-          download
-        >
+        <a id="viewerDownload" href="#" download>
           ⬇ TẢI TÀI LIỆU
         </a>
 
         <button class="close" id="closeBtn" type="button">
           ✕ ĐÓNG
         </button>
-
       </div>
     </div>
 
-    <iframe
-      class="pdf-frame"
-      id="pdfViewer"
-      title="Trình xem đề PDF"
-      src="about:blank"
-    ></iframe>
+    <iframe class="pdf-frame" id="pdfViewer"
+      title="Trình xem đề PDF" src="about:blank"></iframe>
 
     <p class="mobile-hint">
       📱 Nếu điện thoại không hiển thị PDF trong khung,
@@ -720,37 +714,20 @@ a { color:inherit; }
     </p>
 
     <div class="notice" id="wordNotice" hidden>
-
       <div class="big">📝</div>
-
       <h3>TÀI LIỆU WORD</h3>
-
-      <p>
-        Tài liệu Word không xem trực tiếp trong khung này.
-      </p>
-
-      <p>
-        Nhấn “Tải tài liệu” để mở bằng Microsoft Word
-        hoặc ứng dụng tương thích.
-      </p>
-
+      <p>Tài liệu Word không xem trực tiếp trong khung này.</p>
+      <p>Nhấn “Tải tài liệu” để mở bằng Microsoft Word
+        hoặc ứng dụng tương thích.</p>
     </div>
-
   </section>
 
-  <!-- CHÂN TRANG -->
   <footer class="footer">
-
     <strong>CHINH PHỤC TOÁN HỌC – THẦY HÒA</strong>
-
     <br>
-
     📚 Học tập chủ động – Khám phá tri thức – Làm chủ tương lai
-
     <br>
-
     © THẦY HÒA – Cổng học tập số
-
   </footer>
 
 </div>
@@ -759,21 +736,17 @@ a { color:inherit; }
 (() => {
   "use strict";
 
-  /*
-   =====================================================
-   KHU VỰC QUẢN LÝ TÀI LIỆU
+  /* =====================================
+     KHU VỰC QUẢN LÝ DANH SÁCH ĐỀ THI
 
-   Muốn thêm đề mới:
-   1. Sao chép một mục dữ liệu mẫu.
-   2. Thay tên đề, trường, năm học.
-   3. Thay đường dẫn file.
-   4. Chọn loại pdf hoặc docx.
-   5. Không xóa dấu phẩy giữa các mục.
-   =====================================================
-  */
+     Khi thêm đề mới:
+     - Sao chép một mục dữ liệu.
+     - Đổi id, tên đề, trường, năm học.
+     - Đổi đường dẫn file.
+     - Chọn type là pdf hoặc docx.
+     ===================================== */
 
   const examFiles = [
-
     {
       id: 1,
       name: "Đề cuối kì 1 chuyên Lê Khiết",
@@ -814,10 +787,8 @@ a { color:inherit; }
       color: "green"
     }
     */
-
   ];
 
-  // LẤY CÁC PHẦN TỬ HTML
   const $ = id => document.getElementById(id);
 
   const grid = $("examGrid");
@@ -827,7 +798,6 @@ a { color:inherit; }
   const semesterFilter = $("semesterFilter");
   const typeFilter = $("typeFilter");
 
-  // TẠO DANH SÁCH GIÁ TRỊ KHÔNG TRÙNG
   function uniqueValues(key) {
     return [
       ...new Set(
@@ -836,70 +806,33 @@ a { color:inherit; }
     ].sort((a,b) => a.localeCompare(b,"vi"));
   }
 
-  // ĐƯA DỮ LIỆU VÀO BỘ LỌC
   function fillFilter(select, values, icon) {
-
     values.forEach(value => {
-
       const option = document.createElement("option");
-
       option.value = value;
       option.textContent = icon + " " + value;
-
       select.appendChild(option);
-
     });
-
   }
 
   function setupFilters() {
-
-    fillFilter(
-      schoolFilter,
-      uniqueValues("school"),
-      "🏫"
-    );
-
-    fillFilter(
-      yearFilter,
-      uniqueValues("year"),
-      "📅"
-    );
-
-    fillFilter(
-      semesterFilter,
-      uniqueValues("semester"),
-      "📖"
-    );
-
+    fillFilter(schoolFilter, uniqueValues("school"), "🏫");
+    fillFilter(yearFilter, uniqueValues("year"), "📅");
+    fillFilter(semesterFilter, uniqueValues("semester"), "📖");
   }
 
-  // CẬP NHẬT THỐNG KÊ
   function updateStats() {
-
-    const pdf = examFiles.filter(
-      x => x.type === "pdf"
-    ).length;
-
-    const word = examFiles.filter(
-      x => x.type === "docx"
-    ).length;
+    const pdf = examFiles.filter(x => x.type === "pdf").length;
+    const word = examFiles.filter(x => x.type === "docx").length;
 
     $("totalCount").textContent = examFiles.length;
     $("pdfCount").textContent = pdf;
     $("wordCount").textContent = word;
-
-    $("totalBadge").textContent =
-      examFiles.length + " tài liệu";
-
+    $("totalBadge").textContent = examFiles.length + " tài liệu";
   }
 
-  // KIỂM TRA ĐIỀU KIỆN TÌM KIẾM
   function matches(item) {
-
-    const keyword = searchInput.value
-      .trim()
-      .toLocaleLowerCase("vi");
+    const keyword = searchInput.value.trim().toLocaleLowerCase("vi");
 
     const searchable = [
       item.name,
@@ -910,107 +843,61 @@ a { color:inherit; }
 
     return (
       (!keyword || searchable.includes(keyword)) &&
-      (!schoolFilter.value ||
-        item.school === schoolFilter.value) &&
-      (!yearFilter.value ||
-        item.year === yearFilter.value) &&
-      (!semesterFilter.value ||
-        item.semester === semesterFilter.value) &&
-      (!typeFilter.value ||
-        item.type === typeFilter.value)
+      (!schoolFilter.value || item.school === schoolFilter.value) &&
+      (!yearFilter.value || item.year === yearFilter.value) &&
+      (!semesterFilter.value || item.semester === semesterFilter.value) &&
+      (!typeFilter.value || item.type === typeFilter.value)
     );
-
   }
 
-  // TẠO NHÃN THÔNG TIN
   function makeTag(text, extraClass) {
-
     const tag = document.createElement("span");
-
     tag.textContent = text;
-
-    if (extraClass) {
-      tag.className = extraClass;
-    }
-
+    if (extraClass) tag.className = extraClass;
     return tag;
-
   }
 
-  // HIỂN THỊ DANH SÁCH ĐỀ THI
   function renderExams() {
-
     const filtered = examFiles.filter(matches);
 
     grid.replaceChildren();
+    $("resultCount").textContent = filtered.length + " kết quả";
 
-    $("resultCount").textContent =
-      filtered.length + " kết quả";
-
-    // KHÔNG CÓ KẾT QUẢ
     if (!filtered.length) {
-
       const empty = document.createElement("div");
-
       empty.className = "empty";
-
       empty.textContent =
-        "🔎 Không tìm thấy đề thi phù hợp. " +
-        "Hãy thử thay đổi từ khóa hoặc bộ lọc.";
-
+        "🔎 Không tìm thấy đề thi phù hợp. Hãy thử thay đổi từ khóa hoặc bộ lọc.";
       grid.appendChild(empty);
-
       return;
-
     }
 
-    // TẠO TỪNG THẺ TÀI LIỆU
     filtered.forEach(item => {
-
       const card = document.createElement("article");
-
       card.className = "card";
 
       const cover = document.createElement("div");
-
-      cover.className =
-        "cover " +
-        (
-          ["purple","orange","green"].includes(item.color)
-            ? item.color
-            : ""
-        );
+      cover.className = "cover " +
+        (["purple","orange","green"].includes(item.color) ? item.color : "");
 
       const icon = document.createElement("div");
-
       icon.className = "cover-icon";
-
-      icon.textContent =
-        item.type === "pdf" ? "📕" : "📝";
+      icon.textContent = item.type === "pdf" ? "📕" : "📝";
 
       const label = document.createElement("div");
-
       label.className = "cover-label";
-
-      label.textContent =
-        item.type === "pdf"
-          ? "PDF DOCUMENT"
-          : "WORD DOCUMENT";
+      label.textContent = item.type === "pdf" ? "PDF DOCUMENT" : "WORD DOCUMENT";
 
       cover.append(icon,label);
 
       const body = document.createElement("div");
-
       body.className = "card-body";
 
       const title = document.createElement("h3");
-
       title.textContent = item.name;
 
       const meta = document.createElement("div");
-
       meta.className = "meta";
-
       meta.append(
         makeTag("🏫 " + item.school),
         makeTag("📅 " + item.year),
@@ -1019,158 +906,91 @@ a { color:inherit; }
       );
 
       const actions = document.createElement("div");
-
       actions.className = "card-actions";
 
-      // NÚT XEM ĐỀ
       const view = document.createElement("button");
-
       view.type = "button";
-
       view.className = "action action-view";
-
       view.textContent = "👁 XEM ĐỀ";
+      view.addEventListener("click", () => openFile(item));
 
-      view.addEventListener("click", () => {
-        openFile(item);
-      });
-
-      // NÚT TẢI ĐỀ
       const download = document.createElement("a");
-
-      download.className =
-        "action action-download";
-
+      download.className = "action action-download";
       download.textContent = "⬇ TẢI ĐỀ";
-
       download.href = item.file;
 
       if (item.type === "docx") {
-
         download.setAttribute("download","");
-
       } else {
-
         download.target = "_blank";
-
         download.rel = "noopener";
-
       }
 
       actions.append(view,download);
-
       body.append(title,meta,actions);
-
       card.append(cover,body);
-
       grid.appendChild(card);
-
     });
-
   }
 
-  // MỞ TÀI LIỆU
   function openFile(item) {
-
     const section = $("viewerSection");
-
     const frame = $("pdfViewer");
-
     const notice = $("wordNotice");
-
     const openTab = $("openTabBtn");
-
     const download = $("viewerDownload");
 
-    $("currentTitle").textContent =
-      "📄 " + item.name;
+    $("currentTitle").textContent = "📄 " + item.name;
 
     openTab.href = item.file;
-
     download.href = item.file;
 
     if (item.type === "docx") {
-
       download.setAttribute("download","");
-
     } else {
-
       download.removeAttribute("download");
-
     }
 
     if (item.type === "pdf") {
-
       frame.hidden = false;
-
       frame.src = item.file;
-
       notice.hidden = true;
-
     } else {
-
       frame.hidden = true;
-
       frame.src = "about:blank";
-
       notice.hidden = false;
-
     }
 
     section.hidden = false;
-
     section.scrollIntoView({
       behavior:"smooth",
       block:"start"
     });
-
   }
 
-  // ĐÓNG TRÌNH XEM
   function closeViewer() {
-
     $("viewerSection").hidden = true;
-
     $("pdfViewer").src = "about:blank";
-
   }
 
-  // SỰ KIỆN TÌM KIẾM
-  searchInput.addEventListener(
-    "input",
-    renderExams
-  );
+  searchInput.addEventListener("input",renderExams);
 
-  // SỰ KIỆN LỌC
   [
     schoolFilter,
     yearFilter,
     semesterFilter,
     typeFilter
   ].forEach(el => {
-
-    el.addEventListener(
-      "change",
-      renderExams
-    );
-
+    el.addEventListener("change",renderExams);
   });
 
-  // SỰ KIỆN ĐÓNG
-  $("closeBtn").addEventListener(
-    "click",
-    closeViewer
-  );
+  $("closeBtn").addEventListener("click",closeViewer);
 
-  // KHỞI CHẠY
   setupFilters();
-
   updateStats();
-
   renderExams();
 
 })();
 </script>
-
 </body>
 </html>
