@@ -4,29 +4,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10264b">
+<meta name="theme-color" content="#1261b5">
 <meta name="description" content="Thư viện kiểm tra và thi thử Toán 11 - THẦY HÒA">
 <title>Kiểm tra và thi thử Toán 11 - THẦY HÒA</title>
 
 <style>
-/* ===== THIẾT LẬP CHUNG ===== */
+/* =================================
+   THẦY HÒA - THƯ VIỆN TOÁN 11
+   GIAO DIỆN ĐỒNG BỘ TOÁN 12
+================================= */
+
 .math11-page,
 .math11-page * {
   box-sizing: border-box;
 }
 
 .math11-page {
-  --navy: #10264b;
-  --blue: #1769d2;
-  --text: #172b49;
-  --muted: #64748b;
+  --blue: #1769c2;
+  --blue-dark: #104b91;
+  --blue-light: #eaf4ff;
+  --text: #193452;
+  --muted: #687d94;
+  --border: #dce9f7;
 
   width: 100%;
-  max-width: 1100px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 12px 15px 22px;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 12px 14px 22px;
+
   color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
   line-height: 1.5;
 }
 
@@ -34,183 +42,209 @@
   text-decoration: none !important;
 }
 
-/* ===== NÚT TRANG CHỦ ===== */
+/* TRANG CHỦ */
+
 .math11-home {
-  margin-bottom: 13px;
+  margin-bottom: 11px;
 }
 
 .math11-home a {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 9px 16px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #1769d2, #7957d5);
+  padding: 8px 14px;
+
   color: #fff !important;
-  font-size: 12px;
+  background: linear-gradient(135deg, #1769c2, #328ce0);
+
+  border-radius: 8px;
+  font-size: 11px;
   font-weight: 700;
-  box-shadow: 0 3px 10px #1769d226;
-  transition: .25s;
+
+  box-shadow: 0 3px 9px rgba(23,105,194,.17);
+  transition: .25s ease;
 }
 
 .math11-home a:hover {
+  background: var(--blue-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 14px #1769d23b;
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
+
 .math11-header {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
+
+  padding: 23px 15px;
+  border-radius: 15px;
+
+  color: #fff;
   text-align: center;
-  padding: 25px 15px;
-  border-radius: 16px;
-  color: white;
-  background: linear-gradient(120deg, #10264b, #1769d2, #59439a);
-  box-shadow: 0 6px 18px #10264b20;
+
+  background: linear-gradient(120deg, #103d76, #1769c2 60%, #258bd5);
+  box-shadow: 0 5px 17px rgba(16,75,145,.17);
 }
 
 .math11-header::before,
 .math11-header::after {
   content: "";
   position: absolute;
+  z-index: -1;
   border-radius: 50%;
-  background: #ffffff0d;
+  background: rgba(255,255,255,.07);
   pointer-events: none;
 }
 
 .math11-header::before {
-  width: 160px;
-  height: 160px;
-  top: -90px;
-  left: -35px;
+  width: 180px;
+  height: 180px;
+  top: -110px;
+  left: -40px;
 }
 
 .math11-header::after {
-  width: 130px;
-  height: 130px;
-  bottom: -80px;
+  width: 145px;
+  height: 145px;
+  bottom: -95px;
   right: -25px;
 }
 
 .math11-header-content {
   position: relative;
-  z-index: 1;
 }
 
 .math11-logo {
-  font-size: 34px;
+  margin-bottom: 3px;
+  font-size: 31px;
   line-height: 1.2;
-  margin-bottom: 6px;
 }
 
 .math11-brand {
-  color: #a8edff;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
   margin-bottom: 5px;
+  color: #bfe8ff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
 .math11-header h1 {
   margin: 5px 0 7px;
   color: #fff;
-  font-size: clamp(21px, 3vw, 30px);
+  font-size: clamp(21px, 3vw, 29px);
   font-weight: 800;
   line-height: 1.3;
 }
 
 .math11-header p {
-  margin: 3px 0 0;
-  color: #e2efff;
-  font-size: 12px;
+  margin: 3px 0;
+  color: #e5f3ff;
+  font-size: 11px;
 }
 
-/* ===== GIỚI THIỆU ===== */
+/* NỘI DUNG */
+
 .math11-container {
-  margin: 20px auto 0;
+  margin-top: 17px;
 }
 
 .math11-intro {
+  margin-bottom: 13px;
   text-align: center;
-  margin: 0 0 15px;
 }
 
 .math11-intro h2 {
-  color: #10264b;
-  font-size: 20px;
-  font-weight: 800;
   margin: 0 0 4px;
+  color: #124c88;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .math11-intro p {
   margin: 0;
-  color: #718198;
-  font-size: 12px;
+  color: var(--muted);
+  font-size: 11px;
 }
 
-/* ===== LƯỚI THẺ ===== */
+/* LƯỚI THẺ */
+
 .math11-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 11px;
+  gap: 9px;
 }
 
-/* ===== THẺ NỘI DUNG ===== */
-.math11-card {
-  --accent: #1769d2;
+/* THẺ NỘI DUNG */
 
+.math11-card {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   min-width: 0;
-  min-height: 177px;
-  padding: 15px 14px 13px;
+  min-height: 158px;
+  padding: 12px 13px 11px;
 
-  border: 1px solid #e2eaf4;
-  border-top: 4px solid var(--accent);
-  border-radius: 13px;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--blue);
+  border-radius: 11px;
 
-  background: linear-gradient(145deg, #fff, #f7faff);
-  box-shadow: 0 3px 12px #10264b0d;
+  background: linear-gradient(145deg, #fff, #f7fbff);
+  box-shadow: 0 2px 8px rgba(16,75,145,.055);
 
-  color: #172b49 !important;
-  transition: transform .25s ease, box-shadow .25s ease;
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease,
+    border-color .22s ease;
 }
 
 .math11-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 9px 20px #10264b1c;
+  transform: translateY(-3px);
+  border-color: #a9ccef;
+  box-shadow: 0 7px 17px rgba(23,105,194,.13);
 }
+
+/* ICON */
 
 .math11-card-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 39px;
-  height: 39px;
-  margin-bottom: 9px;
-  border-radius: 11px;
-  background: color-mix(in srgb, var(--accent) 11%, white);
-  font-size: 22px;
+
+  width: 34px;
+  height: 34px;
+  margin-bottom: 7px;
+
+  border: 1px solid #d8eaff;
+  border-radius: 9px;
+  background: #eaf4ff;
+
+  font-size: 19px;
 }
 
+/* TIÊU ĐỀ */
+
 .math11-card h3 {
-  margin: 0 0 6px;
-  color: var(--accent);
-  font-size: 14px;
+  margin: 0 0 4px;
+  color: #145da8;
+  font-size: 13px;
   font-weight: 800;
   line-height: 1.4;
 }
 
+/* MÔ TẢ */
+
 .math11-card p {
-  margin: 0 0 12px;
-  color: #64748b;
-  font-size: 11px;
-  line-height: 1.55;
+  margin: 0 0 9px;
+  color: #667b92;
+  font-size: 10.5px;
+  line-height: 1.5;
 }
+
+/* NÚT TÌM HIỂU */
 
 .math11-btn {
   display: inline-flex;
@@ -219,102 +253,112 @@
   gap: 5px;
 
   margin-top: auto;
-  padding: 7px 12px;
-  border-radius: 7px;
+  padding: 7px 11px;
 
-  background: var(--accent);
+  border-radius: 7px;
+  background: linear-gradient(135deg, #1769c2, #2789db);
+
   color: #fff !important;
   font-size: 10px;
-  font-weight: 700;
-  transition: .2s;
+  font-weight: 800;
+  letter-spacing: .15px;
+
+  box-shadow: 0 2px 6px rgba(23,105,194,.15);
+  transition: .2s ease;
 }
 
-.math11-card:hover .math11-btn {
-  filter: brightness(.9);
+.math11-btn:hover {
+  background: linear-gradient(135deg, #104b91, #1769c2);
+  box-shadow: 0 4px 10px rgba(23,105,194,.24);
+  transform: translateY(-1px);
 }
 
-/* ===== MÀU TỪNG THẺ ===== */
-.math11-card:nth-child(1) {
-  --accent: #2184d1;
+.math11-btn:active {
+  transform: scale(.97);
 }
 
-.math11-card:nth-child(2) {
-  --accent: #119477;
-}
+/* HƯỚNG DẪN */
 
-.math11-card:nth-child(3) {
-  --accent: #8652c4;
-}
-
-.math11-card:nth-child(4) {
-  --accent: #d88b22;
-}
-
-.math11-card:nth-child(5) {
-  --accent: #e05b55;
-}
-
-/* ===== HƯỚNG DẪN ===== */
 .math11-note {
   display: flex;
-  gap: 10px;
   align-items: flex-start;
-  margin-top: 14px;
-  padding: 12px 14px;
-  border-left: 4px solid #1769d2;
+  gap: 9px;
+
+  margin-top: 12px;
+  padding: 10px 12px;
+
+  border: 1px solid #d5e9fc;
+  border-left: 3px solid var(--blue);
   border-radius: 9px;
-  background: #eaf4ff;
-  color: #315477;
-  font-size: 11px;
+
+  background: #f0f7ff;
+  color: #42617f;
+
+  font-size: 10.5px;
   line-height: 1.6;
 }
 
 .math11-note-icon {
-  font-size: 20px;
   flex-shrink: 0;
+  font-size: 19px;
 }
 
 .math11-note strong {
-  color: #174c83;
+  color: #145da8;
 }
 
-/* ===== LIÊN KẾT QUAY LẠI ===== */
+/* LIÊN KẾT QUAY LẠI */
+
 .math11-back {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 9px 18px;
-  margin: 19px 0;
+  gap: 8px 20px;
+
+  margin: 16px 0;
   text-align: center;
 }
 
 .math11-back a {
-  color: #1769d2 !important;
-  font-size: 11px;
+  color: #1769c2 !important;
+  font-size: 10.5px;
   font-weight: 700;
+  transition: .2s;
 }
 
 .math11-back a:hover {
-  color: #7957d5 !important;
+  color: #0d3f7b !important;
+  text-decoration: underline !important;
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
+
 .math11-footer {
-  padding: 15px 10px;
-  border-radius: 11px;
-  background: #10264b;
-  color: #dceaff;
+  padding: 13px 10px;
+  border-radius: 10px;
+
+  background: linear-gradient(110deg, #103d76, #1769c2);
+  color: #e4f1ff;
+
   text-align: center;
-  font-size: 11px;
+  font-size: 10.5px;
   line-height: 1.7;
 }
 
 .math11-footer strong {
   color: #fff;
-  font-size: 12px;
+  font-size: 11.5px;
 }
 
-/* ===== TABLET ===== */
+/* FOCUS BẰNG BÀN PHÍM */
+
+.math11-page a:focus-visible {
+  outline: 3px solid #f4b942;
+  outline-offset: 3px;
+}
+
+/* TABLET */
+
 @media (max-width: 800px) {
   .math11-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -322,23 +366,28 @@
   }
 
   .math11-card {
-    min-height: 170px;
+    min-height: 153px;
   }
 }
 
-/* ===== ĐIỆN THOẠI ===== */
+/* ĐIỆN THOẠI */
+
 @media (max-width: 500px) {
   .math11-page {
-    padding: 9px;
+    padding: 9px 9px 17px;
   }
 
   .math11-header {
-    padding: 21px 10px;
-    border-radius: 13px;
+    padding: 19px 10px;
+    border-radius: 12px;
+  }
+
+  .math11-logo {
+    font-size: 27px;
   }
 
   .math11-header h1 {
-    font-size: 20px;
+    font-size: 19px;
   }
 
   .math11-header p {
@@ -346,7 +395,7 @@
   }
 
   .math11-container {
-    margin-top: 15px;
+    margin-top: 14px;
   }
 
   .math11-intro {
@@ -366,41 +415,41 @@
   }
 
   .math11-card {
-    min-height: 165px;
-    padding: 12px 10px 11px;
-    border-radius: 11px;
+    min-height: 150px;
+    padding: 11px 10px 10px;
+    border-radius: 10px;
   }
 
   .math11-card-icon {
-    width: 34px;
-    height: 34px;
-    font-size: 19px;
-    margin-bottom: 7px;
+    width: 31px;
+    height: 31px;
+    margin-bottom: 6px;
+    font-size: 17px;
   }
 
   .math11-card h3 {
-    font-size: 12px;
+    font-size: 11.5px;
   }
 
   .math11-card p {
     font-size: 10px;
-    margin-bottom: 9px;
+    margin-bottom: 8px;
   }
 
   .math11-btn {
     padding: 7px 9px;
-    font-size: 9px;
+    font-size: 9.5px;
   }
 
   .math11-note {
-    margin-top: 11px;
-    padding: 10px;
+    margin-top: 10px;
+    padding: 9px;
     font-size: 10px;
   }
 
   .math11-back {
-    margin: 15px 0;
-    gap: 8px 12px;
+    margin: 13px 0;
+    gap: 8px 13px;
   }
 
   .math11-back a {
@@ -409,13 +458,26 @@
 }
 
 /* MÀN HÌNH RẤT NHỎ */
-@media (max-width: 330px) {
+
+@media (max-width: 340px) {
   .math11-grid {
     grid-template-columns: 1fr;
   }
 
   .math11-card {
-    min-height: 150px;
+    min-height: 135px;
+  }
+}
+
+/* GIẢM CHUYỂN ĐỘNG THEO THIẾT LẬP THIẾT BỊ */
+
+@media (prefers-reduced-motion: reduce) {
+  .math11-page *,
+  .math11-page *::before,
+  .math11-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
   }
 }
 </style>
@@ -435,13 +497,21 @@
   <!-- HEADER -->
   <header class="math11-header">
     <div class="math11-header-content">
+
       <div class="math11-logo">📐</div>
-      <div class="math11-brand">THẦY HÒA EDUCATION</div>
+
+      <div class="math11-brand">
+        THẦY HÒA EDUCATION
+      </div>
 
       <h1>KIỂM TRA VÀ THI THỬ TOÁN 11</h1>
 
-      <p>THẦY HÒA – CHINH PHỤC TOÁN HỌC</p>
-      <p>Củng cố kiến thức – Luyện đề – Phát triển tư duy toán học</p>
+      <p><strong>THẦY HÒA – CHINH PHỤC TOÁN HỌC</strong></p>
+
+      <p>
+        Củng cố kiến thức – Luyện đề – Phát triển tư duy toán học
+      </p>
+
     </div>
   </header>
 
@@ -449,83 +519,142 @@
 
     <!-- GIỚI THIỆU -->
     <section class="math11-intro">
+
       <h2>THƯ VIỆN ĐỀ KIỂM TRA TOÁN 11</h2>
-      <p>Chọn nội dung em muốn học tập và ôn luyện.</p>
+
+      <p>
+        Lựa chọn nội dung phù hợp để bắt đầu học tập và ôn luyện.
+      </p>
+
     </section>
 
     <!-- DANH SÁCH THẺ -->
     <section class="math11-grid">
 
+      <!-- THẺ 1 -->
       <article class="math11-card">
+
         <div class="math11-card-icon">📝</div>
+
         <h3>Kiểm tra giữa học kì I</h3>
-        <p>Đề kiểm tra, bài tập ôn tập và hướng dẫn giải.</p>
+
+        <p>
+          Đề kiểm tra, bài tập ôn tập và hướng dẫn giải.
+        </p>
+
         <a class="math11-btn" href="./kiem-tra-giua-hoc-ki-1/">
-          XEM ĐỀ →
+          TÌM HIỂU NGAY →
         </a>
+
       </article>
 
+      <!-- THẺ 2 -->
       <article class="math11-card">
+
         <div class="math11-card-icon">📚</div>
+
         <h3>Kiểm tra cuối học kì I</h3>
-        <p>Hệ thống đề kiểm tra và tài liệu ôn tập.</p>
+
+        <p>
+          Hệ thống đề kiểm tra và tài liệu ôn tập.
+        </p>
+
         <a class="math11-btn" href="./kiem-tra-cuoi-hoc-ki-1/">
-          XEM ĐỀ →
+          TÌM HIỂU NGAY →
         </a>
+
       </article>
 
+      <!-- THẺ 3 -->
       <article class="math11-card">
+
         <div class="math11-card-icon">📖</div>
+
         <h3>Kiểm tra giữa học kì II</h3>
-        <p>Ôn tập kiến thức trọng tâm và luyện đề.</p>
+
+        <p>
+          Ôn tập kiến thức trọng tâm và luyện đề.
+        </p>
+
         <a class="math11-btn" href="./kiem-tra-giua-hoc-ki-2/">
-          XEM ĐỀ →
+          TÌM HIỂU NGAY →
         </a>
+
       </article>
 
+      <!-- THẺ 4 -->
       <article class="math11-card">
+
         <div class="math11-card-icon">📋</div>
+
         <h3>Kiểm tra cuối học kì II</h3>
-        <p>Đề tổng hợp và tài liệu chuẩn bị kiểm tra.</p>
+
+        <p>
+          Đề tổng hợp và tài liệu chuẩn bị kiểm tra.
+        </p>
+
         <a class="math11-btn" href="./kiem-tra-cuoi-hoc-ki-2/">
-          XEM ĐỀ →
+          TÌM HIỂU NGAY →
         </a>
+
       </article>
 
+      <!-- THẺ 5 -->
       <article class="math11-card">
+
         <div class="math11-card-icon">🏆</div>
+
         <h3>Đề học sinh giỏi lớp 11</h3>
-        <p>Luyện đề theo cấu trúc ôn thi học sinh giỏi.</p>
+
+        <p>
+          Luyện đề nâng cao và bồi dưỡng học sinh giỏi.
+        </p>
+
         <a class="math11-btn" href="./de-thi-hoc-sinh-gioi-lop-11/">
-          LUYỆN THI →
+          TÌM HIỂU NGAY →
         </a>
+
       </article>
 
     </section>
 
     <!-- HƯỚNG DẪN -->
     <div class="math11-note">
+
       <div class="math11-note-icon">💡</div>
+
       <div>
         <strong>HƯỚNG DẪN HỌC TẬP:</strong>
         Em hãy tải đề về làm bài trước, sau đó đối chiếu đáp án
         và ghi lại những câu còn sai để ôn tập, củng cố kiến thức.
       </div>
+
     </div>
 
     <!-- QUAY LẠI -->
     <div class="math11-back">
-      <a href="../">← QUAY LẠI CHỌN KHỐI LỚP</a>
-      <a href="/">🏠 TRANG CHỦ THẦY HÒA</a>
+
+      <a href="../">
+        ← QUAY LẠI CHỌN KHỐI LỚP
+      </a>
+
+      <a href="https://thay-hoa.vercel.app/">
+        🏠 TRANG CHỦ THẦY HÒA
+      </a>
+
     </div>
 
   </main>
 
   <!-- FOOTER -->
   <footer class="math11-footer">
+
     <strong>© THẦY HÒA – CHINH PHỤC TOÁN HỌC</strong>
+
     <br>
+
     Học Toán dễ hiểu hơn mỗi ngày!
+
   </footer>
 
 </div>
