@@ -1,1 +1,20 @@
 
+
+const saved = saveThayHoaResult({
+    studentName: document.getElementById("studentName").value,
+    studentClass: document.getElementById("studentClass").value,
+    grade: "12",
+
+    testName: "Game show chinh phục Toán học",
+    topic: "ĐỀ THI THỬ ",
+
+    score: finalScore,
+    correct: correctAnswers,
+    total: totalQuestions,
+
+    source: "Trò chơi Toán học"
+});
+
+if (saved) {
+    console.log("Đã lưu kết quả thành công!");
+}
