@@ -2110,6 +2110,17 @@
       if (teacherBody && rowsHtml) teacherBody.innerHTML = rowsHtml;
     }
 
+const result = {
+    "Họ tên": hoTen,
+    "Lớp": lop,
+    "Điểm số": diem,
+    "Số câu đúng": soCauDung,
+    "Tổng số câu": tongSoCau,
+    "Thời gian làm bài": thoiGian,
+    "Tên bài": tenBai,
+    "Ngày nộp": new Date().toISOString()
+};
+    
     document.addEventListener('DOMContentLoaded', () => {
       renderMath(document.body);
     });
